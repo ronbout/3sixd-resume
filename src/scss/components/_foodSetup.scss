@@ -1,0 +1,144 @@
+@import "./foodSearch";
+
+.food-container {
+  padding: 0 1em;
+
+  h2 {
+    margin: 10px 0 20px;
+    text-align: center;
+  }
+
+  form {
+    background: #ddd;
+    color: #212529;
+    border: 1px solid black;
+    padding: 0.5em 0 1em;
+
+    .form-group {
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+ul.tab-list {
+  margin: 0;
+  padding-inline-start: 1em;
+
+  li {
+    display: inline-block;
+    margin: 4px 0 0;
+    padding: 8px 82px 0;
+    border: 1px solid black;
+    border-bottom: 0;
+    cursor: pointer;
+    height: 33px;
+    margin-bottom: -1px;
+  }
+
+  li.active-tab {
+    background: #ddd;
+    border-bottom: none;
+    cursor: default;
+    height: 36px;
+    z-index: 20;
+  }
+}
+
+.fs-main {
+  justify-content: center;
+
+  section.food-setup {
+    flex-grow: 2;
+    max-width: 685px;
+
+    div[class^="col-"] {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+  section.food-search {
+    flex-grow: 1;
+    max-width: 450px;
+  }
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+
+    section.food-search,
+    section.food-setup {
+      width: 100%;
+      margin: auto;
+    }
+    section.food-search {
+      margin: 2rem auto;
+    }
+  }
+}
+
+.fs-btn-container {
+  button {
+    margin: 0 1em;
+  }
+}
+
+section.food-setup {
+  @include lg-form(15px);
+
+  label.col-form-label {
+    text-align: right;
+  }
+
+  .fav-checkbox {
+    label {
+      padding: 0;
+      position: relative;
+      vertical-align: top;
+    }
+  }
+  textarea {
+    resize: none;
+    overflow: auto;
+  }
+
+  .notes-modal {
+    text-align: center;
+  }
+  .resize-button svg {
+    cursor: pointer;
+  }
+}
+
+.food-recipe-container {
+  .serv-nuts {
+    div {
+      text-align: center;
+    }
+    input {
+      text-align: right;
+    }
+  }
+
+  .food-recipe-form-section {
+    margin: 12px 0 24px;
+
+    div.row {
+      margin: 8px;
+    }
+    h2 {
+      margin-bottom: 4px;
+    }
+
+    h2 + p {
+      text-align: center;
+      padding-top: 0;
+      margin-bottom: 20px;
+    }
+  }
+  .ingred-row input {
+    margin: 0 4px;
+  }
+
+  .fs-btn-container {
+    margin: 20px 0 0 0;
+  }
+}
