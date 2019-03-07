@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const TopNavBar = ({ user, handleLogout }) => {
+const TopNavBar = () => {
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light sticky-top">
       <div className="container-fluid">
         <NavLink to="/" className="navbar-brand">
-          <h3 className="brand">Calorie Meter</h3>
+          <h3 className="brand">3sixD</h3>
         </NavLink>
         <button
           className="navbar-toggler"
@@ -33,59 +33,17 @@ const TopNavBar = ({ user, handleLogout }) => {
                 Contact
               </NavLink>
             </li>
-            {user.memberId ? (
-              <React.Fragment>
-                <li className="nav-item">
-                  <NavLink to="/food/search" className="nav-link">
-                    Food Search
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/food/setup" className="nav-link">
-                    Food Setup
-                  </NavLink>
-                </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    {user.userName}
-                  </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <button
-                      className="dropdown-item"
-                      onClick={() => {
-                        handleLogout();
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </div>
-                </li>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <li className="nav-item">
-                  <NavLink to="/login" className="login-link nav-link">
-                    Login
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink to="/signup" className="nav-link">
-                    Sign Up
-                  </NavLink>
-                </li>
-              </React.Fragment>
-            )}
+
+            <li className="nav-item">
+              <NavLink to="/skill/search" className="nav-link">
+                Skill Search
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/skill/setup" className="nav-link">
+                Skills
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

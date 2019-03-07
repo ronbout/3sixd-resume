@@ -1,10 +1,10 @@
-section.food-search {
+section.skill-search {
   background: #888;
   color: #212529;
 
   @include lg-form(16px);
 
-  #food-search-row input {
+  #skill-search-row input {
     display: inline-block;
     width: 85%;
   }

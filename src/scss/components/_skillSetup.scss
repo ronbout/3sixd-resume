@@ -1,6 +1,6 @@
-@import "./foodSearch";
+@import "./skillSearch";
 
-.food-container {
+.skill-container {
   padding: 0 1em;
 
   h2 {
@@ -47,7 +47,7 @@ ul.tab-list {
 .fs-main {
   justify-content: center;
 
-  section.food-setup {
+  section.skill-setup {
     flex-grow: 2;
     max-width: 685px;
 
@@ -56,7 +56,7 @@ ul.tab-list {
       padding-right: 8px;
     }
   }
-  section.food-search {
+  section.skill-search {
     flex-grow: 1;
     max-width: 450px;
   }
@@ -64,12 +64,12 @@ ul.tab-list {
   @media (max-width: 960px) {
     flex-direction: column;
 
-    section.food-search,
-    section.food-setup {
+    section.skill-search,
+    section.skill-setup {
       width: 100%;
       margin: auto;
     }
-    section.food-search {
+    section.skill-search {
       margin: 2rem auto;
     }
   }
@@ -81,7 +81,7 @@ ul.tab-list {
   }
 }
 
-section.food-setup {
+section.skill-setup {
   @include lg-form(15px);
 
   label.col-form-label {
@@ -108,7 +108,7 @@ section.food-setup {
   }
 }
 
-.food-recipe-container {
+.skill-related-container {
   .serv-nuts {
     div {
       text-align: center;
@@ -118,7 +118,7 @@ section.food-setup {
     }
   }
 
-  .food-recipe-form-section {
+  .skill-related-form-section {
     margin: 12px 0 24px;
 
     div.row {
