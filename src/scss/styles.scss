@@ -4,7 +4,7 @@ $body-color: red;
 
 // mixins
 
-@mixin lg-form($em-size) {
+@mixin lg-form($em-size: 16px) {
   font-size: $em-size;
 
   // need to change rem to em so that the
@@ -57,6 +57,37 @@ $body-color: red;
   select {
     padding: 0.2em 0.4em;
     height: auto;
+  }
+}
+
+@mixin div-select($em-size: 16px) {
+  // this will mimic a select/option list so that
+  // draggable div lists can be used
+
+  .div-select-container {
+    font-size: $em-size;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    -webkit-transition: border-color 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    -webkit-transition: border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 0.2em 0.4em;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .div-select {
+      padding: 2px;
+    }
+
+    .div-select.selected {
+      background-color: #007bff;
+      color: white;
+    }
   }
 }
 

@@ -26,7 +26,7 @@ const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 const clearFormFields = {
   formFields: {
     keyword: "",
-    tagSelect: 0
+    tagSelect: ""
   }
 };
 
@@ -78,6 +78,16 @@ class TechtagSelect extends Component {
     });
   };
 
+  handleTagClick = (ndx, event) => {
+    console.log("ndx: ", ndx);
+    this.setState({
+      formFields: {
+        ...this.state.formFields,
+        tagSelect: ndx
+      }
+    });
+  };
+
   handleSelect = () => {
     const selectTagInfo = this.state.tagOptions[
       this.state.formFields.tagSelect
@@ -109,6 +119,12 @@ class TechtagSelect extends Component {
             );
           })
       : [];
+
+    // calculate the height of the fake <select>
+    // each div is 23px tall (if this changes, recalc)
+    const optionHeight = 23;
+    const OptionRows = Math.min(10, tagList.length);
+    let divHeight = optionHeight * OptionRows + 6;
     return (
       <section className="tag-select">
         <h2>Tags</h2>
@@ -127,7 +143,38 @@ class TechtagSelect extends Component {
           />
         </div>
         {/* Techtag List returned from api */}
-        <div className="form-group">
+        <div className="div-select-container" style={{ maxHeight: divHeight }}>
+          {this.state.tagOptions &&
+            tagList.map((tagInfo, ndx) => {
+              return (
+                <div
+                  className={
+                    "div-select" +
+                    (this.state.formFields.tagSelect === tagInfo.ndx
+                      ? " selected"
+                      : "")
+                  }
+                  key={tagInfo.ndx}
+                  data-value={tagInfo.ndx}
+                  draggable={true}
+                  onDragStart={e =>
+                    e.dataTransfer.setData("text/plain", tagInfo.name)
+                  }
+                  onClick={() => this.handleTagClick(tagInfo.ndx)}
+                  onDoubleClick={this.handleSelect}
+                  title={
+                    tagInfo.description
+                      ? tagInfo.description
+                      : "No description available "
+                  }
+                >
+                  {tagInfo.name}
+                </div>
+              );
+            })}
+        </div>
+
+        {/*         <div className="form-group">
           <select
             className="form-control"
             size={Math.min(10, tagList.length)}
@@ -142,6 +189,10 @@ class TechtagSelect extends Component {
                   <option
                     key={tagInfo.ndx}
                     value={tagInfo.ndx}
+                    draggable={true}
+                    onDragStart={e =>
+                      e.dataTransfer.setData("text/plain", "Drag Me Button")
+                    }
                     onDoubleClick={this.handleSelect}
                     title={
                       tagInfo.description
@@ -154,7 +205,7 @@ class TechtagSelect extends Component {
                 );
               })}
           </select>
-        </div>
+        </div> */}
       </section>
     );
   }

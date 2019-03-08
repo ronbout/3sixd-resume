@@ -231,29 +231,56 @@ section.skill-setup .resize-button svg {
   cursor: pointer;
 }
 
-.skill-related-form-section {
+section.skill-setup .skill-related-form-section {
   margin: 12px 0 24px;
 }
 
-.skill-related-form-section div.row {
+section.skill-setup .skill-related-form-section .div-select-container {
+  font-size: 14px;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  padding: 0.2em 0.4em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+section.skill-setup .skill-related-form-section .div-select-container .div-select {
+  padding: 2px;
+}
+
+section.skill-setup .skill-related-form-section .div-select-container .div-select.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+section.skill-setup .skill-related-form-section div.row {
   margin: 8px;
 }
 
-.skill-related-form-section h2 {
+section.skill-setup .skill-related-form-section h2 {
   margin-bottom: 4px;
 }
 
-.skill-related-form-section h2 + p {
+section.skill-setup .skill-related-form-section h2 + p {
   text-align: center;
   padding-top: 0;
   margin-bottom: 20px;
 }
 
-.skill-related-form-section .techtag-row {
+section.skill-setup .skill-related-form-section .techtag-row {
   margin: 0;
 }
 
-.skill-related-form-section .techtag-row input {
+section.skill-setup .skill-related-form-section .techtag-row input {
   margin: 0 4px;
 }
 

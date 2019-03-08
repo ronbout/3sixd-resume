@@ -16,6 +16,7 @@ import { faQuestion, faSearch } from "@fortawesome/free-solid-svg-icons";
 library.add(faQuestion, faSearch);
 
 // setup global api url
+//window.apiUrl = "https://ronbout.000webhostapp.com/api/";
 window.apiUrl = "http://localhost/3sixd/api/";
 
 class App extends Component {

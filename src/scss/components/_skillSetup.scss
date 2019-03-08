@@ -106,29 +106,30 @@ section.skill-setup {
   .resize-button svg {
     cursor: pointer;
   }
-}
 
-.skill-related-form-section {
-  margin: 12px 0 24px;
+  .skill-related-form-section {
+    @include div-select(14px);
+    margin: 12px 0 24px;
 
-  div.row {
-    margin: 8px;
-  }
-  h2 {
-    margin-bottom: 4px;
-  }
+    div.row {
+      margin: 8px;
+    }
+    h2 {
+      margin-bottom: 4px;
+    }
 
-  h2 + p {
-    text-align: center;
-    padding-top: 0;
-    margin-bottom: 20px;
-  }
+    h2 + p {
+      text-align: center;
+      padding-top: 0;
+      margin-bottom: 20px;
+    }
 
-  .techtag-row {
-    margin: 0;
-  }
-  .techtag-row input {
-    margin: 0 4px;
+    .techtag-row {
+      margin: 0;
+    }
+    .techtag-row input {
+      margin: 0 4px;
+    }
   }
 }
 
