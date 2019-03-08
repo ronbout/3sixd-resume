@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const API_BASE = "http://localhost/3sixd/api/";
 const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
@@ -19,7 +18,8 @@ class SkillSearch extends Component {
     this.state = {
       ...clearFormFields,
       errMsg: "",
-      userMsg: ""
+      userMsg: "",
+      apiBase: window.apiUrl
     };
   }
 
@@ -43,7 +43,7 @@ class SkillSearch extends Component {
         ? API_SKILL_SEARCH + this.state.formFields.keyword
         : API_SKILLS;
 
-    const apiUrl = `${API_BASE}${skillApi}${API_QUERY}`;
+    const apiUrl = `${this.state.apiBase}${skillApi}${API_QUERY}`;
     fetch(apiUrl)
       .then(response => {
         response.json().then(result => {

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import TechtagSelect from "./techtagSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const API_BASE = "http://localhost/3sixd/api/";
 const API_SKILL = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
@@ -11,7 +10,8 @@ const clearFormFields = {
     id: "",
     name: "",
     description: "",
-    url: ""
+    url: "",
+    techtags: []
   }
 };
 
@@ -22,7 +22,8 @@ class SkillCrud extends Component {
     this.state = {
       ...clearFormFields,
       errMsg: "",
-      userMsg: ""
+      userMsg: "",
+      apiBase: window.apiUrl
     };
     this.state.origForm = this.state.formFields;
   }
@@ -56,8 +57,9 @@ class SkillCrud extends Component {
     const id = this.state.formFields.id;
     const httpMethod = id ? "put" : "post";
     const basicUrl =
-      (id ? `${API_BASE}${API_SKILL}/${id}` : `${API_BASE}${API_SKILL}`) +
-      API_QUERY;
+      (id
+        ? `${this.state.apiBase}${API_SKILL}/${id}`
+        : `${this.state.apiBase}${API_SKILL}`) + API_QUERY;
     let httpConfig = {
       method: httpMethod,
       body: JSON.stringify(body),
@@ -68,18 +70,16 @@ class SkillCrud extends Component {
     fetch(basicUrl, httpConfig)
       .then(response => {
         response.json().then(result => {
-          result = result.data;
           // figure out what to do here
           if (result.error) {
             this.setState({
               errMsg:
                 result.errorCode === 45001
-                  ? `User ${
-                      this.props.user.userName
-                    } already has a skill named ${this.state.formFields.name}.`
+                  ? `Skill ${this.state.formFields.name} already exists.`
                   : "An unknown error has occurred"
             });
           } else {
+            result = result.data;
             // success.  let user know and clear out form
             this.setState({
               ...this.clearFormFields,
@@ -110,12 +110,31 @@ class SkillCrud extends Component {
     });
   };
 
+  handleDelTechtag = (ndx, event) => {
+    console.log(ndx);
+    let techtags = this.state.formFields.techtags;
+    techtags.splice(ndx, 1);
+
+    this.setState({
+      formFields: { ...this.state.formFields }
+    });
+  };
+
   handleClear = () => {
     this.setState({
       ...clearFormFields,
       errMsg: "",
       userMsg: "",
       origForm: clearFormFields.formFields
+    });
+  };
+
+  handleAddTag = tagInfo => {
+    let techtags = this.state.formFields.techtags;
+    techtags.push(tagInfo);
+
+    this.setState({
+      formFields: { ...this.state.formFields }
     });
   };
 
@@ -166,7 +185,7 @@ class SkillCrud extends Component {
               </div>
               <div className="form-group row">
                 <label className="col-sm-3 col-form-label" htmlFor="url">
-                  Description:
+                  URL:
                 </label>
                 <div className="col-sm-8">
                   <input
@@ -183,10 +202,51 @@ class SkillCrud extends Component {
             {
               // Separate Tags and Related Skills Section
             }
-            <div className="skill-related-form-section">
+            <section className="skill-related-form-section container-fluid">
               <h2>Techtags and Related Skills</h2>
-              <TechtagSelect />
-            </div>
+              {this.state.formFields.name !== "" && (
+                <div className="row">
+                  <div className="col-sm-4">Techtag Name</div>
+                  <div className="col-sm-5">Description</div>
+                  <div className="col-sm-1">Delete</div>
+                </div>
+              )}
+              {this.state.formFields.name !== "" &&
+                // loop through the state techtags array
+                // to load the techtags plus a blank
+                // row to add a new techtag
+                this.state.formFields.techtags.map((techtag, ndx) => (
+                  <div key={techtag.id} className="row techtag-row">
+                    <input
+                      className="col-sm-4"
+                      type="text"
+                      name={"techtag" + ndx}
+                      value={techtag.name}
+                      disabled
+                    />
+                    <input
+                      className="col-sm-5"
+                      type="text"
+                      name={"techtagDesc" + ndx}
+                      value={techtag.description}
+                      disabled
+                    />
+                    <button
+                      type="button"
+                      className="col-sm-1 btn btn-danger"
+                      onClick={event => this.handleDelTechtag(ndx, event)}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              {this.state.formFields.name && (
+                <TechtagSelect
+                  handleAddTag={this.handleAddTag}
+                  skillTagsList={this.state.formFields.techtags}
+                />
+              )}
+            </section>
             {
               // Button Section
             }

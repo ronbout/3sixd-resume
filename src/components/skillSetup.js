@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import SkillSearch from "./skillSearch";
 import SkillCrud from "./skillCrud";
 
-const API_BASE = "http://localhost/api/";
-const API_NOTEFAVS = "skills/notefav";
-const API_FAVS = "skills/fav";
-const API_RECIPE = "skills/recipe";
-const API_NUTS = "skills/nutrients";
-const API_KEY = "6y9fgv43dl40f9wl";
+const API_SKILLTAGS = "skill_techtags";
+const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class SkillSetup extends Component {
   constructor(props) {
@@ -19,50 +15,44 @@ class SkillSetup extends Component {
       // 1-New Skill, 2-Edit Skill, 3-Add Related Skill
       skillInfo: "",
       errMsg: "",
-      forceRefresh: true // this is just a toggle to force a Search re-render
+      forceRefresh: true, // this is just a toggle to force a Search re-render
+      apiBase: window.apiUrl
     };
   }
 
   handleSkillSelect = skillInfo => {
-    this.setState({
-      searchMode: 2,
-      skillInfo: skillInfo
-    });
     // need to fetch related info
-    /*       const apiRecipeUrl = `${API_BASE}${API_RECIPE}/${
-        skillInfo.skillId
-      }?api_key=${API_KEY}`;
-      fetch(apiRecipeUrl)
-        .then(response => {
-          response.json().then(result => {
-            // for now assume that skill must exist as
-            // it came directly from the search api
-            // and no skills are deleted
-            // eventually add code...just in case
-            let recipeInfo = { ...result.data, skillType: "skill Recipe" };
-            // check owner against user and change set searchMode accordingly
-            const searchMode =
-              recipeInfo.ownerId === this.props.user.memberId ? 4 : 5;
-            this.setState({
-              tabIndex: 2,
-              searchMode,
-              skillInfo: {
-                ...recipeInfo
-              },
-              ingred: ""
+    const apiTechtagsUrl = `${this.state.apiBase}${API_SKILLTAGS}/${
+      skillInfo.id
+    }${API_QUERY}`;
+    fetch(apiTechtagsUrl)
+      .then(response => {
+        response.json().then(result => {
+          result = result.data;
+          // need to convert nulls to "" for react forms
+          result &&
+            result.forEach(obj => {
+              Object.keys(obj).forEach(val => {
+                obj[val] = obj[val] ? obj[val] : "";
+              });
             });
-            // send off the fav/notes api
-            this.getFavNoteInfo(recipeInfo);
+          this.setState({
+            searchMode: 2,
+            skillInfo: {
+              ...skillInfo,
+              techtags: result ? result : []
+            }
           });
-        })
-        .catch(error => {
-          console.log("Error fetching skill recipe: ", error);
-        }); */
+        });
+      })
+      .catch(error => {
+        console.log("Error fetching skill techtags: ", error);
+      });
   };
 
   handleAddSkill = skillInfo => {
     // have to get nutrients from api and then load into state
-    /*     const apiNutsUrl = `${API_BASE}${API_NUTS}/${
+    /*     const apiNutsUrl = `${this.state.apiBase}${API_NUTS}/${
       skillInfo.skillId
     }?api_key=${API_KEY}`;
     fetch(apiNutsUrl)

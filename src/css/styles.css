@@ -231,37 +231,33 @@ section.skill-setup .resize-button svg {
   cursor: pointer;
 }
 
-.skill-related-container .serv-nuts div {
-  text-align: center;
-}
-
-.skill-related-container .serv-nuts input {
-  text-align: right;
-}
-
-.skill-related-container .skill-related-form-section {
+.skill-related-form-section {
   margin: 12px 0 24px;
 }
 
-.skill-related-container .skill-related-form-section div.row {
+.skill-related-form-section div.row {
   margin: 8px;
 }
 
-.skill-related-container .skill-related-form-section h2 {
+.skill-related-form-section h2 {
   margin-bottom: 4px;
 }
 
-.skill-related-container .skill-related-form-section h2 + p {
+.skill-related-form-section h2 + p {
   text-align: center;
   padding-top: 0;
   margin-bottom: 20px;
 }
 
-.skill-related-container .ingred-row input {
+.skill-related-form-section .techtag-row {
+  margin: 0;
+}
+
+.skill-related-form-section .techtag-row input {
   margin: 0 4px;
 }
 
-.skill-related-container .fs-btn-container {
+.fs-btn-container {
   margin: 20px 0 0 0;
 }
 

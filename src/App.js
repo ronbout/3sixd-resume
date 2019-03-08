@@ -15,6 +15,9 @@ import { faQuestion, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faQuestion, faSearch);
 
+// setup global api url
+window.apiUrl = "http://localhost/3sixd/api/";
+
 class App extends Component {
   constructor(props) {
     super(props);
