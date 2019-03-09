@@ -276,12 +276,24 @@ section.skill-setup .skill-related-form-section h2 + p {
   margin-bottom: 20px;
 }
 
+section.skill-setup .skill-related-form-section .techtag-list {
+  padding: 1em 1em 3em;
+  margin-top: 2.5em;
+  border: 1px solid #888;
+}
+
 section.skill-setup .skill-related-form-section .techtag-row {
   margin: 0;
 }
 
 section.skill-setup .skill-related-form-section .techtag-row input {
   margin: 0 4px;
+}
+
+section.skill-setup .skill-related-form-section .tag-select {
+  padding: 1em;
+  margin-top: 2.5em;
+  border: 1px solid #888;
 }
 
 .fs-btn-container {

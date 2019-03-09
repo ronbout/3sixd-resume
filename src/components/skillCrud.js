@@ -23,6 +23,7 @@ class SkillCrud extends Component {
       ...clearFormFields,
       errMsg: "",
       userMsg: "",
+      dragTag: false,
       apiBase: window.apiUrl
     };
     this.state.origForm = this.state.formFields;
@@ -136,6 +137,30 @@ class SkillCrud extends Component {
     this.setState({
       formFields: { ...this.state.formFields }
     });
+    return true;
+  };
+
+  handleTagStartDrag = tagInfo => {
+    console.log("start drag ", tagInfo);
+    this.setState({
+      dragTag: tagInfo
+    });
+  };
+
+  handleTagDragOver = event => {
+    console.log("drag over");
+    event.preventDefault && event.preventDefault();
+    return false;
+  };
+
+  handleTagDrop = event => {
+    console.log("drop");
+    event.preventDefault && event.preventDefault();
+    this.state.dragTag &&
+      this.handleAddTag(this.state.dragTag) &&
+      this.setState({
+        dragTag: false
+      });
   };
 
   render() {
@@ -203,47 +228,58 @@ class SkillCrud extends Component {
               // Separate Tags and Related Skills Section
             }
             <section className="skill-related-form-section container-fluid">
-              <h2>Techtags and Related Skills</h2>
-              {this.state.formFields.name !== "" && (
-                <div className="row">
-                  <div className="col-sm-4">Techtag Name</div>
-                  <div className="col-sm-5">Description</div>
-                  <div className="col-sm-1">Delete</div>
-                </div>
-              )}
-              {this.state.formFields.name !== "" &&
-                // loop through the state techtags array
-                // to load the techtags plus a blank
-                // row to add a new techtag
-                this.state.formFields.techtags.map((techtag, ndx) => (
-                  <div key={techtag.id} className="row techtag-row">
-                    <input
-                      className="col-sm-4"
-                      type="text"
-                      name={"techtag" + ndx}
-                      value={techtag.name}
-                      disabled
-                    />
-                    <input
-                      className="col-sm-5"
-                      type="text"
-                      name={"techtagDesc" + ndx}
-                      value={techtag.description}
-                      disabled
-                    />
-                    <button
-                      type="button"
-                      className="col-sm-1 btn btn-danger"
-                      onClick={event => this.handleDelTechtag(ndx, event)}
-                    >
-                      X
-                    </button>
+              <div
+                className="techtag-list"
+                onDragOver={this.handleTagDragOver}
+                onDrop={this.handleTagDrop}
+              >
+                <h2>Tech Tag List</h2>
+                {this.state.formFields.name !== "" && (
+                  <div className="row">
+                    <div className="col-sm-4">Techtag Name</div>
+                    <div className="col-sm-5">Description</div>
+                    <div className="col-sm-1">Delete</div>
                   </div>
-                ))}
+                )}
+                {this.state.formFields.name !== "" &&
+                  // loop through the state techtags array
+                  // to load the techtags plus a blank
+                  // row to add a new techtag
+                  this.state.formFields.techtags.map((techtag, ndx) => (
+                    <div key={techtag.id} className="row techtag-row">
+                      <input
+                        className="col-sm-4"
+                        type="text"
+                        name={"techtag" + ndx}
+                        value={techtag.name}
+                        disabled
+                      />
+                      <input
+                        className="col-sm-5"
+                        type="text"
+                        name={"techtagDesc" + ndx}
+                        value={techtag.description}
+                        disabled
+                      />
+                      <button
+                        type="button"
+                        className="col-sm-1 btn btn-danger"
+                        onClick={event => this.handleDelTechtag(ndx, event)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  ))}
+                {this.state.formFields.name !== "" && (
+                  <p>Drag and Drop from Tag List</p>
+                )}
+              </div>
+
               {this.state.formFields.name && (
                 <TechtagSelect
-                  handleAddTag={this.handleAddTag}
                   skillTagsList={this.state.formFields.techtags}
+                  handleAddTag={this.handleAddTag}
+                  handleTagStartDrag={this.handleTagStartDrag}
                 />
               )}
             </section>
@@ -262,7 +298,7 @@ class SkillCrud extends Component {
                 type="button"
                 onClick={this.handleClear}
               >
-                Clear
+                Clear Skill
               </button>
             </div>
           </div>

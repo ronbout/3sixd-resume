@@ -88,6 +88,11 @@ class TechtagSelect extends Component {
     });
   };
 
+  handleDragStart = (tagInfo, event) => {
+    this.handleTagClick(tagInfo.ndx, event);
+    this.props.handleTagStartDrag(tagInfo);
+  };
+
   handleSelect = () => {
     const selectTagInfo = this.state.tagOptions[
       this.state.formFields.tagSelect
@@ -127,7 +132,7 @@ class TechtagSelect extends Component {
     let divHeight = optionHeight * OptionRows + 6;
     return (
       <section className="tag-select">
-        <h2>Tags</h2>
+        <h2>Add Tech Tags</h2>
         {/* search field for techtags which will filter select */}
         <div className="form-group">
           <label htmlFor="keyword">Select (Double Click) to Add</label>
@@ -157,9 +162,7 @@ class TechtagSelect extends Component {
                   key={tagInfo.ndx}
                   data-value={tagInfo.ndx}
                   draggable={true}
-                  onDragStart={e =>
-                    e.dataTransfer.setData("text/plain", tagInfo.name)
-                  }
+                  onDragStart={() => this.handleDragStart(tagInfo)}
                   onClick={() => this.handleTagClick(tagInfo.ndx)}
                   onDoubleClick={this.handleSelect}
                   title={
@@ -173,39 +176,6 @@ class TechtagSelect extends Component {
               );
             })}
         </div>
-
-        {/*         <div className="form-group">
-          <select
-            className="form-control"
-            size={Math.min(10, tagList.length)}
-            name="tagSelect"
-            id="tagSelect"
-            value={this.state.formFields.tagSelect}
-            onChange={this.handleInputChange}
-          >
-            {this.state.tagOptions &&
-              tagList.map((tagInfo, ndx) => {
-                return (
-                  <option
-                    key={tagInfo.ndx}
-                    value={tagInfo.ndx}
-                    draggable={true}
-                    onDragStart={e =>
-                      e.dataTransfer.setData("text/plain", "Drag Me Button")
-                    }
-                    onDoubleClick={this.handleSelect}
-                    title={
-                      tagInfo.description
-                        ? tagInfo.description
-                        : "No description available "
-                    }
-                  >
-                    {tagInfo.name}
-                  </option>
-                );
-              })}
-          </select>
-        </div> */}
       </section>
     );
   }

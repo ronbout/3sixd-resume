@@ -30,24 +30,8 @@ class App extends Component {
       <React.Fragment>
         <TopNavBar user={this.state.user} />
         <Switch>
-          <Route
-            path="/skill/setup"
-            render={() => (
-              <SkillSetup
-                user={this.state.user}
-                handleFoodSelect={this.handleFoodSelect}
-              />
-            )}
-          />
-          <Route
-            path="/skill/search"
-            render={() => (
-              <SkillSearch
-                user={this.state.user}
-                handleFoodSelect={this.handleFoodSelect}
-              />
-            )}
-          />
+          <Route path="/skill/setup" render={() => <SkillSetup />} />
+          <Route path="/skill/search" render={() => <SkillSearch />} />
           <Route exact path="/" component={LandingPage} />
         </Switch>
       </React.Fragment>
