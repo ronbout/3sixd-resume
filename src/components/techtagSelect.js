@@ -20,7 +20,7 @@ if (!String.prototype.includes) {
   });
 }
 
-const API_TAGS = "tags";
+const API_TAGS = "techtags";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 const clearFormFields = {
@@ -79,7 +79,6 @@ class TechtagSelect extends Component {
   };
 
   handleTagClick = (ndx, event) => {
-    console.log("ndx: ", ndx);
     this.setState({
       formFields: {
         ...this.state.formFields,

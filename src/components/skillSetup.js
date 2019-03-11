@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SkillSearch from "./skillSearch";
 import SkillCrud from "./skillCrud";
 
-const API_SKILLTAGS = "skill_techtags";
+const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class SkillSetup extends Component {
@@ -22,7 +22,7 @@ class SkillSetup extends Component {
 
   handleSkillSelect = skillInfo => {
     // need to fetch related info
-    const apiTechtagsUrl = `${this.state.apiBase}${API_SKILLTAGS}/${
+    const apiTechtagsUrl = `${this.state.apiBase}${API_SKILLS}/${
       skillInfo.id
     }${API_QUERY}`;
     fetch(apiTechtagsUrl)
@@ -31,7 +31,7 @@ class SkillSetup extends Component {
           result = result.data;
           // need to convert nulls to "" for react forms
           result &&
-            result.forEach(obj => {
+            result.techtags.forEach(obj => {
               Object.keys(obj).forEach(val => {
                 obj[val] = obj[val] ? obj[val] : "";
               });
@@ -40,7 +40,7 @@ class SkillSetup extends Component {
             searchMode: 2,
             skillInfo: {
               ...skillInfo,
-              techtags: result ? result : []
+              techtags: result ? (result.techtags ? result.techtags : []) : []
             }
           });
         });
@@ -78,7 +78,7 @@ class SkillSetup extends Component {
   };
 
   handleChangeMode = searchMode => {
-    // this is for updates to the recipe screen that change the search mode
+    // this is for updates to the skill screen that change the search mode
     this.setState({
       searchMode,
       forceRefresh: !this.state.forceRefresh

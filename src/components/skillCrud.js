@@ -38,7 +38,9 @@ class SkillCrud extends Component {
 
       this.setState({
         formFields: { ...formFields },
-        origForm: { ...formFields }
+        origForm: { ...formFields },
+        errMsg: "",
+        userMsg: ""
       });
     }
   }
@@ -48,7 +50,6 @@ class SkillCrud extends Component {
 
     // clear out any error msg
     this.setState({ errMsg: "", userMsg: "" });
-    console.log("submit", this.state.formFields);
 
     let body = {
       ...this.state.formFields
@@ -82,9 +83,10 @@ class SkillCrud extends Component {
           } else {
             result = result.data;
             // success.  let user know and clear out form
+            const skillName = this.state.formFields.name;
+            this.handleClear();
             this.setState({
-              ...this.clearFormFields,
-              userMsg: `Skill "${this.state.formFields.name}" has been ${
+              userMsg: `Skill "${skillName}" has been ${
                 httpMethod === "post" ? "created." : "updated."
               }`
             });
@@ -112,7 +114,6 @@ class SkillCrud extends Component {
   };
 
   handleDelTechtag = (ndx, event) => {
-    console.log(ndx);
     let techtags = this.state.formFields.techtags;
     techtags.splice(ndx, 1);
 
@@ -141,20 +142,17 @@ class SkillCrud extends Component {
   };
 
   handleTagStartDrag = tagInfo => {
-    console.log("start drag ", tagInfo);
     this.setState({
       dragTag: tagInfo
     });
   };
 
   handleTagDragOver = event => {
-    console.log("drag over");
     event.preventDefault && event.preventDefault();
     return false;
   };
 
   handleTagDrop = event => {
-    console.log("drop");
     event.preventDefault && event.preventDefault();
     this.state.dragTag &&
       this.handleAddTag(this.state.dragTag) &&
