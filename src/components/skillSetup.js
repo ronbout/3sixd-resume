@@ -5,6 +5,14 @@ import SkillCrud from "./skillCrud";
 const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
+function convertNullsToEmpty(obj) {
+  obj.forEach(obj => {
+    Object.keys(obj).forEach(val => {
+      obj[val] = obj[val] ? obj[val] : "";
+    });
+  });
+}
+
 class SkillSetup extends Component {
   constructor(props) {
     super(props);
@@ -30,17 +38,24 @@ class SkillSetup extends Component {
         response.json().then(result => {
           result = result.data;
           // need to convert nulls to "" for react forms
-          result &&
-            result.techtags.forEach(obj => {
-              Object.keys(obj).forEach(val => {
-                obj[val] = obj[val] ? obj[val] : "";
-              });
-            });
+          result && convertNullsToEmpty(result.techtags);
+          result && convertNullsToEmpty(result.parentSkills);
+          result && convertNullsToEmpty(result.childSkills);
           this.setState({
             searchMode: 2,
             skillInfo: {
               ...skillInfo,
-              techtags: result ? (result.techtags ? result.techtags : []) : []
+              techtags: result ? (result.techtags ? result.techtags : []) : [],
+              parentSkills: result
+                ? result.parentSkills
+                  ? result.parentSkills
+                  : []
+                : [],
+              childSkills: result
+                ? result.childSkills
+                  ? result.childSkills
+                  : []
+                : []
             }
           });
         });
