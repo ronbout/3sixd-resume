@@ -3,6 +3,7 @@ section.skill-search {
   color: #212529;
 
   @include lg-form(14px);
+  @include div-select(14px);
 
   #skill-search-row input {
     display: inline-block;

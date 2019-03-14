@@ -151,7 +151,7 @@ class TechtagSelect extends Component {
         {/* Techtag List returned from api */}
         <div className="div-select-container" style={{ maxHeight: divHeight }}>
           {this.state.tagOptions &&
-            tagList.map((tagInfo, ndx) => {
+            tagList.map(tagInfo => {
               return (
                 <div
                   className={

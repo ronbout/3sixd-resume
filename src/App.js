@@ -17,10 +17,8 @@ library.add(faQuestion, faSearch);
 
 // setup global api url
 // if not on my dev, use remote api
-window.apiUrl =
-  window.location.host === "localhost:3101"
-    ? "http://localhost/3sixd/api/"
-    : "https://ronbout.000webhostapp.com/api/";
+//window.apiUrl = "http://localhost/3sixd/api/";
+window.apiUrl = "https://ronbout.000webhostapp.com/api/";
 
 class App extends Component {
   constructor(props) {

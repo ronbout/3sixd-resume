@@ -94,27 +94,12 @@ section.skill-setup {
     text-align: right;
   }
 
-  .fav-checkbox {
-    label {
-      padding: 0;
-      position: relative;
-      vertical-align: top;
-    }
-  }
   textarea {
     resize: none;
     overflow: auto;
   }
 
-  .notes-modal {
-    text-align: center;
-  }
-  .resize-button svg {
-    cursor: pointer;
-  }
-
   .skill-related-section {
-    @include div-select(14px);
     margin: 0 0 24px;
 
     div.row {

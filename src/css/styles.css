@@ -54,6 +54,33 @@ section.skill-search select {
   height: auto;
 }
 
+section.skill-search .div-select-container {
+  font-size: 14px;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  padding: 0.2em 0.4em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+section.skill-search .div-select-container .div-select {
+  padding: 2px;
+}
+
+section.skill-search .div-select-container .div-select.selected {
+  background-color: #007bff;
+  color: white;
+}
+
 section.skill-search #skill-search-row input {
   display: inline-block;
   width: 85%;
@@ -61,6 +88,33 @@ section.skill-search #skill-search-row input {
 
 section.skill-search button.btn.btn-search {
   padding: 0.375em 0.6em;
+}
+
+.div-select-container {
+  font-size: 14px;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  padding: 0.2em 0.4em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.div-select-container .div-select {
+  padding: 2px;
+}
+
+.div-select-container .div-select.selected {
+  background-color: #007bff;
+  color: white;
 }
 
 .tag-select {
@@ -228,54 +282,13 @@ section.skill-setup label.col-form-label {
   text-align: right;
 }
 
-section.skill-setup .fav-checkbox label {
-  padding: 0;
-  position: relative;
-  vertical-align: top;
-}
-
 section.skill-setup textarea {
   resize: none;
   overflow: auto;
 }
 
-section.skill-setup .notes-modal {
-  text-align: center;
-}
-
-section.skill-setup .resize-button svg {
-  cursor: pointer;
-}
-
 section.skill-setup .skill-related-section {
   margin: 0 0 24px;
-}
-
-section.skill-setup .skill-related-section .div-select-container {
-  font-size: 14px;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  padding: 0.2em 0.4em;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-section.skill-setup .skill-related-section .div-select-container .div-select {
-  padding: 2px;
-}
-
-section.skill-setup .skill-related-section .div-select-container .div-select.selected {
-  background-color: #007bff;
-  color: white;
 }
 
 section.skill-setup .skill-related-section div.row {

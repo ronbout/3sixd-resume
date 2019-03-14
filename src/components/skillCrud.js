@@ -142,15 +142,6 @@ class SkillCrud extends Component {
     });
   };
 
-  handleDelcSkill = (ndx, event) => {
-    let cSkills = this.state.formFields.childSkills;
-    cSkills.splice(ndx, 1);
-
-    this.setState({
-      formFields: { ...this.state.formFields }
-    });
-  };
-
   handleClear = () => {
     this.setState({
       ...clearFormFields,

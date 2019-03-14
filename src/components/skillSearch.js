@@ -96,6 +96,20 @@ class SkillSearch extends Component {
       this.props.handleAddSkillRelate(selectSkillInfo);
   };
 
+  handleSkillClick = (ndx, event) => {
+    this.setState({
+      formFields: {
+        ...this.state.formFields,
+        skillSelect: ndx
+      }
+    });
+  };
+
+  handleDragStart = (skillInfo, ndx, event) => {
+    this.handleSkillClick(ndx, event);
+    //this.props.handleSkillStartDrag(skillInfo);
+  };
+
   convertHtmlToText = value => {
     let d = document.createElement("div");
     d.innerHTML = value;
@@ -140,6 +154,37 @@ class SkillSearch extends Component {
             </div>
           </div>
           {/* skill List returned from search api */}
+          <div className="div-select-container" style={{ maxHeight: "300px" }}>
+            {this.state.skillOptions &&
+              this.state.skillOptions.map((skillInfo, ndx) => {
+                return (
+                  <div
+                    className={
+                      "div-select" +
+                      (this.state.formFields.skillSelect === ndx
+                        ? " selected"
+                        : "")
+                    }
+                    key={ndx}
+                    data-value={ndx}
+                    draggable={true}
+                    onDragStart={() => this.handleDragStart(skillInfo, ndx)}
+                    onClick={() => this.handleSkillClick(ndx)}
+                    onDoubleClick={this.handleSelect}
+                    title={
+                      (skillInfo.description
+                        ? skillInfo.description
+                        : "No description available ") +
+                      this.convertHtmlToText("&#013;&#010;") +
+                      (skillInfo.url ? "URL: " + skillInfo.url : "")
+                    }
+                  >
+                    {skillInfo.name}
+                  </div>
+                );
+              })}
+          </div>
+          {/* 
           <div className="form-group">
             <select
               className="form-control"
@@ -171,7 +216,7 @@ class SkillSearch extends Component {
                   );
                 })}
             </select>
-          </div>
+          </div> */}
           <p>Hover over skill for more details</p>
           {/* Select and Refresh buttons 
 							 Select sends skill up to parent component
