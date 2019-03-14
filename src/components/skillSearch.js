@@ -122,7 +122,9 @@ class SkillSearch extends Component {
         <form className="skill-search-form" onSubmit={this.handleSearch}>
           {/* keyword entry */}
           <div className="form-group">
-            <label htmlFor="keyword">Skill Name:</label>
+            <label htmlFor="keyword">
+              <strong>Search Skills</strong>
+            </label>
             <div id="skill-search-row" className="row mx-0">
               <input
                 type="text"
@@ -188,15 +190,15 @@ class SkillSearch extends Component {
                 !(this.state.skillOptions && this.state.skillOptions.length > 0)
               }
             >
-              Edit/View
-              <br />
-              skill
+              Edit Skill
             </button>
+            {/*}
             <button className="btn btn-primary" style={{ marginLeft: "15px" }}>
               Refresh
               <br />
               List
             </button>
+						*/}
             {true && (
               <button
                 type="button"

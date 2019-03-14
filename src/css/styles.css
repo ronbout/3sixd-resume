@@ -1,7 +1,7 @@
 section.skill-search {
   background: #888;
   color: #212529;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 section.skill-search h1 {
@@ -63,6 +63,11 @@ section.skill-search button.btn.btn-search {
   padding: 0.375em 0.6em;
 }
 
+.tag-select {
+  padding: 1em;
+  border: 1px solid #888;
+}
+
 .skill-container {
   padding: 0 1em;
 }
@@ -85,19 +90,30 @@ section.skill-search button.btn.btn-search {
 
 ul.tab-list {
   margin: 0;
-  -webkit-padding-start: 1em;
-          padding-inline-start: 1em;
+  -webkit-padding-start: 0;
+          padding-inline-start: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
 }
 
 ul.tab-list li {
-  display: inline-block;
+  list-style: none;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   margin: 4px 0 0;
-  padding: 8px 82px 0;
+  padding: 8px 0px 0;
   border: 1px solid black;
   border-bottom: 0;
   cursor: pointer;
   height: 33px;
   margin-bottom: -1px;
+  text-align: center;
 }
 
 ul.tab-list li.active-tab {
@@ -118,7 +134,7 @@ ul.tab-list li.active-tab {
   -webkit-box-flex: 2;
       -ms-flex-positive: 2;
           flex-grow: 2;
-  max-width: 685px;
+  max-width: 810px;
 }
 
 .fs-main section.skill-setup div[class^="col-"] {
@@ -130,7 +146,7 @@ ul.tab-list li.active-tab {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  max-width: 450px;
+  max-width: 320px;
 }
 
 @media (max-width: 960px) {
@@ -231,11 +247,11 @@ section.skill-setup .resize-button svg {
   cursor: pointer;
 }
 
-section.skill-setup .skill-related-form-section {
-  margin: 12px 0 24px;
+section.skill-setup .skill-related-section {
+  margin: 0 0 24px;
 }
 
-section.skill-setup .skill-related-form-section .div-select-container {
+section.skill-setup .skill-related-section .div-select-container {
   font-size: 14px;
   color: #495057;
   background-color: #fff;
@@ -253,47 +269,41 @@ section.skill-setup .skill-related-form-section .div-select-container {
   overflow-y: scroll;
 }
 
-section.skill-setup .skill-related-form-section .div-select-container .div-select {
+section.skill-setup .skill-related-section .div-select-container .div-select {
   padding: 2px;
 }
 
-section.skill-setup .skill-related-form-section .div-select-container .div-select.selected {
+section.skill-setup .skill-related-section .div-select-container .div-select.selected {
   background-color: #007bff;
   color: white;
 }
 
-section.skill-setup .skill-related-form-section div.row {
+section.skill-setup .skill-related-section div.row {
   margin: 8px;
 }
 
-section.skill-setup .skill-related-form-section h2 {
+section.skill-setup .skill-related-section h2 {
   margin-bottom: 4px;
 }
 
-section.skill-setup .skill-related-form-section h2 + p {
+section.skill-setup .skill-related-section h2 + p {
   text-align: center;
   padding-top: 0;
   margin-bottom: 20px;
 }
 
-section.skill-setup .skill-related-form-section .techtag-list {
+section.skill-setup .skill-related-section .related-list {
   padding: 1em 1em 3em;
-  margin-top: 2.5em;
+  margin-top: 0;
   border: 1px solid #888;
 }
 
-section.skill-setup .skill-related-form-section .techtag-row {
+section.skill-setup .skill-related-section .related-row {
   margin: 0;
 }
 
-section.skill-setup .skill-related-form-section .techtag-row input {
+section.skill-setup .skill-related-section .related-row input {
   margin: 0 4px;
-}
-
-section.skill-setup .skill-related-form-section .tag-select {
-  padding: 1em;
-  margin-top: 2.5em;
-  border: 1px solid #888;
 }
 
 .fs-btn-container {

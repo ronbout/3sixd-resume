@@ -2,7 +2,7 @@ section.skill-search {
   background: #888;
   color: #212529;
 
-  @include lg-form(16px);
+  @include lg-form(14px);
 
   #skill-search-row input {
     display: inline-block;

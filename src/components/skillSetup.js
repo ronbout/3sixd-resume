@@ -104,7 +104,6 @@ class SkillSetup extends Component {
     return (
       <main className="container-fluid fs-main d-flex p-2 bg-highlight">
         <section className="skill-setup">
-          <h1>Skill Setup</h1>
           <div className="tab-section">
             <SkillCrud
               skillInfo={this.state.skillInfo}

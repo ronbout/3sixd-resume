@@ -130,11 +130,13 @@ class TechtagSelect extends Component {
     const OptionRows = Math.min(10, tagList.length);
     let divHeight = optionHeight * OptionRows + 6;
     return (
-      <section className="tag-select">
+      <div className="tag-select">
         <h2>Add Tech Tags</h2>
         {/* search field for techtags which will filter select */}
         <div className="form-group">
-          <label htmlFor="keyword">Select (Double Click) to Add</label>
+          <label htmlFor="keyword">
+            Select (Double Click) to Add or Drag and Drop
+          </label>
           <br />
           <input
             type="text"
@@ -175,7 +177,7 @@ class TechtagSelect extends Component {
               );
             })}
         </div>
-      </section>
+      </div>
     );
   }
 }
