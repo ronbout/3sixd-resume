@@ -17,19 +17,35 @@ class SkillSetup extends Component {
   constructor(props) {
     super(props);
 
-    const startMode = 1;
+    const startMode = 0;
     this.state = {
-      searchMode: startMode, // used for SkillSearch so it knows what to do on dblClick
-      // 1-New Skill, 2-Edit Skill, 3-Add Related Skill
+      editMode: startMode, // used for SkillSearch so it knows what to do on dblClick
+      // 0-Empty Skill, 1-Edit Techtags, 2-Parent Skills, 3-Child Skills
       skillInfo: "",
+      relatedSkill: "",
       errMsg: "",
       dragSkill: false,
       forceRefresh: true, // this is just a toggle to force a Search re-render
+      searchButton: this.getSearchButtonText(startMode),
       apiBase: window.apiUrl
     };
   }
 
   handleSkillSelect = skillInfo => {
+    switch (this.state.editMode) {
+      case 0:
+        this.loadSkill(skillInfo);
+        break;
+      case 1:
+        break;
+      default:
+        this.setState({
+          relatedSkill: skillInfo
+        });
+    }
+  };
+
+  loadSkill = skillInfo => {
     // need to fetch related info
     const apiTechtagsUrl = `${this.state.apiBase}${API_SKILLS}/${
       skillInfo.id
@@ -43,7 +59,6 @@ class SkillSetup extends Component {
           result && convertNullsToEmpty(result.parentSkills);
           result && convertNullsToEmpty(result.childSkills);
           this.setState({
-            searchMode: 2,
             skillInfo: {
               ...skillInfo,
               techtags: result ? (result.techtags ? result.techtags : []) : [],
@@ -66,39 +81,28 @@ class SkillSetup extends Component {
       });
   };
 
-  handleAddSkill = skillInfo => {
-    // have to get nutrients from api and then load into state
-    /*     const apiNutsUrl = `${this.state.apiBase}${API_NUTS}/${
-      skillInfo.skillId
-    }?api_key=${API_KEY}`;
-    fetch(apiNutsUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // for now assume that skill must exist
-          let ingredInfo = {
-            ingredId: result.id,
-            ingredName: result.name,
-            ingredDesc: result.description,
-            ingredServings: 1,
-            ingredNuts: result.nutrients
-          };
-          this.setState({
-            ingred: ingredInfo
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Error fetching skill ingredient: ", error);
-      }); */
-  };
-
-  handleChangeMode = searchMode => {
+  handleChangeMode = editMode => {
     // this is for updates to the skill screen that change the search mode
+    const skillInfo = editMode === 0 ? "" : this.state.skillInfo;
+    const searchButton = this.getSearchButtonText(editMode);
     this.setState({
-      searchMode,
+      skillInfo,
+      relatedSkill: "",
+      searchButton,
+      editMode,
       forceRefresh: !this.state.forceRefresh
     });
+  };
+
+  getSearchButtonText = editMode => {
+    switch (editMode) {
+      case 2:
+        return "Add Parent Skill";
+      case 3:
+        return "Add Child Skill";
+      default:
+        return "Edit Skill";
+    }
   };
 
   handleSkillStartDrag = skillInfo => {
@@ -114,16 +118,17 @@ class SkillSetup extends Component {
           <div className="tab-section">
             <SkillCrud
               skillInfo={this.state.skillInfo}
+              relatedSkill={this.state.relatedSkill}
               handleChangeMode={this.handleChangeMode}
               dragSkill={this.state.dragSkill}
             />
           </div>
         </section>
         <SkillSearch
-          searchMode={this.state.searchMode}
+          editMode={this.state.editMode}
+          searchButton={this.state.searchButton}
           forceRefresh={this.state.forceRefresh}
           handleSkillSelect={this.handleSkillSelect}
-          handleAddSkill={this.handleAddSkill}
           handleSkillStartDrag={this.handleSkillStartDrag}
         />
       </main>

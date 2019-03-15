@@ -39,9 +39,16 @@ class SkillCrud extends Component {
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.skillInfo !== prevProps.skillInfo) {
-      let formFields = this.props.skillInfo
-        ? this.props.skillInfo
-        : clearFormFields;
+      console.log("props: ", this.props.skillInfo);
+      console.log("prev props: ", prevProps.skillInfo);
+      let formFields;
+      if (this.props.skillInfo) {
+        formFields = this.props.skillInfo;
+        this.props.handleChangeMode(this.state.tabIndex);
+      } else {
+        formFields = clearFormFields.formFields;
+        this.props.handleChangeMode(0);
+      }
 
       this.setState({
         formFields: { ...formFields },
@@ -49,6 +56,23 @@ class SkillCrud extends Component {
         errMsg: "",
         userMsg: ""
       });
+    }
+
+    if (
+      this.props.relatedSkill &&
+      (!prevProps.relatedSkill ||
+        this.props.relatedSkill.id !== prevProps.relatedSkill.id)
+    ) {
+      switch (this.state.tabIndex) {
+        case 2:
+          this.handleAddRelatedSkill("parentSkills", this.props.relatedSkill);
+          break;
+        case 3:
+          this.handleAddRelatedSkill("childSkills", this.props.relatedSkill);
+          break;
+        default:
+        // do nothing
+      }
     }
 
     if (this.props.dragSkill !== prevProps.dragSkill) {
@@ -60,6 +84,11 @@ class SkillCrud extends Component {
 
   handleTabClick = tabIndex => {
     if (tabIndex === this.state.tabIndex) return;
+    // if a skill name is present, we are in edit mode
+    // and need to pass the tab index to the search skills
+    // component so it can be context sensitive
+    const editMode = this.state.formFields.name === "" ? 0 : tabIndex;
+    this.props.handleChangeMode(editMode);
     this.setState({
       tabIndex
     });
@@ -110,7 +139,6 @@ class SkillCrud extends Component {
                 httpMethod === "post" ? "created." : "updated."
               }`
             });
-            this.props.handleChangeMode(1);
           }
         });
       })
@@ -122,6 +150,10 @@ class SkillCrud extends Component {
   handleInputChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
+
+    // check for changing edit mode by a change in the name field
+    target.name === "name" &&
+      this.props.handleChangeMode(value === "" ? 0 : this.state.tabIndex);
 
     let errs = {};
     this.setState({
@@ -152,6 +184,7 @@ class SkillCrud extends Component {
   };
 
   handleClear = () => {
+    this.props.handleChangeMode(0);
     this.setState({
       ...clearFormFields,
       errMsg: "",
@@ -171,7 +204,22 @@ class SkillCrud extends Component {
   };
 
   handleAddRelatedSkill = (skillField, skillInfo) => {
+    // need to check that
+    // 1) a skill is not being related to itself
+    // 2) a duplicate is not being added
+
+    // check that a skill is not being related to itself
+    if (skillInfo.id === this.state.formFields.id) return;
+
     let rSkills = this.state.formFields[skillField];
+    // check for duplicate
+    if (
+      rSkills.some(rSkill => {
+        return rSkill.id === skillInfo.id;
+      })
+    )
+      return;
+
     rSkills.push(skillInfo);
 
     this.setState({
@@ -306,7 +354,7 @@ class SkillCrud extends Component {
                   Child Skills
                 </li>
               </ul>
-              <div className="tab-section">{this.tagSection()}</div>
+              <div className="tab-section">{this.tabSection()}</div>
             </div>
             {
               // Button Section
@@ -388,7 +436,7 @@ class SkillCrud extends Component {
     );
   }
 
-  tagSection() {
+  tabSection() {
     switch (this.state.tabIndex) {
       case TECHTAGS_NDX:
         return this.techTagSection();

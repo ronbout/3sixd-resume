@@ -87,15 +87,6 @@ class SkillSearch extends Component {
       this.props.handleSkillSelect(selectSkillInfo);
   };
 
-  handleAddSkillRelate = () => {
-    const selectSkillInfo = this.state.skillOptions[
-      this.state.formFields.skillSelect
-    ];
-    // if a prop was passed down to handle the skill select, call it
-    this.props.handleAddSkillRelate &&
-      this.props.handleAddSkillRelate(selectSkillInfo);
-  };
-
   handleSkillClick = (ndx, event) => {
     this.setState({
       formFields: {
@@ -184,39 +175,6 @@ class SkillSearch extends Component {
                 );
               })}
           </div>
-          {/* 
-          <div className="form-group">
-            <select
-              className="form-control"
-              size="16"
-              name="skillSelect"
-              id="skillSelect"
-              value={this.state.formFields.skillSelect}
-              onChange={this.handleInputChange}
-            >
-              {this.state.skillOptions &&
-                this.state.skillOptions.map((skillInfo, ndx) => {
-                  return (
-                    <option
-                      key={ndx}
-                      value={ndx}
-                      onDoubleClick={
-                        false ? this.handleAddIngred : this.handleSelect
-                      }
-                      title={
-                        (skillInfo.description
-                          ? skillInfo.description
-                          : "No description available ") +
-                        this.convertHtmlToText("&#013;&#010;") +
-                        (skillInfo.url ? "URL: " + skillInfo.url : "")
-                      }
-                    >
-                      {skillInfo.name}
-                    </option>
-                  );
-                })}
-            </select>
-          </div> */}
           <p>Hover over skill for more details</p>
           {/* Select and Refresh buttons 
 							 Select sends skill up to parent component
@@ -229,34 +187,15 @@ class SkillSearch extends Component {
             <button
               type="button"
               className="btn btn-primary"
-              style={{ marginRight: "15px" }}
               onClick={this.handleSelect}
               disabled={
-                !(this.state.skillOptions && this.state.skillOptions.length > 0)
+                !(
+                  this.state.skillOptions && this.state.skillOptions.length > 0
+                ) || this.props.editMode === 1
               }
             >
-              Edit Skill
+              {this.props.searchButton}
             </button>
-            {/*}
-            <button className="btn btn-primary" style={{ marginLeft: "15px" }}>
-              Refresh
-              <br />
-              List
-            </button>
-						*/}
-            {true && (
-              <button
-                type="button"
-                className="btn btn-primary"
-                style={{ marginLeft: "30px" }}
-                onClick={this.handleAddIngred}
-                disabled
-              >
-                Related
-                <br />
-                Skill
-              </button>
-            )}
           </div>
         </form>
       </section>
