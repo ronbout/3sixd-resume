@@ -23,6 +23,7 @@ class SkillSetup extends Component {
       // 1-New Skill, 2-Edit Skill, 3-Add Related Skill
       skillInfo: "",
       errMsg: "",
+      dragSkill: false,
       forceRefresh: true, // this is just a toggle to force a Search re-render
       apiBase: window.apiUrl
     };
@@ -100,6 +101,12 @@ class SkillSetup extends Component {
     });
   };
 
+  handleSkillStartDrag = skillInfo => {
+    this.setState({
+      dragSkill: skillInfo
+    });
+  };
+
   render() {
     return (
       <main className="container-fluid fs-main d-flex p-2 bg-highlight">
@@ -108,6 +115,7 @@ class SkillSetup extends Component {
             <SkillCrud
               skillInfo={this.state.skillInfo}
               handleChangeMode={this.handleChangeMode}
+              dragSkill={this.state.dragSkill}
             />
           </div>
         </section>
@@ -116,6 +124,7 @@ class SkillSetup extends Component {
           forceRefresh={this.state.forceRefresh}
           handleSkillSelect={this.handleSkillSelect}
           handleAddSkill={this.handleAddSkill}
+          handleSkillStartDrag={this.handleSkillStartDrag}
         />
       </main>
     );

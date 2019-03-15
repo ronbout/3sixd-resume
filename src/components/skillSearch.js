@@ -107,7 +107,7 @@ class SkillSearch extends Component {
 
   handleDragStart = (skillInfo, ndx, event) => {
     this.handleSkillClick(ndx, event);
-    //this.props.handleSkillStartDrag(skillInfo);
+    this.props.handleSkillStartDrag(skillInfo);
   };
 
   convertHtmlToText = value => {

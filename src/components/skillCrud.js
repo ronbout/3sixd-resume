@@ -14,7 +14,9 @@ const clearFormFields = {
     name: "",
     description: "",
     url: "",
-    techtags: []
+    techtags: [],
+    parentSkills: [],
+    childSkills: []
   }
 };
 
@@ -27,6 +29,7 @@ class SkillCrud extends Component {
       errMsg: "",
       userMsg: "",
       dragTag: false,
+      dragSkill: this.props.dragSkill ? this.props.dragSkill : false,
       tabIndex: TECHTAGS_NDX,
       apiBase: window.apiUrl
     };
@@ -45,6 +48,12 @@ class SkillCrud extends Component {
         origForm: { ...formFields },
         errMsg: "",
         userMsg: ""
+      });
+    }
+
+    if (this.props.dragSkill !== prevProps.dragSkill) {
+      this.setState({
+        dragSkill: this.props.dragSkill
       });
     }
   }
@@ -161,6 +170,16 @@ class SkillCrud extends Component {
     return true;
   };
 
+  handleAddRelatedSkill = (skillField, skillInfo) => {
+    let rSkills = this.state.formFields[skillField];
+    rSkills.push(skillInfo);
+
+    this.setState({
+      formFields: { ...this.state.formFields }
+    });
+    return true;
+  };
+
   handleTagStartDrag = tagInfo => {
     this.setState({
       dragTag: tagInfo
@@ -178,6 +197,15 @@ class SkillCrud extends Component {
       this.handleAddTag(this.state.dragTag) &&
       this.setState({
         dragTag: false
+      });
+  };
+
+  handleSkillDrop = (skillField, event) => {
+    event.preventDefault && event.preventDefault();
+    this.state.dragSkill &&
+      this.handleAddRelatedSkill(skillField, this.state.dragSkill) &&
+      this.setState({
+        dragSkill: false
       });
   };
 
@@ -447,7 +475,7 @@ class SkillCrud extends Component {
         <div
           className="related-list"
           onDragOver={this.handleDragOver}
-          onDrop={this.handleTagDrop}
+          onDrop={event => this.handleSkillDrop(skillFieldName, event)}
         >
           <h2>{dispName} List</h2>
           {this.state.formFields.name !== "" && (
