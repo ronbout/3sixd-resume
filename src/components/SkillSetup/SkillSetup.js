@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import SkillSearch from "./skillSearch";
-import SkillCrud from "./skillCrud";
+import SkillSearch from "../SkillSearch/";
+import SkillCrud from "../SkillCrud/";
+
+import "./skillSetup.css";
 
 const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";

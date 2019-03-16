@@ -1,7 +1,3 @@
-// Variable Overrides
-
-$body-color: red;
-
 // mixins
 @mixin lg-form($em-size: 16px) {
   font-size: $em-size;
@@ -90,95 +86,9 @@ $body-color: red;
   }
 }
 
-// Bootstrap SASS
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@include div-select(14px);
 
-// Other styling
-
-body {
-  height: 100%;
-  width: 100%;
-  font-family: "Montserrat", "sans-serif";
-}
-
-.main-body {
-  padding: 0;
-}
-
-.hero {
-  position: relative;
-  background-image: url("../assets/img/3sixD-hero.jpg");
-  background-position: center;
-  height: 80vh;
-  background-size: cover;
-  padding-top: 15vh;
-  padding-bottom: 20vh;
-  color: black;
-  font-family: Varela Round;
-}
-
-.hero .overlay {
-  position: absolute;
-  background-color: #212529;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.3;
-}
-
-.hero h1 {
-  font-weight: bold;
-  font-size: 42px;
-  color: white;
-}
-
-.hero p {
-  width: 60%;
-  font-size: 1.3rem;
-  margin: auto;
-  font-weight: 700;
-  color: white;
-}
-
-.hero .learn {
-  margin-top: 1rem;
-}
-
-.login-link {
-  font-weight: bold;
-}
-
-.social-login,
-.social-signup {
-  width: 40%;
-}
-
-.email-login,
-.email-signup {
-  margin-top: 4rem;
-  width: 40%;
-}
-
-.social-login button,
-.social-login button {
-  font-size: 0.8rem;
-}
-
-.btn-question {
-  border-radius: 50%;
-}
-
-@media (max-width: 720px) {
-  .social-login,
-  .social-email {
-    width: 80%;
-  }
-}
-
-@media (max-width: 520px) {
-  .social-login,
-  .social-signup {
-    width: 100%;
-  }
+.tag-select {
+  padding: 1em;
+  border: 1px solid #888;
 }

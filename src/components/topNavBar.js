@@ -33,12 +33,6 @@ const TopNavBar = () => {
                 Contact
               </NavLink>
             </li>
-
-            <li className="nav-item">
-              <NavLink to="/skill/search" className="nav-link">
-                Skill Search
-              </NavLink>
-            </li>
             <li className="nav-item">
               <NavLink to="/skill/setup" className="nav-link">
                 Skills

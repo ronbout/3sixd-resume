@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TechtagSelect from "./techtagSelect";
+import TechtagSelect from "../TechtagSelect/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const API_SKILL = "skills";
@@ -39,8 +39,6 @@ class SkillCrud extends Component {
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.skillInfo !== prevProps.skillInfo) {
-      console.log("props: ", this.props.skillInfo);
-      console.log("prev props: ", prevProps.skillInfo);
       let formFields;
       if (this.props.skillInfo) {
         formFields = this.props.skillInfo;

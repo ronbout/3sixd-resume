@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import "./techtag.css";
+
 // IE polyfill for includes function
 // ******** need to create a library of reusable functions
 // move this into that.

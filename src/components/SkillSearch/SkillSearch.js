@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import "./skillSearch.css";
+
 const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
