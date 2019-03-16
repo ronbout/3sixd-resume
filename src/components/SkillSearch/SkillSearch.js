@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "./skillSearch.css";
+import "./css/skillSearch.css";
 
 const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
