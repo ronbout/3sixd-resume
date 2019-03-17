@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import TechtagSelect from "../TechtagSelect/";
+import SkillDescSection from "./SkillDescSection";
+import RelatedItemsList from "./RelatedItemsList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TabbedUI from "../TabbedUI/";
 
 const API_SKILL = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
@@ -163,15 +166,6 @@ class SkillCrud extends Component {
     });
   };
 
-  handleDelTechtag = (ndx, event) => {
-    let techtags = this.state.formFields.techtags;
-    techtags.splice(ndx, 1);
-
-    this.setState({
-      formFields: { ...this.state.formFields }
-    });
-  };
-
   handleDelRelatedSkill = (skillFieldName, ndx, event) => {
     let rSkills = this.state.formFields[skillFieldName];
     rSkills.splice(ndx, 1);
@@ -261,7 +255,10 @@ class SkillCrud extends Component {
         <form className="basic-skill-form" onSubmit={this.handleSubmit}>
           <input type="hidden" name="id" value={this.state.formFields.id} />
           <div className="basic-skill-container container-fluid d-flex flex-column justify-content-center">
-            {this.skillDescSection()}
+            <SkillDescSection
+              formFields={this.state.formFields}
+              handleInputChange={this.handleInputChange}
+            />
             {this.tagsAndRelatedSkillsSection()}
             {this.buttonSection()}
           </div>
@@ -276,96 +273,19 @@ class SkillCrud extends Component {
     );
   }
 
-  skillDescSection() {
-    return (
-      <div className="skill-desc-form-section">
-        <h2>Skill View/Entry</h2>
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="name">
-            Skill Name: *
-          </label>
-          <div className="col-sm-5">
-            <input
-              type="text"
-              className="form-control"
-              name="name"
-              id="name"
-              value={this.state.formFields.name}
-              onChange={this.handleInputChange}
-              required
-            />
-          </div>
-          <div className="col-sm-4">
-            <p>( * - required field )</p>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="description">
-            Description:
-          </label>
-          <div className="col-sm-8">
-            <input
-              type="text"
-              className="form-control"
-              name="description"
-              id="description"
-              value={this.state.formFields.description}
-              onChange={this.handleInputChange}
-            />
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label" htmlFor="url">
-            URL:
-          </label>
-          <div className="col-sm-8">
-            <input
-              type="text"
-              className="form-control"
-              name="url"
-              id="url"
-              value={this.state.formFields.url}
-              onChange={this.handleInputChange}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   tagsAndRelatedSkillsSection() {
+    const tabList = [
+      { label: "Techtags" },
+      { label: "Parent Skills" },
+      { label: "Child Skills" }
+    ];
     return (
       <div className="related-skill-section">
-        <ul className="tab-list">
-          <li
-            data-tab-index={TECHTAGS_NDX}
-            className={
-              "tab " +
-              (this.state.tabIndex === TECHTAGS_NDX ? "active-tab" : "")
-            }
-            onClick={() => this.handleTabClick(TECHTAGS_NDX)}
-          >
-            Techtags
-          </li>
-          <li
-            data-tab-index={PSKILLS_NDX}
-            className={
-              "tab " + (this.state.tabIndex === PSKILLS_NDX ? "active-tab" : "")
-            }
-            onClick={() => this.handleTabClick(PSKILLS_NDX)}
-          >
-            Parent Skills
-          </li>
-          <li
-            data-tab-index={CSKILLS_NDX}
-            className={
-              "tab " + (this.state.tabIndex === CSKILLS_NDX ? "active-tab" : "")
-            }
-            onClick={() => this.handleTabClick(CSKILLS_NDX)}
-          >
-            Child Skills
-          </li>
-        </ul>
+        <TabbedUI
+          tabs={tabList}
+          tabIndex={this.state.tabIndex}
+          handleTabClick={this.handleTabClick}
+        />
         <div className="tab-section">{this.tabSection()}</div>
       </div>
     );
@@ -386,53 +306,22 @@ class SkillCrud extends Component {
 
   techTagSection() {
     return (
-      <section className="skill-techtags-form-section skill-related-section">
+      <section className="skill-related-section">
         <div
-          className="techtag-list related-list"
+          className="related-list"
           onDragOver={this.handleDragOver}
           onDrop={this.handleTagDrop}
         >
-          <h2>Tech Tag List</h2>
-          {this.state.formFields.name !== "" && (
-            <div className="row">
-              <div className="col-sm-4">Techtag Name</div>
-              <div className="col-sm-5">Description</div>
-              <div className="col-sm-1">Delete</div>
-            </div>
-          )}
-          {this.state.formFields.name !== "" &&
-            // loop through the state techtags array
-            // to load the techtags
-            this.state.formFields.techtags.map((techtag, ndx) => (
-              <div key={techtag.id} className="row techtag-row related-row">
-                <input
-                  className="col-sm-4"
-                  type="text"
-                  name={"techtag" + ndx}
-                  value={techtag.name}
-                  disabled
-                />
-                <input
-                  className="col-sm-5"
-                  type="text"
-                  name={"techtagDesc" + ndx}
-                  value={techtag.description}
-                  disabled
-                />
-                <button
-                  type="button"
-                  className="col-sm-1 btn btn-danger"
-                  onClick={event => this.handleDelTechtag(ndx, event)}
-                >
-                  X
-                </button>
-              </div>
-            ))}
+          <RelatedItemsList
+            heading="Techtag"
+            items={this.state.formFields.techtags}
+            skillFieldName="techtags"
+            handleDelItem={this.handleDelRelatedSkill}
+          />
           {this.state.formFields.name !== "" && (
             <p>Drag and Drop from Tag List</p>
           )}
         </div>
-
         {this.state.formFields.name && (
           <TechtagSelect
             skillTagsList={this.state.formFields.techtags}
@@ -445,14 +334,14 @@ class SkillCrud extends Component {
   }
 
   parentSkillSection() {
-    return this.relatedSkillSection("parentSkills", "Parent Skills");
+    return this.parentChildSkillsSection("parentSkills", "Parent Skills");
   }
 
   childSkillSection() {
-    return this.relatedSkillSection("childSkills", "Child Skills");
+    return this.parentChildSkillsSection("childSkills", "Child Skills");
   }
 
-  relatedSkillSection(skillFieldName, dispName) {
+  parentChildSkillsSection(skillFieldName, dispName) {
     return (
       <section className="skill-related-section">
         <div
@@ -460,43 +349,12 @@ class SkillCrud extends Component {
           onDragOver={this.handleDragOver}
           onDrop={event => this.handleSkillDrop(skillFieldName, event)}
         >
-          <h2>{dispName} List</h2>
-          {this.state.formFields.name !== "" && (
-            <div className="row">
-              <div className="col-sm-4">Skill Name</div>
-              <div className="col-sm-5">Description</div>
-              <div className="col-sm-1">Delete</div>
-            </div>
-          )}
-          {this.state.formFields.name !== "" &&
-            // loop through the related skill array
-            this.state.formFields[skillFieldName].map((skill, ndx) => (
-              <div key={skill.id} className="row related-row">
-                <input
-                  className="col-sm-4"
-                  type="text"
-                  name={"skill" + ndx}
-                  value={skill.name}
-                  disabled
-                />
-                <input
-                  className="col-sm-5"
-                  type="text"
-                  name={"skillDesc" + ndx}
-                  value={skill.description}
-                  disabled
-                />
-                <button
-                  type="button"
-                  className="col-sm-1 btn btn-danger"
-                  onClick={event =>
-                    this.handleDelRelatedSkill(skillFieldName, ndx, event)
-                  }
-                >
-                  X
-                </button>
-              </div>
-            ))}
+          <RelatedItemsList
+            heading={dispName}
+            items={this.state.formFields[skillFieldName]}
+            skillFieldName={skillFieldName}
+            handleDelItem={this.handleDelRelatedSkill}
+          />
           {this.state.formFields.name !== "" && (
             <p>Drag and Drop from Skill Search List</p>
           )}
