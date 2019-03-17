@@ -148,7 +148,7 @@ class SkillSearch extends Component {
           </div>
           {/* skill List returned from search api */}
           <div className="div-select-container" style={{ maxHeight: "300px" }}>
-            {this.state.skillOptions &&
+            {this.state.skillOptions ? (
               this.state.skillOptions.map((skillInfo, ndx) => {
                 return (
                   <div
@@ -175,7 +175,10 @@ class SkillSearch extends Component {
                     {skillInfo.name}
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <p>Loading....</p>
+            )}
           </div>
           <p>Hover over skill for more details</p>
           {/* Select and Refresh buttons 
