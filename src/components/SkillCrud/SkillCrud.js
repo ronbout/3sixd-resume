@@ -261,117 +261,9 @@ class SkillCrud extends Component {
         <form className="basic-skill-form" onSubmit={this.handleSubmit}>
           <input type="hidden" name="id" value={this.state.formFields.id} />
           <div className="basic-skill-container container-fluid d-flex flex-column justify-content-center">
-            <div className="skill-desc-form-section">
-              <h2>Skill View/Entry</h2>
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label" htmlFor="name">
-                  Skill Name: *
-                </label>
-                <div className="col-sm-5">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    id="name"
-                    value={this.state.formFields.name}
-                    onChange={this.handleInputChange}
-                    required
-                  />
-                </div>
-                <div className="col-sm-4">
-                  <p>( * - required field )</p>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label
-                  className="col-sm-3 col-form-label"
-                  htmlFor="description"
-                >
-                  Description:
-                </label>
-                <div className="col-sm-8">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="description"
-                    id="description"
-                    value={this.state.formFields.description}
-                    onChange={this.handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label" htmlFor="url">
-                  URL:
-                </label>
-                <div className="col-sm-8">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="url"
-                    id="url"
-                    value={this.state.formFields.url}
-                    onChange={this.handleInputChange}
-                  />
-                </div>
-              </div>
-            </div>
-            {
-              // Separate Tags and Related Skills Section
-            }
-            <div className="related-skill-section">
-              <ul className="tab-list">
-                <li
-                  data-tab-index={TECHTAGS_NDX}
-                  className={
-                    "tab " +
-                    (this.state.tabIndex === TECHTAGS_NDX ? "active-tab" : "")
-                  }
-                  onClick={() => this.handleTabClick(TECHTAGS_NDX)}
-                >
-                  Techtags
-                </li>
-                <li
-                  data-tab-index={PSKILLS_NDX}
-                  className={
-                    "tab " +
-                    (this.state.tabIndex === PSKILLS_NDX ? "active-tab" : "")
-                  }
-                  onClick={() => this.handleTabClick(PSKILLS_NDX)}
-                >
-                  Parent Skills
-                </li>
-                <li
-                  data-tab-index={CSKILLS_NDX}
-                  className={
-                    "tab " +
-                    (this.state.tabIndex === CSKILLS_NDX ? "active-tab" : "")
-                  }
-                  onClick={() => this.handleTabClick(CSKILLS_NDX)}
-                >
-                  Child Skills
-                </li>
-              </ul>
-              <div className="tab-section">{this.tabSection()}</div>
-            </div>
-            {
-              // Button Section
-            }
-            <div className="fs-btn-container" style={{ textAlign: "center" }}>
-              <button
-                className="btn btn-primary"
-                disabled={this.state.formFields.name === ""}
-              >
-                {this.state.formFields.id === "" ? "Add skill" : "Update skill"}
-              </button>
-              <button
-                className="btn btn-primary"
-                type="button"
-                onClick={this.handleClear}
-              >
-                Clear Skill
-              </button>
-            </div>
+            {this.skillDescSection()}
+            {this.tagsAndRelatedSkillsSection()}
+            {this.buttonSection()}
           </div>
           {this.state.userMsg && (
             <div className="skill-basic-confirm">{this.state.userMsg}</div>
@@ -379,57 +271,102 @@ class SkillCrud extends Component {
           {this.state.errMsg && (
             <div className="skill-basic-error">{this.state.errMsg}</div>
           )}
-          <div
-            className="modal fade"
-            id="notesModal"
-            tabIndex="-1"
-            role="dialog"
-            aria-labelledby="notesModalLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="notesModalLabel">
-                    Notes{" "}
-                    {this.state.formFields.name !== "" &&
-                      "for " + this.state.formFields.name}
-                  </h5>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body notes-modal">
-                  <label>
-                    <textarea
-                      cols="45"
-                      rows="10"
-                      name="notes"
-                      id="notes"
-                      placeholder="Enter useful information about the skill such as preparation tips"
-                      value={this.state.formFields.notes}
-                      onChange={this.handleInputChange}
-                    />
-                  </label>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </form>
+      </div>
+    );
+  }
+
+  skillDescSection() {
+    return (
+      <div className="skill-desc-form-section">
+        <h2>Skill View/Entry</h2>
+        <div className="form-group row">
+          <label className="col-sm-3 col-form-label" htmlFor="name">
+            Skill Name: *
+          </label>
+          <div className="col-sm-5">
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              id="name"
+              value={this.state.formFields.name}
+              onChange={this.handleInputChange}
+              required
+            />
+          </div>
+          <div className="col-sm-4">
+            <p>( * - required field )</p>
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-3 col-form-label" htmlFor="description">
+            Description:
+          </label>
+          <div className="col-sm-8">
+            <input
+              type="text"
+              className="form-control"
+              name="description"
+              id="description"
+              value={this.state.formFields.description}
+              onChange={this.handleInputChange}
+            />
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-sm-3 col-form-label" htmlFor="url">
+            URL:
+          </label>
+          <div className="col-sm-8">
+            <input
+              type="text"
+              className="form-control"
+              name="url"
+              id="url"
+              value={this.state.formFields.url}
+              onChange={this.handleInputChange}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  tagsAndRelatedSkillsSection() {
+    return (
+      <div className="related-skill-section">
+        <ul className="tab-list">
+          <li
+            data-tab-index={TECHTAGS_NDX}
+            className={
+              "tab " +
+              (this.state.tabIndex === TECHTAGS_NDX ? "active-tab" : "")
+            }
+            onClick={() => this.handleTabClick(TECHTAGS_NDX)}
+          >
+            Techtags
+          </li>
+          <li
+            data-tab-index={PSKILLS_NDX}
+            className={
+              "tab " + (this.state.tabIndex === PSKILLS_NDX ? "active-tab" : "")
+            }
+            onClick={() => this.handleTabClick(PSKILLS_NDX)}
+          >
+            Parent Skills
+          </li>
+          <li
+            data-tab-index={CSKILLS_NDX}
+            className={
+              "tab " + (this.state.tabIndex === CSKILLS_NDX ? "active-tab" : "")
+            }
+            onClick={() => this.handleTabClick(CSKILLS_NDX)}
+          >
+            Child Skills
+          </li>
+        </ul>
+        <div className="tab-section">{this.tabSection()}</div>
       </div>
     );
   }
@@ -565,6 +502,26 @@ class SkillCrud extends Component {
           )}
         </div>
       </section>
+    );
+  }
+
+  buttonSection() {
+    return (
+      <div className="fs-btn-container" style={{ textAlign: "center" }}>
+        <button
+          className="btn btn-primary"
+          disabled={this.state.formFields.name === ""}
+        >
+          {this.state.formFields.id === "" ? "Add skill" : "Update skill"}
+        </button>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={this.handleClear}
+        >
+          Clear Skill
+        </button>
+      </div>
     );
   }
 }
