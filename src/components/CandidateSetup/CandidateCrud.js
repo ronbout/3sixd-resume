@@ -16,21 +16,23 @@ const LINKS_NDX = 4;
 const clearFormFields = {
   formFields: {
     id: "",
-    givenName: "",
-    middleName: "",
-    familyName: "",
-    affix: "",
-    email1: "",
-    email2: "",
-    primaryPhone: "",
-    workPhone: "",
-    addressLine1: "",
-    addressLine2: "",
-    municipality: "",
-    region: "",
-    postalCode: "",
-    countryCode: "",
-    website: ""
+    person: {
+      givenName: "",
+      middleName: "",
+      familyName: "",
+      affix: "",
+      email1: "",
+      email2: "",
+      primaryPhone: "",
+      workPhone: "",
+      addressLine1: "",
+      addressLine2: "",
+      municipality: "",
+      region: "",
+      postalCode: "",
+      countryCode: "",
+      website: ""
+    }
   }
 };
 
@@ -41,10 +43,18 @@ class CandidateCrud extends Component {
       ...clearFormFields,
       tabIndex: 0
     };
+    this.state.origForm = this.state.formFields;
   }
 
   handleSubmit = () => {
     console.log("submitted");
+  };
+
+  handleClear = () => {
+    this.setState({
+      ...clearFormFields,
+      origForm: clearFormFields.formFields
+    });
   };
 
   handleTabClick = tabIndex => {
@@ -54,18 +64,33 @@ class CandidateCrud extends Component {
     });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (obj, event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
 
     let errs = {};
-    this.setState({
-      formFields: {
-        ...this.state.formFields,
-        [target.name]: value
-      },
-      ...errs
-    });
+    if (obj) {
+      this.setState(prevState => {
+        const prevObj = prevState[obj];
+        return {
+          formFields: {
+            ...prevState.formFields,
+            [obj]: {
+              ...prevObj,
+              [target.name]: value
+            }
+          }
+        };
+      });
+    } else {
+      this.setState({
+        formFields: {
+          ...this.state.formFields,
+          [target.name]: value
+        },
+        ...errs
+      });
+    }
   };
 
   render() {
@@ -74,11 +99,12 @@ class CandidateCrud extends Component {
         <form className="candidate-form" onSubmit={this.handleSubmit}>
           <input type="hidden" name="id" value={this.state.formFields.id} />
           <CandidatePerson
+            objName="person"
             formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
           {this.candidateDetails()}
-          <button className="btn btn-primary">Submit</button>
+          {this.buttonSection()}
         </form>
       </div>
     );
@@ -144,6 +170,23 @@ class CandidateCrud extends Component {
       default:
         return null;
     }
+  }
+
+  buttonSection() {
+    return (
+      <div className="fs-btn-container" style={{ textAlign: "center" }}>
+        <button className="btn btn-primary">
+          {this.state.formFields.id === "" ? "Add skill" : "Update skill"}
+        </button>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={this.handleClear}
+        >
+          Clear Skill
+        </button>
+      </div>
+    );
   }
 }
 
