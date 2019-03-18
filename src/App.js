@@ -6,6 +6,7 @@ import "./css/styles.css";
 import LandingPage from "./components/landingPage";
 import TopNavBar from "./components/topNavBar";
 import SkillSetup from "./components/SkillSetup/";
+import CandidateSetup from "./components/CandidateSetup/";
 // eslint-disable-next-line
 import Error404 from "./components/error404";
 
@@ -31,6 +32,7 @@ class App extends Component {
         <TopNavBar user={this.state.user} />
         <Switch>
           <Route path="/skill/setup" render={() => <SkillSetup />} />
+          <Route path="/candidate/setup" render={() => <CandidateSetup />} />
           <Route exact path="/" component={LandingPage} />
         </Switch>
       </React.Fragment>

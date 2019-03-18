@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import TechtagSelect from "../TechtagSelect/";
 import SkillDescSection from "./SkillDescSection";
 import RelatedItemsList from "./RelatedItemsList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//mport { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TabbedUI from "../TabbedUI/";
 
 const API_SKILL = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
-const TECHTAGS_NDX = 1;
-const PSKILLS_NDX = 2;
-const CSKILLS_NDX = 3;
+const TECHTAGS_NDX = 0;
+const PSKILLS_NDX = 1;
+const CSKILLS_NDX = 2;
 
 const clearFormFields = {
   formFields: {
@@ -45,7 +45,7 @@ class SkillCrud extends Component {
       let formFields;
       if (this.props.skillInfo) {
         formFields = this.props.skillInfo;
-        this.props.handleChangeMode(this.state.tabIndex);
+        this.props.handleChangeMode(this.state.tabIndex + 1);
       } else {
         formFields = clearFormFields.formFields;
         this.props.handleChangeMode(0);
@@ -65,10 +65,10 @@ class SkillCrud extends Component {
         this.props.relatedSkill.id !== prevProps.relatedSkill.id)
     ) {
       switch (this.state.tabIndex) {
-        case 2:
+        case PSKILLS_NDX:
           this.handleAddRelatedSkill("parentSkills", this.props.relatedSkill);
           break;
-        case 3:
+        case CSKILLS_NDX:
           this.handleAddRelatedSkill("childSkills", this.props.relatedSkill);
           break;
         default:
@@ -88,7 +88,7 @@ class SkillCrud extends Component {
     // if a skill name is present, we are in edit mode
     // and need to pass the tab index to the search skills
     // component so it can be context sensitive
-    const editMode = this.state.formFields.name === "" ? 0 : tabIndex;
+    const editMode = this.state.formFields.name === "" ? 0 : tabIndex + 1;
     this.props.handleChangeMode(editMode);
     this.setState({
       tabIndex
@@ -154,7 +154,7 @@ class SkillCrud extends Component {
 
     // check for changing edit mode by a change in the name field
     target.name === "name" &&
-      this.props.handleChangeMode(value === "" ? 0 : this.state.tabIndex);
+      this.props.handleChangeMode(value === "" ? 0 : this.state.tabIndex + 1);
 
     let errs = {};
     this.setState({

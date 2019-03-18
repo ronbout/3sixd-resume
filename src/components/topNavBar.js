@@ -18,7 +18,7 @@ const TopNavBar = () => {
         </button>
         <div className="collapse navbar-collapse" id="topmenu">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
+            <li className="nav-item">
               <NavLink to="/" exact className="nav-link">
                 Home
               </NavLink>
@@ -29,8 +29,8 @@ const TopNavBar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/contact" className="nav-link">
-                Contact
+              <NavLink to="/candidate/setup" className="nav-link">
+                Candidate
               </NavLink>
             </li>
             <li className="nav-item">

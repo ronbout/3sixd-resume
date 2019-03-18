@@ -1,0 +1,107 @@
+.candidate-setup {
+  font-size: 15px;
+  padding: 0 1em;
+  max-width: 1180px;
+}
+
+.candidate-setup h1 {
+  font-size: 2.2em;
+  text-align: center;
+}
+
+.candidate-setup h2 {
+  font-size: 1.8em;
+  text-align: center;
+}
+
+.candidate-setup form,
+.candidate-setup div,
+.candidate-setup label,
+.candidate-setup input,
+.candidate-setup button,
+.candidate-setup select,
+.candidate-setup p {
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.candidate-setup input[type="checkbox"] {
+  position: relative;
+  margin: 0 1em;
+  height: 20px;
+  width: 20px;
+}
+
+.candidate-setup label,
+.candidate-setup p {
+  margin: 0;
+  padding: calc(0.375rem + 1px) 0;
+}
+
+.candidate-setup option {
+  font-size: 0.96em;
+  line-height: 1.45;
+  padding-bottom: 2px;
+}
+
+.candidate-setup option {
+  overflow-x: hidden;
+}
+
+.candidate-setup input,
+.candidate-setup select {
+  padding: 0.2em 0.4em;
+  height: auto;
+}
+
+.candidate-setup h2 {
+  margin: 10px 0 20px;
+  text-align: center;
+}
+
+.candidate-setup label.col-form-label {
+  text-align: right;
+}
+
+.candidate-setup textarea {
+  resize: none;
+  overflow: auto;
+}
+
+.candidate-setup form {
+  background: #ddd;
+  color: #212529;
+  border: 1px solid black;
+  padding: 0.5em 2em 1em;
+}
+
+.candidate-setup form .form-group {
+  margin-bottom: 0.5em;
+}
+
+.candidate-main {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.candidate-main section.candidate-setup {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  max-width: 810px;
+}
+
+.candidate-main section.candidate-setup div[class^="col-"] {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.candidate-btn-container {
+  margin: 20px 0 0 0;
+}
+
+.candidate-btn-container button {
+  margin: 0 1em;
+}
+/*# sourceMappingURL=candidateSetup.css.map */

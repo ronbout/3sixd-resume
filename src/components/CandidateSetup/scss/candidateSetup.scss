@@ -1,0 +1,72 @@
+// mixins
+@import "../../../scss/mixins";
+
+.candidate-setup {
+  @include lg-form(15px);
+  padding: 0 1em;
+  max-width: 1180px;
+
+  h2 {
+    margin: 10px 0 20px;
+    text-align: center;
+  }
+
+  label.col-form-label {
+    text-align: right;
+  }
+
+  textarea {
+    resize: none;
+    overflow: auto;
+  }
+
+  form {
+    background: #ddd;
+    color: #212529;
+    border: 1px solid black;
+    padding: 0.5em 2em 1em;
+
+    .form-group {
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+.candidate-main {
+  justify-content: center;
+
+  section.candidate-setup {
+    flex-grow: 2;
+    max-width: 810px;
+
+    div[class^="col-"] {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+}
+
+.candidate-details-section {
+  margin: 0 0 24px;
+
+  div.row {
+    margin: 8px;
+  }
+  h2 {
+    margin-bottom: 4px;
+  }
+
+  h2 + p {
+    text-align: center;
+    padding-top: 0;
+    margin-bottom: 20px;
+  }
+}
+
+.candidate-btn-container {
+  margin: 20px 0 0 0;
+
+  button {
+    margin: 0 1em;
+  }
+}
