@@ -5,7 +5,7 @@ import "./css/candidateSetup.css";
 
 const CandidateSetup = props => {
   return (
-    <main className="container-fluid candidate-setup">
+    <main className="container-fluid candidate-main">
       <h1>Candidate Entry/Update</h1>
       <CandidateCrud />
     </main>

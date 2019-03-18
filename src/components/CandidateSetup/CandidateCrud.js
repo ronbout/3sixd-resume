@@ -4,12 +4,14 @@ import CandidateObjective from "./formSections/CandidateObjective";
 import CandidateHighlights from "./formSections/CandidateHighlights";
 import CandidateSkills1 from "./formSections/CandidateSkills1";
 import CandidateSkills2 from "./formSections/CandidateSkills2";
+import CandidateLinks from "./formSections/CandidateLinks";
 import TabbedUI from "../TabbedUI/";
 
 const OBJECTIVE_NDX = 0;
 const HIGHLIGHTS_NDX = 1;
 const SKILLS1_NDX = 2;
 const SKILLS2_NDX = 3;
+const LINKS_NDX = 4;
 
 const clearFormFields = {
   formFields: {
@@ -17,7 +19,18 @@ const clearFormFields = {
     givenName: "",
     middleName: "",
     familyName: "",
-    affix: ""
+    affix: "",
+    email1: "",
+    email2: "",
+    primaryPhone: "",
+    workPhone: "",
+    addressLine1: "",
+    addressLine2: "",
+    municipality: "",
+    region: "",
+    postalCode: "",
+    countryCode: "",
+    website: ""
   }
 };
 
@@ -59,23 +72,26 @@ class CandidateCrud extends Component {
     return (
       <div className="candidate-setup">
         <form className="candidate-form" onSubmit={this.handleSubmit}>
+          <input type="hidden" name="id" value={this.state.formFields.id} />
           <CandidatePerson
-            fields={this.state.formFields}
+            formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
           {this.candidateDetails()}
+          <button className="btn btn-primary">Submit</button>
         </form>
       </div>
     );
   }
 
   candidateDetails() {
-    const tabList = [
-      { label: "Objective" },
-      { label: "Highlights" },
-      { label: "Skills 1" },
-      { label: "Skills 2" }
-    ];
+    const tabList = [];
+    tabList[OBJECTIVE_NDX] = { label: "Objective" };
+    tabList[HIGHLIGHTS_NDX] = { label: "Highlights" };
+    tabList[SKILLS1_NDX] = { label: "Skills 1" };
+    tabList[SKILLS2_NDX] = { label: "Skills 2" };
+    tabList[LINKS_NDX] = { label: "Portfolio/Social" };
+
     return (
       <div className="candidate-details-section">
         <TabbedUI
@@ -93,28 +109,35 @@ class CandidateCrud extends Component {
       case OBJECTIVE_NDX:
         return (
           <CandidateObjective
-            fields={this.state.formFields}
+            formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
         );
       case HIGHLIGHTS_NDX:
         return (
           <CandidateHighlights
-            fields={this.state.formFields}
+            formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
         );
       case SKILLS1_NDX:
         return (
           <CandidateSkills1
-            fields={this.state.formFields}
+            formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
         );
       case SKILLS2_NDX:
         return (
           <CandidateSkills2
-            fields={this.state.formFields}
+            formFields={this.state.formFields}
+            handleInputChange={this.handleInputChange}
+          />
+        );
+      case LINKS_NDX:
+        return (
+          <CandidateLinks
+            formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
         );

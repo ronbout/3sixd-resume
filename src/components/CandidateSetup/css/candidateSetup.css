@@ -2,6 +2,7 @@
   font-size: 15px;
   padding: 0 1em;
   max-width: 1180px;
+  margin: auto;
 }
 
 .candidate-setup h1 {
@@ -60,6 +61,10 @@
 }
 
 .candidate-setup label.col-form-label {
+  text-align: left;
+}
+
+.candidate-setup label.col-form-label.label-right {
   text-align: right;
 }
 
@@ -76,32 +81,44 @@
 }
 
 .candidate-setup form .form-group {
-  margin-bottom: 0.5em;
+  margin-bottom: 0;
 }
 
 .candidate-main {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  text-align: center;
 }
 
-.candidate-main section.candidate-setup {
-  -webkit-box-flex: 2;
-      -ms-flex-positive: 2;
-          flex-grow: 2;
-  max-width: 810px;
+.candidate-main form div[class^="col-"] {
+  padding: 0 1em 0;
 }
 
-.candidate-main section.candidate-setup div[class^="col-"] {
-  padding-left: 8px;
-  padding-right: 8px;
+.candidate-main .candidate-person {
+  margin-top: 3em;
 }
 
-.candidate-btn-container {
+.candidate-main .candidate-details-section {
+  margin: 4em 0 2em;
+}
+
+.candidate-main .candidate-details-section div.row {
+  margin: 8px;
+}
+
+.candidate-main .candidate-details-section h2 {
+  margin-bottom: 4px;
+}
+
+.candidate-main .candidate-details-section h2 + p {
+  text-align: center;
+  padding-top: 0;
+  margin-bottom: 20px;
+}
+
+.candidate-main .candidate-btn-container {
   margin: 20px 0 0 0;
 }
 
-.candidate-btn-container button {
+.candidate-main .candidate-btn-container button {
   margin: 0 1em;
 }
 /*# sourceMappingURL=candidateSetup.css.map */

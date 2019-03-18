@@ -5,6 +5,7 @@
   @include lg-form(15px);
   padding: 0 1em;
   max-width: 1180px;
+  margin: auto;
 
   h2 {
     margin: 10px 0 20px;
@@ -12,6 +13,9 @@
   }
 
   label.col-form-label {
+    text-align: left;
+  }
+  label.col-form-label.label-right {
     text-align: right;
   }
 
@@ -27,46 +31,44 @@
     padding: 0.5em 2em 1em;
 
     .form-group {
-      margin-bottom: 0.5em;
+      margin-bottom: 0;
     }
   }
 }
 
 .candidate-main {
-  justify-content: center;
+  text-align: center;
 
-  section.candidate-setup {
-    flex-grow: 2;
-    max-width: 810px;
+  form div[class^="col-"] {
+    padding: 0 1em 0;
+  }
 
-    div[class^="col-"] {
-      padding-left: 8px;
-      padding-right: 8px;
+  .candidate-person {
+    margin-top: 3em;
+  }
+
+  .candidate-details-section {
+    margin: 4em 0 2em;
+
+    div.row {
+      margin: 8px;
+    }
+    h2 {
+      margin-bottom: 4px;
+    }
+
+    h2 + p {
+      text-align: center;
+      padding-top: 0;
+      margin-bottom: 20px;
     }
   }
-}
 
-.candidate-details-section {
-  margin: 0 0 24px;
+  .candidate-btn-container {
+    margin: 20px 0 0 0;
 
-  div.row {
-    margin: 8px;
-  }
-  h2 {
-    margin-bottom: 4px;
-  }
-
-  h2 + p {
-    text-align: center;
-    padding-top: 0;
-    margin-bottom: 20px;
-  }
-}
-
-.candidate-btn-container {
-  margin: 20px 0 0 0;
-
-  button {
-    margin: 0 1em;
+    button {
+      margin: 0 1em;
+    }
   }
 }
