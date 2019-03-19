@@ -144,4 +144,11 @@
 .candidate-highlights .add-highlight > div.row > div {
   padding: 0;
 }
+
+.candidate-highlights .highlight-row {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 12fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 12fr 1fr 1fr 1fr;
+}
 /*# sourceMappingURL=candidateSetup.css.map */

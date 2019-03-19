@@ -134,6 +134,17 @@ class CandidateCrud extends Component {
     }
   };
 
+  handleHighlightChange = highlights => {
+    this.setState(prevState => {
+      return {
+        formFields: {
+          ...prevState.formFields,
+          highlights
+        }
+      };
+    });
+  };
+
   render() {
     return (
       <div className="candidate-setup">
@@ -186,7 +197,7 @@ class CandidateCrud extends Component {
         return (
           <CandidateHighlights
             formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
+            handleHighlightChange={this.handleHighlightChange}
           />
         );
       case SKILLS_NDX:

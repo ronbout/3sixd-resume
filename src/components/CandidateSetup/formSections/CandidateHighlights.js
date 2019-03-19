@@ -1,11 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const CandidateHighlights = props => {
   const [newHighlight, setNewHightlight] = useState("");
   const [highlights, setHighlights] = useState(props.formFields.highlights);
 
+  useEffect(() => {
+    if (
+      JSON.stringify(highlights) !== JSON.stringify(props.formFields.highlights)
+    ) {
+      // we re-rendered because of an external change
+      setHighlights(props.formFields.highlights);
+    }
+  });
+
+  const passHighlightUp = tmpHighlights => {
+    props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
+  };
+
   const handleOnChange = event => {
     setNewHightlight(event.target.value);
+  };
+
+  const handleAddHighlight = () => {
+    const tmp = highlights.slice();
+    tmp.push(newHighlight);
+    setNewHightlight("");
+    passHighlightUp(tmp);
+  };
+
+  const handleDelHighlight = ndx => {
+    const tmp = highlights.slice();
+    tmp.splice(ndx, 1);
+    passHighlightUp(tmp);
+  };
+
+  const handleMoveHighlight = (ndx, newNdx) => {
+    const tmp = highlights.slice();
+    const tmpHighlight = tmp.splice(ndx, 1)[0];
+    tmp.splice(newNdx, 0, tmpHighlight);
+    passHighlightUp(tmp);
   };
 
   return (
@@ -19,14 +52,18 @@ const CandidateHighlights = props => {
               rows="2"
               maxLength="200"
               name="newHighlight"
-              className="formControl"
               placeholder="Enter a highlight and click Add"
               value={newHighlight}
               onChange={handleOnChange}
             />
           </div>
           <div className="col-1">
-            <button type="button" className="btn btn-info">
+            <button
+              type="button"
+              className="btn btn-info"
+              onClick={handleAddHighlight}
+              disabled={newHighlight === ""}
+            >
               Add
             </button>
           </div>
@@ -40,26 +77,44 @@ const CandidateHighlights = props => {
           <div className="col-1">Delete</div>
         </div>
         {highlights.map((item, ndx) => (
-          <div key={ndx} className="row highlight-row">
-            <textarea
-              className="col-8"
-              rows="2"
-              name={"highlight-" + ndx}
-              value={item}
-              disabled
-            />
-            <div className="col-1">
-              <button className="btn btn-success" type="button">
+          <div key={ndx} className="highlight-row">
+            <div>{ndx + 1}. </div>
+            <div>
+              <textarea
+                className=""
+                rows="2"
+                name={"highlight-" + ndx}
+                value={item}
+                disabled
+              />
+            </div>
+
+            <div className="">
+              <button
+                className="btn btn-success"
+                type="button"
+                onClick={() => handleMoveHighlight(ndx, ndx - 1)}
+                disabled={ndx === 0}
+              >
                 Up
               </button>
             </div>
-            <div className="col-1">
-              <button className="btn btn-success" type="button">
+            <div className="">
+              <button
+                className="btn btn-success"
+                type="button"
+                onClick={() => handleMoveHighlight(ndx, ndx + 1)}
+                disabled={ndx === highlights.length - 1}
+              >
                 Down
               </button>
             </div>
-            <div className="col-1">
-              <button type="button" className="btn btn-danger">
+            <div className="">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleDelHighlight(ndx)}
+              >
                 X
               </button>
             </div>
