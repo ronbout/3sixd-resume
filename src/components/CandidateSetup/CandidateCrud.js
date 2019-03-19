@@ -67,14 +67,14 @@ class CandidateCrud extends Component {
     });
   };
 
-  handleInputChange = (obj, event) => {
+  handleInputChange = (event, obj = null) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
 
     let errs = {};
     if (obj) {
       this.setState(prevState => {
-        const prevObj = prevState[obj];
+        const prevObj = prevState.formFields[obj];
         return {
           formFields: {
             ...prevState.formFields,

@@ -16,7 +16,7 @@ const CandidatePerson = props => {
             name="givenName"
             placeholder="First Name (required)"
             value={props.formFields[objName].givenName}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
             required
           />
         </div>
@@ -27,7 +27,7 @@ const CandidatePerson = props => {
             name="familyName"
             placeholder="Last Name (required)"
             value={props.formFields[objName].familyName}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
             required
           />
         </div>
@@ -38,7 +38,7 @@ const CandidatePerson = props => {
             name="middleName"
             placeholder="Middle"
             value={props.formFields[objName].middleName}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
         <div className="col-md-1">
@@ -48,7 +48,7 @@ const CandidatePerson = props => {
             name="affix"
             placeholder="Affix"
             value={props.formFields[objName].affix}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
       </div>
@@ -64,7 +64,7 @@ const CandidatePerson = props => {
             name="email1"
             placeholder="Primary Email (required)"
             value={props.formFields[objName].email1}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
             required
           />
         </div>
@@ -78,7 +78,7 @@ const CandidatePerson = props => {
             name="email2"
             placeholder="Alternate Email"
             value={props.formFields[objName].email2}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
       </div>
@@ -94,7 +94,7 @@ const CandidatePerson = props => {
             name="primaryPhone"
             placeholder="Primary Phone (required)"
             value={props.formFields[objName].primaryPhone}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
             required
           />
         </div>
@@ -105,7 +105,7 @@ const CandidatePerson = props => {
             name="workPhone"
             placeholder="Work Phone"
             value={props.formFields[objName].workPhone}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
       </div>
@@ -121,7 +121,7 @@ const CandidatePerson = props => {
             name="addressLine1"
             placeholder="Street Address"
             value={props.formFields[objName].addressLine1}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
         <label
@@ -137,7 +137,7 @@ const CandidatePerson = props => {
             name="addressLine2"
             placeholder="Apt/Suite"
             value={props.formFields[objName].addressLine2}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
       </div>
@@ -153,7 +153,7 @@ const CandidatePerson = props => {
             name="municipality"
             placeholder="City (required)"
             value={props.formFields[objName].municipality}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
             required
           />
         </div>
@@ -164,7 +164,7 @@ const CandidatePerson = props => {
             name="region"
             placeholder="State (required)"
             value={props.formFields[objName].region}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
             required
           />
         </div>
@@ -175,7 +175,7 @@ const CandidatePerson = props => {
             name="postalCode"
             placeholder="Zip Code"
             value={props.formFields[objName].postalCode}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
         <div className="col-md-2">
@@ -185,7 +185,7 @@ const CandidatePerson = props => {
             name="countryCode"
             placeholder="Country"
             value={props.formFields[objName].countryCode}
-            onChange={event => props.handleInputChange(objName, event)}
+            onChange={event => props.handleInputChange(event, objName)}
           />
         </div>
       </div>

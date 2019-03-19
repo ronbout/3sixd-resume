@@ -10,7 +10,7 @@ const CandidateObjective = props => {
           rows="8"
           name="objective"
           value={props.formFields.objective}
-          onChange={event => props.handleInputChange(null, event)}
+          onChange={props.handleInputChange}
           required
         />
       </div>
@@ -21,7 +21,7 @@ const CandidateObjective = props => {
           rows="8"
           name="executiveSummary"
           value={props.formFields.executiveSummary}
-          onChange={event => props.handleInputChange(null, event)}
+          onChange={props.handleInputChange}
           required
         />
       </div>
