@@ -5,7 +5,7 @@
   @include lg-form(15px);
   padding: 0 1em;
   max-width: 1180px;
-  margin: auto;
+  margin: 1em auto 2em;
 
   h2 {
     margin: 10px 0 20px;
@@ -33,6 +33,20 @@
     .form-group {
       margin-bottom: 0;
     }
+  }
+}
+
+.candidate-objective {
+  & > div {
+    margin: 0 1em;
+  }
+
+  & > div:first-child {
+    flex-grow: 1;
+  }
+
+  & > div:last-child {
+    flex-grow: 2;
   }
 }
 

@@ -5,6 +5,7 @@ import CandidateHighlights from "./formSections/CandidateHighlights";
 import CandidateSkills1 from "./formSections/CandidateSkills1";
 import CandidateSkills2 from "./formSections/CandidateSkills2";
 import CandidateLinks from "./formSections/CandidateLinks";
+import CandidateModal from "./CandidateModal";
 import TabbedUI from "../TabbedUI/";
 
 const OBJECTIVE_NDX = 0;
@@ -32,7 +33,9 @@ const clearFormFields = {
       postalCode: "",
       countryCode: "",
       website: ""
-    }
+    },
+    objective: "",
+    executiveSummary: ""
   }
 };
 
@@ -106,6 +109,7 @@ class CandidateCrud extends Component {
           {this.candidateDetails()}
           {this.buttonSection()}
         </form>
+        <CandidateModal />
       </div>
     );
   }
@@ -179,11 +183,19 @@ class CandidateCrud extends Component {
           {this.state.formFields.id === "" ? "Add skill" : "Update skill"}
         </button>
         <button
-          className="btn btn-primary"
+          className="btn btn-warning"
           type="button"
           onClick={this.handleClear}
         >
-          Clear Skill
+          Clear Form
+        </button>
+        <button
+          type="button"
+          className="btn btn-info"
+          data-toggle="modal"
+          data-target="#notesModal"
+        >
+          Test Modal
         </button>
       </div>
     );
