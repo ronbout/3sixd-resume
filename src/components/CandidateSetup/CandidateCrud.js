@@ -3,16 +3,52 @@ import CandidatePerson from "./formSections/CandidatePerson";
 import CandidateObjective from "./formSections/CandidateObjective";
 import CandidateHighlights from "./formSections/CandidateHighlights";
 import CandidateSkills1 from "./formSections/CandidateSkills1";
-import CandidateSkills2 from "./formSections/CandidateSkills2";
+//import CandidateSkills2 from "./formSections/CandidateSkills2";
+import CandidateExperience from "./formSections/CandidateExperience";
+import CandidateEducation from "./formSections/CandidateEducation";
 import CandidateLinks from "./formSections/CandidateLinks";
 import CandidateModal from "./CandidateModal";
 import TabbedUI from "../TabbedUI/";
 
+// dummy data
+const candidateInfo = {
+  formFields: {
+    id: 17,
+    person: {
+      givenName: "Fred",
+      middleName: "",
+      familyName: "Flintstone",
+      affix: "",
+      email1: "fred@stone.com",
+      email2: "",
+      primaryPhone: "",
+      workPhone: "",
+      addressLine1: "",
+      addressLine2: "",
+      municipality: "Bedrock",
+      region: "",
+      postalCode: "",
+      countryCode: "",
+      website: ""
+    },
+    objective:
+      "Looking for great job working with dinosaurs with opportunities for advancement",
+    executiveSummary: "I am a big, cartoon guy",
+    highlights: [
+      "This is a highlight",
+      "And, here is another one",
+      "Well, jeez, I guess I could list a third",
+      "now this is just getting boring"
+    ]
+  }
+};
+
 const OBJECTIVE_NDX = 0;
 const HIGHLIGHTS_NDX = 1;
-const SKILLS1_NDX = 2;
-const SKILLS2_NDX = 3;
+const SKILLS_NDX = 2;
+const EXPERIENCE_NDX = 3;
 const LINKS_NDX = 4;
+const EDUCATION_NDX = 5;
 
 const clearFormFields = {
   formFields: {
@@ -35,7 +71,8 @@ const clearFormFields = {
       website: ""
     },
     objective: "",
-    executiveSummary: ""
+    executiveSummary: "",
+    highlights: []
   }
 };
 
@@ -43,13 +80,14 @@ class CandidateCrud extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...clearFormFields,
-      tabIndex: 0
+      ...candidateInfo,
+      tabIndex: HIGHLIGHTS_NDX
     };
     this.state.origForm = this.state.formFields;
   }
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     console.log("submitted");
   };
 
@@ -118,9 +156,10 @@ class CandidateCrud extends Component {
     const tabList = [];
     tabList[OBJECTIVE_NDX] = { label: "Objective" };
     tabList[HIGHLIGHTS_NDX] = { label: "Highlights" };
-    tabList[SKILLS1_NDX] = { label: "Skills 1" };
-    tabList[SKILLS2_NDX] = { label: "Skills 2" };
+    tabList[SKILLS_NDX] = { label: "Skills" };
+    tabList[EXPERIENCE_NDX] = { label: "Experience" };
     tabList[LINKS_NDX] = { label: "Portfolio/Social" };
+    tabList[EDUCATION_NDX] = { label: "Education" };
 
     return (
       <div className="candidate-details-section">
@@ -150,16 +189,16 @@ class CandidateCrud extends Component {
             handleInputChange={this.handleInputChange}
           />
         );
-      case SKILLS1_NDX:
+      case SKILLS_NDX:
         return (
           <CandidateSkills1
             formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
         );
-      case SKILLS2_NDX:
+      case EXPERIENCE_NDX:
         return (
-          <CandidateSkills2
+          <CandidateExperience
             formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />
@@ -167,6 +206,13 @@ class CandidateCrud extends Component {
       case LINKS_NDX:
         return (
           <CandidateLinks
+            formFields={this.state.formFields}
+            handleInputChange={this.handleInputChange}
+          />
+        );
+      case EDUCATION_NDX:
+        return (
+          <CandidateEducation
             formFields={this.state.formFields}
             handleInputChange={this.handleInputChange}
           />

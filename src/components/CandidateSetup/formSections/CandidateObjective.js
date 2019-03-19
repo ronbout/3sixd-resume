@@ -8,6 +8,7 @@ const CandidateObjective = props => {
         <textarea
           className="form-control"
           rows="8"
+          maxLength="499"
           name="objective"
           value={props.formFields.objective}
           onChange={props.handleInputChange}

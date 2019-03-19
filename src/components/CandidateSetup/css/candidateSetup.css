@@ -84,22 +84,6 @@
   margin-bottom: 0;
 }
 
-.candidate-objective > div {
-  margin: 0 1em;
-}
-
-.candidate-objective > div:first-child {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-}
-
-.candidate-objective > div:last-child {
-  -webkit-box-flex: 2;
-      -ms-flex-positive: 2;
-          flex-grow: 2;
-}
-
 .candidate-main {
   text-align: center;
 }
@@ -124,17 +108,40 @@
   margin-bottom: 4px;
 }
 
-.candidate-main .candidate-details-section h2 + p {
-  text-align: center;
-  padding-top: 0;
-  margin-bottom: 20px;
-}
-
 .candidate-main .candidate-btn-container {
   margin: 20px 0 0 0;
 }
 
 .candidate-main .candidate-btn-container button {
   margin: 0 1em;
+}
+
+.candidate-objective > div {
+  margin: 0 1em;
+}
+
+.candidate-objective > div:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.candidate-objective > div:last-child {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+}
+
+.candidate-highlights textarea {
+  width: 100%;
+  padding-left: 0.5em;
+}
+
+.candidate-highlights .add-highlight {
+  padding: 1.5em 0 1em;
+}
+
+.candidate-highlights .add-highlight > div.row > div {
+  padding: 0;
 }
 /*# sourceMappingURL=candidateSetup.css.map */

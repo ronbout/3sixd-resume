@@ -36,20 +36,6 @@
   }
 }
 
-.candidate-objective {
-  & > div {
-    margin: 0 1em;
-  }
-
-  & > div:first-child {
-    flex-grow: 1;
-  }
-
-  & > div:last-child {
-    flex-grow: 2;
-  }
-}
-
 .candidate-main {
   text-align: center;
 
@@ -70,12 +56,6 @@
     h2 {
       margin-bottom: 4px;
     }
-
-    h2 + p {
-      text-align: center;
-      padding-top: 0;
-      margin-bottom: 20px;
-    }
   }
 
   .candidate-btn-container {
@@ -83,6 +63,35 @@
 
     button {
       margin: 0 1em;
+    }
+  }
+}
+
+.candidate-objective {
+  & > div {
+    margin: 0 1em;
+  }
+
+  & > div:first-child {
+    flex-grow: 1;
+  }
+
+  & > div:last-child {
+    flex-grow: 2;
+  }
+}
+
+.candidate-highlights {
+  textarea {
+    width: 100%;
+    padding-left: 0.5em;
+  }
+
+  .add-highlight {
+    padding: 1.5em 0 1em;
+
+    > div.row > div {
+      padding: 0;
     }
   }
 }
