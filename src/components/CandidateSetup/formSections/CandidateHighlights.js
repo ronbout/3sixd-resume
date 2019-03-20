@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CandidateHighlights = props => {
   const [newHighlight, setNewHightlight] = useState("");
-  const [highlights, setHighlights] = useState(props.formFields.highlights);
-
-  useEffect(() => {
-    if (
-      JSON.stringify(highlights) !== JSON.stringify(props.formFields.highlights)
-    ) {
-      // we re-rendered because of an external change
-      setHighlights(props.formFields.highlights);
-    }
-  });
 
   const passHighlightUp = tmpHighlights => {
     props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
@@ -22,20 +13,20 @@ const CandidateHighlights = props => {
   };
 
   const handleAddHighlight = () => {
-    const tmp = highlights.slice();
+    const tmp = props.formFields.highlights.slice();
     tmp.push(newHighlight);
     setNewHightlight("");
     passHighlightUp(tmp);
   };
 
   const handleDelHighlight = ndx => {
-    const tmp = highlights.slice();
+    const tmp = props.formFields.highlights.slice();
     tmp.splice(ndx, 1);
     passHighlightUp(tmp);
   };
 
   const handleMoveHighlight = (ndx, newNdx) => {
-    const tmp = highlights.slice();
+    const tmp = props.formFields.highlights.slice();
     const tmpHighlight = tmp.splice(ndx, 1)[0];
     tmp.splice(newNdx, 0, tmpHighlight);
     passHighlightUp(tmp);
@@ -76,7 +67,7 @@ const CandidateHighlights = props => {
           <div className="col-2">Move</div>
           <div className="col-1">Delete</div>
         </div>
-        {highlights.map((item, ndx) => (
+        {props.formFields.highlights.map((item, ndx) => (
           <div key={ndx} className="highlight-row">
             <div>{ndx + 1}. </div>
             <div>
@@ -96,7 +87,7 @@ const CandidateHighlights = props => {
                 onClick={() => handleMoveHighlight(ndx, ndx - 1)}
                 disabled={ndx === 0}
               >
-                Up
+                <FontAwesomeIcon icon="arrow-up" />
               </button>
             </div>
             <div className="">
@@ -104,9 +95,9 @@ const CandidateHighlights = props => {
                 className="btn btn-success"
                 type="button"
                 onClick={() => handleMoveHighlight(ndx, ndx + 1)}
-                disabled={ndx === highlights.length - 1}
+                disabled={ndx === props.formFields.highlights.length - 1}
               >
-                Down
+                <FontAwesomeIcon icon="arrow-down" />
               </button>
             </div>
             <div className="">

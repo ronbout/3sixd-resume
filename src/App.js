@@ -11,9 +11,14 @@ import CandidateSetup from "./components/CandidateSetup/";
 import Error404 from "./components/error404";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faQuestion, faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faQuestion,
+  faSearch,
+  faArrowUp,
+  faArrowDown
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faQuestion, faSearch);
+library.add(faQuestion, faSearch, faArrowUp, faArrowDown);
 
 // setup global api url
 // if not on my dev, use remote api
