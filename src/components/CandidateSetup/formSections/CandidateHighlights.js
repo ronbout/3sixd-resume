@@ -37,7 +37,7 @@ const CandidateHighlights = props => {
       <div className="add-highlight">
         <h3>Add a Highlight</h3>
         <div className="form-group row">
-          <div className="col-9">
+          <div className="col-9 offset-1">
             <textarea
               className="form-control"
               rows="2"
@@ -62,11 +62,13 @@ const CandidateHighlights = props => {
       </div>
       <div className="highlightList justify-content-center">
         <h2>Highlights</h2>
+        {/*}
         <div className="row">
           <div className="col-8">Highlight</div>
           <div className="col-2">Move</div>
           <div className="col-1">Delete</div>
         </div>
+				*/}
         {props.formFields.highlights.map((item, ndx) => (
           <div key={ndx} className="highlight-row">
             <div>{ndx + 1}. </div>

@@ -6,11 +6,14 @@ import "./css/skillSearch.css";
 const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
+const API_TAGS = "techtags";
 
 const clearFormFields = {
   formFields: {
     keyword: "",
-    skillSelect: 0
+    skillSelect: 0,
+    tagOptions: [],
+    tagSelect: -1
   }
 };
 
@@ -26,7 +29,31 @@ class SkillSearch extends Component {
   }
 
   componentDidMount() {
+    this.loadTechtags();
     this.handleSearch();
+  }
+
+  loadTechtags() {
+    const apiUrl = `${this.state.apiBase}${API_TAGS}${API_QUERY}`;
+    fetch(apiUrl)
+      .then(response => {
+        response.json().then(result => {
+          result = result.data;
+          // need to convert nulls to "" for react forms
+          result &&
+            result.forEach(obj => {
+              Object.keys(obj).forEach(val => {
+                obj[val] = obj[val] ? obj[val] : "";
+              });
+            });
+          this.setState({
+            tagOptions: result ? result : []
+          });
+        });
+      })
+      .catch(error => {
+        console.log("Techtag Fetch error: ", error);
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,7 +72,16 @@ class SkillSearch extends Component {
         ? API_SKILL_SEARCH + this.state.formFields.keyword
         : API_SKILLS;
 
-    const apiUrl = `${this.state.apiBase}${skillApi}${API_QUERY}`;
+    let apiQuery = API_QUERY;
+
+    if (this.state.formFields.tagSelect > -1) {
+      // add techtag to search url
+      const techtagId = this.state.tagOptions[this.state.formFields.tagSelect]
+        .id;
+      apiQuery += "&techtag=" + techtagId;
+    }
+
+    const apiUrl = `${this.state.apiBase}${skillApi}${apiQuery}`;
     fetch(apiUrl)
       .then(response => {
         response.json().then(result => {
@@ -127,6 +163,30 @@ class SkillSearch extends Component {
         )}
 
         <form className="skill-search-form" onSubmit={this.handleSearch}>
+          {/* techtag <select> for filter */}
+
+          <div className="form-group">
+            <select
+              className="form-control"
+              size="8"
+              name="tagSelect"
+              id="tagSelect"
+              value={this.state.formFields.tagSelect}
+              onChange={this.handleInputChange}
+            >
+              <option value="-1">Select Techtag to Filter Skills</option>
+              {this.state.tagOptions &&
+                this.state.tagOptions.map((tag, ndx) => {
+                  // create ndx+1 variable because
+                  return (
+                    <option key={ndx} value={ndx} title={tag.description}>
+                      {tag.name}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+
           {/* keyword entry */}
           <div className="form-group">
             <label htmlFor="keyword">
