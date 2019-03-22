@@ -12,7 +12,6 @@ const clearFormFields = {
   formFields: {
     keyword: "",
     skillSelect: 0,
-    tagOptions: [],
     tagSelect: -1
   }
 };
@@ -24,7 +23,9 @@ class SkillSearch extends Component {
       ...clearFormFields,
       errMsg: "",
       userMsg: "",
-      apiBase: window.apiUrl
+      apiBase: window.apiUrl,
+      tagOptions: [],
+      openTagOptions: false
     };
   }
 
@@ -134,9 +135,25 @@ class SkillSearch extends Component {
     });
   };
 
+  handleTagSelect = (ndx, event) => {
+    this.setState({
+      formFields: {
+        ...this.state.formFields,
+        tagSelect: ndx
+      }
+    });
+    this.handleTagSelectFocus();
+  };
+
   handleDragStart = (skillInfo, ndx, event) => {
     this.handleSkillClick(ndx, event);
     this.props.handleSkillStartDrag(skillInfo);
+  };
+
+  handleTagSelectFocus = () => {
+    this.setState(prevState => {
+      return { openTagOptions: !prevState.openTagOptions };
+    });
   };
 
   convertHtmlToText = value => {
@@ -165,27 +182,7 @@ class SkillSearch extends Component {
         <form className="skill-search-form" onSubmit={this.handleSearch}>
           {/* techtag <select> for filter */}
 
-          <div className="form-group">
-            <select
-              className="form-control"
-              size="8"
-              name="tagSelect"
-              id="tagSelect"
-              value={this.state.formFields.tagSelect}
-              onChange={this.handleInputChange}
-            >
-              <option value="-1">Select Techtag to Filter Skills</option>
-              {this.state.tagOptions &&
-                this.state.tagOptions.map((tag, ndx) => {
-                  // create ndx+1 variable because
-                  return (
-                    <option key={ndx} value={ndx} title={tag.description}>
-                      {tag.name}
-                    </option>
-                  );
-                })}
-            </select>
-          </div>
+          <div className="form-group">{this.displayTechtagSelect()}</div>
 
           {/* keyword entry */}
           <div className="form-group">
@@ -264,6 +261,52 @@ class SkillSearch extends Component {
           </div>
         </form>
       </section>
+    );
+  }
+
+  displayTechtagSelect() {
+    return (
+      <div className="div-select-container" style={{ maxHeight: "300px" }}>
+        {(this.state.formFields.tagSelect === -1 ||
+          this.state.openTagOptions) && (
+          <div
+            className="div-select"
+            key={-1}
+            data-value="-1"
+            onClick={this.handleTagSelectFocus}
+            value="-1"
+          >
+            Select Techtag to Filter Skills &nbsp;
+            <span>&darr;</span>
+          </div>
+        )}
+        {this.state.tagOptions ? (
+          this.state.tagOptions.map((tagInfo, ndx) => {
+            return (
+              (this.state.openTagOptions ||
+                this.state.formFields.tagSelect === ndx) && (
+                <div
+                  className={
+                    "div-select" +
+                    (this.state.formFields.tagSelect === ndx ? " selected" : "")
+                  }
+                  key={ndx}
+                  data-value={ndx}
+                  onClick={() => this.handleTagSelect(ndx)}
+                  title={tagInfo.description}
+                >
+                  {tagInfo.name}
+                  {this.state.formFields.tagSelect === ndx && (
+                    <span>&darr;</span>
+                  )}
+                </div>
+              )
+            );
+          })
+        ) : (
+          <p>Loading....</p>
+        )}
+      </div>
     );
   }
 }
