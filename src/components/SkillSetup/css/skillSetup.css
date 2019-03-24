@@ -127,12 +127,6 @@ section.skill-setup textarea {
   overflow: auto;
 }
 
-section.skill-setup .tab-section {
-  padding: 1em 1em 3em;
-  margin-top: 0;
-  border: 1px solid #888;
-}
-
 section.skill-setup .skill-related-section {
   margin: 0 0 24px;
 }

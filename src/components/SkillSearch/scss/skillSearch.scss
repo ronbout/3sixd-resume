@@ -7,6 +7,12 @@ section.skill-search {
   @include lg-form(14px);
   @include div-select(14px);
 
+  .div-select-container {
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+  }
+
   #skill-search-row input {
     display: inline-block;
     width: 85%;

@@ -7,6 +7,7 @@ const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 const API_TAGS = "techtags";
+const API_TAG_SKILLS = "techtag_skills/";
 
 const clearFormFields = {
   formFields: {
@@ -25,7 +26,8 @@ class SkillSearch extends Component {
       userMsg: "",
       apiBase: window.apiUrl,
       tagOptions: [],
-      openTagOptions: false
+      openTagOptions: false,
+      loading: true
     };
   }
 
@@ -68,18 +70,31 @@ class SkillSearch extends Component {
 
   handleSearch = event => {
     event && event.preventDefault();
-    let skillApi =
-      this.state.formFields.keyword !== ""
-        ? API_SKILL_SEARCH + this.state.formFields.keyword
-        : API_SKILLS;
-
+    this.setState({
+      loading: true
+    });
     let apiQuery = API_QUERY;
-
-    if (this.state.formFields.tagSelect > -1) {
-      // add techtag to search url
+    let skillApi;
+    // 3 api possibilities: 1) no keyword, no techtag
+    // 2) keyword, no techtag or keyword, techtag
+    // 3) no keyword, techtag
+    if (this.state.formFields.keyword) {
+      // skills search api
+      skillApi = API_SKILL_SEARCH + this.state.formFields.keyword;
+      if (this.state.formFields.tagSelect > -1) {
+        // add techtag to search url
+        const techtagId = this.state.tagOptions[this.state.formFields.tagSelect]
+          .id;
+        apiQuery += "&techtag=" + techtagId;
+      }
+    } else if (this.state.formFields.tagSelect === -1) {
+      // standard skills api
+      skillApi = API_SKILLS;
+    } else {
+      // USE techtag_skills api
       const techtagId = this.state.tagOptions[this.state.formFields.tagSelect]
         .id;
-      apiQuery += "&techtag=" + techtagId;
+      skillApi = API_TAG_SKILLS + techtagId;
     }
 
     const apiUrl = `${this.state.apiBase}${skillApi}${apiQuery}`;
@@ -95,7 +110,8 @@ class SkillSearch extends Component {
               });
             });
           this.setState({
-            skillOptions: result ? result : []
+            skillOptions: result ? result : [],
+            loading: false
           });
         });
       })
@@ -136,12 +152,17 @@ class SkillSearch extends Component {
   };
 
   handleTagSelect = (ndx, event) => {
-    this.setState({
-      formFields: {
-        ...this.state.formFields,
-        tagSelect: ndx
-      }
-    });
+    if (this.state.formFields.tagSelect !== ndx) {
+      this.setState(
+        {
+          formFields: {
+            ...this.state.formFields,
+            tagSelect: ndx
+          }
+        },
+        this.handleSearch
+      );
+    }
     this.handleTagSelectFocus();
   };
 
@@ -204,8 +225,11 @@ class SkillSearch extends Component {
             </div>
           </div>
           {/* skill List returned from search api */}
-          <div className="div-select-container" style={{ maxHeight: "300px" }}>
-            {this.state.skillOptions ? (
+          <div
+            className="div-select-container"
+            style={{ maxHeight: "300px", minHeight: "30px" }}
+          >
+            {this.state.skillOptions && !this.state.loading ? (
               this.state.skillOptions.map((skillInfo, ndx) => {
                 return (
                   <div
@@ -265,19 +289,28 @@ class SkillSearch extends Component {
   }
 
   displayTechtagSelect() {
+    const tagList = this.state.tagOptions ? this.state.tagOptions : [];
+    const optionHeight = 23;
+    const OptionRows = Math.min(10, tagList.length);
+    let divHeight = this.state.openTagOptions
+      ? optionHeight * OptionRows + 6
+      : 30;
     return (
-      <div className="div-select-container" style={{ maxHeight: "300px" }}>
+      <div className="div-select-container" style={{ height: divHeight }}>
         {(this.state.formFields.tagSelect === -1 ||
           this.state.openTagOptions) && (
           <div
-            className="div-select"
+            className="div-select d-flex justify-content-between tag-option"
             key={-1}
             data-value="-1"
-            onClick={this.handleTagSelectFocus}
+            onClick={() => this.handleTagSelect(-1)}
             value="-1"
           >
-            Select Techtag to Filter Skills &nbsp;
-            <span>&darr;</span>
+            <div>Select Techtag to Filter Skills</div>
+
+            <div>
+              <FontAwesomeIcon icon="chevron-down" /> &nbsp;
+            </div>
           </div>
         )}
         {this.state.tagOptions ? (
@@ -287,7 +320,7 @@ class SkillSearch extends Component {
                 this.state.formFields.tagSelect === ndx) && (
                 <div
                   className={
-                    "div-select" +
+                    "div-select d-flex justify-content-between tag-option" +
                     (this.state.formFields.tagSelect === ndx ? " selected" : "")
                   }
                   key={ndx}
@@ -295,10 +328,14 @@ class SkillSearch extends Component {
                   onClick={() => this.handleTagSelect(ndx)}
                   title={tagInfo.description}
                 >
-                  {tagInfo.name}
-                  {this.state.formFields.tagSelect === ndx && (
-                    <span>&darr;</span>
-                  )}
+                  <div>{tagInfo.name}</div>
+                  <div>
+                    {this.state.formFields.tagSelect === ndx &&
+                      !this.state.openTagOptions && (
+                        <FontAwesomeIcon icon="chevron-down" />
+                      )}
+                    &nbsp;
+                  </div>
                 </div>
               )
             );
