@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import CandidatePerson from "./formSections/CandidatePerson";
 import CandidateObjective from "./formSections/CandidateObjective";
 import CandidateHighlights from "./formSections/CandidateHighlights";
-import CandidateSkills1 from "./formSections/CandidateSkills1";
-//import CandidateSkills2 from "./formSections/CandidateSkills2";
 import CandidateExperience from "./formSections/CandidateExperience";
 import CandidateEducation from "./formSections/CandidateEducation";
 import CandidateLinks from "./formSections/CandidateLinks";
@@ -43,9 +41,9 @@ const candidateInfo = {
   }
 };
 
-const OBJECTIVE_NDX = 0;
-const HIGHLIGHTS_NDX = 1;
-const SKILLS_NDX = 2;
+const PERSONAL_NDX = 0;
+const OBJECTIVE_NDX = 1;
+const HIGHLIGHTS_NDX = 2;
 const EXPERIENCE_NDX = 3;
 const LINKS_NDX = 4;
 const EDUCATION_NDX = 5;
@@ -150,11 +148,7 @@ class CandidateCrud extends Component {
       <div className="candidate-setup">
         <form className="candidate-form" onSubmit={this.handleSubmit}>
           <input type="hidden" name="id" value={this.state.formFields.id} />
-          <CandidatePerson
-            objName="person"
-            formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
-          />
+
           {this.candidateDetails()}
           {this.buttonSection()}
         </form>
@@ -165,9 +159,9 @@ class CandidateCrud extends Component {
 
   candidateDetails() {
     const tabList = [];
+    tabList[PERSONAL_NDX] = { label: "Personal" };
     tabList[OBJECTIVE_NDX] = { label: "Objective" };
     tabList[HIGHLIGHTS_NDX] = { label: "Highlights" };
-    tabList[SKILLS_NDX] = { label: "Skills" };
     tabList[EXPERIENCE_NDX] = { label: "Experience" };
     tabList[LINKS_NDX] = { label: "Portfolio/Social" };
     tabList[EDUCATION_NDX] = { label: "Education" };
@@ -186,6 +180,14 @@ class CandidateCrud extends Component {
 
   tabSection() {
     switch (this.state.tabIndex) {
+      case PERSONAL_NDX:
+        return (
+          <CandidatePerson
+            objName="person"
+            formFields={this.state.formFields}
+            handleInputChange={this.handleInputChange}
+          />
+        );
       case OBJECTIVE_NDX:
         return (
           <CandidateObjective
@@ -198,13 +200,6 @@ class CandidateCrud extends Component {
           <CandidateHighlights
             formFields={this.state.formFields}
             handleHighlightChange={this.handleHighlightChange}
-          />
-        );
-      case SKILLS_NDX:
-        return (
-          <CandidateSkills1
-            formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
           />
         );
       case EXPERIENCE_NDX:
