@@ -69,7 +69,7 @@ section.skill-search .div-select-container {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   padding: 0.2em 0.4em;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 section.skill-search .div-select-container .div-select {

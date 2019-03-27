@@ -97,7 +97,7 @@
 }
 
 .candidate-main .candidate-details-section {
-  margin: 4em 0 2em;
+  margin: 1em 0 2em;
 }
 
 .candidate-main .candidate-details-section div.row {
@@ -137,8 +137,17 @@
   padding-left: 0.5em;
 }
 
+.candidate-highlights .highlight-list {
+  padding: 1em;
+  overflow: hidden;
+  height: 240px;
+  border: 1px solid gray;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
 .candidate-highlights .add-highlight {
-  padding: 1.5em 0 1em;
+  padding: 1em;
 }
 
 .candidate-highlights .add-highlight > div.row > div {
@@ -148,7 +157,40 @@
 .candidate-highlights .highlight-row {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 12fr 1fr 1fr 1fr;
-      grid-template-columns: 1fr 12fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 15fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 15fr 1fr 1fr 1fr 1fr;
+}
+
+.candidate-highlights .highlight-row .btn-edit {
+  padding: 0.375rem 0.55rem 0.375rem 0.6rem;
+}
+
+.candidate-highlights .highlight-row .btn-edit.active {
+  border: inset;
+}
+
+.candidate-highlights .highlight-skills-list {
+  height: 100px;
+  width: 70%;
+  margin: auto;
+  border: 1px solid gray;
+  text-align: left;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.candidate-highlights .highlight-skills-list .badge {
+  font-size: 1em;
+  padding: 0.75em 0.5em;
+  margin: 1em;
+}
+
+.candidate-highlights .highlight-skills-list .del-skill-badge {
+  float: right;
+  margin-left: 2em;
+}
+
+.candidate-highlights .highlight-skills-list .badge-edit {
+  cursor: pointer;
 }
 /*# sourceMappingURL=candidateSetup.css.map */

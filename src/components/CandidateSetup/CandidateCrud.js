@@ -33,10 +33,56 @@ const candidateInfo = {
       "Looking for great job working with dinosaurs with opportunities for advancement",
     executiveSummary: "I am a big, cartoon guy",
     highlights: [
-      "This is a highlight",
-      "And, here is another one",
-      "Well, jeez, I guess I could list a third",
-      "now this is just getting boring"
+      {
+        id: 1,
+        highlight: "This is a highlight",
+        skills: [{ id: 1, name: "Powerbuilder" }]
+      },
+      {
+        id: 2,
+        highlight: "And, here is another one",
+        skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }]
+      },
+      {
+        id: 3,
+        highlight: "Well, jeez, I guess I could list a third",
+        skills: [{ id: 103, name: "Cisco" }]
+      },
+      {
+        id: 4,
+        highlight: "now this is just getting boring",
+        skills: [
+          { id: 1, name: "Powerbuilder" },
+          { id: 2, name: "Javascript" },
+          { id: 22, name: "PHP" },
+          { id: 44, name: "WordPress" }
+        ]
+      },
+      {
+        id: 5,
+        highlight: "Lorem ipsum dolor sit, amet consectetur adipisicing.",
+        skills: [{ id: 1, name: "Powerbuilder" }]
+      },
+      {
+        id: 6,
+        highlight: "Lorem ipsum dolor sit amet.",
+        skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }]
+      },
+      {
+        id: 7,
+        highlight: "There was an old maid from Peru, who swore that she.....",
+        skills: [{ id: 103, name: "Cisco" }]
+      },
+      {
+        id: 8,
+        highlight: "Last one",
+        skills: [
+          { id: 1, name: "Powerbuilder" },
+          { id: 2, name: "Javascript" },
+          { id: 22, name: "PHP" },
+          { id: 44, name: "WordPress" }
+        ]
+      }
     ]
   }
 };

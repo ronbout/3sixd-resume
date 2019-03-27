@@ -15,11 +15,19 @@ import {
   faQuestion,
   faSearch,
   faArrowUp,
-	faArrowDown,
-	faChevronDown
+  faArrowDown,
+  faChevronDown,
+  faEdit
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faQuestion, faSearch, faArrowUp, faArrowDown, faChevronDown);
+library.add(
+  faQuestion,
+  faSearch,
+  faArrowUp,
+  faArrowDown,
+  faChevronDown,
+  faEdit
+);
 
 // setup global api url
 // if not on my dev, use remote api

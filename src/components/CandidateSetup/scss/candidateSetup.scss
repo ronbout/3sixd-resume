@@ -48,7 +48,7 @@
   }
 
   .candidate-details-section {
-    margin: 4em 0 2em;
+    margin: 1em 0 2em;
 
     div.row {
       margin: 8px;
@@ -87,8 +87,17 @@
     padding-left: 0.5em;
   }
 
+  .highlight-list {
+    padding: 1em;
+    overflow: hidden;
+    height: 240px;
+    border: 1px solid gray;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
   .add-highlight {
-    padding: 1.5em 0 1em;
+    padding: 1em;
 
     > div.row > div {
       padding: 0;
@@ -97,6 +106,39 @@
 
   .highlight-row {
     display: grid;
-    grid-template-columns: 1fr 12fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 15fr 1fr 1fr 1fr 1fr;
+
+    .btn-edit {
+      padding: 0.375rem 0.55rem 0.375rem 0.6rem;
+    }
+
+    .btn-edit.active {
+      border: inset;
+    }
+  }
+
+  .highlight-skills-list {
+    height: 100px;
+    width: 70%;
+    margin: auto;
+    border: 1px solid gray;
+    text-align: left;
+    overflow: hidden;
+    overflow-y: auto;
+
+    .badge {
+      font-size: 1em;
+      padding: 0.75em 0.5em;
+      margin: 1em;
+    }
+
+    .del-skill-badge {
+      float: right;
+      margin-left: 2em;
+    }
+
+    .badge-edit {
+      cursor: pointer;
+    }
   }
 }
