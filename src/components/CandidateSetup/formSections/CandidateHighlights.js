@@ -49,7 +49,7 @@ const CandidateHighlights = props => {
     console.log("here");
     setShowSkillsFlag(true);
     setSkills(props.formFields.highlights[ndx].skills);
-    setEditFlag(false);
+    if (skillNdx !== ndx) setEditFlag(false);
   };
 
   const handleDblClick = ndx => {
