@@ -12,6 +12,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+//JIM: Is there any reason not to put <BroswerRounter> under App.js?
 ReactDOM.render(
   <BrowserRouter>
     <App />
