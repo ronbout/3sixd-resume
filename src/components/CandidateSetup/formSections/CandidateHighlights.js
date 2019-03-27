@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CandidateHighlights = props => {
-  const [editSkillFlag, setEditSkillFlag] = useState(false);
+  const [editFlag, setEditFlag] = useState(false);
+  const [showSkillsFlag, setShowSkillsFlag] = useState(false);
   const [newHighlight, setNewHightlight] = useState("");
   const [skillNdx, setSkillNdx] = useState("");
   const [skills, setSkills] = useState([
@@ -44,12 +45,23 @@ const CandidateHighlights = props => {
     passHighlightUp(tmp);
   };
 
+  const handleRowClick = ndx => {
+    console.log("here");
+    setShowSkillsFlag(true);
+    setSkills(props.formFields.highlights[ndx].skills);
+    setEditFlag(false);
+  };
+
+  const handleDblClick = ndx => {
+    setSkillNdx(ndx);
+    setSkills(props.formFields.highlights[ndx].skills);
+    setEditFlag(true);
+  };
+
   const handleEditSkills = ndx => {
-    if (!editSkillFlag) {
-      setSkillNdx(ndx);
-      setSkills(props.formFields.highlights[ndx].skills);
-    }
-    setEditSkillFlag(!editSkillFlag);
+    setSkillNdx(ndx);
+    setSkills(props.formFields.highlights[ndx].skills);
+    setEditFlag(!editFlag);
   };
 
   const handleDelSkill = (ndx, event) => {
@@ -59,25 +71,25 @@ const CandidateHighlights = props => {
     console.log(tmp);
     passHighlightUp(tmp);
   };
-
+  /* 
   const handleMouseEnter = ndx => {
-    if (editSkillFlag) return;
+    if (editFlag) return;
     setSkills(props.formFields.highlights[ndx].skills);
   };
 
   const handleMouseLeave = () => {
-    if (editSkillFlag) return;
+    if (editFlag) return;
     setSkills([
       { id: 300, name: "something" },
       { id: 301, name: "another thing" }
     ]);
-  };
+  }; */
 
   return (
     <section className="candidate-highlights candidate-tab-section">
       {addHighlight()}
       {highlightList()}
-      {displaySkills()}
+      {showSkillsFlag && displaySkills()}
     </section>
   );
 
@@ -120,20 +132,19 @@ const CandidateHighlights = props => {
     return (
       <div className="highlight-list justify-content-center">
         {props.formFields.highlights.map((item, ndx) => (
-          <div
-            key={ndx}
-            className="highlight-row"
-            onMouseEnter={() => handleMouseEnter(ndx)}
-            onMouseLeave={handleMouseLeave}
-          >
+          <div key={ndx} className="highlight-row">
             <div>{ndx + 1}. </div>
-            <div>
+            <div
+              onClick={() => handleRowClick(ndx)}
+              onDoubleClick={() => handleDblClick(ndx)}
+            >
               <textarea
                 className=""
                 rows="2"
                 name={"highlight-" + ndx}
                 value={item.highlight}
                 onChange={event => handleEditHighlight(ndx, event)}
+                disabled={!editFlag || skillNdx !== ndx}
               />
             </div>
 
@@ -175,7 +186,7 @@ const CandidateHighlights = props => {
                 title="Edit Skills"
                 className={
                   "btn btn-secondary btn-edit" +
-                  (editSkillFlag && skillNdx === ndx ? " active" : "")
+                  (editFlag && skillNdx === ndx ? " active" : "")
                 }
                 onClick={() => handleEditSkills(ndx)}
               >
@@ -191,7 +202,7 @@ const CandidateHighlights = props => {
   function displaySkills() {
     return (
       <div className="highlight-skills">
-        {editSkillFlag ? (
+        {editFlag ? (
           <p>Edit mode. Click edit button again to turn off.</p>
         ) : (
           <p>Highlight Skills (hover over Highlight to view)</p>
@@ -200,13 +211,11 @@ const CandidateHighlights = props => {
         <div className="highlight-skills-list">
           {skills.map((skill, ndx) => (
             <span
-              className={
-                "badge badge-dark" + (editSkillFlag ? " badge-edit" : "")
-              }
+              className={"badge badge-dark" + (editFlag ? " badge-edit" : "")}
               key={skill.id}
             >
               {skill.name}
-              {editSkillFlag && (
+              {editFlag && (
                 <span
                   className="del-skill-badge"
                   onClick={event => handleDelSkill(ndx)}
