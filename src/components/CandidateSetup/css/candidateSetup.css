@@ -169,6 +169,10 @@
   border: inset;
 }
 
+.candidate-highlights .highlight-row .dark-disabled {
+  background-color: #c8c8c8;
+}
+
 .candidate-highlights .highlight-skills-list {
   height: 100px;
   width: 70%;

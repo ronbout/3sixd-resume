@@ -5,7 +5,8 @@ const CandidateHighlights = props => {
   const [editFlag, setEditFlag] = useState(false);
   const [showSkillsFlag, setShowSkillsFlag] = useState(false);
   const [newHighlight, setNewHightlight] = useState("");
-  const [skillNdx, setSkillNdx] = useState("");
+  const [editSkillNdx, setEditSkillNdx] = useState("");
+  const [dispSkillNdx, setDispSkillNdx] = useState("");
   const [skills, setSkills] = useState([
     { id: 300, name: "something" },
     { id: 301, name: "another thing" }
@@ -48,18 +49,20 @@ const CandidateHighlights = props => {
   const handleRowClick = ndx => {
     console.log("here");
     setShowSkillsFlag(true);
+    setDispSkillNdx(ndx);
     setSkills(props.formFields.highlights[ndx].skills);
-    if (skillNdx !== ndx) setEditFlag(false);
+    if (editSkillNdx !== ndx) setEditFlag(false);
   };
 
   const handleDblClick = ndx => {
-    setSkillNdx(ndx);
+    setEditSkillNdx(ndx);
     setSkills(props.formFields.highlights[ndx].skills);
     setEditFlag(true);
   };
 
   const handleEditSkills = ndx => {
-    setSkillNdx(ndx);
+    setEditSkillNdx(ndx);
+    setDispSkillNdx("");
     setSkills(props.formFields.highlights[ndx].skills);
     setEditFlag(!editFlag);
   };
@@ -67,7 +70,7 @@ const CandidateHighlights = props => {
   const handleDelSkill = (ndx, event) => {
     let tmp = props.formFields.highlights.slice();
     console.log(tmp);
-    tmp[skillNdx].skills.splice(ndx, 1);
+    tmp[editSkillNdx].skills.splice(ndx, 1);
     console.log(tmp);
     passHighlightUp(tmp);
   };
@@ -139,12 +142,16 @@ const CandidateHighlights = props => {
               onDoubleClick={() => handleDblClick(ndx)}
             >
               <textarea
-                className=""
+                className={
+                  (!editFlag || editSkillNdx !== ndx) && dispSkillNdx === ndx
+                    ? "dark-disabled"
+                    : ""
+                }
                 rows="2"
                 name={"highlight-" + ndx}
                 value={item.highlight}
                 onChange={event => handleEditHighlight(ndx, event)}
-                disabled={!editFlag || skillNdx !== ndx}
+                disabled={!editFlag || editSkillNdx !== ndx}
               />
             </div>
 
@@ -186,7 +193,7 @@ const CandidateHighlights = props => {
                 title="Edit Skills"
                 className={
                   "btn btn-secondary btn-edit" +
-                  (editFlag && skillNdx === ndx ? " active" : "")
+                  (editFlag && editSkillNdx === ndx ? " active" : "")
                 }
                 onClick={() => handleEditSkills(ndx)}
               >
