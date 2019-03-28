@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Logo from '../Logo/Logo';
-//import Menu from '../Slider/Slider';
 import Navmenu from '../Navmenu/Navmenu';
 import Signin from '../Signin/Signin';
 import Burger from '../Slider/Burger';

@@ -35,7 +35,8 @@
   
 #body {
     grid-area: body;
-//    background-color: color(tertiary);
+    background-color: lightyellow;
+//    background-color: lighten(color(tertiary),30%);
 }
 
 #details {

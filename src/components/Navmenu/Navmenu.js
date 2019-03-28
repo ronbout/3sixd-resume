@@ -7,16 +7,8 @@ const Navmenu = () => {
     return (
         <nav className="navbar">
             <ul>
-            <li className="nav-item">
-            <NavLink to="/candidate/setup" className="nav-link">
-                Candidate
-            </NavLink>
-            </li>
-            <li className="nav-item">
-            <NavLink to="/skill/setup" className="nav-link">
-                Skills
-            </NavLink>
-            </li>
+            <li><NavLink to="/candidate/setup" className="nav-link">Candidate</NavLink></li>
+            <li><NavLink to="/skill/setup" className="nav-link">Skills</NavLink></li>
             </ul>
         </nav>
     )

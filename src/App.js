@@ -10,6 +10,8 @@ import Siteheader from './components/Header/Siteheader';
 import Sitebody from './components/Body/Sitebody';
 import SkillSetup from "./components/SkillSetup/";
 import CandidateSetup from "./components/CandidateSetup/";
+import Login from "./components/login";
+import Signup from "./components/signup";
 
 // eslint-disable-next-line
 import Error404 from "./components/error404";
@@ -53,6 +55,8 @@ class App extends Component {
             <Switch>
                 <Route path="/skill/setup" render={() => <SkillSetup />} />
                 <Route path="/candidate/setup" render={() => <CandidateSetup />} />
+                <Route path="/signin" render={() => <Login />} />
+                <Route path="/register" render={() => <Signup />} />
                 <Route exact path="/" component={Sitebody} />
                 <Route exact path="/" component={Sitebody} />
             </Switch>
