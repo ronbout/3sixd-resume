@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import SkillSearch from "../../SkillSearch/";
+
 const CandidateHighlights = props => {
   const [editFlag, setEditFlag] = useState(false);
   const [showSkillsFlag, setShowSkillsFlag] = useState(false);
@@ -11,6 +13,12 @@ const CandidateHighlights = props => {
     { id: 300, name: "something" },
     { id: 301, name: "another thing" }
   ]);
+  const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(false);
+  const [skillDrag, setSkillDrag] = useState(false);
+  const [skillSearchCoords, setSkillSearchCoords] = useState({
+    right: "100px",
+    top: "200px"
+  });
 
   const passHighlightUp = tmpHighlights => {
     props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
@@ -47,7 +55,6 @@ const CandidateHighlights = props => {
   };
 
   const handleRowClick = ndx => {
-    console.log("here");
     setShowSkillsFlag(true);
     setDispSkillNdx(ndx);
     setSkills(props.formFields.highlights[ndx].skills);
@@ -69,30 +76,59 @@ const CandidateHighlights = props => {
 
   const handleDelSkill = (ndx, event) => {
     let tmp = props.formFields.highlights.slice();
-    console.log(tmp);
     tmp[editSkillNdx].skills.splice(ndx, 1);
-    console.log(tmp);
     passHighlightUp(tmp);
   };
-  /* 
-  const handleMouseEnter = ndx => {
-    if (editFlag) return;
-    setSkills(props.formFields.highlights[ndx].skills);
+
+  const handleAddSkill = () => {
+    // display skill search component
+    setDispSkillSearchFlag(true);
+  };
+  const handleCloseSkillSearch = () => {
+    setDispSkillSearchFlag(false);
   };
 
-  const handleMouseLeave = () => {
-    if (editFlag) return;
-    setSkills([
-      { id: 300, name: "something" },
-      { id: 301, name: "another thing" }
-    ]);
-  }; */
+  const handleSkillSelect = skillInfo => {
+    let tmp = props.formFields.highlights.slice();
+    tmp[editSkillNdx].skills.push(skillInfo);
+    passHighlightUp(tmp);
+  };
+
+  const handleSkillStartDrag = skillInfo => {
+    setSkillDrag(skillInfo);
+  };
+
+  const handleSkillDrop = event => {
+    event.preventDefault && event.preventDefault();
+    skillDrag && handleSkillSelect(skillDrag);
+  };
+
+  const handleDragOver = event => {
+    event.preventDefault && event.preventDefault();
+    return false;
+  };
+
+  const handleDragEnd = event => {
+    if (skillDrag) {
+      // we are either dragging the entire skill search component
+      // or just a single skill to add.  This will fire after the
+      // onDrop, so if it was a skill, turn skill drag off and return
+      setSkillDrag(false);
+      return;
+    }
+    setSkillSearchCoords({ left: event.clientX, top: event.clientY });
+  };
 
   return (
-    <section className="candidate-highlights candidate-tab-section">
+    <section
+      className="candidate-highlights candidate-tab-section"
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+    >
       {addHighlight()}
       {highlightList()}
       {showSkillsFlag && displaySkills()}
+      {dispSkillSearchFlag && dispSkillSearch()}
     </section>
   );
 
@@ -113,6 +149,7 @@ const CandidateHighlights = props => {
               onChange={handleOnChange}
             />
           </div>
+          <div />
           <div>
             <button
               type="button"
@@ -123,7 +160,6 @@ const CandidateHighlights = props => {
               Add
             </button>
           </div>
-          <div />
           <div />
           <div />
         </div>
@@ -208,7 +244,11 @@ const CandidateHighlights = props => {
 
   function displaySkills() {
     return (
-      <div className="highlight-skills">
+      <div
+        className="highlight-skills"
+        onDragOver={handleDragOver}
+        onDrop={handleSkillDrop}
+      >
         {editFlag ? (
           <p>Edit mode. Click edit button again to turn off.</p>
         ) : (
@@ -232,7 +272,30 @@ const CandidateHighlights = props => {
               )}
             </span>
           ))}
+          {editFlag && !dispSkillSearchFlag && (
+            <button
+              className="btn btn-info btn-add-skill"
+              onClick={handleAddSkill}
+            >
+              Add Skill
+            </button>
+          )}
         </div>
+      </div>
+    );
+  }
+
+  function dispSkillSearch() {
+    return (
+      <div className="skill-popup" draggable={true} style={skillSearchCoords}>
+        <SkillSearch
+          editMode="1"
+          searchButton="Add Skill"
+          forceRefresh={false}
+          handleSkillSelect={handleSkillSelect}
+          handleSkillStartDrag={handleSkillStartDrag}
+          closeBtn={handleCloseSkillSearch}
+        />
       </div>
     );
   }

@@ -1,6 +1,8 @@
 section.skill-search {
   background: #888;
   color: #212529;
+  min-width: 312px;
+  max-height: 585px;
   font-size: 14px;
 }
 
@@ -97,5 +99,9 @@ section.skill-search #skill-search-row input {
 
 section.skill-search button.btn.btn-search {
   padding: 0.375em 0.6em;
+}
+
+section.skill-search .search-skills-buttons button {
+  margin: 0 12px;
 }
 /*# sourceMappingURL=skillSearch.css.map */

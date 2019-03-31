@@ -154,6 +154,10 @@
   padding: 0;
 }
 
+.candidate-highlights .add-highlight textarea {
+  margin-right: 8px;
+}
+
 .candidate-highlights .highlight-row {
   display: -ms-grid;
   display: grid;
@@ -196,5 +200,17 @@
 
 .candidate-highlights .highlight-skills-list .badge-edit {
   cursor: pointer;
+}
+
+.candidate-highlights .highlight-skills-list .btn-add-skill {
+  padding: 0.5rem 0.75rem;
+}
+
+.candidate-highlights .skill-popup {
+  -webkit-box-shadow: 3px 3px 5px 6px #aaa;
+          box-shadow: 3px 3px 5px 6px #aaa;
+  position: absolute;
+  opacity: 1;
+  z-index: 100;
 }
 /*# sourceMappingURL=candidateSetup.css.map */

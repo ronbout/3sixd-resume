@@ -27,7 +27,8 @@ class SkillSearch extends Component {
       apiBase: window.apiUrl,
       tagOptions: [],
       openTagOptions: false,
-      loading: true
+      loading: true,
+      closeBtn: this.props.closeBtn || false
     };
   }
 
@@ -63,7 +64,10 @@ class SkillSearch extends Component {
     // auto refresh the search list
     // if forceRefresh, it is coming in from parent and needs
     // to wait for database update, hence the setTimeout
-    if (this.props.forceRefresh !== prevProps.forceRefresh) {
+    if (
+      this.props.forceRefresh &&
+      this.props.forceRefresh !== prevProps.forceRefresh
+    ) {
       setTimeout(this.handleSearch, 800);
     }
   }
@@ -133,6 +137,13 @@ class SkillSearch extends Component {
     });
   };
 
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      event && event.preventDefault();
+      this.handleSearch();
+    }
+  };
+
   handleSelect = () => {
     const selectSkillInfo = this.state.skillOptions[
       this.state.formFields.skillSelect
@@ -200,7 +211,7 @@ class SkillSearch extends Component {
           <div className="skill-search-error">{this.state.errMsg}</div>
         )}
 
-        <form className="skill-search-form" onSubmit={this.handleSearch}>
+        <div className="skill-search-form">
           {/* techtag <select> for filter */}
 
           <div className="form-group">{this.displayTechtagSelect()}</div>
@@ -218,8 +229,13 @@ class SkillSearch extends Component {
                 id="keyword"
                 value={this.state.formFields.keyword}
                 onChange={this.handleInputChange}
+                onKeyPress={this.handleKeyPress}
               />
-              <button className="btn btn-search mx-1">
+              <button
+                type="button"
+                className="btn btn-dark btn-search mx-1"
+                onClick={this.handleSearch}
+              >
                 <FontAwesomeIcon icon="search" />
               </button>
             </div>
@@ -227,7 +243,7 @@ class SkillSearch extends Component {
           {/* skill List returned from search api */}
           <div
             className="div-select-container"
-            style={{ maxHeight: "300px", minHeight: "30px" }}
+            style={{ maxHeight: "300px", minHeight: "300px" }}
           >
             {this.state.skillOptions && !this.state.loading ? (
               this.state.skillOptions.map((skillInfo, ndx) => {
@@ -262,10 +278,7 @@ class SkillSearch extends Component {
             )}
           </div>
           <p>Hover over skill for more details</p>
-          {/* Select and Refresh buttons 
-							 Select sends skill up to parent component
-							 Refresh submits form to get new skill list
-						*/}
+          {/* Select and, if prop, Close Buttons */}
           <div
             className="search-skills-buttons mt-3"
             style={{ textAlign: "center" }}
@@ -282,8 +295,17 @@ class SkillSearch extends Component {
             >
               {this.props.searchButton}
             </button>
+            {this.state.closeBtn && (
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={this.state.closeBtn}
+              >
+                Close
+              </button>
+            )}
           </div>
-        </form>
+        </div>
       </section>
     );
   }
