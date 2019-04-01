@@ -45,6 +45,10 @@ const CandidateHighlights = props => {
     const tmp = props.formFields.highlights.slice();
     const tmpHighlight = tmp.splice(ndx, 1)[0];
     tmp.splice(newNdx, 0, tmpHighlight);
+    // need to update sequence
+    const tmpSequence = tmp[newNdx].sequence;
+    tmp[newNdx].sequence = tmp[ndx].sequence;
+    tmp[ndx].sequence = tmpSequence;
     passHighlightUp(tmp);
   };
 
@@ -170,74 +174,76 @@ const CandidateHighlights = props => {
   function highlightList() {
     return (
       <div className="highlight-list justify-content-center">
-        {props.formFields.highlights.map((item, ndx) => (
-          <div key={ndx} className="highlight-row">
-            <div>{ndx + 1}. </div>
-            <div
-              onClick={() => handleRowClick(ndx)}
-              onDoubleClick={() => handleDblClick(ndx)}
-            >
-              <textarea
-                className={
-                  (!editFlag || editSkillNdx !== ndx) && dispSkillNdx === ndx
-                    ? "dark-disabled"
-                    : ""
-                }
-                rows="2"
-                name={"highlight-" + ndx}
-                value={item.highlight}
-                onChange={event => handleEditHighlight(ndx, event)}
-                disabled={!editFlag || editSkillNdx !== ndx}
-              />
-            </div>
+        {props.formFields.highlights
+          .sort((a, b) => a.sequence - b.sequence)
+          .map((item, ndx) => (
+            <div key={ndx} className="highlight-row">
+              <div>{ndx + 1}. </div>
+              <div
+                onClick={() => handleRowClick(ndx)}
+                onDoubleClick={() => handleDblClick(ndx)}
+              >
+                <textarea
+                  className={
+                    (!editFlag || editSkillNdx !== ndx) && dispSkillNdx === ndx
+                      ? "dark-disabled"
+                      : ""
+                  }
+                  rows="2"
+                  name={"highlight-" + ndx}
+                  value={item.highlight}
+                  onChange={event => handleEditHighlight(ndx, event)}
+                  disabled={!editFlag || editSkillNdx !== ndx}
+                />
+              </div>
 
-            <div className="">
-              <button
-                type="button"
-                className="btn btn-success"
-                title="Move highlight up"
-                onClick={() => handleMoveHighlight(ndx, ndx - 1)}
-                disabled={ndx === 0}
-              >
-                <FontAwesomeIcon icon="arrow-up" />
-              </button>
+              <div className="">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  title="Move highlight up"
+                  onClick={() => handleMoveHighlight(ndx, ndx - 1)}
+                  disabled={ndx === 0}
+                >
+                  <FontAwesomeIcon icon="arrow-up" />
+                </button>
+              </div>
+              <div className="">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  title="Move highlight Down"
+                  onClick={() => handleMoveHighlight(ndx, ndx + 1)}
+                  disabled={ndx === props.formFields.highlights.length - 1}
+                >
+                  <FontAwesomeIcon icon="arrow-down" />
+                </button>
+              </div>
+              <div className="">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  title="Delete Highlight"
+                  onClick={() => handleDelHighlight(ndx)}
+                >
+                  X
+                </button>
+              </div>
+              <div className="">
+                <button
+                  type="button"
+                  title="Edit Skills"
+                  className={
+                    "btn btn-secondary btn-edit" +
+                    (editFlag && editSkillNdx === ndx ? " active" : "")
+                  }
+                  onClick={() => handleEditSkills(ndx)}
+                >
+                  <FontAwesomeIcon icon="edit" />
+                </button>
+              </div>
             </div>
-            <div className="">
-              <button
-                type="button"
-                className="btn btn-success"
-                title="Move highlight Down"
-                onClick={() => handleMoveHighlight(ndx, ndx + 1)}
-                disabled={ndx === props.formFields.highlights.length - 1}
-              >
-                <FontAwesomeIcon icon="arrow-down" />
-              </button>
-            </div>
-            <div className="">
-              <button
-                type="button"
-                className="btn btn-danger"
-                title="Delete Highlight"
-                onClick={() => handleDelHighlight(ndx)}
-              >
-                X
-              </button>
-            </div>
-            <div className="">
-              <button
-                type="button"
-                title="Edit Skills"
-                className={
-                  "btn btn-secondary btn-edit" +
-                  (editFlag && editSkillNdx === ndx ? " active" : "")
-                }
-                onClick={() => handleEditSkills(ndx)}
-              >
-                <FontAwesomeIcon icon="edit" />
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     );
   }

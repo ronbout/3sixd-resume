@@ -36,17 +36,20 @@ const candidateInfo = {
       {
         id: 1,
         highlight: "This is a highlight",
-        skills: [{ id: 1, name: "Powerbuilder" }]
+        skills: [{ id: 1, name: "Powerbuilder" }],
+        sequence: 2
       },
       {
         id: 2,
         highlight: "And, here is another one",
-        skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }]
+        skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }],
+        sequence: 1
       },
       {
         id: 3,
         highlight: "Well, jeez, I guess I could list a third",
-        skills: [{ id: 103, name: "Cisco" }]
+        skills: [{ id: 103, name: "Cisco" }],
+        sequence: 4
       },
       {
         id: 4,
@@ -56,22 +59,26 @@ const candidateInfo = {
           { id: 2, name: "Javascript" },
           { id: 22, name: "PHP" },
           { id: 44, name: "WordPress" }
-        ]
+        ],
+        sequence: 7
       },
       {
         id: 5,
         highlight: "Lorem ipsum dolor sit, amet consectetur adipisicing.",
-        skills: [{ id: 1, name: "Powerbuilder" }]
+        skills: [{ id: 1, name: "Powerbuilder" }],
+        sequence: 8
       },
       {
         id: 6,
         highlight: "Lorem ipsum dolor sit amet.",
-        skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }]
+        skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }],
+        sequence: 9
       },
       {
         id: 7,
         highlight: "There was an old maid from Peru, who swore that she.....",
-        skills: [{ id: 103, name: "Cisco" }]
+        skills: [{ id: 103, name: "Cisco" }],
+        sequence: 11
       },
       {
         id: 8,
@@ -81,7 +88,8 @@ const candidateInfo = {
           { id: 2, name: "Javascript" },
           { id: 22, name: "PHP" },
           { id: 44, name: "WordPress" }
-        ]
+        ],
+        sequence: 14
       }
     ]
   }
