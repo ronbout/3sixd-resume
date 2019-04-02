@@ -5,6 +5,7 @@ const CandidateModal = props => {
     <div
       className="modal fade"
       id="notesModal"
+      data-backdrop="static"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="notesModalLabel"
@@ -25,7 +26,7 @@ const CandidateModal = props => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <p>Inside modal</p>
+          {props.children || <h2>Inside Modal</h2>}
           <div className="modal-footer">
             <button
               type="button"

@@ -5,7 +5,6 @@ import CandidateHighlights from "./formSections/CandidateHighlights";
 import CandidateExperience from "./formSections/CandidateExperience";
 import CandidateEducation from "./formSections/CandidateEducation";
 import CandidateLinks from "./formSections/CandidateLinks";
-import CandidateModal from "./CandidateModal";
 import TabbedUI from "../TabbedUI/";
 
 // dummy data
@@ -91,6 +90,110 @@ const candidateInfo = {
         ],
         sequence: 14
       }
+    ],
+    experience: [
+      {
+        id: 2,
+        candidateId: 17,
+        company: {
+          id: 18,
+          name: "WordPress Specialists"
+        },
+        startDate: "2015-05-22",
+        endDate: "2017-02-05",
+        ContactPerson: {
+          id: 7,
+          name: "Billy Moyer",
+          WorkPhone: "931-333-1234"
+        },
+        payType: "salary",
+        startPay: 47000,
+        endpay: 52000,
+        jobTitle: {
+          id: 2,
+          candidateId: 17,
+          titleDescription: "Junior Developer"
+        },
+        summary: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+        skills: [
+          {
+            id: 140,
+            name: "ES6"
+          },
+          {
+            id: 120,
+            name: "JQuery"
+          }
+        ]
+      },
+      {
+        id: 7,
+        candidateId: 17,
+        company: {
+          id: 4,
+          name: "ABC Web Dev"
+        },
+        startDate: "2017-05-22",
+        endDate: "2018-02-05",
+        ContactPerson: {
+          id: 27,
+          name: "Bob Skalinsky",
+          WorkPhone: "615-333-8888"
+        },
+        payType: "salary",
+        startPay: 65000,
+        endpay: 68000,
+        jobTitle: {
+          id: 1,
+          candidateId: 17,
+          titleDescription: "Web Developer"
+        },
+        summary:
+          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sed corporis, maxime sint inventore facere veniam numquam error quisquam debitis blanditiis dolorem enim nam velit at, reiciendis veritatis, animi tempore.",
+        skills: [
+          {
+            id: 117,
+            name: "Web API"
+          },
+          {
+            id: 120,
+            name: "JQuery"
+          }
+        ]
+      },
+      {
+        id: 12,
+        candidateId: 17,
+        company: {
+          id: 7,
+          name: "Web Tech"
+        },
+        startDate: "2018-02-10",
+        ContactPerson: {
+          id: 20,
+          name: "Sue Jenkins",
+          WorkPhone: "615-444-9999"
+        },
+        payType: "salary",
+        startPay: 70000,
+        jobTitle: {
+          id: 1,
+          candidateId: 17,
+          titleDescription: "Web Developer"
+        },
+        summary:
+          "More Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto sed corporis, maxime sint inventore facere veniam numquam error quisquam debitis blanditiis dolorem enim nam velit at, reiciendis veritatis, animi tempore.",
+        skills: [
+          {
+            id: 114,
+            name: "C#"
+          },
+          {
+            id: 115,
+            name: ".Net Framework 4.0/4.5"
+          }
+        ]
+      }
     ]
   }
 };
@@ -133,7 +236,7 @@ class CandidateCrud extends Component {
     super(props);
     this.state = {
       ...candidateInfo,
-      tabIndex: HIGHLIGHTS_NDX
+      tabIndex: EXPERIENCE_NDX
     };
     this.state.origForm = this.state.formFields;
   }
@@ -206,7 +309,6 @@ class CandidateCrud extends Component {
           {this.candidateDetails()}
           {this.buttonSection()}
         </form>
-        <CandidateModal />
       </div>
     );
   }
@@ -286,7 +388,9 @@ class CandidateCrud extends Component {
     return (
       <div className="fs-btn-container" style={{ textAlign: "center" }}>
         <button className="btn btn-primary">
-          {this.state.formFields.id === "" ? "Add skill" : "Update skill"}
+          {this.state.formFields.id === ""
+            ? "Add Candidate"
+            : "Update Candidate"}
         </button>
         <button
           className="btn btn-warning"
@@ -294,14 +398,6 @@ class CandidateCrud extends Component {
           onClick={this.handleClear}
         >
           Clear Form
-        </button>
-        <button
-          type="button"
-          className="btn btn-info"
-          data-toggle="modal"
-          data-target="#notesModal"
-        >
-          Test Modal
         </button>
       </div>
     );
