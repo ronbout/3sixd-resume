@@ -62,10 +62,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div
-        style={{ backgroundColor: "yellow", color: "blue" }}
-        className="container-fluid"
-      >
+      <div className="container-fluid">
         {this.state.confirmMsg ? (
           <div className="register-confirm">{this.state.confirmMsg}</div>
         ) : (

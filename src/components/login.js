@@ -35,10 +35,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div
-        style={{ backgroundColor: "yellow", color: "blue" }}
-        className="container-fluid"
-      >
+      <div className="container-fluid">
         <h1>Login</h1>
         <SocialLogin handleLogin={this.handleLogin} />
         <EmailLogin handleLogin={this.handleLogin} />
