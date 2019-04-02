@@ -52,7 +52,7 @@ const CandidateExperience = props => {
 
   return (
     <section className="candidate-experience candidate-tab-section">
-      {experienceList()}
+      {props.formFields.experience && experienceList()}
       <CandidateModal>
         <CandidateExperienceCrud />
       </CandidateModal>

@@ -130,7 +130,7 @@ const CandidateHighlights = props => {
       onDragEnd={handleDragEnd}
     >
       {addHighlight()}
-      {highlightList()}
+      {props.formFields.highlights && highlightList()}
       {showSkillsFlag && displaySkills()}
       {dispSkillSearchFlag && dispSkillSearch()}
     </section>

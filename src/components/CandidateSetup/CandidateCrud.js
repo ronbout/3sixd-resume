@@ -227,7 +227,8 @@ const clearFormFields = {
     },
     objective: "",
     executiveSummary: "",
-    highlights: []
+    highlights: [],
+    experience: []
   }
 };
 
@@ -300,6 +301,17 @@ class CandidateCrud extends Component {
     });
   };
 
+  handleExperienceChange = experience => {
+    this.setState(prevState => {
+      return {
+        formFields: {
+          ...prevState.formFields,
+          experience
+        }
+      };
+    });
+  };
+
   render() {
     return (
       <div className="candidate-setup">
@@ -362,7 +374,7 @@ class CandidateCrud extends Component {
         return (
           <CandidateExperience
             formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
+            handleExperienceChange={this.handleExperienceChange}
           />
         );
       case LINKS_NDX:
