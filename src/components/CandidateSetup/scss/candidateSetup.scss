@@ -183,4 +183,18 @@
       border: inset;
     }
   }
+
+  #candidate-modal {
+    .modal-dialog {
+      max-width: none;
+    }
+  }
+  .modal-content {
+    width: 80%;
+    margin: auto;
+  }
+
+  .modal-footer {
+    justify-content: center;
+  }
 }

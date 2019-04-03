@@ -101,12 +101,12 @@ const candidateInfo = {
         },
         startDate: "2015-05-22",
         endDate: "2017-02-05",
-        ContactPerson: {
+        contactPerson: {
           id: 7,
           name: "Billy Moyer",
-          WorkPhone: "931-333-1234"
+          workPhone: "931-333-1234"
         },
-        payType: "salary",
+        payType: "Salary",
         startPay: 47000,
         endpay: 52000,
         jobTitle: {
@@ -135,12 +135,12 @@ const candidateInfo = {
         },
         startDate: "2017-05-22",
         endDate: "2018-02-05",
-        ContactPerson: {
+        contactPerson: {
           id: 27,
           name: "Bob Skalinsky",
-          WorkPhone: "615-333-8888"
+          workPhone: "615-333-8888"
         },
-        payType: "salary",
+        payType: "Salary",
         startPay: 65000,
         endpay: 68000,
         jobTitle: {
@@ -169,13 +169,14 @@ const candidateInfo = {
           name: "Web Tech"
         },
         startDate: "2018-02-10",
-        ContactPerson: {
+        contactPerson: {
           id: 20,
           name: "Sue Jenkins",
-          WorkPhone: "615-444-9999"
+          workPhone: "615-444-9999"
         },
-        payType: "salary",
+        payType: "Salary",
         startPay: 70000,
+        endPay: "",
         jobTitle: {
           id: 1,
           candidateId: 17,

@@ -238,4 +238,19 @@
 .candidate-experience .experience-row .btn-edit.active {
   border: inset;
 }
+
+.candidate-experience #candidate-modal .modal-dialog {
+  max-width: none;
+}
+
+.candidate-experience .modal-content {
+  width: 80%;
+  margin: auto;
+}
+
+.candidate-experience .modal-footer {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 /*# sourceMappingURL=candidateSetup.css.map */
