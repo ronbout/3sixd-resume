@@ -58,6 +58,12 @@ const CandidateExperience = props => {
     setEditNdx(false);
   };
 
+  const handleExperienceChange = tmpExper => {
+    let tmp = props.formFields.experience.slice();
+    tmp[editNdx].experience = tmpExper;
+    passExperienceUp(tmp);
+  };
+
   const handleDblClick = ndx => {};
 
   return (
@@ -70,7 +76,10 @@ const CandidateExperience = props => {
           idName="candidate-modal"
           handleCloseModal={handleCloseModal}
         >
-          <CandidateExperienceCrud experience={sortJobs[editNdx]} />
+          <CandidateExperienceCrud
+            experience={sortJobs[editNdx]}
+            handleExperienceChange={handleExperienceChange}
+          />
         </CandidateModal>
       )}
     </section>

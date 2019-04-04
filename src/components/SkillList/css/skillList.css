@@ -1,0 +1,37 @@
+.skills-list {
+  height: 100px;
+  width: 80%;
+  margin: auto;
+  border: 1px solid gray;
+  text-align: left;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.skills-list .badge {
+  font-size: 1em;
+  padding: 0.75em 0.5em;
+  margin: 1em;
+}
+
+.skills-list .del-skill-badge {
+  float: right;
+  margin-left: 2em;
+}
+
+.skills-list .badge-edit {
+  cursor: pointer;
+}
+
+.skills-list .btn-add-skill {
+  padding: 0.5rem 0.75rem;
+}
+
+.skill-popup {
+  -webkit-box-shadow: 3px 3px 5px 6px #aaa;
+          box-shadow: 3px 3px 5px 6px #aaa;
+  position: absolute;
+  opacity: 1;
+  z-index: 100;
+}
+/*# sourceMappingURL=skillList.css.map */
