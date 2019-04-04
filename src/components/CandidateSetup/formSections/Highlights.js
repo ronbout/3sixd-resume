@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SkillList from "../../SkillList/";
+import SkillList from "../../SkillList";
 
-const CandidateHighlights = props => {
-  const [editFlag, setEditFlag] = useState(false);
+const Highlights = props => {
+  //const [editFlag, setEditFlag] = useState(false);
   const [showSkillsFlag, setShowSkillsFlag] = useState(false);
   const [newHighlight, setNewHightlight] = useState("");
   const [editSkillNdx, setEditSkillNdx] = useState("");
@@ -13,6 +13,7 @@ const CandidateHighlights = props => {
     { id: 300, name: "something" },
     { id: 301, name: "another thing" }
   ]);
+  const editFlag = true;
 
   const passHighlightUp = tmpHighlights => {
     props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
@@ -55,21 +56,15 @@ const CandidateHighlights = props => {
   const handleRowClick = ndx => {
     setShowSkillsFlag(true);
     setDispSkillNdx(ndx);
+    setEditSkillNdx(ndx);
     setSkills(props.highlights[ndx].skills);
-    if (editSkillNdx !== ndx) setEditFlag(false);
+    //if (editSkillNdx !== ndx) setEditFlag(false);
   };
 
   const handleDblClick = ndx => {
     setEditSkillNdx(ndx);
     setSkills(props.highlights[ndx].skills);
-    setEditFlag(true);
-  };
-
-  const handleEditSkills = ndx => {
-    setEditSkillNdx(ndx);
-    setDispSkillNdx("");
-    setSkills(props.highlights[ndx].skills);
-    setEditFlag(!editFlag);
+    //setEditFlag(true);
   };
 
   const handleSkillsChange = newSkills => {
@@ -77,6 +72,10 @@ const CandidateHighlights = props => {
     tmp[editSkillNdx].skills = newSkills;
     passHighlightUp(tmp);
     setSkills(newSkills);
+  };
+
+  const handleIncludeSummary = ndx => {
+    console.log("toggle includeInSummary field");
   };
 
   return (
@@ -181,17 +180,19 @@ const CandidateHighlights = props => {
                 </button>
               </div>
               <div className="">
-                <button
-                  type="button"
-                  title="Edit Skills"
-                  className={
-                    "btn btn-secondary btn-edit" +
-                    (editFlag && editSkillNdx === ndx ? " active" : "")
-                  }
-                  onClick={() => handleEditSkills(ndx)}
-                >
-                  <FontAwesomeIcon icon="edit" />
-                </button>
+                {props.includeSummaryButton && (
+                  <button
+                    type="button"
+                    title="Edit Skills"
+                    className={
+                      "btn btn-secondary btn-edit" +
+                      (editFlag && editSkillNdx === ndx ? " active" : "")
+                    }
+                    onClick={() => handleIncludeSummary(ndx)}
+                  >
+                    <FontAwesomeIcon icon="edit" />
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -212,4 +213,4 @@ const CandidateHighlights = props => {
   }
 };
 
-export default CandidateHighlights;
+export default Highlights;

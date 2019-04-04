@@ -22,7 +22,7 @@ const CandidateModal = props => {
         aria-hidden={!props.showModal}
         aria-modal={props.showModal}
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog-scrollable" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="notesModalLabel">

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CandidatePerson from "./formSections/CandidatePerson";
 import CandidateObjective from "./formSections/CandidateObjective";
-import CandidateHighlights from "./formSections/CandidateHighlights";
+import Highlights from "./formSections/Highlights";
 import CandidateExperience from "./formSections/CandidateExperience";
 import CandidateEducation from "./formSections/CandidateEducation";
 import CandidateLinks from "./formSections/CandidateLinks";
@@ -382,7 +382,7 @@ class CandidateCrud extends Component {
         );
       case HIGHLIGHTS_NDX:
         return (
-          <CandidateHighlights
+          <Highlights
             highlights={this.state.formFields.highlights}
             handleHighlightChange={this.handleHighlightChange}
           />

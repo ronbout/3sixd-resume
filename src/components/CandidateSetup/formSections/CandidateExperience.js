@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import "../css/candidateExperience.css";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import CandidateModal from "../CandidateModal";
 
