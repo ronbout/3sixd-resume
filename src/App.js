@@ -7,7 +7,9 @@ import "./css/app.css";
 //import LandingPage from "./components/landingPage";
 //import TopNavBar from "./components/topNavBar";
 import Siteheader from './components/Header/Siteheader';
+import Footer from './components/Footer/Footer';
 import Sitebody from './components/Body/Sitebody';
+import Details from './components/Details/Details';
 import SkillSetup from "./components/SkillSetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import Login from "./components/login";
@@ -62,8 +64,8 @@ class App extends Component {
             </Switch>
           </React.Fragment>
         </div>
-        <div id="details"> - details - </div>
-        <div id="footer"> - footer - </div>
+        <div id="details"><Details /></div>
+        <div id="footer"><Footer /></div>
       </div>
     );
   }

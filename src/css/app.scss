@@ -4,7 +4,7 @@
 .app {
     display: grid;
     grid-template-columns: repeat(1,1fr);
-    grid-auto-rows: minmax(75px,auto);
+    grid-auto-rows: auto;
     width: 100%;
     margin: 0 auto;
     grid-template-areas:
@@ -41,7 +41,7 @@
 
 #details {
     grid-area: details;
-    background-color: color(secondary);
+//    background-color: color(secondary);
 }
 
 #advert {

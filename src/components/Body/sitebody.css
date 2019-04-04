@@ -8,7 +8,7 @@
   display: grid;
   -ms-grid-columns: 1fr;
       grid-template-columns: 1fr;
-  grid-auto-rows: minmax(200px, auto);
+  grid-auto-rows: minmax(400px, auto);
   -ms-grid-column-align: center;
       grid-template-areas: "slogan" "jobSearch";
 }
@@ -24,6 +24,8 @@
   }
   .sitebody #slogan {
     text-align: left;
+    padding: 0px;
+    margin: 0 0 0 59px;
   }
 }
 
@@ -41,8 +43,8 @@
   border-radius: 3px;
   -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  width: 300px;
-  height: 100px;
+  width: 400px;
+  height: 300px;
   font-size: 1.5em;
 }
 
@@ -56,10 +58,24 @@
   -ms-grid-column-align: center;
       justify-self: center;
   text-align: center;
-  padding: 40px;
-  margin: 50px;
+  padding: 0px;
+  margin: 30px 20px 30px 20px;
   color: white;
   font-family: "helvetica";
   font-size: 1.4em;
+  -webkit-animation: move 1s 1;
+          animation: move 1s 1;
+}
+
+@-webkit-keyframes move {
+  from {
+    margin-bottom: -60px;
+  }
+}
+
+@keyframes move {
+  from {
+    margin-bottom: -60px;
+  }
 }
 /*# sourceMappingURL=sitebody.css.map */
