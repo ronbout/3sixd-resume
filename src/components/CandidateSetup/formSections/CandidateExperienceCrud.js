@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import SkillList from "../../SkillList/";
 
 const CandidateExperienceCrud = props => {
-  const [job, setJob] = useState(props.experience);
+  const [showHighlights, setShowHighlights] = useState(false);
+  const job = props.experience;
 
   const handleInputChange = event => {
     let tmpJob = job;
@@ -20,6 +21,16 @@ const CandidateExperienceCrud = props => {
 
   const passExperienceUp = tmpExperience => {
     props.handleExperienceChange && props.handleExperienceChange(tmpExperience);
+  };
+
+  const handleSkillsChange = skills => {
+    let tmpJob = job;
+    tmpJob.skills = skills;
+    passExperienceUp(tmpJob);
+  };
+
+  const openHighlights = () => {
+    console.log("open highlights here");
   };
 
   return (
@@ -189,7 +200,24 @@ const CandidateExperienceCrud = props => {
         </div>
       </div>
       <div className="skill-edit-list">
-        <SkillList skills={job.skills} editFlag={true} />
+        <SkillList
+          skills={job.skills}
+          editFlag={true}
+          handleSkillsChange={handleSkillsChange}
+        />
+      </div>
+      <div className="button-section">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={props.handleCloseModal}
+        >
+          Close
+        </button>
+
+        <button type="button" className="btn btn-info" onClick={openHighlights}>
+          Highlights
+        </button>
       </div>
     </section>
   );

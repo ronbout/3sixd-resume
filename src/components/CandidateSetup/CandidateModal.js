@@ -39,13 +39,15 @@ const CandidateModal = props => {
             </div>
             {props.children || <h2>Inside Modal</h2>}
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleClose}
-              >
-                Close
-              </button>
+              {props.hideClose || (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleClose}
+                >
+                  Close
+                </button>
+              )}
             </div>
           </div>
         </div>

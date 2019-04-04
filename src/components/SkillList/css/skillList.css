@@ -1,5 +1,5 @@
 .skills-list {
-  height: 100px;
+  min-height: 100px;
   width: 80%;
   margin: auto;
   border: 1px solid gray;
@@ -11,6 +11,10 @@
 .skills-list .badge {
   font-size: 1em;
   padding: 0.75em 0.5em;
+  margin: 1em;
+}
+
+.skills-list button {
   margin: 1em;
 }
 

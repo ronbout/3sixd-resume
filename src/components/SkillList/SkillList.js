@@ -5,33 +5,76 @@ import SkillSearch from "../SkillSearch/";
 import "./css/skillList.css";
 
 const SkillList = props => {
-  const [skills, setSkills] = useState(props.skills);
   const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(false);
+  const [skillDrag, setSkillDrag] = useState(false);
   const [skillSearchCoords, setSkillSearchCoords] = useState({
-    right: "100px",
-    top: "200px"
+    right: "50px",
+    top: "100px"
   });
 
-  const handleAddSkill = () => {
+  const handleOpenSkillSearch = () => {
     setDispSkillSearchFlag(true);
   };
 
-  const handleDelSkill = ndx => {};
+  const handleAddSkill = skillInfo => {
+    // check for duplicate
+    if (
+      props.skills.some(skill => {
+        return skill.id === skillInfo.id;
+      })
+    )
+      return;
+    let tmpSkills = props.skills.slice();
+    tmpSkills.push(skillInfo);
+    props.handleSkillsChange(tmpSkills);
+  };
+
+  const handleDelSkill = ndx => {
+    let tmpSkills = props.skills.slice();
+    tmpSkills.splice(ndx, 1);
+    props.handleSkillsChange(tmpSkills);
+  };
 
   const handleCloseSkillSearch = () => {
     setDispSkillSearchFlag(false);
   };
 
+  const handleSkillStartDrag = skillInfo => {
+    setSkillDrag(skillInfo);
+  };
+
+  const handleSkillDrop = event => {
+    event.preventDefault && event.preventDefault();
+    skillDrag && handleAddSkill(skillDrag);
+  };
+
+  const handleDragOver = event => {
+    event.preventDefault && event.preventDefault();
+    return false;
+  };
+
+  const handleDragEnd = event => {
+    if (skillDrag) {
+      // we are either dragging the entire skill search component
+      // or just a single skill to add.  This will fire after the
+      // onDrop, so if it was a skill, turn skill drag off and return
+      setSkillDrag(false);
+      return;
+    }
+    setSkillSearchCoords({ left: event.clientX, top: event.clientY });
+  };
+
   return (
     <div
       className="skills-container"
-      onDragOver={props.handleDragOver}
-      onDrop={props.handleSkillDrop}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+      onDrop={handleSkillDrop}
     >
       {props.editFlag ? <p>Edit Skills</p> : <p>Skills</p>}
 
       <div className="skills-list">
-        {skills.map((skill, ndx) => (
+        {props.skills.map((skill, ndx) => (
           <span
             className={
               "badge badge-dark" + (props.editFlag ? " badge-edit" : "")
@@ -52,7 +95,7 @@ const SkillList = props => {
         {props.editFlag && !dispSkillSearchFlag && (
           <button
             className="btn btn-info btn-add-skill"
-            onClick={handleAddSkill}
+            onClick={handleOpenSkillSearch}
           >
             Add Skill
           </button>
@@ -69,8 +112,8 @@ const SkillList = props => {
           editMode="1"
           searchButton="Add Skill"
           forceRefresh={false}
-          handleSkillSelect={props.handleSkillSelect}
-          handleSkillStartDrag={props.handleSkillStartDrag}
+          handleSkillSelect={handleAddSkill}
+          handleSkillStartDrag={handleSkillStartDrag}
           closeBtn={handleCloseSkillSearch}
         />
       </div>
