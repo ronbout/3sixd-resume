@@ -123,42 +123,6 @@
       background-color: rgb(200, 200, 200);
     }
   }
-
-  .highlight-skills-list {
-    height: 100px;
-    width: 70%;
-    margin: auto;
-    border: 1px solid gray;
-    text-align: left;
-    overflow: hidden;
-    overflow-y: auto;
-
-    .badge {
-      font-size: 1em;
-      padding: 0.75em 0.5em;
-      margin: 1em;
-    }
-
-    .del-skill-badge {
-      float: right;
-      margin-left: 2em;
-    }
-
-    .badge-edit {
-      cursor: pointer;
-    }
-
-    .btn-add-skill {
-      padding: 0.5rem 0.75rem;
-    }
-  }
-
-  .skill-popup {
-    box-shadow: 3px 3px 5px 6px #aaa;
-    position: absolute;
-    opacity: 1;
-    z-index: 100;
-  }
 }
 .candidate-experience {
   .experience-list {
@@ -192,6 +156,13 @@
   .modal-content {
     width: 80%;
     margin: auto;
+
+    .button-section {
+      margin: 2em;
+    }
+    button {
+      margin: 0 0.5em;
+    }
   }
 
   .modal-footer {

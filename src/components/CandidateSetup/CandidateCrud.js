@@ -124,6 +124,22 @@ const candidateInfo = {
             id: 120,
             name: "JQuery"
           }
+        ],
+        highlights: [
+          {
+            id: 2,
+            highlight: "Job highlight 1",
+            skills: [{ id: 2, name: "Javascript" }, { id: 22, name: "PHP" }],
+            sequence: 1,
+            includeInSummary: true
+          },
+          {
+            id: 3,
+            highlight: "Job Highlight 2",
+            skills: [{ id: 103, name: "Cisco" }],
+            sequence: 4,
+            includeInSummary: false
+          }
         ]
       },
       {
@@ -367,7 +383,7 @@ class CandidateCrud extends Component {
       case HIGHLIGHTS_NDX:
         return (
           <CandidateHighlights
-            formFields={this.state.formFields}
+            highlights={this.state.formFields.highlights}
             handleHighlightChange={this.handleHighlightChange}
           />
         );

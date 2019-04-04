@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SkillSearch from "../../SkillSearch/";
+import SkillList from "../../SkillList/";
 
 const CandidateHighlights = props => {
   const [editFlag, setEditFlag] = useState(false);
@@ -13,12 +13,6 @@ const CandidateHighlights = props => {
     { id: 300, name: "something" },
     { id: 301, name: "another thing" }
   ]);
-  const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(false);
-  const [skillDrag, setSkillDrag] = useState(false);
-  const [skillSearchCoords, setSkillSearchCoords] = useState({
-    right: "100px",
-    top: "200px"
-  });
 
   const passHighlightUp = tmpHighlights => {
     props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
@@ -29,20 +23,20 @@ const CandidateHighlights = props => {
   };
 
   const handleAddHighlight = () => {
-    const tmp = props.formFields.highlights.slice();
+    const tmp = props.highlights.slice();
     tmp.push({ id: "", highlight: newHighlight });
     setNewHightlight("");
     passHighlightUp(tmp);
   };
 
   const handleDelHighlight = ndx => {
-    const tmp = props.formFields.highlights.slice();
+    const tmp = props.highlights.slice();
     tmp.splice(ndx, 1);
     passHighlightUp(tmp);
   };
 
   const handleMoveHighlight = (ndx, newNdx) => {
-    const tmp = props.formFields.highlights.slice();
+    const tmp = props.highlights.slice();
     const tmpHighlight = tmp.splice(ndx, 1)[0];
     tmp.splice(newNdx, 0, tmpHighlight);
     // need to update sequence
@@ -53,7 +47,7 @@ const CandidateHighlights = props => {
   };
 
   const handleEditHighlight = (ndx, event) => {
-    let tmp = props.formFields.highlights.slice();
+    let tmp = props.highlights.slice();
     tmp[ndx].highlight = event.target.value;
     passHighlightUp(tmp);
   };
@@ -61,78 +55,35 @@ const CandidateHighlights = props => {
   const handleRowClick = ndx => {
     setShowSkillsFlag(true);
     setDispSkillNdx(ndx);
-    setSkills(props.formFields.highlights[ndx].skills);
+    setSkills(props.highlights[ndx].skills);
     if (editSkillNdx !== ndx) setEditFlag(false);
   };
 
   const handleDblClick = ndx => {
     setEditSkillNdx(ndx);
-    setSkills(props.formFields.highlights[ndx].skills);
+    setSkills(props.highlights[ndx].skills);
     setEditFlag(true);
   };
 
   const handleEditSkills = ndx => {
     setEditSkillNdx(ndx);
     setDispSkillNdx("");
-    setSkills(props.formFields.highlights[ndx].skills);
+    setSkills(props.highlights[ndx].skills);
     setEditFlag(!editFlag);
   };
 
-  const handleDelSkill = (ndx, event) => {
-    let tmp = props.formFields.highlights.slice();
-    tmp[editSkillNdx].skills.splice(ndx, 1);
+  const handleSkillsChange = newSkills => {
+    let tmp = props.highlights.slice();
+    tmp[editSkillNdx].skills = newSkills;
     passHighlightUp(tmp);
-  };
-
-  const handleAddSkill = () => {
-    // display skill search component
-    setDispSkillSearchFlag(true);
-  };
-  const handleCloseSkillSearch = () => {
-    setDispSkillSearchFlag(false);
-  };
-
-  const handleSkillSelect = skillInfo => {
-    let tmp = props.formFields.highlights.slice();
-    tmp[editSkillNdx].skills.push(skillInfo);
-    passHighlightUp(tmp);
-  };
-
-  const handleSkillStartDrag = skillInfo => {
-    setSkillDrag(skillInfo);
-  };
-
-  const handleSkillDrop = event => {
-    event.preventDefault && event.preventDefault();
-    skillDrag && handleSkillSelect(skillDrag);
-  };
-
-  const handleDragOver = event => {
-    event.preventDefault && event.preventDefault();
-    return false;
-  };
-
-  const handleDragEnd = event => {
-    if (skillDrag) {
-      // we are either dragging the entire skill search component
-      // or just a single skill to add.  This will fire after the
-      // onDrop, so if it was a skill, turn skill drag off and return
-      setSkillDrag(false);
-      return;
-    }
-    setSkillSearchCoords({ left: event.clientX, top: event.clientY });
+    setSkills(newSkills);
   };
 
   return (
-    <section
-      className="candidate-highlights candidate-tab-section"
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-    >
+    <section className="candidate-highlights candidate-tab-section">
       {addHighlight()}
-      {props.formFields.highlights && highlightList()}
+      {props.highlights && highlightList()}
       {showSkillsFlag && displaySkills()}
-      {dispSkillSearchFlag && dispSkillSearch()}
     </section>
   );
 
@@ -174,7 +125,7 @@ const CandidateHighlights = props => {
   function highlightList() {
     return (
       <div className="highlight-list justify-content-center">
-        {props.formFields.highlights
+        {props.highlights
           .sort((a, b) => a.sequence - b.sequence)
           .map((item, ndx) => (
             <div key={ndx} className="highlight-row">
@@ -214,7 +165,7 @@ const CandidateHighlights = props => {
                   className="btn btn-success"
                   title="Move highlight Down"
                   onClick={() => handleMoveHighlight(ndx, ndx + 1)}
-                  disabled={ndx === props.formFields.highlights.length - 1}
+                  disabled={ndx === props.highlights.length - 1}
                 >
                   <FontAwesomeIcon icon="arrow-down" />
                 </button>
@@ -250,57 +201,11 @@ const CandidateHighlights = props => {
 
   function displaySkills() {
     return (
-      <div
-        className="highlight-skills"
-        onDragOver={handleDragOver}
-        onDrop={handleSkillDrop}
-      >
-        {editFlag ? (
-          <p>Edit mode. Click edit button again to turn off.</p>
-        ) : (
-          <p>Highlight Skills (hover over Highlight to view)</p>
-        )}
-
-        <div className="highlight-skills-list">
-          {skills.map((skill, ndx) => (
-            <span
-              className={"badge badge-dark" + (editFlag ? " badge-edit" : "")}
-              key={skill.id}
-            >
-              {skill.name}
-              {editFlag && (
-                <span
-                  className="del-skill-badge"
-                  onClick={event => handleDelSkill(ndx)}
-                >
-                  x
-                </span>
-              )}
-            </span>
-          ))}
-          {editFlag && !dispSkillSearchFlag && (
-            <button
-              className="btn btn-info btn-add-skill"
-              onClick={handleAddSkill}
-            >
-              Add Skill
-            </button>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  function dispSkillSearch() {
-    return (
-      <div className="skill-popup" draggable={true} style={skillSearchCoords}>
-        <SkillSearch
-          editMode="1"
-          searchButton="Add Skill"
-          forceRefresh={false}
-          handleSkillSelect={handleSkillSelect}
-          handleSkillStartDrag={handleSkillStartDrag}
-          closeBtn={handleCloseSkillSearch}
+      <div className="skill-edit-list">
+        <SkillList
+          skills={skills}
+          editFlag={editFlag}
+          handleSkillsChange={handleSkillsChange}
         />
       </div>
     );

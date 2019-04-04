@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SkillSearch from "../../SkillSearch/";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import CandidateModal from "../CandidateModal";
 
@@ -22,40 +21,18 @@ const CandidateExperience = props => {
     setSortJobs(tmp.sort((a, b) => a.startDate - b.startDate));
   };
 
-  /*
-  const handleEditexperience = (ndx, event) => {
-    let tmp = props.formFields.experiences.slice();
-    tmp[ndx].experience = event.target.value;
-    passExperienceUp(tmp);
-  };
-
-  const handleRowClick = ndx => {
-    setShowSkillsFlag(true);
-    setDispSkillNdx(ndx);
-    setSkills(props.formFields.experiences[ndx].skills);
-    if (editJobNdx !== ndx) setEditFlag(false);
-  };
-
-
-  const handleEditSkills = ndx => {
-    seteditJobNdx(ndx);
-    setDispSkillNdx("");
-    setSkills(props.formFields.experiences[ndx].skills);
-    setEditFlag(!editFlag);
-  };
-
-  const handleDelSkill = (ndx, event) => {
-    let tmp = props.formFields.experiences.slice();
-    tmp[editJobNdx].skills.splice(ndx, 1);
-    passExperienceUp(tmp);
-	}; */
-
   const handleDispEditModal = ndx => {
     setEditNdx(ndx);
   };
 
   const handleCloseModal = () => {
     setEditNdx(false);
+  };
+
+  const handleExperienceChange = tmpExper => {
+    let tmp = props.formFields.experience.slice();
+    tmp[editNdx].experience = tmpExper;
+    passExperienceUp(tmp);
   };
 
   const handleDblClick = ndx => {};
@@ -68,9 +45,13 @@ const CandidateExperience = props => {
           showModal={editNdx !== false}
           modalHeader="Candidate Experience Entry/Update"
           idName="candidate-modal"
-          handleCloseModal={handleCloseModal}
+          hideClose={true}
         >
-          <CandidateExperienceCrud experience={sortJobs[editNdx]} />
+          <CandidateExperienceCrud
+            experience={sortJobs[editNdx]}
+            handleExperienceChange={handleExperienceChange}
+            handleCloseModal={handleCloseModal}
+          />
         </CandidateModal>
       )}
     </section>
