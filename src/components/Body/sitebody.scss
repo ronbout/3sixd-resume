@@ -1,8 +1,6 @@
 @import "../../scss/_settings";
 @import "../../scss/_functions";
 
-$borders: 3px;
-
 .sitebody {
     background-image: url("./assets/img/3sixD-hero.jpg");
     background-position: center;
@@ -12,7 +10,7 @@ $borders: 3px;
     z-index: -1;
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: minmax(200px,auto);
+    grid-auto-rows: minmax(400px,auto);
     -ms-grid-column-align: center;
     grid-template-areas:
     "slogan"
@@ -29,6 +27,8 @@ $borders: 3px;
 
         #slogan {
             text-align: left;
+            padding: 0px;
+            margin: 0 0 0 59px;
         }
     }
 }
@@ -39,10 +39,10 @@ $borders: 3px;
     justify-self: center;
     background: white;
     padding: 20px;
-    border-radius: $borders;
+    border-radius: 3px;
     box-shadow: 0 10px 30px rgba(0,0,0,.4);
-    width: 300px;
-    height: 100px;
+    width: 400px;
+    height: 300px;
     font-size: 1.5em;
 }
 
@@ -51,9 +51,14 @@ $borders: 3px;
     align-self: center;
     justify-self: center;
     text-align: center;
-    padding: 40px;
-    margin: 50px;
+    padding: 0px;
+    margin: 30px 20px 30px 20px;
     color: white;
     font-family: font(primary);
     font-size: 1.4em;
+    animation: move 1s 1;
+} 
+
+@keyframes move {
+    from { margin-bottom: -60px; }
 }
