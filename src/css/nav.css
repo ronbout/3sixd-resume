@@ -1,8 +1,8 @@
-.signin {
+.nav {
   font-family: "helvetica";
 }
 
-.signin ul {
+.nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -15,17 +15,13 @@
           flex-direction: row;
 }
 
-.signin li {
-  margin: 0 0.5rem;
-}
-
-.signin a {
+.nav a {
   text-decoration: none;
   color: white;
 }
 
-.signin a:hover,
-.signin a:active {
+.nav a:hover,
+.nav a:active {
   color: #f0e996;
 }
-/*# sourceMappingURL=signin.css.map */
+/*# sourceMappingURL=nav.css.map */

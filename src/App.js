@@ -26,7 +26,8 @@ import {
   faArrowDown,
   faChevronDown,
   faEdit,
-  faPlus
+  faPlus,
+  faCheck
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -36,7 +37,8 @@ library.add(
   faArrowDown,
   faChevronDown,
   faEdit,
-  faPlus
+  faPlus,
+  faCheck
 );
 
 // setup global api url

@@ -85,7 +85,9 @@ const Highlights = props => {
   };
 
   const handleIncludeSummary = ndx => {
-    console.log("toggle includeInSummary field");
+    let tmp = props.highlights.slice();
+    tmp[ndx].includeInSummary = !tmp[ndx].includeInSummary;
+    passHighlightUp(tmp);
   };
 
   return (
@@ -195,12 +197,12 @@ const Highlights = props => {
                     type="button"
                     title="Edit Skills"
                     className={
-                      "btn btn-secondary btn-edit" +
-                      (editFlag && editSkillNdx === ndx ? " active" : "")
+                      "btn btn-secondary btn-include" +
+                      (item.includeInSummary ? " active" : "")
                     }
                     onClick={() => handleIncludeSummary(ndx)}
                   >
-                    <FontAwesomeIcon icon="edit" />
+                    <FontAwesomeIcon icon="check" />
                   </button>
                 )}
               </div>

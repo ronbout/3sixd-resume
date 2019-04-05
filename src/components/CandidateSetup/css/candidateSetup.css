@@ -165,15 +165,15 @@
       grid-template-columns: 1fr 15fr 1fr 1fr 1fr 1fr;
 }
 
-.candidate-highlights .highlight-row .btn-edit {
+.candidate-highlights .highlight-row .dark-disabled {
+  background-color: #c8c8c8;
+}
+
+.candidate-highlights .highlight-row .btn-include {
   padding: 0.375rem 0.55rem 0.375rem 0.6rem;
 }
 
-.candidate-highlights .highlight-row .btn-edit.active {
+.candidate-highlights .highlight-row .btn-include.active {
   border: inset;
-}
-
-.candidate-highlights .highlight-row .dark-disabled {
-  background-color: #c8c8c8;
 }
 /*# sourceMappingURL=candidateSetup.css.map */

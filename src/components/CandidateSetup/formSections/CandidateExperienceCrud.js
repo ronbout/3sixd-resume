@@ -235,6 +235,7 @@ const CandidateExperienceCrud = props => {
           <Highlights
             highlights={job.highlights}
             handleHighlightChange={handleHighlightChange}
+            includeSummaryButton={true}
           />
         </div>
       )}
