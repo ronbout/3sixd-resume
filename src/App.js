@@ -11,6 +11,7 @@ import Footer from "./components/Footer/Footer";
 import Sitebody from "./components/Body/Sitebody";
 import Details from "./components/Details/Details";
 import SkillSetup from "./components/SkillSetup/";
+import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import Login from "./components/login";
 import Signup from "./components/signup";
@@ -66,9 +67,9 @@ class App extends Component {
                 path="/candidate/setup"
                 render={() => <CandidateSetup />}
               />
+              <Route path="/company/setup" render={() => <CompanySetup />} />
               <Route path="/signin" render={() => <Login />} />
               <Route path="/register" render={() => <Signup />} />
-              <Route exact path="/" component={Sitebody} />
               <Route exact path="/" component={Sitebody} />
             </Switch>
           </React.Fragment>
