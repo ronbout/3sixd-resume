@@ -256,7 +256,7 @@ class CandidateCrud extends Component {
       ...candidateInfo,
       tabIndex: EXPERIENCE_NDX
     };
-    this.state.origForm = this.state.formFields;
+    this.state.origForm = JSON.parse(JSON.stringify(this.state.formFields));
   }
 
   handleSubmit = event => {
@@ -267,7 +267,7 @@ class CandidateCrud extends Component {
   handleClear = () => {
     this.setState({
       ...clearFormFields,
-      origForm: clearFormFields.formFields
+      origForm: JSON.parse(JSON.stringify(clearFormFields.formFields))
     });
   };
 

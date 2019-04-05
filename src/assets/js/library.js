@@ -54,3 +54,5 @@ export function isEmail(email) {
   // Email passed!
   return true;
 }
+
+export const objCopy = obj => JSON.parse(JSON.stringify(obj));

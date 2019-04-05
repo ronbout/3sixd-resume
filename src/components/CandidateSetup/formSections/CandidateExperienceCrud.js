@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SkillList from "../../SkillList/";
 import Highlights from "./Highlights";
+import { objCopy } from "../../../assets/js/library";
 
 const CandidateExperienceCrud = props => {
   const [showHighlights, setShowHighlights] = useState(false);
+  const [origJob, setOrigJob] = useState(null);
   const job = props.experience;
+
+  useEffect(() => {
+    setOrigJob(objCopy(props.experience));
+  }, []);
 
   const handleInputChange = event => {
     let tmpJob = job;
@@ -20,8 +26,9 @@ const CandidateExperienceCrud = props => {
     passExperienceUp(tmpJob);
   };
 
-  const passExperienceUp = tmpExperience => {
-    props.handleExperienceChange && props.handleExperienceChange(tmpExperience);
+  const passExperienceUp = (tmpExperience, closeModal = false) => {
+    props.handleExperienceChange &&
+      props.handleExperienceChange(tmpExperience, closeModal);
   };
 
   const handleSkillsChange = skills => {
@@ -38,6 +45,10 @@ const CandidateExperienceCrud = props => {
     let tmpJob = job;
     tmpJob.highlights = highlights;
     passExperienceUp(tmpJob);
+  };
+
+  const handleCancel = () => {
+    passExperienceUp(origJob, true);
   };
 
   return (
@@ -231,10 +242,17 @@ const CandidateExperienceCrud = props => {
       <div className="button-section">
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn btn-primary"
           onClick={props.handleCloseModal}
         >
-          Close
+          Save
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleCancel}
+        >
+          Cancel
         </button>
 
         <button

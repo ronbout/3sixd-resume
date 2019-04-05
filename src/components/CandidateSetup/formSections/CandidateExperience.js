@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../css/candidateExperience.css";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import CandidateModal from "../CandidateModal";
+import { objCopy } from "../../../assets/js/library";
 
 const CandidateExperience = props => {
   const [editNdx, setEditNdx] = useState(false);
@@ -57,10 +58,12 @@ const CandidateExperience = props => {
     setEditNdx(false);
   };
 
-  const handleExperienceChange = tmpExper => {
+  const handleExperienceChange = (tmpExper, closeModal = false) => {
     let tmp = sortJobs.slice();
-    tmp[editNdx].experience = tmpExper;
+    tmp[editNdx] = objCopy(tmpExper);
     passExperienceUp(tmp);
+    setSortJobs(tmp);
+    closeModal && handleCloseModal();
   };
 
   const handleAddNewJob = () => {
