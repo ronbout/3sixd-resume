@@ -74,27 +74,29 @@ const SkillList = props => {
       {props.editFlag ? <p>Edit Skills</p> : <p>Skills</p>}
 
       <div className="skills-list">
-        {props.skills.map((skill, ndx) => (
-          <span
-            className={
-              "badge badge-dark" + (props.editFlag ? " badge-edit" : "")
-            }
-            key={skill.id}
-          >
-            {skill.name}
-            {props.editFlag && (
-              <span
-                className="del-skill-badge"
-                onClick={event => handleDelSkill(ndx)}
-              >
-                x
-              </span>
-            )}
-          </span>
-        ))}
+        {props.skills &&
+          props.skills.map((skill, ndx) => (
+            <span
+              className={
+                "badge badge-dark" + (props.editFlag ? " badge-edit" : "")
+              }
+              key={skill.id}
+            >
+              {skill.name}
+              {props.editFlag && (
+                <span
+                  className="del-skill-badge"
+                  onClick={event => handleDelSkill(ndx)}
+                >
+                  x
+                </span>
+              )}
+            </span>
+          ))}
         {props.editFlag && !dispSkillSearchFlag && (
           <button
-            className="btn btn-info btn-add-skill"
+            id="btn-add-skill"
+            className="btn btn-info"
             onClick={handleOpenSkillSearch}
           >
             Add Skill

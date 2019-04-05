@@ -25,7 +25,17 @@ const Highlights = props => {
 
   const handleAddHighlight = () => {
     const tmp = props.highlights.slice();
-    tmp.push({ id: "", highlight: newHighlight });
+    // get the highest sequence number and add one
+    const newSequence =
+      tmp.reduce((low, obj) => {
+        return Math.max(low, obj.sequence);
+      }, -999) + 1;
+    tmp.push({
+      id: "",
+      highlight: newHighlight,
+      skills: [],
+      sequence: newSequence
+    });
     setNewHightlight("");
     passHighlightUp(tmp);
   };

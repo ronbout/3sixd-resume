@@ -11,12 +11,39 @@ const CandidateExperience = props => {
     props.formFields.experience.sort((a, b) => a.startDate - b.startDate)
   );
 
+  const emptyExperience = {
+    id: "",
+    candidateId: props.formFields.id,
+    company: {
+      id: "",
+      name: ""
+    },
+    startDate: "",
+    endDate: "",
+    contactPerson: {
+      id: "",
+      name: "",
+      workPhone: ""
+    },
+    payType: "Salary",
+    startPay: "",
+    endpay: "",
+    jobTitle: {
+      id: "",
+      candidateId: props.formFields.id,
+      titleDescription: ""
+    },
+    summary: "",
+    skills: [],
+    highlights: []
+  };
+
   const passExperienceUp = tmpExperience => {
     props.handleExperienceChange && props.handleExperienceChange(tmpExperience);
   };
 
   const handleDelExperience = ndx => {
-    const tmp = props.formFields.experience.slice();
+    const tmp = sortJobs.slice();
     tmp.splice(ndx, 1);
     passExperienceUp(tmp);
     setSortJobs(tmp.sort((a, b) => a.startDate - b.startDate));
@@ -31,16 +58,23 @@ const CandidateExperience = props => {
   };
 
   const handleExperienceChange = tmpExper => {
-    let tmp = props.formFields.experience.slice();
+    let tmp = sortJobs.slice();
     tmp[editNdx].experience = tmpExper;
     passExperienceUp(tmp);
   };
 
-  const handleDblClick = ndx => {};
+  const handleAddNewJob = () => {
+    // add empty job to list if not already empty
+    // set editNdx to this new element
+    sortJobs.push(emptyExperience);
+    console.log(sortJobs);
+    setEditNdx(sortJobs.length - 1);
+  };
 
   return (
     <section className="candidate-experience candidate-tab-section">
       {props.formFields.experience && experienceList()}
+      {addButton()}
       {editNdx !== false && (
         <CandidateModal
           showModal={editNdx !== false}
@@ -70,11 +104,7 @@ const CandidateExperience = props => {
           <div className="heading">Edit</div>
         </div>
         {sortJobs.map((item, ndx) => (
-          <div
-            key={ndx}
-            className="experience-row"
-            onDoubleClick={() => handleDblClick(ndx)}
-          >
+          <div key={ndx} className="experience-row">
             <div>
               <input
                 type="text"
@@ -133,6 +163,16 @@ const CandidateExperience = props => {
             </div>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  function addButton() {
+    return (
+      <div className="add-job-button">
+        <button type="button" title="Add New Job" onClick={handleAddNewJob}>
+          <FontAwesomeIcon icon="plus" />
+        </button>
       </div>
     );
   }
