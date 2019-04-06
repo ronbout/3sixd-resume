@@ -86,6 +86,7 @@
 
 .candidate-main {
   text-align: center;
+  margin-top: 2em;
 }
 
 .candidate-main form div[class^="col-"] {

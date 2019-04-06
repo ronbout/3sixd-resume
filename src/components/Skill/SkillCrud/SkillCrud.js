@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import TechtagSelect from "../TechtagSelect/";
+import TechtagSelect from "../../TechtagSelect/";
 import SkillDescSection from "./SkillDescSection";
 import RelatedItemsList from "./RelatedItemsList";
 //mport { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TabbedUI from "../TabbedUI/";
+import TabbedUI from "../../TabbedUI/";
 
 const API_SKILL = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";

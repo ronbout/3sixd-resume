@@ -7,6 +7,8 @@ import CandidateEducation from "./formSections/CandidateEducation";
 import CandidateLinks from "./formSections/CandidateLinks";
 import TabbedUI from "../TabbedUI/";
 
+import { objCopy } from "../../assets/js/library";
+
 // dummy data
 const candidateInfo = {
   formFields: {
@@ -97,7 +99,8 @@ const candidateInfo = {
         candidateId: 17,
         company: {
           id: 18,
-          name: "WordPress Specialists"
+          name: "WordPress Specialists",
+          description: "WordPress and Theme Specialists"
         },
         startDate: "2015-05-22",
         endDate: "2017-02-05",
@@ -147,7 +150,8 @@ const candidateInfo = {
         candidateId: 17,
         company: {
           id: 4,
-          name: "ABC Web Dev"
+          name: "3sixD",
+          description: "World famous Pick/React stack developent"
         },
         startDate: "2017-05-22",
         endDate: "2018-02-05",
@@ -256,7 +260,7 @@ class CandidateCrud extends Component {
       ...candidateInfo,
       tabIndex: EXPERIENCE_NDX
     };
-    this.state.origForm = JSON.parse(JSON.stringify(this.state.formFields));
+    this.state.origForm = objCopy(this.state.formFields);
   }
 
   handleSubmit = event => {

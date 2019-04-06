@@ -10,7 +10,7 @@ import Siteheader from "./components/Header/Siteheader";
 import Footer from "./components/Footer/Footer";
 import Sitebody from "./components/Body/Sitebody";
 import Details from "./components/Details/Details";
-import SkillSetup from "./components/SkillSetup/";
+import SkillSetup from "./components/Skill/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import Login from "./components/login";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import SkillList from "../../SkillList";
+import SkillList from "../../Skill/SkillList";
 
 const Highlights = props => {
   //const [editFlag, setEditFlag] = useState(false);
