@@ -2,7 +2,7 @@ import React from "react";
 
 const CandidateModal = props => {
   const style = props.showModal
-    ? { display: "block", opacity: "1", top: "12px" }
+    ? { display: "block", opacity: "1", top: "88px" }
     : { display: "none" };
 
   const handleClose = () => {

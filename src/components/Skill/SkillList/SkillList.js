@@ -11,6 +11,7 @@ const SkillList = props => {
     right: "50px",
     top: "100px"
   });
+  const [shiftXY, setShiftXY] = useState({});
 
   const handleOpenSkillSearch = () => {
     setDispSkillSearchFlag(true);
@@ -61,7 +62,17 @@ const SkillList = props => {
       setSkillDrag(false);
       return;
     }
-    setSkillSearchCoords({ left: event.clientX, top: event.clientY });
+    setSkillSearchCoords({
+      left: event.clientX - shiftXY.left,
+      top: event.clientY - shiftXY.top
+    });
+  };
+
+  const handleDragStart = event => {
+    // have to figure out offset from where the mouse is in the div
+    let shiftX = event.clientX - event.target.getBoundingClientRect().left;
+    let shiftY = event.clientY - event.target.getBoundingClientRect().top;
+    setShiftXY({ left: shiftX, top: shiftY });
   };
 
   return (
@@ -69,6 +80,7 @@ const SkillList = props => {
       className="skills-container"
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
+      onDragStart={handleDragStart}
       onDrop={handleSkillDrop}
     >
       {props.editFlag ? <p>Edit Skills</p> : <p>Skills</p>}

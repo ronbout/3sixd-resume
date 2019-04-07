@@ -11,7 +11,7 @@ const CandidateExperienceCrud = props => {
   const [origJob, setOrigJob] = useState(null);
   const [showCompany, setShowCompany] = useState(false);
   const job = props.experience;
-  const CompanyPopup = MakePopup(CompanySetup);
+  const CompanyPopup = MakePopup(CompanySetup, { width: "1000px" }, true);
 
   useEffect(() => {
     setOrigJob(objCopy(props.experience));
@@ -30,7 +30,7 @@ const CandidateExperienceCrud = props => {
     passExperienceUp(tmpJob);
   };
 
-  const handleCompanyFocus = event => {
+  const handleCompanyClick = event => {
     setShowCompany(!showCompany);
   };
 
@@ -75,14 +75,13 @@ const CandidateExperienceCrud = props => {
   return (
     <section className="candidate-job">
       <input type="hidden" name="job-id" value={job.id} />
-      {showCompany ? (
+      {jobForm()}
+      {showCompany && (
         <CompanyPopup
           company={job.company}
           handleCancel={handleCompanyCancel}
           handleSubmit={handleCompanySubmit}
         />
-      ) : (
-        jobForm()
       )}
     </section>
   );
@@ -121,7 +120,7 @@ const CandidateExperienceCrud = props => {
               placeholder="Company"
               value={job.company.name}
               onChange={handleInputChange}
-              onFocus={handleCompanyFocus}
+              onClick={handleCompanyClick}
               required
             />
           </div>

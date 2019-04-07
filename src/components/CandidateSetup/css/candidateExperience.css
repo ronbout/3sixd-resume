@@ -73,6 +73,10 @@
   margin: 0 0.5em;
 }
 
+.candidate-experience .candidate-job {
+  min-height: 520px;
+}
+
 .candidate-experience .modal-footer {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
