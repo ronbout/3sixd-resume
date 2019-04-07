@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import SkillList from "../../Skill/SkillList/";
 import Highlights from "./Highlights";
 import CompanySetup from "../../CompanySetup/";
+import MakePopup from "../../../hoc/MakePopup";
 import { objCopy } from "../../../assets/js/library";
 
 const CandidateExperienceCrud = props => {
@@ -10,6 +11,7 @@ const CandidateExperienceCrud = props => {
   const [origJob, setOrigJob] = useState(null);
   const [showCompany, setShowCompany] = useState(false);
   const job = props.experience;
+  const CompanyPopup = MakePopup(CompanySetup);
 
   useEffect(() => {
     setOrigJob(objCopy(props.experience));
@@ -74,7 +76,7 @@ const CandidateExperienceCrud = props => {
     <section className="candidate-job">
       <input type="hidden" name="job-id" value={job.id} />
       {showCompany ? (
-        <CompanySetup
+        <CompanyPopup
           company={job.company}
           handleCancel={handleCompanyCancel}
           handleSubmit={handleCompanySubmit}

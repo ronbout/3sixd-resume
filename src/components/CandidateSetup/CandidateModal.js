@@ -28,14 +28,6 @@ const CandidateModal = props => {
               <h5 className="modal-title" id="notesModalLabel">
                 {props.modalHeader}
               </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
             </div>
             {props.children || <h2>Inside Modal</h2>}
             <div className="modal-footer">
