@@ -33,6 +33,10 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
         shiftXY: {}
       };
 
+      // in case the wrapped component has its own drag event
+      // such as individual skills, need to stop the component
+      // from moving if that inner component is dragging something
+
       this.attrs = draggable
         ? {
             draggable: true,

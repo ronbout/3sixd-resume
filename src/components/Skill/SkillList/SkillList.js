@@ -5,6 +5,16 @@ import MakePopup from "../../../hoc/MakePopup";
 
 import "./css/skillList.css";
 
+const SkillSearchPopup = MakePopup(
+  SkillSearch,
+  {
+    right: "100px",
+    top: "200px",
+    width: "344px"
+  },
+  true
+);
+
 const SkillList = props => {
   const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(false);
   const [skillDrag, setSkillDrag] = useState(false);
@@ -104,15 +114,6 @@ const SkillList = props => {
   );
 
   function dispSkillSearch() {
-    const SkillSearchPopup = MakePopup(
-      SkillSearch,
-      {
-        right: "100px",
-        top: "200px",
-        width: "344px"
-      },
-      true
-    );
     return (
       <SkillSearchPopup
         editMode="1"

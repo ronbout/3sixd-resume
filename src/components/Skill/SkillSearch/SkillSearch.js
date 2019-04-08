@@ -178,9 +178,11 @@ class SkillSearch extends Component {
   };
 
   handleDragStart = (skillInfo, ndx, event) => {
-    console.log("start drag: ", skillInfo);
+    const skillTxt = JSON.stringify(skillInfo);
+    event.dataTransfer.setData("text/plain", skillTxt);
     this.handleSkillClick(ndx, event);
     this.props.handleSkillStartDrag(skillInfo);
+    event.stopPropagation();
   };
 
   handleTagSelectFocus = () => {
@@ -259,7 +261,10 @@ class SkillSearch extends Component {
                     key={ndx}
                     data-value={ndx}
                     draggable={true}
-                    onDragStart={() => this.handleDragStart(skillInfo, ndx)}
+                    onDragStart={event =>
+                      this.handleDragStart(skillInfo, ndx, event)
+                    }
+                    onDragEnd={event => event.stopPropagation()}
                     onClick={() => this.handleSkillClick(ndx)}
                     onDoubleClick={this.handleSelect}
                     title={
