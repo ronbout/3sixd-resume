@@ -78,6 +78,7 @@ const SkillList = props => {
   return (
     <div
       className="skills-container"
+      draggable={true}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}

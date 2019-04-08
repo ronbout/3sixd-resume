@@ -1,3 +1,7 @@
+/**
+ *  Higher Order Component that creates a react portal to
+ *  turn a component into a popup with draggable capability
+ **/
 import React, { Component } from "react";
 import { createPortal } from "react-dom";
 
@@ -19,14 +23,14 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
           background: "#aaa",
           ...styles
         },
-        dragging: false
+        shiftXY: {}
       };
 
       this.attrs = draggable
         ? {
-            onMouseDown: this.handleMouseDown,
-            onMouseUp: this.handleMouseUp,
-            onMouseMove: this.handleMouseMove,
+            draggable: true,
+            onDragOver: this.handleDragOver,
+            onDragEnd: this.handleDragEnd,
             onDragStart: this.handleDragStart
           }
         : {};
@@ -42,46 +46,28 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
       popupRoot.removeChild(this.el);
     }
 
-    handleDragStart = () => {
+    handleDragStart = event => {
+      // have to figure out offset from where the mouse is in the div
+      let shiftX = event.clientX - event.target.getBoundingClientRect().left;
+      let shiftY = event.clientY - event.target.getBoundingClientRect().top;
+      this.setState({
+        shiftXY: { left: shiftX, top: shiftY }
+      });
+    };
+
+    handleDragEnd = event => {
+      this.setState({
+        popupStyle: {
+          ...this.state.popupStyle,
+          left: event.clientX - this.state.shiftXY.left,
+          top: event.clientY - this.state.shiftXY.top
+        }
+      });
+    };
+
+    handleDragOver = event => {
+      event.preventDefault && event.preventDefault();
       return false;
-    };
-
-    handleMouseDown = event => {
-      console.log(event.target.getBoundingClientRect());
-      this.setState({
-        dragging: true
-      });
-      /*       let shiftX = event.clientX - parseInt(this.state.popupStyle.left);
-      let shiftY = event.clientY - parseInt(this.state.popupStyle.top);
-      console.log(event);
-      console.log(event.screenX);
-      console.log(event.clientX);
-      console.log("shiftX: ", shiftX);
-      console.log("shiftY: ", shiftY); */
-    };
-
-    handleMouseUp = event => {
-      this.setState({
-        dragging: false
-      });
-    };
-
-    handleMouseMove = event => {
-      if (!this.state.dragging) return;
-      const newX =
-        parseInt(this.state.popupStyle.left) + event.movementX + "px";
-      const newY = parseInt(this.state.popupStyle.top) + event.movementY + "px";
-
-      console.log(newX);
-      this.setState(prevState => {
-        return {
-          popupStyle: {
-            ...prevState.popupStyle,
-            left: newX,
-            top: newY
-          }
-        };
-      });
     };
 
     render() {
