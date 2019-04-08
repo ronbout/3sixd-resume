@@ -1,6 +1,9 @@
 /**
  *  Higher Order Component that creates a react portal to
  *  turn a component into a popup with draggable capability
+ * 	Usage:
+ * 		NewComponent = MakePopup(OrigComponent, {custom style object}, draggable boolean (default=false))
+ * 		<NewComponent ...OrigComponentProps />
  **/
 import React, { Component } from "react";
 import { createPortal } from "react-dom";
@@ -15,7 +18,7 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
       this.state = {
         popupStyle: {
           boxShadow: "10px 10px 6px 3px rgba(150,150,150,0.5)",
-          position: "absolute",
+          position: draggable ? "fixed" : "absolute",
           opacity: "1",
           zIndex: "5000",
           left: "50px",
@@ -56,6 +59,11 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
     };
 
     handleDragEnd = event => {
+      console.log("screenY:", event.screenY);
+      console.log("clientY:", event.clientY);
+      console.log("shiftY:", this.state.shiftXY.top);
+      console.log("left: ", event.clientX - this.state.shiftXY.left);
+      console.log("top: ", event.clientY - this.state.shiftXY.top);
       this.setState({
         popupStyle: {
           ...this.state.popupStyle,
@@ -73,7 +81,6 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
     render() {
       return createPortal(
         <div
-          id="ball"
           style={this.state.popupStyle}
           className="make-popup"
           {...this.attrs}
