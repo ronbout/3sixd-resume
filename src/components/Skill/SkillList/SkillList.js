@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 
 import SkillSearch from "../SkillSearch/";
+import MakePopup from "../../../hoc/MakePopup";
 
 import "./css/skillList.css";
 
 const SkillList = props => {
   const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(false);
   const [skillDrag, setSkillDrag] = useState(false);
-  const [skillSearchCoords, setSkillSearchCoords] = useState({
-    right: "50px",
-    top: "100px"
-  });
-  const [shiftXY, setShiftXY] = useState({});
 
   const handleOpenSkillSearch = () => {
     setDispSkillSearchFlag(true);
@@ -62,26 +58,13 @@ const SkillList = props => {
       setSkillDrag(false);
       return;
     }
-    setSkillSearchCoords({
-      left: event.clientX - shiftXY.left,
-      top: event.clientY - shiftXY.top
-    });
-  };
-
-  const handleDragStart = event => {
-    // have to figure out offset from where the mouse is in the div
-    let shiftX = event.clientX - event.target.getBoundingClientRect().left;
-    let shiftY = event.clientY - event.target.getBoundingClientRect().top;
-    setShiftXY({ left: shiftX, top: shiftY });
   };
 
   return (
     <div
       className="skills-container"
-      draggable={true}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
-      onDragStart={handleDragStart}
       onDrop={handleSkillDrop}
     >
       {props.editFlag ? <p>Edit Skills</p> : <p>Skills</p>}
@@ -121,17 +104,24 @@ const SkillList = props => {
   );
 
   function dispSkillSearch() {
+    const SkillSearchPopup = MakePopup(
+      SkillSearch,
+      {
+        right: "100px",
+        top: "200px",
+        width: "344px"
+      },
+      true
+    );
     return (
-      <div className="skill-popup" draggable={true} style={skillSearchCoords}>
-        <SkillSearch
-          editMode="1"
-          searchButton="Add Skill"
-          forceRefresh={false}
-          handleSkillSelect={handleAddSkill}
-          handleSkillStartDrag={handleSkillStartDrag}
-          closeBtn={handleCloseSkillSearch}
-        />
-      </div>
+      <SkillSearchPopup
+        editMode="1"
+        searchButton="Add Skill"
+        forceRefresh={false}
+        handleSkillSelect={handleAddSkill}
+        handleSkillStartDrag={handleSkillStartDrag}
+        closeBtn={handleCloseSkillSearch}
+      />
     );
   }
 };

@@ -178,6 +178,7 @@ class SkillSearch extends Component {
   };
 
   handleDragStart = (skillInfo, ndx, event) => {
+    console.log("start drag: ", skillInfo);
     this.handleSkillClick(ndx, event);
     this.props.handleSkillStartDrag(skillInfo);
   };

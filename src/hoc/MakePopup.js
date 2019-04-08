@@ -6,26 +6,30 @@
  * 		<NewComponent ...OrigComponentProps />
  **/
 import React, { Component } from "react";
-import { createPortal } from "react-dom";
-
-const popupRoot = document.getElementById("popup-root");
 
 const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
   return class PoppedComponent extends Component {
     constructor(props) {
       super(props);
 
+      const popupStyle = {
+        boxShadow: "10px 10px 6px 3px rgba(150,150,150,0.5)",
+        position: draggable ? "fixed" : "absolute",
+        opacity: "1",
+        zIndex: "5000",
+        left: "50px",
+        top: "100px",
+        background: "#aaa",
+        ...styles
+      };
+      // if right positioning is part of the styles paramter,
+      // have to remove the left property in popupStyle
+      if (styles.right) {
+        delete popupStyle.left;
+      }
+
       this.state = {
-        popupStyle: {
-          boxShadow: "10px 10px 6px 3px rgba(150,150,150,0.5)",
-          position: draggable ? "fixed" : "absolute",
-          opacity: "1",
-          zIndex: "5000",
-          left: "50px",
-          top: "100px",
-          background: "#aaa",
-          ...styles
-        },
+        popupStyle,
         shiftXY: {}
       };
 
@@ -37,16 +41,6 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
             onDragStart: this.handleDragStart
           }
         : {};
-
-      this.el = document.createElement("div");
-    }
-
-    componentDidMount() {
-      popupRoot.appendChild(this.el);
-    }
-
-    componentWillUnmount() {
-      popupRoot.removeChild(this.el);
     }
 
     handleDragStart = event => {
@@ -59,11 +53,6 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
     };
 
     handleDragEnd = event => {
-      console.log("screenY:", event.screenY);
-      console.log("clientY:", event.clientY);
-      console.log("shiftY:", this.state.shiftXY.top);
-      console.log("left: ", event.clientX - this.state.shiftXY.left);
-      console.log("top: ", event.clientY - this.state.shiftXY.top);
       this.setState({
         popupStyle: {
           ...this.state.popupStyle,
@@ -79,15 +68,14 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
     };
 
     render() {
-      return createPortal(
+      return (
         <div
           style={this.state.popupStyle}
           className="make-popup"
           {...this.attrs}
         >
           <PopupComponent {...this.props} />
-        </div>,
-        this.el
+        </div>
       );
     }
   };
