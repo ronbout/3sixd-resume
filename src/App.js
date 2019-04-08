@@ -13,6 +13,7 @@ import Details from "./components/Details/Details";
 import SkillSetup from "./components/Skill/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
+import PersonSetup from "./components/PersonSetup/";
 import Login from "./components/login";
 import Signup from "./components/signup";
 
@@ -68,6 +69,7 @@ class App extends Component {
                 render={() => <CandidateSetup />}
               />
               <Route path="/company/setup" render={() => <CompanySetup />} />
+              <Route path="/person/setup" render={() => <PersonSetup />} />
               <Route path="/signin" render={() => <Login />} />
               <Route path="/register" render={() => <Signup />} />
               <Route exact path="/" component={Sitebody} />

@@ -22,6 +22,11 @@ const Navmenu = () => {
             Company
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/person/setup" className="nav-link">
+            Person
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

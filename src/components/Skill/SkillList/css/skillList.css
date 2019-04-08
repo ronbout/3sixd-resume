@@ -30,12 +30,4 @@
 .skills-list .btn-add-skill {
   padding: 0.5rem 0.75rem;
 }
-
-.skill-popup {
-  -webkit-box-shadow: 3px 3px 5px 6px #aaa;
-          box-shadow: 3px 3px 5px 6px #aaa;
-  position: absolute;
-  opacity: 1;
-  z-index: 100;
-}
 /*# sourceMappingURL=skillList.css.map */
