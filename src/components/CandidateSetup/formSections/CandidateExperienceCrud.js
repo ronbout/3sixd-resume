@@ -11,7 +11,11 @@ const CandidateExperienceCrud = props => {
   const [origJob, setOrigJob] = useState(null);
   const [showCompany, setShowCompany] = useState(false);
   const job = props.experience;
-  const CompanyPopup = MakePopup(CompanySetup, { width: "1000px" }, true);
+  const CompanyPopup = MakePopup(
+    CompanySetup,
+    { left: "250px", top: "200px", width: "1000px" },
+    true
+  );
 
   useEffect(() => {
     setOrigJob(objCopy(props.experience));

@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { createPortal } from "react-dom";
+
+const popupRoot = document.getElementById("popup-root");
 
 const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
   return class PoppedComponent extends Component {
@@ -27,6 +30,16 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
             onDragStart: this.handleDragStart
           }
         : {};
+
+      this.el = document.createElement("div");
+    }
+
+    componentDidMount() {
+      popupRoot.appendChild(this.el);
+    }
+
+    componentWillUnmount() {
+      popupRoot.removeChild(this.el);
     }
 
     handleDragStart = () => {
@@ -72,7 +85,7 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
     };
 
     render() {
-      return (
+      return createPortal(
         <div
           id="ball"
           style={this.state.popupStyle}
@@ -80,7 +93,8 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
           {...this.attrs}
         >
           <PopupComponent {...this.props} />
-        </div>
+        </div>,
+        this.el
       );
     }
   };
