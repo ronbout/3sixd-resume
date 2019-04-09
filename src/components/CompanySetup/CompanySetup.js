@@ -176,6 +176,7 @@ class CompanySetup extends Component {
               value={this.state.formFields.name}
               onChange={this.handleInputChange}
               required
+              disabled={this.state.showPerson}
             />
           </div>
           <label className="col-2 col-form-label label-right">
@@ -190,6 +191,7 @@ class CompanySetup extends Component {
               placeholder="Description"
               value={this.state.formFields.description}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
         </div>
@@ -204,6 +206,7 @@ class CompanySetup extends Component {
               placeholder="Primary Phone"
               value={this.state.formFields.companyPhone}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
           <label className="col-2 col-form-label label-right">
@@ -232,6 +235,7 @@ class CompanySetup extends Component {
               placeholder="Company Email"
               value={this.state.formFields.email}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
           <label className="col-2 col-form-label label-right">
@@ -245,6 +249,7 @@ class CompanySetup extends Component {
               placeholder="Website URL"
               value={this.state.formFields.website}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
         </div>
@@ -261,6 +266,7 @@ class CompanySetup extends Component {
               placeholder="Street Address"
               value={this.state.formFields.addressLine1}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
           <label
@@ -277,6 +283,7 @@ class CompanySetup extends Component {
               placeholder="Apt/Suite"
               value={this.state.formFields.addressLine2}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
         </div>
@@ -293,6 +300,7 @@ class CompanySetup extends Component {
               placeholder="City"
               value={this.state.formFields.municipality}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
           <div className="col-2">
@@ -303,6 +311,7 @@ class CompanySetup extends Component {
               placeholder="State"
               value={this.state.formFields.region}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
           <div className="col-2">
@@ -313,6 +322,7 @@ class CompanySetup extends Component {
               placeholder="Zip Code"
               value={this.state.formFields.postalCode}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
           <div className="col-2">
@@ -323,6 +333,7 @@ class CompanySetup extends Component {
               placeholder="Country"
               value={this.state.formFields.countryCode}
               onChange={this.handleInputChange}
+              disabled={this.state.showPerson}
             />
           </div>
         </div>

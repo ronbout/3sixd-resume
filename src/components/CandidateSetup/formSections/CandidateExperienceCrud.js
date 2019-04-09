@@ -146,6 +146,7 @@ const CandidateExperienceCrud = props => {
               value={job.jobTitle.titleDescription}
               onChange={handleInputChange}
               required
+              disabled={showPerson || showCompany}
             />
           </div>
           <label
@@ -165,6 +166,7 @@ const CandidateExperienceCrud = props => {
               onChange={handleInputChange}
               onClick={handleCompanyClick}
               required
+              disabled={showPerson}
             />
           </div>
         </div>
@@ -187,6 +189,7 @@ const CandidateExperienceCrud = props => {
                   value={job.contactPerson.formattedName}
                   onChange={handleInputChange}
                   onClick={handlePersonClick}
+                  disabled={showCompany}
                 />
               </div>
               <label
@@ -204,6 +207,7 @@ const CandidateExperienceCrud = props => {
                   placeholder="Contact Phone #"
                   value={job.contactPerson.workPhone}
                   onChange={handleContactChange}
+                  disabled={showPerson || showCompany}
                 />
               </div>
             </div>
@@ -221,6 +225,7 @@ const CandidateExperienceCrud = props => {
                   value={job.startDate}
                   onChange={handleInputChange}
                   required
+                  disabled={showPerson || showCompany}
                 />
               </div>
               <label
@@ -238,6 +243,7 @@ const CandidateExperienceCrud = props => {
                   placeholder="YYYY-MM-DD"
                   value={job.endDate}
                   onChange={handleInputChange}
+                  disabled={showPerson || showCompany}
                 />
               </div>
             </div>
@@ -251,6 +257,7 @@ const CandidateExperienceCrud = props => {
                   value="Salary"
                   checked={job.payType === "Salary"}
                   onChange={handleInputChange}
+                  disabled={showPerson || showCompany}
                 />
                 <label className="custom-control-label" htmlFor="salary">
                   Salary
@@ -265,6 +272,7 @@ const CandidateExperienceCrud = props => {
                   value="Hourly"
                   checked={job.payType === "Hourly"}
                   onChange={handleInputChange}
+                  disabled={showPerson || showCompany}
                 />
                 <label className="custom-control-label" htmlFor="hourly">
                   Hourly
@@ -285,6 +293,7 @@ const CandidateExperienceCrud = props => {
                   placeholder="Starting Pay"
                   value={job.startPay}
                   onChange={handleInputChange}
+                  disabled={showPerson || showCompany}
                 />
               </div>
               <label
@@ -302,6 +311,7 @@ const CandidateExperienceCrud = props => {
                   placeholder="Ending Pay"
                   value={job.endPay}
                   onChange={handleInputChange}
+                  disabled={showPerson || showCompany}
                 />
               </div>
             </div>
@@ -319,6 +329,7 @@ const CandidateExperienceCrud = props => {
               highlights={job.highlights}
               handleHighlightChange={handleHighlightChange}
               includeSummaryButton={true}
+              disabled={showPerson || showCompany}
             />
           </div>
         )}
