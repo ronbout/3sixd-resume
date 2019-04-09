@@ -106,7 +106,9 @@ const candidateInfo = {
         endDate: "2017-02-05",
         contactPerson: {
           id: 7,
-          name: "Billy Moyer",
+          formattedName: "Billy Moyer",
+          givenName: "Billy",
+          familyName: "Moyer",
           workPhone: "931-333-1234"
         },
         payType: "Salary",
@@ -157,7 +159,9 @@ const candidateInfo = {
         endDate: "2018-02-05",
         contactPerson: {
           id: 27,
-          name: "Bob Skalinsky",
+          formattedName: "Bob Skalinsky",
+          givenName: "Bob",
+          familyName: "Skalinsky",
           workPhone: "615-333-8888"
         },
         payType: "Salary",
@@ -191,7 +195,9 @@ const candidateInfo = {
         startDate: "2018-02-10",
         contactPerson: {
           id: 20,
-          name: "Sue Jenkins",
+          formattedName: "Sue Jenkins",
+          givenName: "Sue",
+          familyName: "Jenkins",
           workPhone: "615-444-9999"
         },
         payType: "Salary",

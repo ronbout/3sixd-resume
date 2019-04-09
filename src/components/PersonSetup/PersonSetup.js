@@ -43,13 +43,28 @@ class PersonSetup extends Component {
 
   handleSubmit = () => {
     // submit to api and send info back to calling
-    console.log("submit the person info");
-    this.props.handleSubmit && this.props.handleSubmit(this.state.formFields);
+    console.log("post the person info to the api");
+
+    // formattedName is a calc'd field that is displayed on other components,
+    // so need to calc upon save
+    const { givenName, middleName, familyName } = this.state.formFields;
+    const formattedName = `${givenName} ${middleName} ${familyName}`;
+    this.setState(
+      {
+        formFields: {
+          ...this.state.formFields,
+          formattedName
+        }
+      },
+      () => {
+        this.props.handleSubmit &&
+          this.props.handleSubmit(this.state.formFields);
+      }
+    );
   };
 
   handleCancel = () => {
     // just go back with no update
-    console.log("Cancel ");
     this.props.handleCancel && this.props.handleCancel();
   };
 

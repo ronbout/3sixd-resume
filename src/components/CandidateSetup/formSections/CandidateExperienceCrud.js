@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import SkillList from "../../Skill/SkillList/";
 import Highlights from "./Highlights";
 import CompanySetup from "../../CompanySetup/";
+import PersonSetup from "../../PersonSetup/";
 import MakePopup from "../../../hoc/MakePopup";
 import { objCopy } from "../../../assets/js/library";
 
@@ -10,9 +11,16 @@ const CandidateExperienceCrud = props => {
   const [showHighlights, setShowHighlights] = useState(false);
   const [origJob, setOrigJob] = useState(null);
   const [showCompany, setShowCompany] = useState(false);
+  const [showPerson, setShowPerson] = useState(false);
   const job = props.experience;
   const CompanyPopup = MakePopup(
     CompanySetup,
+    { left: "250px", top: "200px", width: "1000px" },
+    true
+  );
+
+  const PersonPopup = MakePopup(
+    PersonSetup,
     { left: "250px", top: "200px", width: "1000px" },
     true
   );
@@ -36,6 +44,10 @@ const CandidateExperienceCrud = props => {
 
   const handleCompanyClick = event => {
     setShowCompany(!showCompany);
+  };
+
+  const handlePersonClick = event => {
+    setShowPerson(!showPerson);
   };
 
   const passExperienceUp = (tmpExperience, closeModal = false) => {
@@ -65,7 +77,6 @@ const CandidateExperienceCrud = props => {
   };
 
   const handleCompanyCancel = () => {
-    console.log("cancel company.  just close");
     setShowCompany(false);
   };
 
@@ -73,6 +84,17 @@ const CandidateExperienceCrud = props => {
     setShowCompany(false);
     let tmpJob = job;
     tmpJob.company = companyInfo;
+    passExperienceUp(tmpJob);
+  };
+
+  const handlePersonCancel = () => {
+    setShowPerson(false);
+  };
+
+  const handlePersonSubmit = personInfo => {
+    setShowPerson(false);
+    let tmpJob = job;
+    tmpJob.contactPerson = personInfo;
     passExperienceUp(tmpJob);
   };
 
@@ -85,6 +107,13 @@ const CandidateExperienceCrud = props => {
           company={job.company}
           handleCancel={handleCompanyCancel}
           handleSubmit={handleCompanySubmit}
+        />
+      )}
+      {showPerson && (
+        <PersonPopup
+          person={job.contactPerson}
+          handleCancel={handlePersonCancel}
+          handleSubmit={handlePersonSubmit}
         />
       )}
     </section>
@@ -143,10 +172,11 @@ const CandidateExperienceCrud = props => {
                   type="text"
                   id="contactperson"
                   className="form-control"
-                  name="contactPerson-name"
+                  name="contactPerson-formattedName"
                   placeholder="Contact Person"
-                  value={job.contactPerson.name}
+                  value={job.contactPerson.formattedName}
                   onChange={handleInputChange}
+                  onClick={handlePersonClick}
                 />
               </div>
               <label
