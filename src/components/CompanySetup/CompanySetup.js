@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import PersonSetup from "../PersonSetup/";
+import MakePopup from "../../hoc/MakePopup";
+
 import "./css/companySetup.css";
 
 import { objCopy } from "../../assets/js/library";
@@ -39,6 +42,12 @@ const clearFormFields = {
   website: ""
 };
 
+const PersonPopup = MakePopup(
+  PersonSetup,
+  { left: "250px", top: "200px", width: "1000px" },
+  true
+);
+
 class CompanySetup extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +59,8 @@ class CompanySetup extends Component {
       };
     }
     this.state = {
-      formFields
+      formFields,
+      showPerson: false
     };
     this.state.origForm = objCopy(formFields);
   }
@@ -87,8 +97,35 @@ class CompanySetup extends Component {
     });
   };
 
+  handlePersonClick = event => {
+    const showPerson = !this.state.showPerson;
+    this.setState({
+      showPerson
+    });
+  };
+
+  handlePersonCancel = () => {
+    this.setState({
+      showPerson: false
+    });
+  };
+
+  handlePersonSubmit = personInfo => {
+    this.setState({
+      formFields: {
+        ...this.state.formFields,
+        contactPerson: personInfo
+      },
+      showPerson: false
+    });
+  };
+
   handleContactPersonChange = event => {
-    const target = event.target;
+    // don't do anything, must change Person
+    // through popup, but need this method
+    // to prevent complaining from React
+    return;
+    /*     const target = event.target;
 
     this.setState({
       formFields: {
@@ -98,8 +135,7 @@ class CompanySetup extends Component {
           formattedName: target.value
         }
       }
-    });
-    console.log("Contact Person prrocessing here");
+    }); */
   };
 
   render() {
@@ -111,6 +147,14 @@ class CompanySetup extends Component {
             {this.companyDetails()}
             {this.buttonSection()}
           </div>
+
+          {this.state.showPerson && (
+            <PersonPopup
+              person={this.state.formFields.contactPerson}
+              handleCancel={this.handlePersonCancel}
+              handleSubmit={this.handlePersonSubmit}
+            />
+          )}
         </div>
       </main>
     );
@@ -173,6 +217,7 @@ class CompanySetup extends Component {
               placeholder="Primary Contact"
               value={this.state.formFields.contactPerson.formattedName}
               onChange={this.handleContactPersonChange}
+              onClick={this.handlePersonClick}
             />
           </div>
         </div>

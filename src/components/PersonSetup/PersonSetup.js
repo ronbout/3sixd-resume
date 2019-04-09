@@ -87,21 +87,6 @@ class PersonSetup extends Component {
       }
     });
   };
-  /* 
-  handleContactPersonChange = event => {
-    const target = event.target;
-
-    this.setState({
-      formFields: {
-        ...this.state.formFields,
-        contactPerson: {
-          ...this.state.contactPerson,
-          formattedName: target.value
-        }
-      }
-    });
-    console.log("Contact Person prrocessing here");
-  }; */
 
   render() {
     return (
