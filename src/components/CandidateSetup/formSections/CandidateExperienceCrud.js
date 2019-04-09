@@ -29,6 +29,12 @@ const CandidateExperienceCrud = props => {
     setOrigJob(objCopy(props.experience));
   }, []);
 
+  const handleContactChange = event => {
+    // not going to allow change through the
+    // input field.  Must use popup
+    return;
+  };
+
   const handleInputChange = event => {
     let tmpJob = job;
     // the input name is split with hyphen if the data is stored
@@ -43,10 +49,14 @@ const CandidateExperienceCrud = props => {
   };
 
   const handleCompanyClick = event => {
+    // do not open if Person is already open
+    if (showPerson && !showCompany) return;
     setShowCompany(!showCompany);
   };
 
   const handlePersonClick = event => {
+    // do not open if Company is already open
+    if (showCompany && !showPerson) return;
     setShowPerson(!showPerson);
   };
 
@@ -193,7 +203,7 @@ const CandidateExperienceCrud = props => {
                   name="contactPerson-workPhone"
                   placeholder="Contact Phone #"
                   value={job.contactPerson.workPhone}
-                  onChange={handleInputChange}
+                  onChange={handleContactChange}
                 />
               </div>
             </div>
