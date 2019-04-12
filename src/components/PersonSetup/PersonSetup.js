@@ -91,7 +91,7 @@ class PersonSetup extends Component {
   render() {
     return (
       <main className="container-fluid person-main">
-        <h1>Person Entry/Update</h1>
+        <h1>{this.props.heading || "Person Entry/Update"}</h1>
         <div className="person-setup">
           <div className="person-form">
             {this.personDetails()}
@@ -230,9 +230,7 @@ class PersonSetup extends Component {
         </div>
         {/* City / State / Zip */}
         <div className="form-group row">
-          <label className="col-2 col-form-label">
-            City/State/Zip/Country:
-          </label>
+          <label className="col-2 col-form-label">City/St/Zip/Country:</label>
           <div className="col-4">
             <input
               type="text"

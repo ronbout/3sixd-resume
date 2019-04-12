@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CandidatePerson from "./formSections/CandidatePerson";
+import PersonSetup from "../PersonSetup/";
 import CandidateObjective from "./formSections/CandidateObjective";
 import Highlights from "./formSections/Highlights";
 import CandidateExperience from "./formSections/CandidateExperience";
@@ -281,6 +281,21 @@ class CandidateCrud extends Component {
     });
   };
 
+  handlePersonCancel = () => {
+    // not really anthing to do with cancel right now.
+    // later, this might take user back to dashboard w/o saving
+    console.log("Cancel Candidate entry");
+  };
+
+  handlePersonSubmit = personInfo => {
+    this.setState({
+      formFields: {
+        ...this.state.formFields,
+        person: personInfo
+      }
+    });
+  };
+
   handleTabClick = tabIndex => {
     if (tabIndex === this.state.tabIndex) return;
     this.setState({
@@ -346,7 +361,7 @@ class CandidateCrud extends Component {
           <input type="hidden" name="id" value={this.state.formFields.id} />
 
           {this.candidateDetails()}
-          {this.buttonSection()}
+          {/*this.buttonSection()*/}
         </form>
       </div>
     );
@@ -377,10 +392,11 @@ class CandidateCrud extends Component {
     switch (this.state.tabIndex) {
       case PERSONAL_NDX:
         return (
-          <CandidatePerson
-            objName="person"
-            formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
+          <PersonSetup
+            person={this.state.formFields.person}
+            heading="Candidate Entry/Update"
+            handleCancel={this.handlePersonCancel}
+            handleSubmit={this.handlePersonSubmit}
           />
         );
       case OBJECTIVE_NDX:

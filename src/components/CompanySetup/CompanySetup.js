@@ -125,17 +125,6 @@ class CompanySetup extends Component {
     // through popup, but need this method
     // to prevent complaining from React
     return;
-    /*     const target = event.target;
-
-    this.setState({
-      formFields: {
-        ...this.state.formFields,
-        contactPerson: {
-          ...this.state.contactPerson,
-          formattedName: target.value
-        }
-      }
-    }); */
   };
 
   render() {
@@ -151,6 +140,7 @@ class CompanySetup extends Component {
           {this.state.showPerson && (
             <PersonPopup
               person={this.state.formFields.contactPerson}
+              heading="Primary Contact Entry"
               handleCancel={this.handlePersonCancel}
               handleSubmit={this.handlePersonSubmit}
             />
