@@ -1,6 +1,18 @@
 import React from "react";
 
+import ListingHoc from "../../../hoc/ListingHoc";
+
+import RelatedItemDetail from "./RelatedItemDetail";
+
 const RelatedItemList = props => {
+  const handleDelete = ndx => {
+    props.handleDelItem(props.skillFieldName, ndx);
+  };
+
+  // must set up actions for listing hoc
+  const actions = {
+    delete: handleDelete
+  };
   return (
     <React.Fragment>
       <h2>{props.heading} List</h2>
@@ -9,33 +21,7 @@ const RelatedItemList = props => {
         <div className="col-sm-5">Description</div>
         <div className="col-sm-1">Delete</div>
       </div>
-      {props.items.map((item, ndx) => (
-        <div key={item.id} className="row related-row">
-          <input
-            className="col-sm-4"
-            type="text"
-            name={"skillrelated-" + ndx}
-            value={item.name}
-            disabled
-          />
-          <input
-            className="col-sm-5"
-            type="text"
-            name={"skillrelated-desc-" + ndx}
-            value={item.description}
-            disabled
-          />
-          <button
-            type="button"
-            className="col-sm-1 btn btn-danger"
-            onClick={event =>
-              props.handleDelItem(props.skillFieldName, ndx, event)
-            }
-          >
-            X
-          </button>
-        </div>
-      ))}
+      {ListingHoc(RelatedItemDetail, props.items, actions, "row related-row")}
     </React.Fragment>
   );
 };
