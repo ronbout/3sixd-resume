@@ -24,7 +24,7 @@ const ListingHoc = (
 
   function moveButtons(ndx) {
     return (
-      <React.Fragment>
+      <div>
         <button
           type="button"
           className="btn btn-success"
@@ -43,33 +43,37 @@ const ListingHoc = (
         >
           <FontAwesomeIcon icon="arrow-down" />
         </button>
-      </React.Fragment>
+      </div>
     );
   }
 
   function deleteButton(ndx) {
     return (
-      <button
-        type="button"
-        className="btn btn-danger"
-        title="Delete Row"
-        onClick={() => actions.delete(ndx)}
-      >
-        X
-      </button>
+      <div>
+        <button
+          type="button"
+          className="btn btn-danger"
+          title="Delete Row"
+          onClick={() => actions.delete(ndx)}
+        >
+          X
+        </button>
+      </div>
     );
   }
 
   function editButton(ndx) {
     return (
-      <button
-        type="button"
-        title="Edit Row"
-        className="btn btn-info"
-        onClick={() => actions.edit(ndx)}
-      >
-        <FontAwesomeIcon icon="edit" />
-      </button>
+      <div>
+        <button
+          type="button"
+          title="Edit Row"
+          className="btn btn-info"
+          onClick={() => actions.edit(ndx)}
+        >
+          <FontAwesomeIcon icon="edit" />
+        </button>
+      </div>
     );
   }
 };

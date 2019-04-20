@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../css/candidateExperience.css";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import CandidateModal from "../CandidateModal";
+import ListingHoc from "../../../hoc/ListingHoc";
+import CandidateExperienceListDetail from "./CandidateExperienceListDetail";
 import { objCopy } from "../../../assets/js/library";
 
 const CandidateExperience = props => {
@@ -74,6 +76,11 @@ const CandidateExperience = props => {
     setEditNdx(sortJobs.length - 1);
   };
 
+  const actions = {
+    delete: handleDelExperience,
+    edit: handleDispEditModal
+  };
+
   return (
     <section className="candidate-experience candidate-tab-section">
       {props.formFields.experience && experienceList()}
@@ -106,66 +113,12 @@ const CandidateExperience = props => {
           <div className="heading">Delete</div>
           <div className="heading">Edit</div>
         </div>
-        {sortJobs.map((item, ndx) => (
-          <div key={ndx} className="experience-row">
-            <div>
-              <input
-                type="text"
-                size="20"
-                name={"experiencetitle-" + ndx}
-                value={item.jobTitle.titleDescription}
-                disabled
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                size="20"
-                name={"experiencecompany-" + ndx}
-                value={item.company.name}
-                disabled
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                size="10"
-                name={"experiencestartdate-" + ndx}
-                value={item.startDate}
-                disabled
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                size="10"
-                name={"experiencestartdate-" + ndx}
-                value={item.endDate ? item.endDate : "current"}
-                disabled
-              />
-            </div>
-            <div className="">
-              <button
-                type="button"
-                className="btn btn-danger"
-                title="Delete experience"
-                onClick={() => handleDelExperience(ndx)}
-              >
-                X
-              </button>
-            </div>
-            <div className="">
-              <button
-                type="button"
-                title="Edit Experience"
-                className="btn btn-info"
-                onClick={() => handleDispEditModal(ndx)}
-              >
-                <FontAwesomeIcon icon="edit" />
-              </button>
-            </div>
-          </div>
-        ))}
+        {ListingHoc(
+          CandidateExperienceListDetail,
+          sortJobs,
+          actions,
+          "experience-row"
+        )}
       </div>
     );
   }

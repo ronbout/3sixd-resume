@@ -1,7 +1,6 @@
 import React from "react";
 
 import ListingHoc from "../../../hoc/ListingHoc";
-
 import RelatedItemDetail from "./RelatedItemDetail";
 
 const RelatedItemList = props => {

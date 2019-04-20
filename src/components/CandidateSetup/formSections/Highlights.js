@@ -71,12 +71,6 @@ const Highlights = props => {
     //if (editSkillNdx !== ndx) setEditFlag(false);
   };
 
-  const handleDblClick = ndx => {
-    setEditSkillNdx(ndx);
-    setSkills(props.highlights[ndx].skills);
-    //setEditFlag(true);
-  };
-
   const handleSkillsChange = newSkills => {
     let tmp = props.highlights.slice();
     tmp[editSkillNdx].skills = newSkills;
@@ -141,10 +135,7 @@ const Highlights = props => {
           .map((item, ndx) => (
             <div key={ndx} className="highlight-row">
               <div>{ndx + 1}. </div>
-              <div
-                onClick={() => handleRowClick(ndx)}
-                onDoubleClick={() => handleDblClick(ndx)}
-              >
+              <div onClick={() => handleRowClick(ndx)}>
                 <textarea
                   className={
                     (!editFlag || editSkillNdx !== ndx) && dispSkillNdx === ndx
