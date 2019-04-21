@@ -5,14 +5,21 @@ const ListingHoc = (
   DetailComponent,
   data,
   actions = {},
-  detailClassname = "row"
+  detailClassname = "row",
+  callBacks = {},
+  parms = {}
 ) => {
   return (
     <React.Fragment>
       {data.map((row, ndx) => {
         return (
           <div key={ndx} className={detailClassname}>
-            <DetailComponent itemDetail={row} ndx={ndx} />
+            <DetailComponent
+              itemDetail={row}
+              ndx={ndx}
+              callBacks={callBacks}
+              parms={parms}
+            />
             {actions.move && moveButtons(ndx)}
             {actions.delete && deleteButton(ndx)}
             {actions.edit && editButton(ndx)}
@@ -24,26 +31,30 @@ const ListingHoc = (
 
   function moveButtons(ndx) {
     return (
-      <div>
-        <button
-          type="button"
-          className="btn btn-success"
-          title="Move Row up"
-          onClick={() => actions.move(ndx, ndx - 1)}
-          disabled={ndx === 0}
-        >
-          <FontAwesomeIcon icon="arrow-up" />
-        </button>
-        <button
-          type="button"
-          className="btn btn-success"
-          title="Move highlight Down"
-          onClick={() => actions.move(ndx, ndx + 1)}
-          disabled={ndx === data.length - 1}
-        >
-          <FontAwesomeIcon icon="arrow-down" />
-        </button>
-      </div>
+      <React.Fragment>
+        <div>
+          <button
+            type="button"
+            className="btn btn-success"
+            title="Move Row up"
+            onClick={() => actions.move(ndx, ndx - 1)}
+            disabled={ndx === 0}
+          >
+            <FontAwesomeIcon icon="arrow-up" />
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="btn btn-success"
+            title="Move Row Down"
+            onClick={() => actions.move(ndx, ndx + 1)}
+            disabled={ndx === data.length - 1}
+          >
+            <FontAwesomeIcon icon="arrow-down" />
+          </button>
+        </div>
+      </React.Fragment>
     );
   }
 

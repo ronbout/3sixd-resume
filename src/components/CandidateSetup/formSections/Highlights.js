@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SkillList from "../../Skill/SkillList";
+import ListingHoc from "../../../hoc/ListingHoc";
+import HighlightDetail from "./HighlightDetail";
 
 const Highlights = props => {
   //const [editFlag, setEditFlag] = useState(false);
   const [showSkillsFlag, setShowSkillsFlag] = useState(false);
   const [newHighlight, setNewHightlight] = useState("");
   const [editSkillNdx, setEditSkillNdx] = useState("");
-  const [dispSkillNdx, setDispSkillNdx] = useState("");
   const [skills, setSkills] = useState([
     { id: 300, name: "something" },
     { id: 301, name: "another thing" }
@@ -44,6 +44,12 @@ const Highlights = props => {
     const tmp = props.highlights.slice();
     tmp.splice(ndx, 1);
     passHighlightUp(tmp);
+    // if the deleted highlight is the edit
+    // highlight, turn off edit mode
+    if (editSkillNdx === ndx) {
+      setEditSkillNdx("");
+      setShowSkillsFlag(false);
+    }
   };
 
   const handleMoveHighlight = (ndx, newNdx) => {
@@ -55,6 +61,9 @@ const Highlights = props => {
     tmp[newNdx].sequence = tmp[ndx].sequence;
     tmp[ndx].sequence = tmpSequence;
     passHighlightUp(tmp);
+    // if highlight being moved is the edit highlight,
+    // update the edit ndx.
+    if (editSkillNdx === ndx) setEditSkillNdx(newNdx);
   };
 
   const handleEditHighlight = (ndx, event) => {
@@ -65,7 +74,6 @@ const Highlights = props => {
 
   const handleRowClick = ndx => {
     setShowSkillsFlag(true);
-    setDispSkillNdx(ndx);
     setEditSkillNdx(ndx);
     setSkills(props.highlights[ndx].skills);
     //if (editSkillNdx !== ndx) setEditFlag(false);
@@ -82,6 +90,17 @@ const Highlights = props => {
     let tmp = props.highlights.slice();
     tmp[ndx].includeInSummary = !tmp[ndx].includeInSummary;
     passHighlightUp(tmp);
+  };
+
+  const actions = {
+    delete: handleDelHighlight,
+    move: handleMoveHighlight
+  };
+
+  const listingCallbacks = {
+    handleRowClick,
+    handleEditHighlight,
+    handleIncludeSummary
   };
 
   return (
@@ -128,77 +147,25 @@ const Highlights = props => {
   }
 
   function highlightList() {
+    const sortHighlights = props.highlights.sort(
+      (a, b) => a.sequence - b.sequence
+    );
+    // setup current parms for listing hoc
+    const listingParms = {
+      editFlag,
+      editSkillNdx,
+      includeSummaryButton: true
+    };
     return (
       <div className="highlight-list justify-content-center">
-        {props.highlights
-          .sort((a, b) => a.sequence - b.sequence)
-          .map((item, ndx) => (
-            <div key={ndx} className="highlight-row">
-              <div>{ndx + 1}. </div>
-              <div onClick={() => handleRowClick(ndx)}>
-                <textarea
-                  className={
-                    (!editFlag || editSkillNdx !== ndx) && dispSkillNdx === ndx
-                      ? "dark-disabled"
-                      : ""
-                  }
-                  rows="2"
-                  name={"highlight-" + ndx}
-                  value={item.highlight}
-                  onChange={event => handleEditHighlight(ndx, event)}
-                  disabled={!editFlag || editSkillNdx !== ndx}
-                />
-              </div>
-
-              <div className="">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  title="Move highlight up"
-                  onClick={() => handleMoveHighlight(ndx, ndx - 1)}
-                  disabled={ndx === 0}
-                >
-                  <FontAwesomeIcon icon="arrow-up" />
-                </button>
-              </div>
-              <div className="">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  title="Move highlight Down"
-                  onClick={() => handleMoveHighlight(ndx, ndx + 1)}
-                  disabled={ndx === props.highlights.length - 1}
-                >
-                  <FontAwesomeIcon icon="arrow-down" />
-                </button>
-              </div>
-              <div className="">
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  title="Delete Highlight"
-                  onClick={() => handleDelHighlight(ndx)}
-                >
-                  X
-                </button>
-              </div>
-              <div className="">
-                {props.includeSummaryButton && (
-                  <button
-                    type="button"
-                    title="Edit Skills"
-                    className={
-                      "btn btn-secondary btn-include" +
-                      (item.includeInSummary ? " active" : "")
-                    }
-                    onClick={() => handleIncludeSummary(ndx)}
-                  >
-                    <FontAwesomeIcon icon="check" />
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+        {ListingHoc(
+          HighlightDetail,
+          sortHighlights,
+          actions,
+          "highlight-row",
+          listingCallbacks,
+          listingParms
+        )}
       </div>
     );
   }

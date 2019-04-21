@@ -1,7 +1,6 @@
 import React from "react";
 
 const CandidateExperienceListDetail = props => {
-  console.log(props);
   const { itemDetail, ndx } = props;
   return (
     <React.Fragment>
