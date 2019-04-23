@@ -75,6 +75,7 @@
 
 .candidate-experience .candidate-job {
   min-height: 520px;
+  padding: 2em;
 }
 
 .candidate-experience .modal-footer {

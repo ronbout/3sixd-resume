@@ -221,6 +221,32 @@ const candidateInfo = {
           }
         ]
       }
+    ],
+    education: [
+      {
+        id: 2,
+        candidateId: 17,
+        schoolName: "Vanderbilt",
+        schoolMunicipality: "",
+        schoolRegion: "",
+        schoolCountry: "",
+        degreeName: "BS Computer Science",
+        degreeType: "Bachelors",
+        degreeMajor: "Computer Science",
+        degreeMinor: "",
+        startDate: "2012-08-01",
+        endDate: "2016-05-01",
+        skills: [
+          {
+            id: 114,
+            name: "C#"
+          },
+          {
+            id: 115,
+            name: ".Net Framework 4.0/4.5"
+          }
+        ]
+      }
     ]
   }
 };
@@ -255,7 +281,8 @@ const clearFormFields = {
     objective: "",
     executiveSummary: "",
     highlights: [],
-    experience: []
+    experience: [],
+    education: []
   }
 };
 
@@ -264,7 +291,7 @@ class CandidateCrud extends Component {
     super(props);
     this.state = {
       ...candidateInfo,
-      tabIndex: EXPERIENCE_NDX
+      tabIndex: EDUCATION_NDX
     };
     this.state.origForm = objCopy(this.state.formFields);
   }
@@ -354,6 +381,17 @@ class CandidateCrud extends Component {
     });
   };
 
+  handleEducationChange = education => {
+    this.setState(prevState => {
+      return {
+        formFields: {
+          ...prevState.formFields,
+          education
+        }
+      };
+    });
+  };
+
   render() {
     return (
       <div className="candidate-setup">
@@ -431,7 +469,7 @@ class CandidateCrud extends Component {
         return (
           <CandidateEducation
             formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
+            handleInputChange={this.handleEducationChange}
           />
         );
       default:
