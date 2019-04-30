@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import SkillList from "../../Skill/SkillList/";
-import MakePopup from "../../../hoc/MakePopup";
 import { objCopy } from "../../../assets/js/library";
 
 const CandidateEducationCrud = props => {

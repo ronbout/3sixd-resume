@@ -59,28 +59,8 @@
   max-width: none;
 }
 
-.candidate-experience .modal-content {
-  width: 80%;
-  margin: auto;
-  overflow-y: scroll;
-}
-
-.candidate-experience .modal-content .button-section {
-  margin: 2em;
-}
-
-.candidate-experience .modal-content button {
-  margin: 0 0.5em;
-}
-
 .candidate-experience .candidate-job {
   min-height: 520px;
   padding: 2em;
-}
-
-.candidate-experience .modal-footer {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 /*# sourceMappingURL=candidateExperience.css.map */

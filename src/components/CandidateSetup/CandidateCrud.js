@@ -291,7 +291,7 @@ class CandidateCrud extends Component {
     super(props);
     this.state = {
       ...candidateInfo,
-      tabIndex: EDUCATION_NDX
+      tabIndex: PERSONAL_NDX
     };
     this.state.origForm = objCopy(this.state.formFields);
   }

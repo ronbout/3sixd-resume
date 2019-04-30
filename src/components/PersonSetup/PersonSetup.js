@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
+import PersonSearch from "../PersonSearch/";
+import MakePopup from "../../hoc/MakePopup";
 import "./css/personSetup.css";
-
 import { objCopy } from "../../assets/js/library";
 
 const clearFormFields = {
@@ -25,6 +26,16 @@ const clearFormFields = {
   website: ""
 };
 
+const PersonSearchPopup = MakePopup(
+  PersonSearch,
+  {
+    right: "100px",
+    top: "200px",
+    width: "344px"
+  },
+  true
+);
+
 class PersonSetup extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +47,8 @@ class PersonSetup extends Component {
       };
     }
     this.state = {
-      formFields
+      formFields,
+      dispSearch: false
     };
     this.state.origForm = objCopy(formFields);
   }
@@ -88,6 +100,22 @@ class PersonSetup extends Component {
     });
   };
 
+  handleSearch = () => {
+    this.setState({
+      dispSearch: true
+    });
+  };
+
+  handlePersonSelect = personInfo => {
+    console.log(personInfo);
+  };
+
+  handleClosePersonSearch = () => {
+    this.setState({
+      dispSearch: false
+    });
+  };
+
   render() {
     return (
       <main className="container-fluid person-main">
@@ -96,6 +124,7 @@ class PersonSetup extends Component {
           <div className="person-form">
             {this.personDetails()}
             {this.buttonSection()}
+            {this.state.dispSearch && this.dispSkillSearch()}
           </div>
         </div>
       </main>
@@ -314,7 +343,23 @@ class PersonSetup extends Component {
         >
           Clear
         </button>
+        <button
+          type="button"
+          className="btn btn-info"
+          onClick={this.handleSearch}
+        >
+          Search
+        </button>
       </div>
+    );
+  }
+
+  dispSkillSearch() {
+    return (
+      <PersonSearchPopup
+        handlePersonSelect={this.handlePersonSelect}
+        closeBtn={this.handleClosePersonSearch}
+      />
     );
   }
 }
