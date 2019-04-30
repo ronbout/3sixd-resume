@@ -156,13 +156,13 @@ class PersonSearch extends Component {
   resultListing = () => {
     return (
       <div className="div-select-container">
-        {this.state.results && !this.state.loading ? (
+        {this.state.results.length && !this.state.loading ? (
           this.state.results.map((personInfo, ndx) => {
             return (
               <div
                 className={
                   "div-select" +
-                  (this.state.formFields.skillSelect === ndx ? " selected" : "")
+                  (this.state.personSelect === ndx ? " selected" : "")
                 }
                 key={ndx}
                 data-value={ndx}
@@ -176,8 +176,10 @@ class PersonSearch extends Component {
               </div>
             );
           })
+        ) : this.state.loading ? (
+          <p>Loading...</p>
         ) : (
-          <p>Loading....</p>
+          <p>No results found</p>
         )}
       </div>
     );
