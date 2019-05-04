@@ -1,0 +1,64 @@
+@import "../../../scss/settings";
+@import "../../../scss/functions";
+
+$textcolor: lighten(grey, 10%);
+
+.footer {
+  font-family: font(primary);
+  background-color: color(tertiary);
+  color: $textcolor;
+  font-size: 0.9em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(40px, auto);
+  grid-template-areas:
+    "copywrite"
+    "privacy"
+    "footnav";
+}
+// HOW ELIMIATE WHITE SPACE AT BOTTOM OF PAGE - WILL GO AWAY ONCE THERE'S MORE INFO PER PAGE, BUT ON SMALL PAGES IT'S NOTICEABLE.. DO WE FORCE BODY TO A SPECIFIC SIZE?
+@media screen and (min-width: screen(desktop)+1) {
+  .footer {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    grid-template-areas: "copywrite privacy footnav";
+  }
+
+  .footer #footnav {
+    grid-area: footnav;
+    justify-self: right;
+  }
+}
+
+#copywrite {
+  //    background-color: green;
+  grid-area: copywrite;
+  align-self: center;
+  text-align: center;
+}
+
+#privacy {
+  //    background-color: blue;
+  grid-area: privacy;
+  align-self: center;
+  text-align: center;
+}
+
+#footnav {
+  //   background-color: orange;
+  grid-area: footnav;
+  //   padding: 0px;
+  align-self: center;
+  justify-self: center;
+}
+
+.footer a {
+  color: $textcolor;
+}
+
+.footer a:hover,
+.footer a:active {
+  color: $textcolor;
+  text-decoration: underline;
+  text-decoration-color: white;
+}

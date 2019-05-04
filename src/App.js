@@ -4,18 +4,16 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "./css/styles.css";
 import "./css/app.css";
 
-//import LandingPage from "./components/landingPage";
-//import TopNavBar from "./components/topNavBar";
-import Siteheader from "./components/Header/Siteheader";
-import Footer from "./components/Footer/Footer";
-import Sitebody from "./components/Body/Sitebody";
-import Details from "./components/Details/Details";
-import SkillSetup from "./components/Skill/SkillSetup/";
+import Siteheader from "./components/Siteheader/";
+import Footer from "./components/Footer/";
+import Sitebody from "./components/Sitebody/";
+import Details from "./components/Details/";
+import SkillSetup from "./components/SkillSetup/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import PersonSetup from "./components/PersonSetup/";
-import Login from "./components/login";
-import Signup from "./components/signup";
+import Login from "./components/Login/";
+import Signup from "./components/Signup/";
 
 // eslint-disable-next-line
 import Error404 from "./components/error404";
@@ -61,20 +59,15 @@ class App extends Component {
           <Siteheader />
         </div>
         <div id="body">
-          <React.Fragment>
-            <Switch>
-              <Route path="/skill/setup" render={() => <SkillSetup />} />
-              <Route
-                path="/candidate/setup"
-                render={() => <CandidateSetup />}
-              />
-              <Route path="/company/setup" render={() => <CompanySetup />} />
-              <Route path="/person/setup" render={() => <PersonSetup />} />
-              <Route path="/signin" render={() => <Login />} />
-              <Route path="/register" render={() => <Signup />} />
-              <Route exact path="/" component={Sitebody} />
-            </Switch>
-          </React.Fragment>
+          <Switch>
+            <Route path="/skill/setup" render={() => <SkillSetup />} />
+            <Route path="/candidate/setup" render={() => <CandidateSetup />} />
+            <Route path="/company/setup" render={() => <CompanySetup />} />
+            <Route path="/person/setup" render={() => <PersonSetup />} />
+            <Route path="/signin" render={() => <Login />} />
+            <Route path="/register" render={() => <Signup />} />
+            <Route exact path="/" component={Sitebody} />
+          </Switch>
         </div>
         <div id="details">
           <Details />

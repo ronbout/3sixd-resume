@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import PersonSearch from "../PersonSearch/";
-import MakePopup from "../../hoc/MakePopup";
+import PersonSearch from "../search/PersonSearch";
+import MakePopup from "../hoc/MakePopup";
 import "./css/personSetup.css";
 import { objCopy } from "../../assets/js/library";
 

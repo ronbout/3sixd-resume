@@ -1,0 +1,48 @@
+@import "../../../../scss/settings";
+@import "../../../../scss/functions";
+
+.slider {
+  height: 100%;
+  background: color(secondary);
+  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  //    left: 0px; // Slider on left side
+  right: 0px; // Slider on right side
+  width: 70%;
+  max-width: 180px; // left=200, right=150
+  z-index: 200;
+  transform: translateX(100%); // left =-100%, right=100%
+  transition: transform 0.2s ease-out;
+}
+
+.slider.open {
+  transform: translateX(0);
+}
+
+.slider ul {
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  //    justify-content: center; // this moves way down page
+}
+
+.slider li {
+  margin: 0.5rem 0;
+}
+
+.slider a {
+  color: darken(color(primary), 15%);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.slider nav {
+  padding: 20px;
+}
+
+.slider a:hover,
+.slider a:active {
+  color: orange;
+}

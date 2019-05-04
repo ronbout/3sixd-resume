@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import SkillList from "../../Skill/SkillList";
-import ListingHoc from "../../../hoc/ListingHoc";
+import SkillList from "../../SkillSetup/SkillList";
+import ListingHoc from "../../hoc/ListingHoc";
 import HighlightDetail from "./HighlightDetail";
 
 const Highlights = props => {

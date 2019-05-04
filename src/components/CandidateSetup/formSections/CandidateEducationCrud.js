@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import SkillList from "../../Skill/SkillList/";
+import SkillList from "../../SkillSetup/SkillList/";
 import { objCopy } from "../../../assets/js/library";
 
 const CandidateEducationCrud = props => {

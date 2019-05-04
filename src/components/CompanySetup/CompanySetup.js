@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import PersonSetup from "../PersonSetup/";
-import MakePopup from "../../hoc/MakePopup";
+import MakePopup from "../hoc/MakePopup";
 
 import "./css/companySetup.css";
 

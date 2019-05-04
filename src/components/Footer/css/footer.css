@@ -1,0 +1,72 @@
+.footer {
+  font-family: "helvetica";
+  background-color: #505050;
+  color: #9a9a9a;
+  font-size: 0.9em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  grid-auto-rows: minmax(40px, auto);
+      grid-template-areas: "copywrite" "privacy" "footnav";
+}
+
+@media screen and (min-width: 761px) {
+  .footer {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+        grid-template-areas: "copywrite privacy footnav";
+  }
+  .footer #footnav {
+    -ms-grid-row: 1;
+    -ms-grid-column: 3;
+    grid-area: footnav;
+    -ms-grid-column-align: right;
+        justify-self: right;
+  }
+}
+
+#copywrite {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: copywrite;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+}
+
+#privacy {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: privacy;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+}
+
+#footnav {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: footnav;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.footer a {
+  color: #9a9a9a;
+}
+
+.footer a:hover,
+.footer a:active {
+  color: #9a9a9a;
+  text-decoration: underline;
+  -webkit-text-decoration-color: white;
+          text-decoration-color: white;
+}
+/*# sourceMappingURL=footer.css.map */

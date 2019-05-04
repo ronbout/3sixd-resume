@@ -1,7 +1,7 @@
 import React from "react";
-import Navmenu from "../Navmenu/Navmenu";
+import Navmenu from "../Siteheader/Navmenu";
 
-import "./footer.css";
+import "./css/footer.css";
 
 const Footer = () => {
   return (

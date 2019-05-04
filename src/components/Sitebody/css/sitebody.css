@@ -1,0 +1,81 @@
+.sitebody {
+  background-image: url("../assets/img/3sixD-hero.jpg");
+  background-position: center;
+  background-size: cover;
+  color: green;
+  z-index: -1;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  grid-auto-rows: minmax(400px, auto);
+  -ms-grid-column-align: center;
+      grid-template-areas: "slogan" "jobSearch";
+}
+
+@media screen and (min-width: 761px) {
+  .sitebody {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(600px, auto);
+        grid-template-areas: "slogan jobSearch";
+  }
+  .sitebody #slogan {
+    text-align: left;
+    padding: 0px;
+    margin: 0 0 0 59px;
+  }
+}
+
+#jobSearch {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: jobSearch;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  background: white;
+  padding: 20px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  width: 400px;
+  height: 300px;
+  font-size: 1.5em;
+}
+
+#slogan {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: slogan;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  text-align: center;
+  padding: 0px;
+  margin: 30px 20px 30px 20px;
+  color: white;
+  font-family: "helvetica";
+  font-size: 1.4em;
+  -webkit-animation: move 1s 1;
+          animation: move 1s 1;
+}
+
+@-webkit-keyframes move {
+  from {
+    margin-bottom: -60px;
+  }
+}
+
+@keyframes move {
+  from {
+    margin-bottom: -60px;
+  }
+}
+/*# sourceMappingURL=sitebody.css.map */

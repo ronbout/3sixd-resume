@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../css/candidateExperience.css";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import CandidateModal from "../CandidateModal";
-import ListingHoc from "../../../hoc/ListingHoc";
+import ListingHoc from "../../hoc/ListingHoc";
 import CandidateExperienceListDetail from "./CandidateExperienceListDetail";
 import { objCopy } from "../../../assets/js/library";
 

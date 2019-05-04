@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import SkillList from "../../Skill/SkillList/";
+import SkillList from "../../SkillSetup/SkillList/";
 import Highlights from "./Highlights";
 import CompanySetup from "../../CompanySetup/";
 import PersonSetup from "../../PersonSetup/";
-import MakePopup from "../../../hoc/MakePopup";
+import MakePopup from "../../hoc/MakePopup";
 import { objCopy } from "../../../assets/js/library";
 
 const CandidateExperienceCrud = props => {
