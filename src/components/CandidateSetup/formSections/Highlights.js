@@ -154,18 +154,19 @@ const Highlights = props => {
     const listingParms = {
       editFlag,
       editSkillNdx,
-      includeSummaryButton: true
+      includeSummaryButton: props.includeInSummary === true ? true : false
     };
     return (
       <div className="highlight-list justify-content-center">
-        {ListingHoc(
-          HighlightDetail,
-          sortHighlights,
-          actions,
-          "highlight-row",
-          listingCallbacks,
-          listingParms
-        )}
+        <ListingHoc
+          data={sortHighlights}
+          actions={actions}
+          detailClassname="highlight-row"
+          callBacks={listingCallbacks}
+          parms={listingParms}
+        >
+          <HighlightDetail />
+        </ListingHoc>
       </div>
     );
   }

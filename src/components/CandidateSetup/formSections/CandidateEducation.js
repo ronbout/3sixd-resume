@@ -102,12 +102,13 @@ const CandidateEducation = props => {
           <div className="heading">Delete</div>
           <div className="heading">Edit</div>
         </div>
-        {ListingHoc(
-          CandidateEducationListDetail,
-          sortEducation,
-          actions,
-          "education-row"
-        )}
+        <ListingHoc
+          data={sortEducation}
+          actions={actions}
+          detailClassname="education-row"
+        >
+          <CandidateEducationListDetail />
+        </ListingHoc>
       </div>
     );
   }

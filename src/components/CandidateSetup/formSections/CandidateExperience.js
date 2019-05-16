@@ -113,12 +113,13 @@ const CandidateExperience = props => {
           <div className="heading">Delete</div>
           <div className="heading">Edit</div>
         </div>
-        {ListingHoc(
-          CandidateExperienceListDetail,
-          sortJobs,
-          actions,
-          "experience-row"
-        )}
+        <ListingHoc
+          data={sortJobs}
+          actions={actions}
+          detailClassname="experience-row"
+        >
+          <CandidateExperienceListDetail />
+        </ListingHoc>
       </div>
     );
   }

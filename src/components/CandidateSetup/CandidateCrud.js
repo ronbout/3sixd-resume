@@ -449,6 +449,7 @@ class CandidateCrud extends Component {
           <Highlights
             highlights={this.state.formFields.highlights}
             handleHighlightChange={this.handleHighlightChange}
+            includeInSummary={false}
           />
         );
       case EXPERIENCE_NDX:

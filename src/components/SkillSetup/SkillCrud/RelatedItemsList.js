@@ -20,7 +20,13 @@ const RelatedItemList = props => {
         <div className="col-sm-5">Description</div>
         <div className="col-sm-1">Delete</div>
       </div>
-      {ListingHoc(RelatedItemDetail, props.items, actions, "row related-row")}
+      <ListingHoc
+        data={props.items}
+        actions={actions}
+        detailClassname="row related-row"
+      >
+        <RelatedItemDetail />
+      </ListingHoc>
     </React.Fragment>
   );
 };

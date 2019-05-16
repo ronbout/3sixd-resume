@@ -1,25 +1,30 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ListingHoc = (
-  DetailComponent,
+const ListingHoc = ({
   data,
   actions = {},
   detailClassname = "row",
   callBacks = {},
-  parms = {}
-) => {
+  parms = {},
+  children
+}) => {
+  // setup the detail component, which will be the only child
+
   return (
     <React.Fragment>
       {data.map((row, ndx) => {
+        const detailRow = React.Children.map(children, child => {
+          return React.cloneElement(child, {
+            itemDetail: row,
+            ndx: ndx,
+            callBacks: callBacks,
+            parms: parms
+          });
+        });
         return (
           <div key={ndx} className={detailClassname}>
-            <DetailComponent
-              itemDetail={row}
-              ndx={ndx}
-              callBacks={callBacks}
-              parms={parms}
-            />
+            {detailRow}
             {actions.move && moveButtons(ndx)}
             {actions.delete && deleteButton(ndx)}
             {actions.edit && editButton(ndx)}

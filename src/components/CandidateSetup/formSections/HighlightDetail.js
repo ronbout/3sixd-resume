@@ -29,7 +29,7 @@ const HighlightDetail = props => {
         {parms.includeSummaryButton && (
           <button
             type="button"
-            title="Edit Skills"
+            title="Include In Summary"
             className={
               "btn btn-secondary btn-include" +
               (itemDetail.includeInSummary ? " active" : "")

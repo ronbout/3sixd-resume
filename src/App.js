@@ -8,7 +8,7 @@ import Siteheader from "./components/Siteheader/";
 import Footer from "./components/Footer/";
 import Sitebody from "./components/Sitebody/";
 import Details from "./components/Details/";
-import SkillSetup from "./components/SkillSetup/SkillSetup/";
+import SkillSetup from "./components/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import PersonSetup from "./components/PersonSetup/";
