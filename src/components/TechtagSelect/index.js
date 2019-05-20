@@ -1,3 +1,3 @@
-import TechtagSelect from "./TechtagSelect";
+import TechtagSelectContainer from "./TechtagSelectContainer";
 
-export default TechtagSelect;
+export default TechtagSelectContainer;

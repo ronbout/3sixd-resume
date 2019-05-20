@@ -1,5 +1,5 @@
 import React from "react";
-import TechtagSelect from "../../TechtagSelect/";
+import TechtagSelectContainer from "../../TechtagSelect/";
 import SkillDescSection from "./SkillDescSection";
 import RelatedItemsList from "./RelatedItemsList";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -89,7 +89,7 @@ const SkillCrud = props => {
           )}
         </div>
         {props.state.formFields.name && (
-          <TechtagSelect
+          <TechtagSelectContainer
             skillTagsList={props.state.formFields.techtags}
             handleAddTag={props.handleAddTag}
             handleTagStartDrag={props.handleTagStartDrag}
