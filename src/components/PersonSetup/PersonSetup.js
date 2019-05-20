@@ -124,7 +124,7 @@ class PersonSetup extends Component {
           <div className="person-form">
             {this.personDetails()}
             {this.buttonSection()}
-            {this.state.dispSearch && this.dispSkillSearch()}
+            {this.state.dispSearch && this.dispPersonSearch()}
           </div>
         </div>
       </main>
@@ -354,7 +354,7 @@ class PersonSetup extends Component {
     );
   }
 
-  dispSkillSearch() {
+  dispPersonSearch() {
     return (
       <PersonSearchPopup
         handlePersonSelect={this.handlePersonSelect}

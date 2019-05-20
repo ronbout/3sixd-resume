@@ -1,3 +1,3 @@
-import SkillSearch from "./SkillSearch";
+import SkillSearchContainer from "./SkillSearchContainer";
 
-export default SkillSearch;
+export default SkillSearchContainer;

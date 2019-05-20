@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-import SkillSearch from "../../search/SkillSearch/";
+import SkillSearchContainer from "../../search/SkillSearch/";
 import MakePopup from "../../hoc/MakePopup";
 
 import "./css/skillList.css";
 
 const SkillSearchPopup = MakePopup(
-  SkillSearch,
+  SkillSearchContainer,
   {
     right: "100px",
     top: "200px",

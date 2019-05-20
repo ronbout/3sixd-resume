@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SkillSearch from "../../search/SkillSearch/";
+import SkillSearchContainer from "../../search/SkillSearch/";
 import SkillCrud from "../SkillCrud/";
 
 import "./css/skillSetup.css";
@@ -126,7 +126,7 @@ class SkillSetup extends Component {
             />
           </div>
         </section>
-        <SkillSearch
+        <SkillSearchContainer
           editMode={this.state.editMode}
           searchButton={this.state.searchButton}
           forceRefresh={this.state.forceRefresh}
