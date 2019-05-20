@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SkillSearchContainer from "../../search/SkillSearch/";
-import SkillCrud from "../SkillCrud/";
+import SkillCrudContainer from "../SkillCrud/";
 
 import "./css/skillSetup.css";
 
@@ -118,7 +118,7 @@ class SkillSetup extends Component {
       <main className="container-fluid fs-main d-flex p-2 bg-highlight">
         <section className="skill-setup">
           <div className="tab-section">
-            <SkillCrud
+            <SkillCrudContainer
               skillInfo={this.state.skillInfo}
               relatedSkill={this.state.relatedSkill}
               handleChangeMode={this.handleChangeMode}

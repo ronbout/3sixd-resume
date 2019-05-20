@@ -1,3 +1,3 @@
-import SkillCrud from "./SkillCrud";
+import SkillCrudContainer from "./SkillCrudContainer";
 
-export default SkillCrud;
+export default SkillCrudContainer;
