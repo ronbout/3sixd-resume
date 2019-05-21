@@ -1,3 +1,3 @@
-import PersonSearch from "./PersonSearch";
+import PersonSearchContainer from "./PersonSearchContainer";
 
-export default PersonSearch;
+export default PersonSearchContainer;

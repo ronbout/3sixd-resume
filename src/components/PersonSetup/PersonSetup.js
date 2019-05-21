@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import PersonSearch from "../search/PersonSearch";
+import PersonSearchContainer from "../search/PersonSearch";
 import MakePopup from "../hoc/MakePopup";
 import "./css/personSetup.css";
 import { objCopy } from "../../assets/js/library";
@@ -27,7 +27,7 @@ const clearFormFields = {
 };
 
 const PersonSearchPopup = MakePopup(
-  PersonSearch,
+  PersonSearchContainer,
   {
     right: "100px",
     top: "200px",
