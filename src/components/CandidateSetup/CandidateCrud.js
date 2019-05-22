@@ -5,7 +5,13 @@ import Highlights from "./formSections/Highlights";
 import CandidateExperience from "./formSections/CandidateExperience";
 import CandidateEducation from "./formSections/CandidateEducation";
 import CandidateLinks from "./formSections/CandidateLinks";
-import TabbedUI from "../TabbedUI/";
+import {
+  TabbedUI,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel
+} from "../TabbedUI/TabbedUI";
 
 import { objCopy } from "../../assets/js/library";
 
@@ -251,13 +257,6 @@ const candidateInfo = {
   }
 };
 
-const PERSONAL_NDX = 0;
-const OBJECTIVE_NDX = 1;
-const HIGHLIGHTS_NDX = 2;
-const EXPERIENCE_NDX = 3;
-const LINKS_NDX = 4;
-const EDUCATION_NDX = 5;
-
 const clearFormFields = {
   formFields: {
     id: "",
@@ -291,7 +290,7 @@ class CandidateCrud extends Component {
     super(props);
     this.state = {
       ...candidateInfo,
-      tabIndex: PERSONAL_NDX
+      tabIndex: 0
     };
     this.state.origForm = objCopy(this.state.formFields);
   }
@@ -406,76 +405,63 @@ class CandidateCrud extends Component {
   }
 
   candidateDetails() {
-    const tabList = [];
-    tabList[PERSONAL_NDX] = { label: "Personal" };
-    tabList[OBJECTIVE_NDX] = { label: "Objective" };
-    tabList[HIGHLIGHTS_NDX] = { label: "Highlights" };
-    tabList[EXPERIENCE_NDX] = { label: "Experience" };
-    tabList[LINKS_NDX] = { label: "Portfolio/Social" };
-    tabList[EDUCATION_NDX] = { label: "Education" };
-
     return (
       <div className="candidate-details-section">
-        <TabbedUI
-          tabs={tabList}
-          tabIndex={this.state.tabIndex}
-          handleTabClick={this.handleTabClick}
-        />
-        <div className="tab-section">{this.tabSection()}</div>
+        <div className="related-skill-section">
+          <TabbedUI>
+            <TabList>
+              <Tab>Personal</Tab>
+              <Tab>Objective</Tab>
+              <Tab>Highlights</Tab>
+              <Tab>Experience</Tab>
+              <Tab>Portfolio/Social</Tab>
+              <Tab>Education</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <PersonSetup
+                  person={this.state.formFields.person}
+                  heading="Candidate Entry/Update"
+                  handleCancel={this.handlePersonCancel}
+                  handleSubmit={this.handlePersonSubmit}
+                />
+              </TabPanel>
+              <TabPanel>
+                <CandidateObjective
+                  formFields={this.state.formFields}
+                  handleInputChange={this.handleInputChange}
+                />
+              </TabPanel>
+              <TabPanel>
+                <Highlights
+                  highlights={this.state.formFields.highlights}
+                  handleHighlightChange={this.handleHighlightChange}
+                  includeInSummary={false}
+                />
+              </TabPanel>
+              <TabPanel>
+                <CandidateExperience
+                  formFields={this.state.formFields}
+                  handleExperienceChange={this.handleExperienceChange}
+                />
+              </TabPanel>
+              <TabPanel>
+                <CandidateLinks
+                  formFields={this.state.formFields}
+                  handleInputChange={this.handleInputChange}
+                />
+              </TabPanel>
+              <TabPanel>
+                <CandidateEducation
+                  formFields={this.state.formFields}
+                  handleInputChange={this.handleEducationChange}
+                />
+              </TabPanel>
+            </TabPanels>
+          </TabbedUI>
+        </div>
       </div>
     );
-  }
-
-  tabSection() {
-    switch (this.state.tabIndex) {
-      case PERSONAL_NDX:
-        return (
-          <PersonSetup
-            person={this.state.formFields.person}
-            heading="Candidate Entry/Update"
-            handleCancel={this.handlePersonCancel}
-            handleSubmit={this.handlePersonSubmit}
-          />
-        );
-      case OBJECTIVE_NDX:
-        return (
-          <CandidateObjective
-            formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
-          />
-        );
-      case HIGHLIGHTS_NDX:
-        return (
-          <Highlights
-            highlights={this.state.formFields.highlights}
-            handleHighlightChange={this.handleHighlightChange}
-            includeInSummary={false}
-          />
-        );
-      case EXPERIENCE_NDX:
-        return (
-          <CandidateExperience
-            formFields={this.state.formFields}
-            handleExperienceChange={this.handleExperienceChange}
-          />
-        );
-      case LINKS_NDX:
-        return (
-          <CandidateLinks
-            formFields={this.state.formFields}
-            handleInputChange={this.handleInputChange}
-          />
-        );
-      case EDUCATION_NDX:
-        return (
-          <CandidateEducation
-            formFields={this.state.formFields}
-            handleInputChange={this.handleEducationChange}
-          />
-        );
-      default:
-        return null;
-    }
   }
 
   buttonSection() {

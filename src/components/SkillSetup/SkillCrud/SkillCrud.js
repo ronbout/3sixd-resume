@@ -3,39 +3,30 @@ import TechtagSelectContainer from "../../TechtagSelect/";
 import SkillDescSection from "./SkillDescSection";
 import RelatedItemsList from "./RelatedItemsList";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TabbedUI from "../../TabbedUI/";
-
-const TECHTAGS_NDX = 0;
-const PSKILLS_NDX = 1;
-const CSKILLS_NDX = 2;
+import {
+  TabbedUI,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel
+} from "../../TabbedUI/TabbedUI";
 
 const SkillCrud = props => {
-  const tabSection = () => {
-    switch (props.state.tabIndex) {
-      case TECHTAGS_NDX:
-        return techTagSection();
-      case PSKILLS_NDX:
-        return parentSkillSection();
-      case CSKILLS_NDX:
-        return childSkillSection();
-      default:
-        return null;
-    }
-  };
   const tagsAndRelatedSkillsSection = () => {
-    const tabList = [
-      { label: "Techtags" },
-      { label: "Parent Skills" },
-      { label: "Child Skills" }
-    ];
     return (
       <div className="related-skill-section">
-        <TabbedUI
-          tabs={tabList}
-          tabIndex={props.state.tabIndex}
-          handleTabClick={props.handleTabClick}
-        />
-        <div className="tab-section">{tabSection()}</div>
+        <TabbedUI>
+          <TabList>
+            <Tab>Techtags</Tab>
+            <Tab>Parent Skills</Tab>
+            <Tab>Child Skills</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>{techTagSection()}</TabPanel>
+            <TabPanel>{parentSkillSection()}</TabPanel>
+            <TabPanel>{childSkillSection()}</TabPanel>
+          </TabPanels>
+        </TabbedUI>
       </div>
     );
   };
