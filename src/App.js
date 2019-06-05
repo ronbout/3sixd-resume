@@ -12,8 +12,9 @@ import SkillSetup from "./components/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import PersonSetup from "./components/PersonSetup/";
-import Login from "./components/Login/";
+import LoginContainer from "./components/Login/";
 import Signup from "./components/Signup/";
+import GithubCallback from "./components/GithubCallback";
 
 // eslint-disable-next-line
 import Error404 from "./components/error404";
@@ -43,14 +44,39 @@ library.add(
 
 // setup global api url
 // if not on my dev, use remote api
-//window.apiUrl = "http://localhost/3sixd/api/";
-window.apiUrl = "https://ronbout.000webhostapp.com/api/";
+window.apiUrl = "http://localhost/3sixd/api/";
+//window.apiUrl = "https://ronbout.000webhostapp.com/api/";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const storedUser = sessionStorage.getItem("user");
+    const userInfo = storedUser ? JSON.parse(storedUser) : this.clearUser();
+    this.state = {
+      user: userInfo
+    };
   }
+
+  clearUser = () => {
+    return {
+      id: "",
+      fullname: "",
+      email: "",
+      confirmFlag: "",
+      securityLevel: "",
+      candidateId: "new"
+    };
+  };
+
+  handleLogin = resp => {
+    // add to session storage
+    sessionStorage.setItem("user", JSON.stringify(resp.data));
+    this.setState({
+      user: resp.data
+      // id, fullName, email, confirmFlag, securityLevel, candidateId
+    });
+    this.props.history.push(`/candidate/setup/${this.state.user.id}`);
+  };
 
   render() {
     return (
@@ -64,8 +90,12 @@ class App extends Component {
             <Route path="/candidate/setup" render={() => <CandidateSetup />} />
             <Route path="/company/setup" render={() => <CompanySetup />} />
             <Route path="/person/setup" render={() => <PersonSetup />} />
-            <Route path="/signin" render={() => <Login />} />
+            <Route
+              path="/signin"
+              render={() => <LoginContainer handleLogin={this.handleLogin} />}
+            />
             <Route path="/register" render={() => <Signup />} />
+            <Route path="/github/callback" render={() => <GithubCallback />} />
             <Route exact path="/" component={Sitebody} />
           </Switch>
         </div>

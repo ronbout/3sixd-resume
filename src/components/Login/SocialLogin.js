@@ -24,14 +24,14 @@ class SocialLogin extends Component {
     return (
       <React.Fragment>
         <div className="social-login container-fluid d-flex flex-column justify-content-center text-center">
-          {/*}       <div>
-            <FacebookLogin
-              appId="786304568235685"
-              autoLoad={true}
-              fields="name,email,picture"
-              callback={this.responseFacebook}
-            />
-          </div> */}
+          <div>
+            <a
+              className="App-link"
+              href="https://github.com/login/oauth/authorize?client_id=b86fdc8d2ff6d5f7f394&scope=user:email"
+            >
+              Login with Github
+            </a>
+          </div>
           <div>
             <GoogleLogin
               clientId="339494038360-ui9ssd3umvcj4fkjft7ns4ies220l8l3.apps.googleusercontent.com"
