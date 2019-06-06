@@ -1,20 +1,32 @@
 import React, { Component } from "react";
 import Login from "./Login";
+import { UserContext } from "../UserProvider";
 
 const API_MEMBERS = "members";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class LoginContainer extends Component {
+  static contextType = UserContext;
   constructor(props) {
     super(props);
-    this.state = {
-      apiBase: window.apiUrl,
-      errMsg: ""
-    };
 
     // check for query string in case this is the github callback from the server
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get("email");
+    let referrer = urlParams.get("referrer");
+    if (!referrer) {
+      // check session storage
+      if ((referrer = sessionStorage.getItem("referrer"))) {
+        sessionStorage.removeItem("referrer");
+      }
+    }
+
+    this.state = {
+      apiBase: window.apiUrl,
+      errMsg: referrer ? "You must be logged in to access that page" : "",
+      referrer
+    };
+
     if (email) {
       console.log("oauthType: ", sessionStorage.getItem("oauthType"));
       /**
@@ -43,7 +55,10 @@ class LoginContainer extends Component {
           // need to check for user not found
           console.log("result: ", result.data);
           if (result.data) {
-            this.props.handleLogin(result);
+            const loginReferrer = this.state.referrer
+              ? this.state.referrer
+              : `/candidate/setup/${result.data.id}`;
+            this.context.handleLogin(result, loginReferrer);
           } else {
             if (result.errorCode && result.errorCode === 45002) {
               this.setState({ errMsg: "Email " + email + " not found." });

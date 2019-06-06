@@ -14,6 +14,8 @@ import PersonSetup from "./components/PersonSetup/";
 import LoginContainer from "./components/Login/";
 import Signup from "./components/Signup/";
 import GithubCallback from "./components/GithubCallback";
+import PrivateRoute from "./components/PrivateRoute";
+import { UserContext } from "./components/UserProvider";
 
 // eslint-disable-next-line
 import Error404 from "./components/error404";
@@ -52,58 +54,68 @@ class App extends Component {
   constructor(props) {
     super(props);
     const storedUser = sessionStorage.getItem("user");
-    const userInfo = storedUser ? JSON.parse(storedUser) : this.clearUser();
+    const userInfo = storedUser ? JSON.parse(storedUser) : false;
     this.state = {
-      user: userInfo
+      userInfo
     };
   }
 
-  clearUser = () => {
-    return {
-      id: "",
-      fullname: "",
-      email: "",
-      confirmFlag: "",
-      securityLevel: "",
-      candidateId: "new"
-    };
-  };
-
-  handleLogin = resp => {
+  handleLogin = (resp, loc = "/") => {
     // add to session storage
     sessionStorage.setItem("user", JSON.stringify(resp.data));
-    this.setState({
-      user: resp.data
-      // id, fullName, email, confirmFlag, securityLevel, candidateId
-    });
-    this.props.history.push(`/candidate/setup/${this.state.user.id}`);
+    this.setState(
+      {
+        userInfo: resp.data
+        // id, fullName, email, confirmFlag, securityLevel, candidateId
+      },
+      () => this.props.history.push(loc)
+    );
+  };
+
+  handleLogout = (loc = "/") => {
+    // add to session storage
+    sessionStorage.setItem("user", false);
+    this.setState(
+      {
+        userInfo: false
+        // id, fullName, email, confirmFlag, securityLevel, candidateId
+      },
+      () => this.props.history.push(loc)
+    );
   };
 
   render() {
+    const authValue = {
+      userInfo: this.state.userInfo,
+      handleLogin: this.handleLogin,
+      handleLogout: this.handleLogout
+    };
     return (
-      <div className="app">
-        <header id="header">
-          <Siteheader />
-        </header>
-        <main id="body">
-          <Switch>
-            <Route path="/skill/setup" render={() => <SkillSetup />} />
-            <Route path="/candidate/setup" render={() => <CandidateSetup />} />
-            <Route path="/company/setup" render={() => <CompanySetup />} />
-            <Route path="/person/setup" render={() => <PersonSetup />} />
-            <Route
-              path="/signin"
-              render={() => <LoginContainer handleLogin={this.handleLogin} />}
-            />
-            <Route path="/register" render={() => <Signup />} />
-            <Route path="/github/callback" render={() => <GithubCallback />} />
-            <Route exact path="/" component={Sitebody} />
-          </Switch>
-        </main>
-        <footer id="footer">
-          <Footer />
-        </footer>
-      </div>
+      <UserContext.Provider value={authValue}>
+        <div className="app">
+          <header id="header">
+            <Siteheader />
+          </header>
+          <main id="body">
+            <Switch>
+              <PrivateRoute path="/skill/setup" component={SkillSetup} />
+              <PrivateRoute
+                path="/candidate/setup"
+                component={CandidateSetup}
+              />
+              <PrivateRoute path="/company/setup" component={CompanySetup} />
+              <PrivateRoute path="/person/setup" component={PersonSetup} />
+              <Route path="/signin" component={LoginContainer} />
+              <Route path="/register" component={Signup} />
+              <Route path="/github/callback" component={GithubCallback} />
+              <Route exact path="/" component={Sitebody} />
+            </Switch>
+          </main>
+          <footer id="footer">
+            <Footer />
+          </footer>
+        </div>
+      </UserContext.Provider>
     );
   }
 }

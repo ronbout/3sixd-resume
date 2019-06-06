@@ -73,4 +73,15 @@
   -ms-grid-column-align: right;
       justify-self: right;
 }
+
+#signin-button {
+  font-size: 1em;
+  text-align: left;
+  color: white;
+  background: none;
+  margin: 0 1em 0 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
 /*# sourceMappingURL=siteheader.css.map */
