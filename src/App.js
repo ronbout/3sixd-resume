@@ -7,7 +7,6 @@ import "./css/app.css";
 import Siteheader from "./components/Siteheader/";
 import Footer from "./components/Footer/";
 import Sitebody from "./components/Sitebody/";
-import Details from "./components/Details/";
 import SkillSetup from "./components/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
@@ -20,6 +19,7 @@ import GithubCallback from "./components/GithubCallback";
 import Error404 from "./components/error404";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 import {
   faQuestion,
   faSearch,
@@ -39,13 +39,14 @@ library.add(
   faChevronDown,
   faEdit,
   faPlus,
-  faCheck
+  faCheck,
+  fab
 );
 
 // setup global api url
 // if not on my dev, use remote api
-window.apiUrl = "http://localhost/3sixd/api/";
-//window.apiUrl = "https://ronbout.000webhostapp.com/api/";
+//window.apiUrl = "http://localhost/3sixd/api/";
+window.apiUrl = "https://ronbout.000webhostapp.com/api/";
 
 class App extends Component {
   constructor(props) {
@@ -81,10 +82,10 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <div id="header">
+        <header id="header">
           <Siteheader />
-        </div>
-        <div id="body">
+        </header>
+        <main id="body">
           <Switch>
             <Route path="/skill/setup" render={() => <SkillSetup />} />
             <Route path="/candidate/setup" render={() => <CandidateSetup />} />
@@ -98,13 +99,10 @@ class App extends Component {
             <Route path="/github/callback" render={() => <GithubCallback />} />
             <Route exact path="/" component={Sitebody} />
           </Switch>
-        </div>
-        <div id="details">
-          <Details />
-        </div>
-        <div id="footer">
+        </main>
+        <footer id="footer">
           <Footer />
-        </div>
+        </footer>
       </div>
     );
   }

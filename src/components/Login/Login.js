@@ -1,15 +1,26 @@
 import React from "react";
 import SocialLogin from "./SocialLogin";
 import EmailLogin from "./EmailLogin";
+import { NavLink } from "react-router-dom";
+
+import "./css/login.css";
 
 const Login = props => {
   return (
-    <div className="container-fluid">
-      <h1>Login</h1>
-      <SocialLogin handleLogin={props.handleLogin} />
-      <EmailLogin handleLogin={props.handleLogin} />
+    <React.Fragment>
       {props.errMsg && <div className="login-error error">{props.errMsg}</div>}
-    </div>
+      <div className="login-container">
+        <SocialLogin handleLogin={props.handleLogin} />
+        <div className="vert-divider" />
+        <EmailLogin handleLogin={props.handleLogin} />
+      </div>
+      <div className="register-msg">
+        <span>New to 3sixD?</span>
+        <NavLink to="/register" className="nav-link">
+          Register
+        </NavLink>
+      </div>
+    </React.Fragment>
   );
 };
 

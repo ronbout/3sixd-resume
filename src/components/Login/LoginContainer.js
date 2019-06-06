@@ -21,7 +21,7 @@ class LoginContainer extends Component {
        * we came here with an email in the query string so it is a github callback
        * just run the handleLogin routine with the email and "social" as the password
        */
-      this.handleLogin(email, "social");
+      this.handleLogin(email, "github");
     } else {
       /**
        * set the sessionStorage so that if github login is used, the callback
@@ -45,8 +45,11 @@ class LoginContainer extends Component {
           if (result.data) {
             this.props.handleLogin(result);
           } else {
-            // no user, so prepare error message
-            this.setState({ errMsg: "Unknown User Email" });
+            if (result.errorCode && result.errorCode === 45002) {
+              this.setState({ errMsg: "Email " + email + " not found." });
+            } else {
+              this.setState({ errMsg: result.message });
+            }
           }
         });
       })

@@ -70,36 +70,11 @@ body {
   font-weight: bold;
 }
 
-.social-login,
-.social-signup {
-  width: 40%;
-}
-
-.email-login,
-.email-signup {
-  margin-top: 4rem;
-  width: 40%;
-}
-
-.social-login button,
-.social-login button {
-  font-size: 0.8rem;
-}
-
 .btn-question {
   border-radius: 50%;
 }
 
-@media (max-width: 720px) {
-  .social-login,
-  .social-email {
-    width: 80%;
-  }
-}
-
-@media (max-width: 520px) {
-  .social-login,
-  .social-signup {
-    width: 100%;
-  }
+input {
+  padding: 0.275rem 0.25rem;
+  border-radius: 0.25rem;
 }

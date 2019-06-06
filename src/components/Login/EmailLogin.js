@@ -7,8 +7,15 @@ class EmailLogin extends Component {
     this.state = { email: "", password: "", emailErr: false };
   }
 
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      event && event.preventDefault();
+      this.handleSubmit();
+    }
+  };
+
   handleSubmit = event => {
-    event.preventDefault();
+    event && event.preventDefault();
     const emailValid = isEmail(this.state.email);
     if (emailValid) {
       this.props.handleLogin(this.state.email, this.state.password);
@@ -31,37 +38,38 @@ class EmailLogin extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit}>
-          <div className="email-login container-fluid d-flex flex-column justify-content-center text-center">
-            <h2>or</h2>
-            <div className="input-group">
-              <input
-                type="email"
-                className="form-control"
-                placeholder="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            {this.state.emailErr && (
-              <div className="formErr">Invalid Email</div>
-            )}
-            <div className="input-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <button className="btn btn-primary">Login with Email</button>
+      <div className="email-login login-section">
+        <h4>Sign In by Email</h4>
+        <div className="email-login-form">
+          <label>Email: </label>
+          <input
+            type="email"
+            placeholder="email"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+            onKeyPress={this.handleKeyPress}
+          />
+          <div />
+          <div className="form-err">
+            {this.state.emailErr && "Invalid Email"}
           </div>
-        </form>
-      </React.Fragment>
+
+          <label>Password:</label>
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+            onKeyPress={this.handleKeyPress}
+          />
+        </div>
+
+        <button onClick={this.handleSubmit} className="btn btn-primary">
+          Login with Email
+        </button>
+      </div>
     );
   }
 }
