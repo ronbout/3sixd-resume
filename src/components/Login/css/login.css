@@ -12,6 +12,10 @@
   margin: 1em 0 3em 0;
 }
 
+.login-container .horiz-divider {
+  display: none;
+}
+
 .login-section {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
@@ -39,6 +43,12 @@
 .vert-divider {
   width: 2px;
   margin: 20px 8px 0;
+  background: blue;
+}
+
+.horiz-divider {
+  height: 2px;
+  margin: 8px 20px;
   background: blue;
 }
 
@@ -98,5 +108,20 @@
   margin: 2em auto 0;
   padding: 0.5em 1em;
   border: 2px inset red;
+}
+
+@media screen and (max-width: 960px) {
+  .login-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .login-container .vert-divider {
+    display: none;
+  }
+  .login-container .horiz-divider {
+    display: block;
+  }
 }
 /*# sourceMappingURL=login.css.map */

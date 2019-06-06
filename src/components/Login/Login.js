@@ -12,6 +12,7 @@ const Login = props => {
       <div className="login-container">
         <SocialLogin handleLogin={props.handleLogin} />
         <div className="vert-divider" />
+        <div className="horiz-divider" />
         <EmailLogin handleLogin={props.handleLogin} />
       </div>
       <div className="register-msg">

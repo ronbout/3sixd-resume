@@ -8,6 +8,10 @@
     color: black;
     margin: 1em 0 3em 0;
   }
+
+  .horiz-divider {
+    display: none;
+  }
 }
 
 .login-section {
@@ -30,6 +34,12 @@
 .vert-divider {
   width: 2px;
   margin: 20px 8px 0;
+  background: blue;
+}
+
+.horiz-divider {
+  height: 2px;
+  margin: 8px 20px;
   background: blue;
 }
 
@@ -89,4 +99,18 @@
   margin: 2em auto 0;
   padding: 0.5em 1em;
   border: 2px inset red;
+}
+
+@media screen and (max-width: 960px) {
+  .login-container {
+    flex-direction: column;
+
+    .vert-divider {
+      display: none;
+    }
+
+    .horiz-divider {
+      display: block;
+    }
+  }
 }
