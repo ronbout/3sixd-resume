@@ -12,7 +12,7 @@ import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import PersonSetup from "./components/PersonSetup/";
 import LoginContainer from "./components/Login/";
-import Signup from "./components/Signup/";
+import Register from "./components/Register/";
 import GithubCallback from "./components/GithubCallback";
 import PrivateRoute from "./components/PrivateRoute";
 import { UserContext } from "./components/UserProvider";
@@ -80,7 +80,10 @@ class App extends Component {
         userInfo: false
         // id, fullName, email, confirmFlag, securityLevel, candidateId
       },
-      () => this.props.history.push(loc)
+      () => {
+        sessionStorage.removeItem("referrer");
+        //this.props.history.push(loc);
+      }
     );
   };
 
@@ -106,7 +109,7 @@ class App extends Component {
               <PrivateRoute path="/company/setup" component={CompanySetup} />
               <PrivateRoute path="/person/setup" component={PersonSetup} />
               <Route path="/signin" component={LoginContainer} />
-              <Route path="/register" component={Signup} />
+              <Route path="/register" component={Register} />
               <Route path="/github/callback" component={GithubCallback} />
               <Route exact path="/" component={Sitebody} />
             </Switch>

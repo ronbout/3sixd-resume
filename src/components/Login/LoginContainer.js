@@ -9,14 +9,16 @@ class LoginContainer extends Component {
   static contextType = UserContext;
   constructor(props) {
     super(props);
-
+    console.log("constructor");
     // check for query string in case this is the github callback from the server
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get("email");
     let referrer = urlParams.get("referrer");
+    console.log("url referrer: ", referrer);
     if (!referrer) {
       // check session storage
       if ((referrer = sessionStorage.getItem("referrer"))) {
+        console.log("session referrer: ", referrer);
         sessionStorage.removeItem("referrer");
       }
     }
@@ -58,6 +60,7 @@ class LoginContainer extends Component {
             const loginReferrer = this.state.referrer
               ? this.state.referrer
               : `/candidate/setup/${result.data.id}`;
+            sessionStorage.removeItem("referrer");
             this.context.handleLogin(result, loginReferrer);
           } else {
             if (result.errorCode && result.errorCode === 45002) {
@@ -71,6 +74,10 @@ class LoginContainer extends Component {
       .catch(error => {
         console.log("Fetch error: ", error);
       });
+  };
+
+  componentWillUnmount = () => {
+    sessionStorage.removeItem("referrer");
   };
 
   render() {

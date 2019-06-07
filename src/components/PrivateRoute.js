@@ -8,6 +8,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
   // because github login will take us completely out of the program, set
   // a session variable for the page referrer, that can be used after login
   if (!authValue.userInfo) {
+    console.log("path: ", path);
     sessionStorage.setItem("referrer", path);
   }
   return (

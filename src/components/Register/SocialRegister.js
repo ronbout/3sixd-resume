@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleLogin from "react-google-login";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class socialSignup extends Component {
   constructor(props) {
@@ -22,12 +23,19 @@ class socialSignup extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="social-signup container-fluid d-flex flex-column justify-content-center text-center">
-          {/*<div>
-            <button className="btn btn-outline-secondary social-btn">
-              <h2>Sign Up with Facebook</h2>
-            </button>
-          </div>*/}
+        <div className="social-register register-section">
+          <h4>Register with Social Media</h4>
+          <div>
+            <a
+              className="App-link"
+              href="https://github.com/login/oauth/authorize?client_id=b86fdc8d2ff6d5f7f394&scope=user:email"
+            >
+              <button className="github-button">
+                <FontAwesomeIcon icon={["fab", "github"]} />
+                <span style={{ marginLeft: "16px" }}>Register with Github</span>
+              </button>
+            </a>
+          </div>
           <div>
             <GoogleLogin
               clientId="339494038360-ui9ssd3umvcj4fkjft7ns4ies220l8l3.apps.googleusercontent.com"

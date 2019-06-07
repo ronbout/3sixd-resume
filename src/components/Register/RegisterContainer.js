@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import SocialSignup from "./socialSignup";
-import EmailSignup from "./emailSignup";
+import Register from "./Register";
 
 const API_BASE = "http://localhost/api/";
 const API_MEMBER = "members";
 const API_KEY = "6y9fgv43dl40f9wl";
 
-class SignUp extends Component {
+class RegisterContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { errMsg: "", confirmMsg: "", socialInfo: null };
+    this.state = {
+      errMsg: "",
+      confirmMsg: "",
+      socialInfo: null
+    };
   }
 
-  handleSignUp = userInfo => {
+  handleRegister = userInfo => {
     console.log("userInfo: ", userInfo);
     // clear out any error msg
     this.setState({ errMsg: "", confirmMsg: "" });
@@ -62,38 +65,15 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        {this.state.confirmMsg ? (
-          <div className="register-confirm">{this.state.confirmMsg}</div>
-        ) : (
-          <React.Fragment>
-            <h1>Register</h1>
-            {this.state.socialInfo ? (
-              <p style={{ textAlign: "center", marginTop: "24px" }}>
-                Enter Username to finish registration
-              </p>
-            ) : (
-              <React.Fragment>
-                <SocialSignup handleSocial={this.handleSocial} />
-                <p style={{ textAlign: "center", marginTop: "24px" }}>
-                  Or
-                  <br />
-                  Register by Email
-                </p>
-              </React.Fragment>
-            )}
-            <EmailSignup
-              handleSignUp={this.handleSignUp}
-              socialInfo={this.state.socialInfo}
-            />
-            {this.state.errMsg && (
-              <div className="register-error">{this.state.errMsg}</div>
-            )}
-          </React.Fragment>
-        )}
-      </div>
+      <Register
+        confirmMsg={this.state.confirmMsg}
+        handleSocial={this.handleSocial}
+        socialInfo={this.state.socialInfo}
+        handleRegister={this.handleRegister}
+        errMsg={this.state.errMsg}
+      />
     );
   }
 }
 
-export default SignUp;
+export default RegisterContainer;
