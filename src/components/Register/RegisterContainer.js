@@ -1,25 +1,28 @@
 import React, { Component } from "react";
 import Register from "./Register";
+import { UserContext } from "../UserProvider";
 
-const API_BASE = "http://localhost/api/";
 const API_MEMBER = "members";
-const API_KEY = "6y9fgv43dl40f9wl";
+const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class RegisterContainer extends Component {
+  static contextType = UserContext;
   constructor(props) {
     super(props);
     this.state = {
+      apiBase: window.apiUrl,
       errMsg: "",
       confirmMsg: "",
-      socialInfo: null
+      socialFlag: false
     };
   }
 
-  handleRegister = userInfo => {
+  handleRegister = (userInfo, site = false) => {
     console.log("userInfo: ", userInfo);
     // clear out any error msg
     this.setState({ errMsg: "", confirmMsg: "" });
-    let postBody = { ...userInfo, apiKey: API_KEY };
+    let postBody = { ...userInfo };
+    delete postBody.password2;
     let postConfig = {
       method: "post",
       body: JSON.stringify(postBody),
@@ -27,27 +30,31 @@ class RegisterContainer extends Component {
         "Content-Type": "application/json"
       }
     };
-    fetch(`${API_BASE}${API_MEMBER}`, postConfig)
+    fetch(`${this.state.apiBase}${API_MEMBER}${API_QUERY}`, postConfig)
       .then(response => {
         console.log("response: ", response);
         response.json().then(result => {
-          result = result.data;
-          console.log("Result: ", result);
-          // figure out what to do here
           if (result.error) {
             this.setState({
               errMsg:
                 result.errorCode === 23000
                   ? `Email ${userInfo.email} is already a registered user.`
-                  : "An unknown error has occurred"
+                  : result.message
             });
           } else {
-            // success.  let user know
-            this.setState({
-              confirmMsg: this.state.socialInfo
-                ? "You are registered and may log in with Google now."
-                : "You are registered and may log in by email now."
-            });
+            console.log("Result: ", result);
+            // success.  let user know and log them in
+            // get UserContext and log the user in
+            this.setState(
+              {
+                confirmMsg: site
+                  ? "You have been successfully registered through " +
+                    site +
+                    "."
+                  : "You have been successfully registered.  Please check your email for confirmation."
+              },
+              () => this.context.handleLogin(result, null, false)
+            );
           }
         });
       })
@@ -56,19 +63,10 @@ class RegisterContainer extends Component {
       });
   };
 
-  handleSocial = socialInfo => {
-    console.log(socialInfo);
-    this.setState({
-      socialInfo: socialInfo
-    });
-  };
-
   render() {
     return (
       <Register
         confirmMsg={this.state.confirmMsg}
-        handleSocial={this.handleSocial}
-        socialInfo={this.state.socialInfo}
         handleRegister={this.handleRegister}
         errMsg={this.state.errMsg}
       />

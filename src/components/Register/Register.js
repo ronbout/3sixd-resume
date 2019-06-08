@@ -14,13 +14,10 @@ const Register = props => {
       ) : (
         <React.Fragment>
           <div className="register-container">
-            <SocialRegister handleSocial={props.handleSocial} />
+            <SocialRegister handleRegister={props.handleRegister} />
             <div className="vert-divider" />
             <div className="horiz-divider" />
-            <EmailRegister
-              handleRegister={props.handleRegister}
-              socialInfo={props.socialInfo}
-            />
+            <EmailRegister handleRegister={props.handleRegister} />
           </div>{" "}
           <div className="register-msg">
             <span>Already registered?</span>

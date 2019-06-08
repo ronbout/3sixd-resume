@@ -47,8 +47,8 @@ library.add(
 
 // setup global api url
 // if not on my dev, use remote api
-//window.apiUrl = "http://localhost/3sixd/api/";
-window.apiUrl = "https://ronbout.000webhostapp.com/api/";
+window.apiUrl = "http://localhost/3sixd/api/";
+//window.apiUrl = "https://ronbout.000webhostapp.com/api/";
 
 class App extends Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class App extends Component {
     };
   }
 
-  handleLogin = (resp, loc = "/") => {
+  handleLogin = (resp, loc = "/", push = true) => {
     // add to session storage
     sessionStorage.setItem("user", JSON.stringify(resp.data));
     this.setState(
@@ -68,7 +68,7 @@ class App extends Component {
         userInfo: resp.data
         // id, fullName, email, confirmFlag, securityLevel, candidateId
       },
-      () => this.props.history.push(loc)
+      () => push && this.props.history.push(loc)
     );
   };
 
