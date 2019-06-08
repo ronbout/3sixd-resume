@@ -11,28 +11,40 @@ import { Redirect } from "react-router-dom";
  * program.  If no query string, just redirect to home
  */
 
+const API_URL_USER = "https://api.github.com/user";
 const API_URL_EMAIL = "https://api.github.com/user/emails";
 
 const urlParams = new URLSearchParams(window.location.search);
 const token = urlParams.get("token");
 
 const GithubCallback = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const oauthType = sessionStorage.getItem("oauthType");
 
   if (!token) return <Redirect to="/" />;
 
   useEffect(() => {
+    const apiUrlUser = `${API_URL_USER}?access_token=${token}`;
     const apiUrlEmail = `${API_URL_EMAIL}?access_token=${token}`;
-    fetch(apiUrlEmail).then(response => {
-      response.json().then(result => {
-        setEmail(result[0].email);
-      });
+    const userFetch = fetch(apiUrlUser).then(response => {
+      return response.json();
     });
+
+    const emailFetch = fetch(apiUrlEmail).then(response => {
+      return response.json();
+    });
+
+    Promise.all([userFetch, emailFetch])
+      .then(results => {
+        setName(results[0].name);
+        setEmail(results[1][0].email);
+      })
+      .catch(err => console.log("error fetching github data: ", err));
   }, []);
 
-  if (oauthType === "register" && email !== "")
-    return <Redirect to={`/register?email=${email}`} />;
+  if (oauthType === "register" && email !== "" && name !== "")
+    return <Redirect to={`/register?email=${email}&name=${name}`} />;
   if (oauthType === "login" && email !== "")
     return <Redirect to={`/signin?email=${email}`} />;
   return (

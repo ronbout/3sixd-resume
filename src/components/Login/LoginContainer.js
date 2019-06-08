@@ -9,7 +9,6 @@ class LoginContainer extends Component {
   static contextType = UserContext;
   constructor(props) {
     super(props);
-    console.log("constructor");
     // check for query string in case this is the github callback from the server
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get("email");
@@ -33,7 +32,7 @@ class LoginContainer extends Component {
       console.log("oauthType: ", sessionStorage.getItem("oauthType"));
       /**
        * we came here with an email in the query string so it is a github callback
-       * just run the handleLogin routine with the email and "social" as the password
+       * just run the handleLogin routine with the email and "github" as the password
        */
       this.handleLogin(email, "github");
     } else {
@@ -47,6 +46,7 @@ class LoginContainer extends Component {
   }
 
   handleLogin = (email, password) => {
+    sessionStorage.removeItem("oauthType");
     fetch(
       `${
         this.state.apiBase
