@@ -14,9 +14,9 @@ class SocialLogin extends Component {
 
   responseGoogle = resp => {
     // since prototype, just cheat on email as I use yahoo, not google
-    console.log("google resp: ", resp);
+    console.log("google resp: ", resp.profileObj);
     //  email, familyName, givenName, googleId, imageUrl, name
-    this.props.handleLogin("ronbout@yahoo.com", "google");
+    this.props.handleLogin(resp.profileObj.email, "google");
   };
 
   render() {

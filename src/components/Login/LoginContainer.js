@@ -18,7 +18,6 @@ class LoginContainer extends Component {
       // check session storage
       if ((referrer = sessionStorage.getItem("referrer"))) {
         console.log("session referrer: ", referrer);
-        sessionStorage.removeItem("referrer");
       }
     }
 
@@ -77,6 +76,7 @@ class LoginContainer extends Component {
   };
 
   componentWillUnmount = () => {
+    console.log("login container will unmount");
     sessionStorage.removeItem("referrer");
   };
 
