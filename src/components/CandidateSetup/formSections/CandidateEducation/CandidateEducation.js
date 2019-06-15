@@ -1,10 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "../css/candidateEducation.css";
 import CandidateEducationCrud from "./CandidateEducationCrud";
-import CandidateModal from "../CandidateModal";
-import ListingHoc from "../../hoc/ListingHoc";
+import CandidateModal from "../../CandidateModal";
+import ListingHoc from "../../../hoc/ListingHoc";
 import CandidateEducationListDetail from "./CandidateEducationListDetail";
 
 const CandidateEducation = props => {

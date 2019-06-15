@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PersonSetupContainer from "../PersonSetup/";
 import CandidateObjective from "./formSections/CandidateObjective";
 import Highlights from "./formSections/Highlights";
-import CandidateExperience from "./formSections/CandidateExperience";
-import CandidateEducationContainer from "./formSections/CandidateEducationContainer";
+import CandidateExperience from "./formSections/CandidateExperience/";
+import CandidateEducation from "./formSections/CandidateEducation/";
 import CandidateLinks from "./formSections/CandidateLinks";
 import {
   TabbedUI,
@@ -452,7 +452,7 @@ class CandidateCrud extends Component {
                 />
               </TabPanel>
               <TabPanel>
-                <CandidateEducationContainer
+                <CandidateEducation
                   formFields={this.state.formFields}
                   handleInputChange={this.handleEducationChange}
                 />

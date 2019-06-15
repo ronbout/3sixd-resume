@@ -1,6 +1,6 @@
 import React from "react";
 
-import SkillList from "../../SkillSetup/SkillList/";
+import SkillList from "../../../SkillSetup/SkillList/";
 
 const CandidateEducationCrudForm = props => {
   const { education } = props;

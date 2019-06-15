@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import "../css/candidateEducation.css";
 import CandidateEducation from "./CandidateEducation";
-import { objCopy } from "../../../assets/js/library";
+import { objCopy } from "../../../../assets/js/library";
+import "./css/candidateEducation.css";
 
 const CandidateEducationContainer = props => {
   const [editNdx, setEditNdx] = useState(false);

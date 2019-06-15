@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import CandidateEducationCrudForm from "./CandidateEducationCrudForm";
-import { objCopy } from "../../../assets/js/library";
+import { objCopy } from "../../../../assets/js/library";
 
 const CandidateEducationCrud = props => {
   const [origEducation, setOrigEducation] = useState(null);

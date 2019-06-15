@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import SkillList from "../../SkillSetup/SkillList/";
-import Highlights from "./Highlights";
-import CompanySetup from "../../CompanySetup/";
-import PersonSetup from "../../PersonSetup/";
-import MakePopup from "../../hoc/MakePopup";
-import { objCopy } from "../../../assets/js/library";
+import SkillList from "../../../SkillSetup/SkillList/";
+import Highlights from "../Highlights";
+import CompanySetup from "../../../CompanySetup/";
+import PersonSetup from "../../../PersonSetup/";
+import MakePopup from "../../../hoc/MakePopup";
 
-const CandidateExperienceCrud = props => {
-  const [showHighlights, setShowHighlights] = useState(false);
-  const [origJob, setOrigJob] = useState(null);
-  const [showCompany, setShowCompany] = useState(false);
-  const [showPerson, setShowPerson] = useState(false);
-  const job = props.experience;
+const CandidateExperienceCrudForm = props => {
+  const { job, showPerson, showCompany, showHighlights } = props;
+
   const CompanyPopup = MakePopup(
     CompanySetup,
     { left: "250px", top: "200px", width: "1000px" },
@@ -25,111 +21,7 @@ const CandidateExperienceCrud = props => {
     true
   );
 
-  useEffect(() => {
-    setOrigJob(objCopy(props.experience));
-  }, []);
-
-  const handleContactChange = event => {
-    // not going to allow change through the
-    // input field.  Must use popup
-    return;
-  };
-
-  const handleInputChange = event => {
-    let tmpJob = job;
-    // the input name is split with hyphen if the data is stored
-    // in a sub-object (person-name => person.name)
-    if (event.target.name.indexOf("-") !== -1) {
-      const targetName = event.target.name.split("-");
-      tmpJob[targetName[0]][targetName[1]] = event.target.value;
-    } else {
-      tmpJob[event.target.name] = event.target.value;
-    }
-    passExperienceUp(tmpJob);
-  };
-
-  const handleCompanyClick = event => {
-    // do not open if Person is already open
-    if (showPerson && !showCompany) return;
-    setShowCompany(!showCompany);
-  };
-
-  const handlePersonClick = event => {
-    // do not open if Company is already open
-    if (showCompany && !showPerson) return;
-    setShowPerson(!showPerson);
-  };
-
-  const passExperienceUp = (tmpExperience, closeModal = false) => {
-    props.handleExperienceChange &&
-      props.handleExperienceChange(tmpExperience, closeModal);
-  };
-
-  const handleSkillsChange = skills => {
-    let tmpJob = job;
-    tmpJob.skills = skills;
-    passExperienceUp(tmpJob);
-  };
-
-  const toggleHighlights = () => {
-    setShowHighlights(!showHighlights);
-  };
-
-  const handleHighlightChange = highlights => {
-    let tmpJob = job;
-    tmpJob.highlights = highlights;
-    passExperienceUp(tmpJob);
-  };
-
-  const handleCancel = () => {
-    passExperienceUp(origJob, true);
-    setShowCompany(false);
-  };
-
-  const handleCompanyCancel = () => {
-    setShowCompany(false);
-  };
-
-  const handleCompanySubmit = companyInfo => {
-    setShowCompany(false);
-    let tmpJob = job;
-    tmpJob.company = companyInfo;
-    passExperienceUp(tmpJob);
-  };
-
-  const handlePersonCancel = () => {
-    setShowPerson(false);
-  };
-
-  const handlePersonSubmit = personInfo => {
-    setShowPerson(false);
-    let tmpJob = job;
-    tmpJob.contactPerson = personInfo;
-    passExperienceUp(tmpJob);
-  };
-
-  return (
-    <section className="candidate-job">
-      <input type="hidden" name="job-id" value={job.id} />
-      {jobForm()}
-      {showCompany && (
-        <CompanyPopup
-          company={job.company}
-          handleCancel={handleCompanyCancel}
-          handleSubmit={handleCompanySubmit}
-        />
-      )}
-      {showPerson && (
-        <PersonPopup
-          person={job.contactPerson}
-          handleCancel={handlePersonCancel}
-          handleSubmit={handlePersonSubmit}
-        />
-      )}
-    </section>
-  );
-
-  function jobForm() {
+  const jobForm = () => {
     return (
       <React.Fragment>
         <div className="form-group row">
@@ -144,7 +36,7 @@ const CandidateExperienceCrud = props => {
               name="jobTitle-titleDescription"
               placeholder="Job Title"
               value={job.jobTitle.titleDescription}
-              onChange={handleInputChange}
+              onChange={props.handleInputChange}
               required
               disabled={showPerson || showCompany}
             />
@@ -163,8 +55,8 @@ const CandidateExperienceCrud = props => {
               name="company-name"
               placeholder="Company"
               value={job.company.name}
-              onChange={handleInputChange}
-              onClick={handleCompanyClick}
+              onChange={props.handleInputChange}
+              onClick={props.handleCompanyClick}
               required
               disabled={showPerson}
             />
@@ -187,8 +79,8 @@ const CandidateExperienceCrud = props => {
                   name="contactPerson-formattedName"
                   placeholder="Contact Person"
                   value={job.contactPerson.formattedName}
-                  onChange={handleInputChange}
-                  onClick={handlePersonClick}
+                  onChange={props.handleInputChange}
+                  onClick={props.handlePersonClick}
                   disabled={showCompany}
                 />
               </div>
@@ -206,7 +98,7 @@ const CandidateExperienceCrud = props => {
                   name="contactPerson-workPhone"
                   placeholder="Contact Phone #"
                   value={job.contactPerson.workPhone}
-                  onChange={handleContactChange}
+                  onChange={props.handleContactChange}
                   disabled={showPerson || showCompany}
                 />
               </div>
@@ -223,7 +115,7 @@ const CandidateExperienceCrud = props => {
                   name="startDate"
                   placeholder="YYY-MM-DD"
                   value={job.startDate}
-                  onChange={handleInputChange}
+                  onChange={props.handleInputChange}
                   required
                   disabled={showPerson || showCompany}
                 />
@@ -242,7 +134,7 @@ const CandidateExperienceCrud = props => {
                   name="endDate"
                   placeholder="YYYY-MM-DD"
                   value={job.endDate}
-                  onChange={handleInputChange}
+                  onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
                 />
               </div>
@@ -256,7 +148,7 @@ const CandidateExperienceCrud = props => {
                   name="payType"
                   value="Salary"
                   checked={job.payType === "Salary"}
-                  onChange={handleInputChange}
+                  onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
                 />
                 <label className="custom-control-label" htmlFor="salary">
@@ -271,7 +163,7 @@ const CandidateExperienceCrud = props => {
                   name="payType"
                   value="Hourly"
                   checked={job.payType === "Hourly"}
-                  onChange={handleInputChange}
+                  onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
                 />
                 <label className="custom-control-label" htmlFor="hourly">
@@ -292,7 +184,7 @@ const CandidateExperienceCrud = props => {
                   name="startPay"
                   placeholder="Starting Pay"
                   value={job.startPay}
-                  onChange={handleInputChange}
+                  onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
                 />
               </div>
@@ -310,7 +202,7 @@ const CandidateExperienceCrud = props => {
                   name="endPay"
                   placeholder="Ending Pay"
                   value={job.endPay}
-                  onChange={handleInputChange}
+                  onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
                 />
               </div>
@@ -319,7 +211,7 @@ const CandidateExperienceCrud = props => {
               <SkillList
                 skills={job.skills}
                 editFlag={true}
-                handleSkillsChange={handleSkillsChange}
+                handleSkillsChange={props.handleSkillsChange}
               />
             </div>
           </React.Fragment>
@@ -327,7 +219,7 @@ const CandidateExperienceCrud = props => {
           <div className="experience-highlights">
             <Highlights
               highlights={job.highlights}
-              handleHighlightChange={handleHighlightChange}
+              handleHighlightChange={props.handleHighlightChange}
               includeInSummary={true}
               disabled={showPerson || showCompany}
             />
@@ -345,7 +237,7 @@ const CandidateExperienceCrud = props => {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={handleCancel}
+            onClick={props.handleCancel}
           >
             Cancel
           </button>
@@ -353,14 +245,35 @@ const CandidateExperienceCrud = props => {
           <button
             type="button"
             className="btn btn-info"
-            onClick={toggleHighlights}
+            onClick={props.toggleHighlights}
           >
             {showHighlights ? "Close " : "Open "} Job Highlights
           </button>
         </div>
       </React.Fragment>
     );
-  }
+  };
+
+  return (
+    <section className="candidate-job">
+      <input type="hidden" name="job-id" value={job.id} />
+      {jobForm()}
+      {showCompany && (
+        <CompanyPopup
+          company={job.company}
+          handleCancel={props.handleCompanyCancel}
+          handleSubmit={props.handleCompanySubmit}
+        />
+      )}
+      {showPerson && (
+        <PersonPopup
+          person={job.contactPerson}
+          handleCancel={props.handlePersonCancel}
+          handleSubmit={props.handlePersonSubmit}
+        />
+      )}
+    </section>
+  );
 };
 
-export default CandidateExperienceCrud;
+export default CandidateExperienceCrudForm;
