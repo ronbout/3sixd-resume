@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../css/candidateEducation.css";
@@ -6,73 +6,12 @@ import CandidateEducationCrud from "./CandidateEducationCrud";
 import CandidateModal from "../CandidateModal";
 import ListingHoc from "../../hoc/ListingHoc";
 import CandidateEducationListDetail from "./CandidateEducationListDetail";
-import { objCopy } from "../../../assets/js/library";
 
 const CandidateEducation = props => {
-  const [editNdx, setEditNdx] = useState(false);
-  const [sortEducation, setSortEducation] = useState(
-    props.formFields.education.sort((a, b) => a.startDate - b.startDate)
-  );
-
-  const emptyEducation = {
-    id: "",
-    candidateId: props.formFields.id,
-    schoolName: "",
-    schoolMunicipality: "",
-    schoolRegion: "",
-    schoolCountry: "",
-    degreeName: "",
-    degreeType: "",
-    degreeMajor: "",
-    degreeMinor: "",
-    startDate: "",
-    endDate: "",
-    skills: []
-  };
-
-  const passEducationUp = tmpEducation => {
-    props.handleEducationChange && props.handleEducationChange(tmpEducation);
-  };
-
-  const handleDelEducation = ndx => {
-    const tmp = sortEducation.slice();
-    tmp.splice(ndx, 1);
-    passEducationUp(tmp);
-    setSortEducation(tmp.sort((a, b) => a.startDate - b.startDate));
-  };
-
-  const handleDispEditModal = ndx => {
-    setEditNdx(ndx);
-  };
-
-  const handleCloseModal = () => {
-    setEditNdx(false);
-  };
-
-  const handleEducationChange = (tmpExper, closeModal = false) => {
-    let tmp = sortEducation.slice();
-    tmp[editNdx] = objCopy(tmpExper);
-    passEducationUp(tmp);
-    setSortEducation(tmp);
-    closeModal && handleCloseModal();
-  };
-
-  const handleAddNewEducation = () => {
-    // add empty job to list if not already empty
-    // set editNdx to this new element
-    sortEducation.push(emptyEducation);
-    console.log(sortEducation);
-    setEditNdx(sortEducation.length - 1);
-  };
-
-  const actions = {
-    delete: handleDelEducation,
-    edit: handleDispEditModal
-  };
-
+  const { editNdx, formFields, sortEducation, actions } = props;
   return (
     <section className="candidate-education candidate-tab-section">
-      {props.formFields.education && educationList()}
+      {formFields.education && educationList()}
       {addButton()}
       {editNdx !== false && (
         <CandidateModal
@@ -83,8 +22,8 @@ const CandidateEducation = props => {
         >
           <CandidateEducationCrud
             education={sortEducation[editNdx]}
-            handleEducationChange={handleEducationChange}
-            handleCloseModal={handleCloseModal}
+            handleEducationChange={props.handleEducationChange}
+            handleCloseModal={props.handleCloseModal}
           />
         </CandidateModal>
       )}
@@ -119,7 +58,7 @@ const CandidateEducation = props => {
         <button
           type="button"
           title="Add New Job"
-          onClick={handleAddNewEducation}
+          onClick={props.handleAddNewEducation}
         >
           <FontAwesomeIcon icon="plus" />
         </button>

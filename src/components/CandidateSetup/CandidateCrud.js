@@ -3,7 +3,7 @@ import PersonSetup from "../PersonSetup/";
 import CandidateObjective from "./formSections/CandidateObjective";
 import Highlights from "./formSections/Highlights";
 import CandidateExperience from "./formSections/CandidateExperience";
-import CandidateEducation from "./formSections/CandidateEducation";
+import CandidateEducationContainer from "./formSections/CandidateEducationContainer";
 import CandidateLinks from "./formSections/CandidateLinks";
 import {
   TabbedUI,
@@ -452,7 +452,7 @@ class CandidateCrud extends Component {
                 />
               </TabPanel>
               <TabPanel>
-                <CandidateEducation
+                <CandidateEducationContainer
                   formFields={this.state.formFields}
                   handleInputChange={this.handleEducationChange}
                 />
