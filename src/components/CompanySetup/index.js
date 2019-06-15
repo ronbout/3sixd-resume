@@ -1,3 +1,3 @@
-import CompanySetup from "./CompanySetup";
+import CompanySetupContainer from "./CompanySetupContainer";
 
-export default CompanySetup;
+export default CompanySetupContainer;
