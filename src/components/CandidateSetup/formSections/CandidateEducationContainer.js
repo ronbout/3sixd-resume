@@ -46,6 +46,7 @@ const CandidateEducationContainer = props => {
   };
 
   const handleEducationChange = (tmpExper, closeModal = false) => {
+    console.log("handleEducationChange container", tmpExper);
     let tmp = sortEducation.slice();
     tmp[editNdx] = objCopy(tmpExper);
     passEducationUp(tmp);
