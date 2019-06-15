@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import EmailLoginForm from "./EmailLoginForm";
 import { isEmail } from "../../assets/js/library";
 
 class EmailLogin extends Component {
@@ -38,38 +39,12 @@ class EmailLogin extends Component {
 
   render() {
     return (
-      <div className="email-login login-section">
-        <h4>Sign In by Email</h4>
-        <div className="email-login-form">
-          <label>Email: </label>
-          <input
-            type="email"
-            placeholder="email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleKeyPress}
-          />
-          <div />
-          <div className="form-err">
-            {this.state.emailErr && "Invalid Email"}
-          </div>
-
-          <label>Password:</label>
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleKeyPress}
-          />
-        </div>
-
-        <button onClick={this.handleSubmit} className="btn btn-primary">
-          Login with Email
-        </button>
-      </div>
+      <EmailLoginForm
+        state={this.state}
+        handleInputChange={this.handleInputChange}
+        handleKeyPress={this.handleKeyPress}
+        handleSubmit={this.handleSubmit}
+      />
     );
   }
 }

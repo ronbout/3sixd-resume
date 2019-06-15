@@ -76,7 +76,6 @@ class LoginContainer extends Component {
   };
 
   componentWillUnmount = () => {
-    console.log("login container will unmount");
     sessionStorage.removeItem("referrer");
   };
 
