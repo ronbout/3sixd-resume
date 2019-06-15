@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import SkillCrud from "./SkillCrud";
+import SkillCrudForm from "./SkillCrudForm";
 
 const API_SKILL = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
@@ -248,7 +248,7 @@ class SkillCrudContainer extends Component {
 
   render() {
     return (
-      <SkillCrud
+      <SkillCrudForm
         state={this.state}
         handleTabClick={this.handleTabClick}
         handleSubmit={this.handleSubmit}

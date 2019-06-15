@@ -11,7 +11,7 @@ import {
   TabPanel
 } from "../../TabbedUI/TabbedUI";
 
-const SkillCrud = props => {
+const SkillCrudForm = props => {
   const tagsAndRelatedSkillsSection = () => {
     return (
       <div className="related-skill-section">
@@ -133,4 +133,4 @@ const SkillCrud = props => {
   );
 };
 
-export default SkillCrud;
+export default SkillCrudForm;

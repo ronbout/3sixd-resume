@@ -1,3 +1,3 @@
-import PersonSetup from "./PersonSetup";
+import PersonSetupContainer from "./PersonSetupContainer";
 
-export default PersonSetup;
+export default PersonSetupContainer;

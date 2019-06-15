@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PersonSetup from "../PersonSetup/";
+import PersonSetupContainer from "../PersonSetup/";
 import CandidateObjective from "./formSections/CandidateObjective";
 import Highlights from "./formSections/Highlights";
 import CandidateExperience from "./formSections/CandidateExperience";
@@ -419,7 +419,7 @@ class CandidateCrud extends Component {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <PersonSetup
+                <PersonSetupContainer
                   person={this.state.formFields.person}
                   heading="Candidate Entry/Update"
                   handleCancel={this.handlePersonCancel}
