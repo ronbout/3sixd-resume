@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PersonSetupContainer from "../PersonSetup/";
 import CandidateObjective from "./formSections/CandidateObjective";
-import Highlights from "./formSections/Highlights";
+import HighlightsContainer from "./formSections/HighlightsContainer";
 import CandidateExperience from "./formSections/CandidateExperience/";
 import CandidateEducation from "./formSections/CandidateEducation/";
 import CandidateLinks from "./formSections/CandidateLinks";
@@ -433,7 +433,7 @@ class CandidateCrud extends Component {
                 />
               </TabPanel>
               <TabPanel>
-                <Highlights
+                <HighlightsContainer
                   highlights={this.state.formFields.highlights}
                   handleHighlightChange={this.handleHighlightChange}
                   includeInSummary={false}

@@ -1,7 +1,7 @@
 import React from "react";
 
 import SkillList from "../../../SkillSetup/SkillList/";
-import Highlights from "../Highlights";
+import HighlightsContainer from "../HighlightsContainer";
 import CompanySetup from "../../../CompanySetup/";
 import PersonSetup from "../../../PersonSetup/";
 import MakePopup from "../../../hoc/MakePopup";
@@ -217,7 +217,7 @@ const CandidateExperienceCrudForm = props => {
           </React.Fragment>
         ) : (
           <div className="experience-highlights">
-            <Highlights
+            <HighlightsContainer
               highlights={job.highlights}
               handleHighlightChange={props.handleHighlightChange}
               includeInSummary={true}
