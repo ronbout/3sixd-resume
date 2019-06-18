@@ -2,29 +2,37 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CandidateEducationCrud from "./CandidateEducationCrud";
-import CandidateModal from "../../CandidateModal";
+import Modal from "../../../Modal";
 import ListingHoc from "../../../hoc/ListingHoc";
 import CandidateEducationListDetail from "./CandidateEducationListDetail";
 
 const CandidateEducation = props => {
   const { editNdx, formFields, sortEducation, actions } = props;
+
+  const modalStyles = {
+    modal: {
+      width: "80%",
+      height: "600px",
+      minWidth: "960px"
+    }
+  };
   return (
     <section className="candidate-education candidate-tab-section">
       {formFields.education && educationList()}
       {addButton()}
       {editNdx !== false && (
-        <CandidateModal
-          showModal={editNdx !== false}
+        <Modal
           modalHeader="Candidate Education Entry/Update"
           idName="candidate-modal"
           hideClose={true}
+          styles={modalStyles}
         >
           <CandidateEducationCrud
             education={sortEducation[editNdx]}
             handleEducationChange={props.handleEducationChange}
             handleCloseModal={props.handleCloseModal}
           />
-        </CandidateModal>
+        </Modal>
       )}
     </section>
   );

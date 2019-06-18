@@ -51,14 +51,6 @@
   background: #ccc;
 }
 
-.candidate-experience #candidate-modal {
-  height: auto;
-}
-
-.candidate-experience #candidate-modal .modal-dialog {
-  max-width: none;
-}
-
 .candidate-experience .candidate-job {
   min-height: 520px;
   padding: 2em;

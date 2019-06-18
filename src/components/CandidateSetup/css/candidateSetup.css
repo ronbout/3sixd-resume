@@ -178,29 +178,11 @@
   border: inset;
 }
 
-.modal-content {
-  width: 80%;
-  margin: auto;
-  overflow-y: scroll;
-}
-
-.modal-content .button-section {
+.modal-3-content .button-section {
   margin: 2em;
 }
 
-.modal-content button {
+.modal-3-content button {
   margin: 0 0.5em;
-}
-
-.modal-header {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.modal-footer {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 /*# sourceMappingURL=candidateSetup.css.map */

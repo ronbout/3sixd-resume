@@ -1,0 +1,49 @@
+/*** Modal css ***/
+
+body.modal-3-open {
+  overflow: hidden;
+}
+
+.modal-3-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-3 {
+  width: 800px;
+  height: 500px;
+  max-height: 100%;
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  z-index: 1010;
+  background: #ddd;
+}
+.modal-3 > div {
+  width: 100%;
+}
+
+.modal-3-header,
+.modal-3-footer {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-3-content {
+  flex-grow: 1;
+  overflow: auto;
+}

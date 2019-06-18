@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
-import CandidateModal from "../../CandidateModal";
+import Modal from "../../../Modal/";
 import ListingHoc from "../../../hoc/ListingHoc";
 import CandidateExperienceListDetail from "./CandidateExperienceListDetail";
 
@@ -45,23 +45,31 @@ const CandidateExperience = props => {
     );
   };
 
+  const modalStyles = {
+    modal: {
+      width: "80%",
+      height: "600px",
+      minWidth: "960px"
+    }
+  };
+
   return (
     <section className="candidate-experience candidate-tab-section">
       {props.formFields.experience && experienceList()}
       {addButton()}
       {editNdx !== false && (
-        <CandidateModal
-          showModal={editNdx !== false}
+        <Modal
           modalHeader="Candidate Experience Entry/Update"
           idName="candidate-modal"
           hideClose={true}
+          styles={modalStyles}
         >
           <CandidateExperienceCrud
             experience={sortJobs[editNdx]}
             handleExperienceChange={props.handleExperienceChange}
             handleCloseModal={props.handleCloseModal}
           />
-        </CandidateModal>
+        </Modal>
       )}
     </section>
   );

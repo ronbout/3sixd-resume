@@ -176,13 +176,12 @@ const CandidateExperienceCrudForm = props => {
               >
                 Starting Pay:
               </label>
-              <div className="col-md-3">
+              <div className="col-md-2">
                 <input
                   type="number"
                   id="startpay"
                   className="form-control"
                   name="startPay"
-                  placeholder="Starting Pay"
                   value={job.startPay}
                   onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
@@ -194,13 +193,12 @@ const CandidateExperienceCrudForm = props => {
               >
                 Ending Pay:
               </label>
-              <div className="col-md-3">
+              <div className="col-md-2">
                 <input
                   type="number"
                   id="endpay"
                   className="form-control"
                   name="endPay"
-                  placeholder="Ending Pay"
                   value={job.endPay}
                   onChange={props.handleInputChange}
                   disabled={showPerson || showCompany}
