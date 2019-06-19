@@ -1,9 +1,9 @@
 /*** Modal css ***/
-body.modal-3-open {
+body.tsd-modal-open {
   overflow: hidden;
 }
 
-.modal-3-overlay {
+.tsd-modal-overlay {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -22,7 +22,7 @@ body.modal-3-open {
   z-index: 1000;
 }
 
-.modal-3 {
+.tsd-modal {
   width: 800px;
   height: 500px;
   max-height: 100%;
@@ -45,12 +45,12 @@ body.modal-3-open {
   background: #ddd;
 }
 
-.modal-3 > div {
+.tsd-modal > div {
   width: 100%;
 }
 
-.modal-3-header,
-.modal-3-footer {
+.tsd-modal-header,
+.tsd-modal-footer {
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -67,7 +67,7 @@ body.modal-3-open {
           align-items: center;
 }
 
-.modal-3-content {
+.tsd-modal-content {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;

@@ -10,6 +10,7 @@ import Sitebody from "./components/Sitebody/";
 import SkillSetup from "./components/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
+import CandidateProfile from "./components/CandidateProfile/";
 import PersonSetup from "./components/PersonSetup/";
 import LoginContainer from "./components/Login/";
 import Register from "./components/Register/";
@@ -112,6 +113,7 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route path="/github/callback" component={GithubCallback} />
               <Route exact path="/" component={Sitebody} />
+              <Route path="/profile" component={CandidateProfile} />
             </Switch>
           </main>
           <footer id="footer">
