@@ -249,7 +249,7 @@ const PersonSetupForm = props => {
 
   return (
     <main className="container-fluid person-main">
-      <h1>{props.heading || "Person Entry/Update"}</h1>
+      <h1>{props.heading}</h1>
       <div className="person-setup">
         <div className="person-form">
           {personDetails()}

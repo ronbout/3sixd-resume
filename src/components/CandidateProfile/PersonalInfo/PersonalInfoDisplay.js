@@ -1,17 +1,17 @@
 import React from "react";
-import candidateImg from "../../../assets/img/candidate2.jpg";
+import ProfileImg from "../ProfileImg";
+import ProfileCompGraph from "../ProfileCompGraph";
 
 const PersonalInfoDisplay = props => {
+  console.log("PI Display: ", props);
   return (
-    <section className="tsd-card personal-info-display">
-      <div className="personal-image">
-        <img
-          src={candidateImg}
-          alt="Candidate Image"
-          className="candidate-img"
-        />
+    <div className="personal-info-display">
+      <ProfileImg formattedName={props.formattedName} />
+      <ProfileCompGraph pct={70} />
+      <div>
+        <button>Manage My Resumes</button>
       </div>
-    </section>
+    </div>
   );
 };
 
