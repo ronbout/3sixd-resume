@@ -51,7 +51,7 @@
           align-items: center;
 }
 
-.personal-info {
+.profile-section {
   margin: 1em 0;
   border-radius: 8px;
   background: lightblue;
@@ -67,7 +67,7 @@
           align-items: center;
 }
 
-.personal-info .pi-content {
+.pi-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -76,7 +76,7 @@
           flex-grow: 1;
 }
 
-.personal-info .pi-content > div {
+.pi-content > div {
   padding: 1em;
 }
 
@@ -106,5 +106,52 @@
 
 .comp-graph-container {
   margin: 2em 0;
+}
+
+.slider-arrow {
+  border: 2px solid black;
+  padding: 5px 10px;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-section-footer {
+  width: 100%;
+  text-align: center;
+}
+
+.slide-section {
+  overflow: hidden;
+  -webkit-transition-property: height;
+  transition-property: height;
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+}
+
+.objective-form {
+  min-width: 1140px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 180px 1fr;
+      grid-template-columns: 180px 1fr;
+}
+
+.objective-form label {
+  margin: 1em 0;
+}
+
+.objective-form textarea {
+  max-width: 800px;
+  margin: 1em 2em;
+}
+
+.os-footer,
+.high-footer,
+.exp-footer,
+.edu-footer {
+  margin-top: 1.5em;
 }
 /*# sourceMappingURL=candidateProfile.css.map */

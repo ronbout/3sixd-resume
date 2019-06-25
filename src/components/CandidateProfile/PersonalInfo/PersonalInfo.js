@@ -8,7 +8,7 @@ import PersonalInfoFooter from "./PersonalInfoFooter";
 const PersonalInfo = props => {
   console.log("personalInfo: ", props);
   return (
-    <section className="tsd-card personal-info">
+    <section className="tsd-card personal-info profile-section">
       <ProfileSectionHeader
         headerTitle="Personal Info"
         profilePercentage="20"

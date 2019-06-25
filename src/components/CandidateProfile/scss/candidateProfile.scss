@@ -6,21 +6,21 @@
   align-items: center;
 }
 
-.personal-info {
+.profile-section {
   margin: 1em 0;
   border-radius: 8px;
   background: lightblue;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
-  .pi-content {
-    display: flex;
-    flex-grow: 1;
+.pi-content {
+  display: flex;
+  flex-grow: 1;
 
-    & > div {
-      padding: 1em;
-    }
+  & > div {
+    padding: 1em;
   }
 }
 
@@ -50,4 +50,46 @@
 
 .comp-graph-container {
   margin: 2em 0;
+}
+
+.slider-arrow {
+  border: 2px solid black;
+  padding: 5px 10px;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-section-footer {
+  width: 100%;
+  text-align: center;
+}
+
+.slide-section {
+  overflow: hidden;
+  transition-property: height;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.objective-form {
+  min-width: 1140px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+
+  label {
+    margin: 1em 0;
+  }
+
+  textarea {
+    max-width: 800px;
+    margin: 1em 2em;
+  }
+}
+
+.os-footer,
+.high-footer,
+.exp-footer,
+.edu-footer {
+  margin-top: 1.5em;
 }

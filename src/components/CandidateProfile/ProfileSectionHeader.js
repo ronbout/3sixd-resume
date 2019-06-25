@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProfileSectionHeader = props => {
   return (
@@ -10,8 +11,15 @@ const ProfileSectionHeader = props => {
         <h2>({props.profilePercentage || 0}%)</h2>
       </span>
       <span>
-        <h2>{props.profileSectionCompleted && "C"}</h2>
+        <h2>
+          {props.profileSectionCompleted && <FontAwesomeIcon icon="check" />}
+        </h2>
       </span>
+      {props.slider && (
+        <span className="slider-arrow" onClick={props.handleSlider}>
+          <FontAwesomeIcon icon={props.slider} />
+        </span>
+      )}
     </div>
   );
 };

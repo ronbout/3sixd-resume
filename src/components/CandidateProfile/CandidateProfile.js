@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 
 import PersonalInfo from "./PersonalInfo/";
+import ObjectiveSummary from "./ObjectiveSummary";
+import Highlights from "./ProfileHighlights";
+import Experience from "./Experience";
+import Education from "./Education";
 import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
 import { objCopy } from "../../assets/js/library";
@@ -19,6 +23,10 @@ class CandidateProfile extends Component {
       <div className="tsd-container candidate-profile">
         <h1>Candidate Profile Page</h1>
         <PersonalInfo state={this.state} />
+        <ObjectiveSummary state={this.state} />
+        <Highlights state={this.state} />
+        <Experience state={this.state} />
+        <Education state={this.state} />
       </div>
     );
   }
