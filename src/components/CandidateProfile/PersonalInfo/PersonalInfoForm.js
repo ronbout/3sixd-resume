@@ -11,6 +11,7 @@ const PersonalInfoForm = props => {
           heading={false}
           handleCancel={props.handlePersonCancel}
           handleSubmit={props.handlePersonSubmit}
+          hideButtons={true}
         />
       </form>
     </div>

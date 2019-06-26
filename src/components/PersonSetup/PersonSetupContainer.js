@@ -117,6 +117,7 @@ class PersonSetupContainer extends Component {
         handleSearch={this.handleSearch}
         handlePersonSelect={this.handlePersonSelect}
         handleClosePersonSearch={this.handleClosePersonSearch}
+        hideButtons={this.props.hideButtons}
       />
     );
   }

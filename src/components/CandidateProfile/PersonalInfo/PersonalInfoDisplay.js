@@ -3,7 +3,6 @@ import ProfileImg from "../ProfileImg";
 import ProfileCompGraph from "../ProfileCompGraph";
 
 const PersonalInfoDisplay = props => {
-  console.log("PI Display: ", props);
   return (
     <div className="personal-info-display">
       <ProfileImg formattedName={props.formattedName} />

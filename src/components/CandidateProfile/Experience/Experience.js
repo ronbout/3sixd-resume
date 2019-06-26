@@ -8,7 +8,6 @@ import ExperienceFooter from "./ExperienceFooter";
 const Experience = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
-  console.log("Experience: ", props);
 
   const handleSlider = () => {
     setSliderOpen(!sliderOpen);

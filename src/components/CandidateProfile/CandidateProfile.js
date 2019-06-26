@@ -17,14 +17,27 @@ class CandidateProfile extends Component {
     };
     this.state.origForm = objCopy(this.state.formFields);
   }
-  state = {};
+
+  handleUpdate = updateObj => {
+    this.setState({
+      formFields: {
+        ...this.state.formFields,
+        ...updateObj
+      }
+    });
+  };
+
   render() {
     return (
       <div className="tsd-container candidate-profile">
         <h1>Candidate Profile Page</h1>
         <PersonalInfo state={this.state} />
-        <ObjectiveSummary state={this.state} />
-        <Highlights state={this.state} />
+        <ObjectiveSummary
+          objective={this.state.formFields.objective}
+          executiveSummary={this.state.formFields.executiveSummary}
+          handleUpdate={this.handleUpdate}
+        />
+        <Highlights highlights={this.state.formFields.highlights} />
         <Experience state={this.state} />
         <Education state={this.state} />
       </div>

@@ -77,7 +77,7 @@ const SkillList = props => {
       onDragEnd={handleDragEnd}
       onDrop={handleSkillDrop}
     >
-      {props.editFlag ? <p>Edit Skills</p> : <p>Skills</p>}
+      {/*props.editFlag ? <p>Edit Skills</p> : <p>Skills</p>*/}
 
       <div className="skills-list">
         {props.skills &&

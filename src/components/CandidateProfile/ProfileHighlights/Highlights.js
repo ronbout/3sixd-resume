@@ -2,36 +2,37 @@ import React, { useState, useLayoutEffect } from "react";
 
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import HighlightsContainer from "../../CandidateSetup/formSections/HighlightsContainer";
-//import HighlightsForm from "./HighlightsForm";
 import HighlightsFooter from "./HighlightsFooter";
 
 const Highlights = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
-  console.log("Highlights: ", props);
+  const [highlights, setHighlights] = useState(props.highlights);
 
   const handleSlider = () => {
     setSliderOpen(!sliderOpen);
-    console.log("handle slider: ", sliderOpen);
   };
 
   useLayoutEffect(() => {
-    setDivStyle({ height: sliderOpen ? "440px" : "0" });
+    setDivStyle({ height: sliderOpen ? "550px" : "0" });
   }, [sliderOpen]);
-
-  /*
-  const handleInputChange = event => {
-    props.handleInputChange(event);
-  };
 
   const handleSubmit = event => {
     event && event.preventDefault();
-    props.handleSubmit();
-	};
-	*/
+    console.log("Highlights api update goes here");
+    // api update and then pass new data up
+    /***
+     *
+     * pass new data up
+     *
+     */
+    props.handleUpdate({
+      highlights
+    });
+  };
 
   const handleHighlightChange = highlights => {
-    console.log("highlight change: ", highlights);
+    setHighlights(highlights);
   };
 
   return (
@@ -45,18 +46,11 @@ const Highlights = props => {
       />
       <div className="slide-section" style={divStyle}>
         <HighlightsContainer
-          highlights={props.state.formFields.highlights}
+          highlights={highlights}
           handleHighlightChange={handleHighlightChange}
           includeInSummary={false}
         />
-        {/*}
-        <HighlightsForm
-          formFields={props.state.formFields}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-        />
-				*/}
-        <HighlightsFooter />
+        <HighlightsFooter handleSubmit={handleSubmit} />
       </div>
     </section>
   );

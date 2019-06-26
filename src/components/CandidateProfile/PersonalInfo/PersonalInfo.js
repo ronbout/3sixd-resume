@@ -6,7 +6,6 @@ import ProfileSectionHeader from "../ProfileSectionHeader";
 import PersonalInfoFooter from "./PersonalInfoFooter";
 
 const PersonalInfo = props => {
-  console.log("personalInfo: ", props);
   return (
     <section className="tsd-card personal-info profile-section">
       <ProfileSectionHeader

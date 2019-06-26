@@ -7,7 +7,6 @@ import EducationFooter from "./EducationFooter";
 const Education = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
-  console.log("Education: ", props);
 
   const handleSlider = () => {
     setSliderOpen(!sliderOpen);

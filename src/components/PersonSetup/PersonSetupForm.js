@@ -21,7 +21,7 @@ const PersonSetupForm = props => {
         <input type="hidden" name="id" value={props.state.formFields.id} />
         {/* Name Row */}
         <div className="form-group row">
-          <label className="col-2 col-form-label">Name: *</label>
+          <label className="col-2 col-form-label">First Name: *</label>
           <div className="col-3">
             <input
               type="text"
@@ -33,6 +33,9 @@ const PersonSetupForm = props => {
               required
             />
           </div>
+          <label className="col-2 col-form-label label-right">
+            Last Name: *
+          </label>
           <div className="col-3">
             <input
               type="text"
@@ -44,31 +47,11 @@ const PersonSetupForm = props => {
               required
             />
           </div>
-          <div className="col-2">
-            <input
-              type="text"
-              className="form-control"
-              name="middleName"
-              placeholder="Middle"
-              value={props.state.formFields.middleName}
-              onChange={props.handleInputChange}
-            />
-          </div>
-          <div className="col-1">
-            <input
-              type="text"
-              className="form-control"
-              name="affix"
-              placeholder="Affix"
-              value={props.state.formFields.affix}
-              onChange={props.handleInputChange}
-            />
-          </div>
         </div>
         {/* Email Row */}
         <div className="form-group row">
           <label className="col-2 col-form-label">Primary Email:</label>
-          <div className="col-3">
+          <div className="col-6">
             <input
               type="email"
               className="form-control"
@@ -78,23 +61,10 @@ const PersonSetupForm = props => {
               onChange={props.handleInputChange}
             />
           </div>
-          <label className="col-2 col-form-label label-right">
-            Alternate Email:
-          </label>
-          <div className="col-3">
-            <input
-              type="email"
-              className="form-control"
-              name="email2"
-              placeholder="Alternate Email"
-              value={props.state.formFields.email2}
-              onChange={props.handleInputChange}
-            />
-          </div>
         </div>
         {/* Phone Row */}
         <div className="form-group row">
-          <label className="col-2 col-form-label">Primary/Work Phones:</label>
+          <label className="col-2 col-form-label">Primary Phone:</label>
           <div className="col-3">
             <input
               type="tel"
@@ -105,6 +75,9 @@ const PersonSetupForm = props => {
               onChange={props.handleInputChange}
             />
           </div>
+          <label className="col-2 col-form-label label-right">
+            Work Phone:
+          </label>
           <div className="col-3">
             <input
               type="tel"
@@ -174,6 +147,10 @@ const PersonSetupForm = props => {
               onChange={props.handleInputChange}
             />
           </div>
+        </div>
+        {/* Website Row */}
+        <div className="form-group row">
+          <label className="col-2 col-form-label">Country:</label>
           <div className="col-2">
             <input
               type="text"
@@ -184,10 +161,9 @@ const PersonSetupForm = props => {
               onChange={props.handleInputChange}
             />
           </div>
-        </div>
-        {/* Website Row */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">Website URL:</label>
+          <label className="col-2 col-form-label label-right">
+            Website URL:
+          </label>
           <div className="col-3">
             <input
               type="url"
@@ -248,16 +224,16 @@ const PersonSetupForm = props => {
   };
 
   return (
-    <main className="container-fluid person-main">
+    <div className="container-fluid person-main">
       <h1>{props.heading}</h1>
       <div className="person-setup">
         <div className="person-form">
           {personDetails()}
-          {buttonSection()}
+          {!props.hideButtons && buttonSection()}
           {props.state.dispSearch && dispPersonSearch()}
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

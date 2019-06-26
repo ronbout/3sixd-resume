@@ -7,6 +7,10 @@ import ObjectiveSummaryFooter from "./ObjectiveSummaryFooter";
 const ObjectiveSummary = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
+  const [objective, setObjective] = useState(props.objective);
+  const [executiveSummary, setExecutiveSummary] = useState(
+    props.executiveSummary
+  );
   console.log("objectiveSummary: ", props);
 
   const handleSlider = () => {
@@ -15,17 +19,32 @@ const ObjectiveSummary = props => {
   };
 
   useLayoutEffect(() => {
-    console.log("layout effect: ", sliderOpen);
     setDivStyle({ height: sliderOpen ? "370px" : "0" });
   }, [sliderOpen]);
 
   const handleInputChange = event => {
-    props.handleInputChange(event);
+    const target = event.target;
+    if (target.name === "objective") {
+      setObjective(target.value);
+    } else {
+      setExecutiveSummary(target.value);
+    }
   };
 
   const handleSubmit = event => {
     event && event.preventDefault();
-    props.handleSubmit();
+    console.log("Objective / Summary api update goes here");
+    // api update and then pass new data up
+    /***
+     * pass new data up with handleUpdate({
+     * objective: newObjective,
+     * summary: newSummary
+     * })
+     */
+    props.handleUpdate({
+      objective,
+      executiveSummary
+    });
   };
 
   return (
@@ -38,12 +57,15 @@ const ObjectiveSummary = props => {
         handleSlider={handleSlider}
       />
       <div className="slide-section" style={divStyle}>
-        <ObjectiveSummaryForm
-          formFields={props.state.formFields}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-        />
-        <ObjectiveSummaryFooter />
+        <form onSubmit={handleSubmit}>
+          <ObjectiveSummaryForm
+            objective={objective}
+            executiveSummary={executiveSummary}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+          />
+          <ObjectiveSummaryFooter />
+        </form>
       </div>
     </section>
   );
