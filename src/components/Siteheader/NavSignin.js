@@ -26,6 +26,11 @@ function NavSignin() {
       ) : (
         <ul>
           <li>
+            <NavLink to="/profile" className="nav-link">
+              Profile
+            </NavLink>
+          </li>
+          <li>
             <button id="signin-button" onClick={() => authValue.handleLogout()}>
               Sign Out
             </button>

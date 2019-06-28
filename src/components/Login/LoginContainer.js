@@ -45,7 +45,6 @@ class LoginContainer extends Component {
   }
 
   handleLogin = (email, password) => {
-    sessionStorage.removeItem("oauthType");
     fetch(
       `${
         this.state.apiBase
@@ -60,6 +59,7 @@ class LoginContainer extends Component {
               ? this.state.referrer
               : `/candidate/setup/${result.data.id}`;
             sessionStorage.removeItem("referrer");
+            sessionStorage.removeItem("oauthType");
             this.context.handleLogin(result, loginReferrer);
           } else {
             if (result.errorCode && result.errorCode === 45002) {
