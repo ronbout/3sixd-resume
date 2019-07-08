@@ -10,7 +10,6 @@ const clearFormFields = {
   companyPhone: "",
   contactPerson: {
     id: "",
-    title: "",
     formattedName: "",
     givenName: "",
     middleName: "",

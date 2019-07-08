@@ -3,6 +3,7 @@ export const candidateInfo = {
   formFields: {
     id: 17,
     person: {
+      id: 2,
       formattedName: "Fred Flintstone",
       givenName: "Fred",
       middleName: "",
@@ -10,7 +11,7 @@ export const candidateInfo = {
       affix: "",
       email1: "fred@stone.com",
       email2: "",
-      primaryPhone: "",
+      mobilePhone: "",
       workPhone: "",
       addressLine1: "",
       addressLine2: "",
@@ -23,7 +24,7 @@ export const candidateInfo = {
     objective:
       "Looking for great job working with dinosaurs with opportunities for advancement",
     executiveSummary: "I am a big, cartoon guy",
-    highlights: [
+    candidateHighlights: [
       {
         id: 1,
         highlight: "This is a highlight",
@@ -90,7 +91,10 @@ export const candidateInfo = {
         company: {
           id: 18,
           name: "WordPress Specialists",
-          description: "WordPress and Theme Specialists"
+          description: "WordPress and Theme Specialists",
+          municipality: "Nashville",
+          region: "TN",
+          countryCode: "USA"
         },
         startDate: "2015-05-22",
         endDate: "2017-02-05",
@@ -99,6 +103,7 @@ export const candidateInfo = {
           formattedName: "Billy Moyer",
           givenName: "Billy",
           familyName: "Moyer",
+          mobilePhone: "931-777-0987",
           workPhone: "931-333-1234"
         },
         payType: "Salary",

@@ -64,14 +64,14 @@ const PersonSetupForm = props => {
         </div>
         {/* Phone Row */}
         <div className="form-group row">
-          <label className="col-2 col-form-label">Primary Phone:</label>
+          <label className="col-2 col-form-label">Mobile Phone:</label>
           <div className="col-3">
             <input
               type="tel"
               className="form-control"
-              name="primaryPhone"
-              placeholder="Primary Phone"
-              value={props.state.formFields.primaryPhone}
+              name="mobilePhone"
+              placeholder="Mobile Phone"
+              value={props.state.formFields.mobilePhone}
               onChange={props.handleInputChange}
             />
           </div>

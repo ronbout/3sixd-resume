@@ -37,7 +37,7 @@ class CandidateProfile extends Component {
           executiveSummary={this.state.formFields.executiveSummary}
           handleUpdate={this.handleUpdate}
         />
-        <Highlights highlights={this.state.formFields.highlights} />
+        <Highlights highlights={this.state.formFields.candidateHighlights} />
         <Experience state={this.state} />
         <Education state={this.state} />
       </div>
