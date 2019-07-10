@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import ObjectiveSummaryForm from "./ObjectiveSummaryForm";
@@ -11,7 +11,11 @@ const ObjectiveSummary = props => {
   const [executiveSummary, setExecutiveSummary] = useState(
     props.executiveSummary
   );
-  console.log("objectiveSummary: ", props);
+
+  useEffect(() => {
+    setObjective(props.objective);
+    setExecutiveSummary(props.executiveSummary);
+  }, [props.objective, props.executiveSummary]);
 
   const handleSlider = () => {
     setSliderOpen(!sliderOpen);

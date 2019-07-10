@@ -1,6 +1,38 @@
 // dummy data
 export const candidateInfo = {
-  formFields: {
+  id: "",
+  person: {
+    id: "",
+    formattedName: "",
+    givenName: "",
+    middleName: "",
+    familyName: "",
+    affix: "",
+    email1: "",
+    email2: "",
+    mobilePhone: "",
+    workPhone: "",
+    addressLine1: "",
+    addressLine2: "",
+    municipality: "",
+    region: "",
+    postalCode: "",
+    countryCode: "",
+    website: ""
+  },
+  objective: "",
+  executiveSummary: "",
+  candidateHighlights: "",
+  experience: "",
+  education: "",
+  certifications: "",
+  socialMedia: ""
+};
+
+/**
+ *  this was just temporary until api's were working
+ *
+export const candidateInfo = {
     id: 17,
     person: {
       id: 2,
@@ -243,5 +275,4 @@ export const candidateInfo = {
         ]
       }
     ]
-  }
-};
+};*/

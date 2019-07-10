@@ -55,9 +55,10 @@ class LoginContainer extends Component {
           // need to check for user not found
           console.log("result: ", result.data);
           if (result.data) {
-            const loginReferrer = this.state.referrer
-              ? this.state.referrer
-              : `/candidate/setup/${result.data.id}`;
+            const loginReferrer =
+              this.state.referrer && this.state.referrer !== "/profile"
+                ? this.state.referrer
+                : `/profile/${result.data.candidateId}`;
             sessionStorage.removeItem("referrer");
             sessionStorage.removeItem("oauthType");
             this.context.handleLogin(result, loginReferrer);

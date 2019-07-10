@@ -26,7 +26,10 @@ function NavSignin() {
       ) : (
         <ul>
           <li>
-            <NavLink to="/profile" className="nav-link">
+            <NavLink
+              to={"/profile/" + authValue.userInfo.candidateId}
+              className="nav-link"
+            >
               Profile
             </NavLink>
           </li>

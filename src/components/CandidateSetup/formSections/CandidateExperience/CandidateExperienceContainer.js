@@ -7,7 +7,9 @@ import { objCopy } from "../../../../assets/js/library";
 const CandidateExperienceContainer = props => {
   const [editNdx, setEditNdx] = useState(false);
   const [sortJobs, setSortJobs] = useState(
-    props.formFields.experience.sort((a, b) => a.startDate - b.startDate)
+    props.formFields.experience
+      ? props.formFields.experience.sort((a, b) => a.startDate - b.startDate)
+      : []
   );
 
   const emptyExperience = {

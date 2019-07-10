@@ -28,17 +28,34 @@ class PersonSetupContainer extends Component {
   constructor(props) {
     super(props);
     let formFields = clearFormFields;
-    if (this.props.person) {
+    if (props.person) {
       formFields = {
         ...formFields,
-        ...this.props.person
+        ...props.person
       };
     }
+    const buttons = props.buttons || {
+      save: true,
+      cancel: true,
+      clear: true,
+      search: true
+    };
     this.state = {
       formFields,
-      dispSearch: false
+      dispSearch: false,
+      buttons
     };
     this.state.origForm = objCopy(formFields);
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.person.id !== prevProps.person.id) {
+      this.setState({
+        formFields: { ...this.props.person },
+        origForm: { ...this.props.person }
+      });
+    }
   }
 
   handleSubmit = () => {
@@ -117,7 +134,7 @@ class PersonSetupContainer extends Component {
         handleSearch={this.handleSearch}
         handlePersonSelect={this.handlePersonSelect}
         handleClosePersonSearch={this.handleClosePersonSearch}
-        hideButtons={this.props.hideButtons}
+        buttons={this.state.buttons}
       />
     );
   }

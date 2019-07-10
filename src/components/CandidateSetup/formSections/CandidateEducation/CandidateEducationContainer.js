@@ -7,7 +7,9 @@ import "./css/candidateEducation.css";
 const CandidateEducationContainer = props => {
   const [editNdx, setEditNdx] = useState(false);
   const [sortEducation, setSortEducation] = useState(
-    props.formFields.education.sort((a, b) => a.startDate - b.startDate)
+    props.formFields.education
+      ? props.formFields.education.sort((a, b) => a.startDate - b.startDate)
+      : []
   );
 
   const emptyEducation = {

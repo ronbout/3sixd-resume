@@ -56,3 +56,21 @@ export function isEmail(email) {
 }
 
 export const objCopy = obj => JSON.parse(JSON.stringify(obj));
+
+export function convertNullsToEmpty(obj) {
+  // obj could be array, object or as single value
+  // use recursion to get to the single value and
+  // replace any nulls with an empty space.
+  // this is for setting state for forms
+  if (Array.isArray(obj)) {
+    // loop through array and call this function on each elementFromPoint
+    return obj.map(val => convertNullsToEmpty(val));
+  }
+  if (obj !== null && typeof obj === "object") {
+    // since we have already handled arrays, must be actual object
+    Object.keys(obj).forEach(key => (obj[key] = convertNullsToEmpty(obj[key])));
+    return obj;
+  }
+  // to be here, we have a scalar
+  return obj !== null ? obj : "";
+}

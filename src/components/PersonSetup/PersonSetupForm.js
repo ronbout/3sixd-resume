@@ -182,34 +182,45 @@ const PersonSetupForm = props => {
   const buttonSection = () => {
     return (
       <div className="button-section">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={props.handleSubmit}
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={props.handleCancel}
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          className="btn btn-warning"
-          onClick={props.handleClear}
-        >
-          Clear
-        </button>
-        <button
-          type="button"
-          className="btn btn-info"
-          onClick={props.handleSearch}
-        >
-          Search
-        </button>
+        {props.buttons && props.buttons.save === true && (
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={props.handleSubmit}
+          >
+            Save
+          </button>
+        )}
+
+        {props.buttons && props.buttons.cancel === true && (
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={props.handleCancel}
+          >
+            Cancel
+          </button>
+        )}
+
+        {props.buttons && props.buttons.clear === true && (
+          <button
+            type="button"
+            className="btn btn-warning"
+            onClick={props.handleClear}
+          >
+            Clear
+          </button>
+        )}
+
+        {props.buttons && props.buttons.search === true && (
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={props.handleSearch}
+          >
+            Search
+          </button>
+        )}
       </div>
     );
   };
@@ -229,7 +240,7 @@ const PersonSetupForm = props => {
       <div className="person-setup">
         <div className="person-form">
           {personDetails()}
-          {!props.hideButtons && buttonSection()}
+          {buttonSection()}
           {props.state.dispSearch && dispPersonSearch()}
         </div>
       </div>
