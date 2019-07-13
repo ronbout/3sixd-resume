@@ -19,7 +19,6 @@ const ObjectiveSummary = props => {
 
   const handleSlider = () => {
     setSliderOpen(!sliderOpen);
-    console.log("handle slider: ", sliderOpen);
   };
 
   useLayoutEffect(() => {

@@ -236,7 +236,7 @@ const PersonSetupForm = props => {
 
   return (
     <div className="container-fluid person-main">
-      <h1>{props.heading}</h1>
+      {props.heading && <h1>{props.heading}</h1>}
       <div className="person-setup">
         <div className="person-form">
           {personDetails()}

@@ -1,17 +1,22 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import HighlightsContainer from "../../CandidateSetup/formSections/HighlightsContainer";
 import HighlightsFooter from "./HighlightsFooter";
+import { objCopy } from "../../../assets/js/library.js";
 
 const Highlights = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
-  const [highlights, setHighlights] = useState(props.highlights);
+  const [highlights, setHighlights] = useState(objCopy(props.highlights));
 
   const handleSlider = () => {
     setSliderOpen(!sliderOpen);
   };
+
+  useEffect(() => {
+    setHighlights(objCopy(props.highlights));
+  }, [props.highlights]);
 
   useLayoutEffect(() => {
     setDivStyle({ height: sliderOpen ? "550px" : "0" });
@@ -27,11 +32,12 @@ const Highlights = props => {
      *
      */
     props.handleUpdate({
-      highlights
+      candidateHighlights: highlights
     });
   };
 
   const handleHighlightChange = highlights => {
+    console.log("handle change: ", highlights);
     setHighlights(highlights);
   };
 
@@ -49,6 +55,7 @@ const Highlights = props => {
           highlights={highlights}
           handleHighlightChange={handleHighlightChange}
           includeInSummary={false}
+          heading={false}
         />
         <HighlightsFooter handleSubmit={handleSubmit} />
       </div>

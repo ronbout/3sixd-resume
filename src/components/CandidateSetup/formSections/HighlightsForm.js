@@ -13,6 +13,7 @@ const HighlightsForm = props => {
     editFlag,
     editSkillNdx,
     includeInSummary,
+    heading,
     listingCallbacks,
     skills
   } = props;
@@ -20,7 +21,7 @@ const HighlightsForm = props => {
   const addHighlight = () => {
     return (
       <div className="add-highlight">
-        <h2>Highlights</h2>
+        {heading && <h2>{heading}</h2>}
         <div className="highlight-row">
           <div />
           <div>

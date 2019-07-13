@@ -7,13 +7,11 @@ const HighlightsContainer = props => {
   const [showSkillsFlag, setShowSkillsFlag] = useState(false);
   const [newHighlight, setNewHightlight] = useState("");
   const [editSkillNdx, setEditSkillNdx] = useState("");
-  const [skills, setSkills] = useState([
-    { id: 300, name: "something" },
-    { id: 301, name: "another thing" }
-  ]);
+  const [skills, setSkills] = useState([]);
   const editFlag = true;
 
   const passHighlightUp = tmpHighlights => {
+    console.log("pass highlight up: ", tmpHighlights);
     props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
   };
 
@@ -65,7 +63,7 @@ const HighlightsContainer = props => {
   };
 
   const handleEditHighlight = (ndx, event) => {
-    let tmp = props.highlights.slice();
+    const tmp = props.highlights.slice();
     tmp[ndx].highlight = event.target.value;
     passHighlightUp(tmp);
   };
@@ -110,6 +108,7 @@ const HighlightsContainer = props => {
       editFlag={editFlag}
       editSkillNdx={editSkillNdx}
       includeInSummary={props.includeInSummary}
+      heading={props.heading}
       listingCallbacks={listingCallbacks}
       skills={skills}
       handleOnChange={handleOnChange}

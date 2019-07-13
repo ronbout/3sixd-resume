@@ -22,7 +22,7 @@ export const candidateInfo = {
   },
   objective: "",
   executiveSummary: "",
-  candidateHighlights: "",
+  candidateHighlights: [],
   experience: "",
   education: "",
   certifications: "",
