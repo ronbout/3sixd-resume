@@ -9,7 +9,7 @@ const CandidateExperienceListDetail = props => {
           type="text"
           size="20"
           name={"experiencetitle-" + ndx}
-          value={itemDetail.jobTitle.titleDescription}
+          value={itemDetail.jobTitle}
           disabled
         />
       </div>

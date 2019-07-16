@@ -80,8 +80,16 @@ class CandidateProfile extends Component {
           highlights={this.state.formFields.candidateHighlights}
           handleUpdate={this.handleUpdate}
         />
-        <Experience state={this.state} />
-        <Education state={this.state} />
+        <Experience
+          experience={this.state.formFields.experience}
+          handleUpdate={this.handleUpdate}
+          candId={this.state.candId}
+        />
+        <Education
+          education={this.state.formFields.education}
+          handleUpdate={this.handleUpdate}
+          candId={this.state.candId}
+        />
       </div>
     );
   }

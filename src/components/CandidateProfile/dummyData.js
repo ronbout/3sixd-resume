@@ -136,16 +136,21 @@ export const candidateInfo = {
           givenName: "Billy",
           familyName: "Moyer",
           mobilePhone: "931-777-0987",
-          workPhone: "931-333-1234"
+					workPhone: "931-333-1234",
+					addressLine1: '',
+					addressLine2: '', 
+					municipality: '',
+					region: '',
+					postalCode: '', 
+					countryCode: '',
+					email1: '',
+					website: ''
         },
         payType: "Salary",
         startPay: 47000,
-        endpay: 52000,
-        jobTitle: {
-          id: 2,
-          candidateId: 17,
-          titleDescription: "Junior Developer"
-        },
+				endpay: 52000,
+				jobTitleId: 9,
+        jobTitle:  "Junior Developer"
         summary: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
         skills: [
           {

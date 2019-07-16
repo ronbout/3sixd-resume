@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import Modal from "../../../Modal/";
@@ -39,7 +38,7 @@ const CandidateExperience = props => {
           title="Add New Job"
           onClick={props.handleAddNewJob}
         >
-          <FontAwesomeIcon icon="plus" />
+          Add Experience
         </button>
       </div>
     );
@@ -55,7 +54,7 @@ const CandidateExperience = props => {
 
   return (
     <section className="candidate-experience candidate-tab-section">
-      {props.formFields.experience && experienceList()}
+      {sortJobs && experienceList()}
       {addButton()}
       {editNdx !== false && (
         <Modal
@@ -66,8 +65,8 @@ const CandidateExperience = props => {
         >
           <CandidateExperienceCrud
             experience={sortJobs[editNdx]}
-            handleExperienceChange={props.handleExperienceChange}
-            handleCloseModal={props.handleCloseModal}
+            handleSave={props.handleSave}
+            handleCancel={props.handleCancel}
           />
         </Modal>
       )}

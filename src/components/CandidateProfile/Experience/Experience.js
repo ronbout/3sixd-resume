@@ -1,36 +1,31 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 
 import ProfileSectionHeader from "../ProfileSectionHeader";
-import CandidateExperience from "../../CandidateSetup/formSections/CandidateExperience/";
-//import ExperienceForm from "./ExperienceForm";
+import CandidateExperienceContainer from "../../CandidateSetup/formSections/CandidateExperience/";
 import ExperienceFooter from "./ExperienceFooter";
+import { objCopy } from "../../../assets/js/library.js";
 
 const Experience = props => {
+  const [experience, setExperience] = useState(objCopy(props.experience));
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
 
-  const handleSlider = () => {
-    setSliderOpen(!sliderOpen);
-    console.log("handle slider: ", sliderOpen);
-  };
+  useEffect(() => {
+    setExperience(objCopy(props.experience));
+  }, [props.experience]);
 
   useLayoutEffect(() => {
     setDivStyle({ height: sliderOpen ? "440px" : "0" });
   }, [sliderOpen]);
 
-  /*
-  const handleInputChange = event => {
-    props.handleInputChange(event);
+  const handleSlider = () => {
+    setSliderOpen(!sliderOpen);
   };
 
-  const handleSubmit = event => {
-    event && event.preventDefault();
-    props.handleSubmit();
-	};
-	*/
-
-  const handleExperienceChange = Experience => {
-    console.log("experience change: ", Experience);
+  const handleExperienceChange = experience => {
+    props.handleUpdate({
+      experience
+    });
   };
 
   return (
@@ -43,8 +38,9 @@ const Experience = props => {
         handleSlider={handleSlider}
       />
       <div className="slide-section" style={divStyle}>
-        <CandidateExperience
-          formFields={props.state.formFields}
+        <CandidateExperienceContainer
+          experience={experience}
+          candId={props.candId}
           handleExperienceChange={handleExperienceChange}
         />
         <ExperienceFooter />

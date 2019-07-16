@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CandidateEducationCrud from "./CandidateEducationCrud";
 import Modal from "../../../Modal";
@@ -7,7 +6,7 @@ import ListingHoc from "../../../hoc/ListingHoc";
 import CandidateEducationListDetail from "./CandidateEducationListDetail";
 
 const CandidateEducation = props => {
-  const { editNdx, formFields, sortEducation, actions } = props;
+  const { editNdx, sortEducation, actions } = props;
 
   const modalStyles = {
     modal: {
@@ -18,7 +17,7 @@ const CandidateEducation = props => {
   };
   return (
     <section className="candidate-education candidate-tab-section">
-      {formFields.education && educationList()}
+      {sortEducation && educationList()}
       {addButton()}
       {editNdx !== false && (
         <Modal
@@ -29,8 +28,8 @@ const CandidateEducation = props => {
         >
           <CandidateEducationCrud
             education={sortEducation[editNdx]}
-            handleEducationChange={props.handleEducationChange}
-            handleCloseModal={props.handleCloseModal}
+            handleSave={props.handleSave}
+            handleCancel={props.handleCancel}
           />
         </Modal>
       )}
@@ -67,7 +66,7 @@ const CandidateEducation = props => {
           title="Add New Job"
           onClick={props.handleAddNewEducation}
         >
-          <FontAwesomeIcon icon="plus" />
+          Add Education
         </button>
       </div>
     );

@@ -23,13 +23,9 @@
   border: inset;
 }
 
-.candidate-experience .add-job-button button {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  border: 1px solid black;
-  font-size: 36px;
-  margin-top: 1em;
+.candidate-experience .add-job-button {
+  text-align: center;
+  margin-top: 2em;
 }
 
 .candidate-experience .experience-highlights {
@@ -54,5 +50,9 @@
 .candidate-experience .candidate-job {
   min-height: 520px;
   padding: 2em;
+}
+
+.candidate-experience .button-section {
+  text-align: center;
 }
 /*# sourceMappingURL=candidateExperience.css.map */

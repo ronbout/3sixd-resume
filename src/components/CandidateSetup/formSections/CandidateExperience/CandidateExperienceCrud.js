@@ -5,14 +5,15 @@ import { objCopy } from "../../../../assets/js/library";
 
 const CandidateExperienceCrud = props => {
   const [showHighlights, setShowHighlights] = useState(false);
-  const [origJob, setOrigJob] = useState(null);
+  //const [origJob, setOrigJob] = useState(objCopy(props.experience));
   const [showCompany, setShowCompany] = useState(false);
   const [showPerson, setShowPerson] = useState(false);
-  const job = props.experience;
+  const [job, setJob] = useState(objCopy(props.experience));
 
   useEffect(() => {
-    setOrigJob(objCopy(props.experience));
-  }, []);
+    setJob(objCopy(props.experience));
+    //setOrigJob(objCopy(props.experience));
+  }, [props.experience]);
 
   const handleContactChange = event => {
     // not going to allow change through the
@@ -21,7 +22,7 @@ const CandidateExperienceCrud = props => {
   };
 
   const handleInputChange = event => {
-    let tmpJob = job;
+    let tmpJob = objCopy(job);
     // the input name is split with hyphen if the data is stored
     // in a sub-object (person-name => person.name)
     if (event.target.name.indexOf("-") !== -1) {
@@ -30,7 +31,7 @@ const CandidateExperienceCrud = props => {
     } else {
       tmpJob[event.target.name] = event.target.value;
     }
-    passExperienceUp(tmpJob);
+    setJob(tmpJob);
   };
 
   const handleCompanyClick = event => {
@@ -45,15 +46,11 @@ const CandidateExperienceCrud = props => {
     setShowPerson(!showPerson);
   };
 
-  const passExperienceUp = (tmpExperience, closeModal = false) => {
-    props.handleExperienceChange &&
-      props.handleExperienceChange(tmpExperience, closeModal);
-  };
-
   const handleSkillsChange = skills => {
-    let tmpJob = job;
-    tmpJob.skills = skills;
-    passExperienceUp(tmpJob);
+    setJob(prevJob => ({
+      ...prevJob,
+      skills
+    }));
   };
 
   const toggleHighlights = () => {
@@ -61,14 +58,20 @@ const CandidateExperienceCrud = props => {
   };
 
   const handleHighlightChange = highlights => {
-    let tmpJob = job;
-    tmpJob.highlights = highlights;
-    passExperienceUp(tmpJob);
+    setJob(prevJob => ({
+      ...prevJob,
+      highlights
+    }));
+  };
+
+  const handleSave = event => {
+    event && event.preventDefault();
+    props.handleSave && props.handleSave(job);
   };
 
   const handleCancel = () => {
-    passExperienceUp(origJob, true);
     setShowCompany(false);
+    props.handleCancel();
   };
 
   const handleCompanyCancel = () => {
@@ -77,9 +80,10 @@ const CandidateExperienceCrud = props => {
 
   const handleCompanySubmit = companyInfo => {
     setShowCompany(false);
-    let tmpJob = job;
-    tmpJob.company = companyInfo;
-    passExperienceUp(tmpJob);
+    setJob(prevJob => ({
+      ...prevJob,
+      company: companyInfo
+    }));
   };
 
   const handlePersonCancel = () => {
@@ -88,9 +92,10 @@ const CandidateExperienceCrud = props => {
 
   const handlePersonSubmit = personInfo => {
     setShowPerson(false);
-    let tmpJob = job;
-    tmpJob.contactPerson = personInfo;
-    passExperienceUp(tmpJob);
+    setJob(prevJob => ({
+      ...prevJob,
+      contactPerson: personInfo
+    }));
   };
 
   return (
@@ -105,7 +110,7 @@ const CandidateExperienceCrud = props => {
       handleContactChange={handleContactChange}
       handleSkillsChange={handleSkillsChange}
       handleHighlightChange={handleHighlightChange}
-      handleCloseModal={props.handleCloseModal}
+      handleSave={handleSave}
       handleCancel={handleCancel}
       toggleHighlights={toggleHighlights}
       handlePersonCancel={handlePersonCancel}

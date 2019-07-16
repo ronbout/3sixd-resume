@@ -23,13 +23,9 @@
   border: inset;
 }
 
-.candidate-education .add-education-button button {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  border: 1px solid black;
-  font-size: 36px;
-  margin-top: 1em;
+.candidate-education .add-education-button {
+  text-align: center;
+  margin-top: 2em;
 }
 
 .candidate-education #candidate-modal {
@@ -43,5 +39,9 @@
 .candidate-education .candidate-education-detail {
   min-height: 520px;
   padding: 2em;
+}
+
+.candidate-education .button-section {
+  text-align: center;
 }
 /*# sourceMappingURL=candidateEducation.css.map */

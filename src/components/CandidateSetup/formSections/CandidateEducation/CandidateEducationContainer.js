@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import CandidateEducation from "./CandidateEducation";
 import { objCopy } from "../../../../assets/js/library";
@@ -7,14 +7,14 @@ import "./css/candidateEducation.css";
 const CandidateEducationContainer = props => {
   const [editNdx, setEditNdx] = useState(false);
   const [sortEducation, setSortEducation] = useState(
-    props.formFields.education
-      ? props.formFields.education.sort((a, b) => a.startDate - b.startDate)
+    props.education
+      ? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
       : []
   );
 
   const emptyEducation = {
     id: "",
-    candidateId: props.formFields.id,
+    candidateId: props.candId || "",
     schoolName: "",
     schoolMunicipality: "",
     schoolRegion: "",
@@ -28,15 +28,35 @@ const CandidateEducationContainer = props => {
     skills: []
   };
 
-  const passEducationUp = tmpEducation => {
-    props.handleEducationChange && props.handleEducationChange(tmpEducation);
+  useEffect(() => {
+    setSortEducation(
+      props.education
+        ? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
+        : []
+    );
+  }, [props.education]);
+
+  const updateEducation = educations => {
+    /**
+     * update api goes here
+     *
+     */
+    console.log("education update api goes here");
+    props.handleEducationChange &&
+      props.handleEducationChange(objCopy(educations));
   };
 
   const handleDelEducation = ndx => {
+    /**
+     *
+     * must have warning here!!!
+     *
+     *
+     *
+     */
     const tmp = sortEducation.slice();
     tmp.splice(ndx, 1);
-    passEducationUp(tmp);
-    setSortEducation(tmp.sort((a, b) => a.startDate - b.startDate));
+    updateEducation(tmp);
   };
 
   const handleDispEditModal = ndx => {
@@ -47,21 +67,22 @@ const CandidateEducationContainer = props => {
     setEditNdx(false);
   };
 
-  const handleEducationChange = (tmpExper, closeModal = false) => {
-    console.log("handleEducationChange container", tmpExper);
-    let tmp = sortEducation.slice();
-    tmp[editNdx] = objCopy(tmpExper);
-    passEducationUp(tmp);
-    setSortEducation(tmp);
-    closeModal && handleCloseModal();
+  const handleSave = ed => {
+    const tmp = sortEducation.slice();
+    tmp[editNdx] = ed;
+    updateEducation(tmp);
+    handleCloseModal();
   };
 
   const handleAddNewEducation = () => {
     // add empty job to list if not already empty
     // set editNdx to this new element
     sortEducation.push(emptyEducation);
-    console.log(sortEducation);
     setEditNdx(sortEducation.length - 1);
+  };
+
+  const handleCancel = () => {
+    setEditNdx(false);
   };
 
   const actions = {
@@ -71,13 +92,12 @@ const CandidateEducationContainer = props => {
 
   return (
     <CandidateEducation
-      formFields={props.formFields}
-      editNdx={editNdx}
       sortEducation={sortEducation}
       actions={actions}
-      handleEducationChange={handleEducationChange}
-      handleCloseModal={handleCloseModal}
+      editNdx={editNdx}
       handleAddNewEducation={handleAddNewEducation}
+      handleSave={handleSave}
+      handleCancel={handleCancel}
     />
   );
 };

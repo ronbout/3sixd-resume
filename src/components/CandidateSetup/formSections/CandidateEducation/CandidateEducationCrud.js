@@ -4,21 +4,15 @@ import CandidateEducationCrudForm from "./CandidateEducationCrudForm";
 import { objCopy } from "../../../../assets/js/library";
 
 const CandidateEducationCrud = props => {
-  const [origEducation, setOrigEducation] = useState(null);
-  const education = props.education;
+  //const [origEducation, setOrigEducation] = useState(null);
+  const [education, setEducation] = useState(objCopy(props.education));
 
   useEffect(() => {
-    setOrigEducation(objCopy(props.education));
-  }, []);
+    setEducation(objCopy(props.education));
+  }, [props.education]);
 
   const handleInputChange = event => {
-    console.log(
-      "handleinputchange: ",
-      event.target.name,
-      "<br>",
-      event.target.value
-    );
-    let tmpeducation = education;
+    let tmpeducation = objCopy(education);
     // the input name is split with hyphen if the data is stored
     // in a sub-object (person-name => person.name)
     if (event.target.name.indexOf("-") !== -1) {
@@ -27,22 +21,23 @@ const CandidateEducationCrud = props => {
     } else {
       tmpeducation[event.target.name] = event.target.value;
     }
-    passEducationUp(tmpeducation);
-  };
-
-  const passEducationUp = (tmpEducation, closeModal = false) => {
-    props.handleEducationChange &&
-      props.handleEducationChange(tmpEducation, closeModal);
+    setEducation(tmpeducation);
   };
 
   const handleSkillsChange = skills => {
-    let tmpeducation = education;
-    tmpeducation.skills = skills;
-    passEducationUp(tmpeducation);
+    setEducation(prevEd => ({
+      ...prevEd,
+      skills
+    }));
+  };
+
+  const handleSave = event => {
+    event && event.preventDefault();
+    props.handleSave && props.handleSave(education);
   };
 
   const handleCancel = () => {
-    passEducationUp(origEducation, true);
+    props.handleCancel();
   };
 
   return (
@@ -50,8 +45,8 @@ const CandidateEducationCrud = props => {
       education={education}
       handleInputChange={handleInputChange}
       handleSkillsChange={handleSkillsChange}
+      handleSave={handleSave}
       handleCancel={handleCancel}
-      handleCloseModal={props.handleCloseModal}
     />
   );
 };

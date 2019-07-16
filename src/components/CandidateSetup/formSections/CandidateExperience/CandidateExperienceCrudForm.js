@@ -33,9 +33,9 @@ const CandidateExperienceCrudForm = props => {
               type="text"
               className="form-control"
               id="titleDescription"
-              name="jobTitle-titleDescription"
+              name="jobTitle"
               placeholder="Job Title"
-              value={job.jobTitle.titleDescription}
+              value={job.jobTitle}
               onChange={props.handleInputChange}
               required
               disabled={showPerson || showCompany}
@@ -57,6 +57,7 @@ const CandidateExperienceCrudForm = props => {
               value={job.company.name}
               onChange={props.handleInputChange}
               onClick={props.handleCompanyClick}
+              onFocus={props.handleCompanyClick}
               required
               disabled={showPerson}
             />
@@ -81,6 +82,7 @@ const CandidateExperienceCrudForm = props => {
                   value={job.contactPerson.formattedName}
                   onChange={props.handleInputChange}
                   onClick={props.handlePersonClick}
+                  onFocus={props.handlePersonClick}
                   disabled={showCompany}
                 />
               </div>
@@ -88,7 +90,7 @@ const CandidateExperienceCrudForm = props => {
                 className="col-md-2 col-form-label label-right"
                 htmlFor="contactphone"
               >
-                Contact Phone:
+                Contact Work Phone:
               </label>
               <div className="col-md-3">
                 <input
@@ -99,7 +101,7 @@ const CandidateExperienceCrudForm = props => {
                   placeholder="Contact Phone #"
                   value={job.contactPerson.workPhone}
                   onChange={props.handleContactChange}
-                  disabled={showPerson || showCompany}
+                  disabled={true || showPerson || showCompany}
                 />
               </div>
             </div>
@@ -228,7 +230,7 @@ const CandidateExperienceCrudForm = props => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={props.handleCloseModal}
+            onClick={props.handleSave}
           >
             Save
           </button>

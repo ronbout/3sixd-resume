@@ -1,35 +1,32 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 
 import ProfileSectionHeader from "../ProfileSectionHeader";
-import CandidateEducation from "../../CandidateSetup/formSections/CandidateEducation/";
+import CandidateEducationContainer from "../../CandidateSetup/formSections/CandidateEducation/";
 import EducationFooter from "./EducationFooter";
+import { objCopy } from "../../../assets/js/library.js";
 
 const Education = props => {
+  const [education, setEducation] = useState(objCopy(props.education));
   const [sliderOpen, setSliderOpen] = useState(true);
   const [divStyle, setDivStyle] = useState({ display: "none" });
 
-  const handleSlider = () => {
-    setSliderOpen(!sliderOpen);
-    console.log("handle slider: ", sliderOpen);
-  };
+  useEffect(() => {
+    setEducation(objCopy(props.education));
+  }, [props.education]);
 
   useLayoutEffect(() => {
     setDivStyle({ height: sliderOpen ? "440px" : "0" });
   }, [sliderOpen]);
 
-  /*
-  const handleInputChange = event => {
-    props.handleInputChange(event);
+  const handleSlider = () => {
+    setSliderOpen(!sliderOpen);
   };
 
-  const handleSubmit = event => {
-    event && event.preventDefault();
-    props.handleSubmit();
-	};
-	*/
-
-  const handleEducationChange = Education => {
-    console.log("Education change: ", Education);
+  const handleEducationChange = education => {
+    console.log("Education change: ", education);
+    props.handleUpdate({
+      education
+    });
   };
 
   return (
@@ -42,8 +39,9 @@ const Education = props => {
         handleSlider={handleSlider}
       />
       <div className="slide-section" style={divStyle}>
-        <CandidateEducation
-          formFields={props.state.formFields}
+        <CandidateEducationContainer
+          education={education}
+          candId={props.candId}
           handleEducationChange={handleEducationChange}
         />
         <EducationFooter />

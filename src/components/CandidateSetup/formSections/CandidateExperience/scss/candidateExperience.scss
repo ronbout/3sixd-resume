@@ -23,14 +23,8 @@
   }
 
   .add-job-button {
-    button {
-      height: 60px;
-      width: 60px;
-      border-radius: 50%;
-      border: 1px solid black;
-      font-size: 36px;
-      margin-top: 1em;
-    }
+    text-align: center;
+    margin-top: 2em;
   }
 
   .experience-highlights {
@@ -53,5 +47,9 @@
   .candidate-job {
     min-height: 520px;
     padding: 2em;
+  }
+
+  .button-section {
+    text-align: center;
   }
 }

@@ -47,6 +47,7 @@ const CandidateEducationCrudForm = props => {
           <div className="col-3">
             <select
               className="form-control"
+              name="degreeType"
               value={education.degreeType}
               onChange={props.handleInputChange}
               required
@@ -156,7 +157,7 @@ const CandidateEducationCrudForm = props => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={props.handleCloseModal}
+            onClick={props.handleSave}
           >
             Save
           </button>
