@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 import PersonSetupForm from "./PersonSetupForm";
-import { objCopy } from "../../assets/js/library";
+import { objCopy, convertNullsToEmpty } from "../../assets/js/library";
+
+const API_PERSON = "persons";
+const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 const clearFormFields = {
   id: "",
@@ -43,7 +46,9 @@ class PersonSetupContainer extends Component {
     this.state = {
       formFields,
       dispSearch: false,
-      buttons
+      userMsg: "",
+      buttons,
+      apiBase: window.apiUrl
     };
     this.state.origForm = objCopy(formFields);
   }
@@ -60,24 +65,69 @@ class PersonSetupContainer extends Component {
 
   handleSubmit = () => {
     // submit to api and send info back to calling
-    console.log("post the person info to the api");
 
-    // formattedName is a calc'd field that is displayed on other components,
-    // so need to calc upon save
-    const { givenName, middleName, familyName } = this.state.formFields;
-    const formattedName = `${givenName} ${middleName} ${familyName}`;
-    this.setState(
-      {
-        formFields: {
-          ...this.state.formFields,
-          formattedName
-        }
-      },
-      () => {
-        this.props.handleSubmit &&
-          this.props.handleSubmit(this.state.formFields);
+    console.log("person api: ", this.state.formFields);
+
+    let body = {
+      ...this.state.formFields
+    };
+    // need to know if this is a new skill or update
+    // (post vs put)
+    const id = this.state.formFields.id;
+    const httpMethod = id ? "put" : "post";
+    const basicUrl =
+      (id
+        ? `${this.state.apiBase}${API_PERSON}/${id}`
+        : `${this.state.apiBase}${API_PERSON}`) + API_QUERY;
+    let httpConfig = {
+      method: httpMethod,
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
+    };
+
+    fetch(basicUrl, httpConfig)
+      .then(response => {
+        response.json().then(result => {
+          // figure out what to do here
+          if (result.error) {
+            this.setState({
+              errMsg:
+                result.errorCode === 45001
+                  ? `Person ${
+                      this.state.formFields.formattedName
+                    } already exists.`
+                  : "An unknown error has occurred"
+            });
+          } else {
+            result = convertNullsToEmpty(result.data);
+            // success.  let user know and clear out form
+            /**
+             * need some kind of popup message that closes in time or click
+             *
+             *
+             *
+             *
+             *
+             */
+            this.setState(
+              {
+                formFields: result,
+                userMsg: `Personal Info has been ${
+                  httpMethod === "post" ? "created." : "updated."
+                }`
+              },
+              () => {
+                this.props.handleSubmit && this.props.handleSubmit(result);
+              }
+            );
+          }
+        });
+      })
+      .catch(error => {
+        console.log("Fetch error: ", error);
+      });
   };
 
   handleCancel = () => {
