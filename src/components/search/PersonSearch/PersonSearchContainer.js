@@ -84,8 +84,12 @@ class PersonSearchContainer extends Component {
     });
   };
 
-  handleSelect = () => {
-    console.log("handleSelect");
+  handleSelect = ndx => {
+    console.log(this.state.results[this.state.personSelect]);
+    this.props.handlePersonSelect &&
+      this.props.handlePersonSelect(
+        this.state.results[this.state.personSelect]
+      );
   };
 
   render() {

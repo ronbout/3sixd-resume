@@ -18,6 +18,7 @@ const clearFormFields = {
   email2: "",
   primaryPhone: "",
   workPhone: "",
+  mobilePhone: "",
   addressLine1: "",
   addressLine2: "",
   municipality: "",
@@ -55,7 +56,12 @@ class PersonSetupContainer extends Component {
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.person.id !== prevProps.person.id) {
+    if (
+      (this.props.person && !prevProps.person) ||
+      (this.props.person &&
+        prevProps.person &&
+        this.props.person.id !== prevProps.person.id)
+    ) {
       this.setState({
         formFields: { ...this.props.person },
         origForm: { ...this.props.person }
@@ -65,9 +71,6 @@ class PersonSetupContainer extends Component {
 
   handleSubmit = () => {
     // submit to api and send info back to calling
-
-    console.log("person api: ", this.state.formFields);
-
     let body = {
       ...this.state.formFields
     };
@@ -162,7 +165,13 @@ class PersonSetupContainer extends Component {
   };
 
   handlePersonSelect = personInfo => {
-    console.log(personInfo);
+    console.log("person info: ", personInfo);
+    this.setState(
+      {
+        formFields: { ...personInfo }
+      },
+      () => this.handleClosePersonSearch()
+    );
   };
 
   handleClosePersonSearch = () => {
