@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import SkillSearch from "./SkillSearch";
+import dataFetch from "../../../assets/js/dataFetch";
 
 const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
@@ -32,31 +33,50 @@ class SkillSearchContainer extends Component {
   }
 
   componentDidMount() {
-    this.loadTechtags();
+    this.loadTechtags2();
     this.handleSearch();
   }
 
-  loadTechtags() {
-    const apiUrl = `${this.state.apiBase}${API_TAGS}${API_QUERY}`;
-    fetch(apiUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // need to convert nulls to "" for react forms
-          result &&
-            result.forEach(obj => {
-              Object.keys(obj).forEach(val => {
-                obj[val] = obj[val] ? obj[val] : "";
-              });
-            });
-          this.setState({
-            tagOptions: result ? result : []
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Techtag Fetch error: ", error);
-      });
+  // loadTechtags() {
+  //   const apiUrl = `${this.state.apiBase}${API_TAGS}${API_QUERY}`;
+
+  //   fetch(apiUrl)
+  //     .then(response => {
+  //       response.json().then(result => {
+  //         result = result.data;
+  //         // need to convert nulls to "" for react forms
+  //         result &&
+  //           result.forEach(obj => {
+  //             Object.keys(obj).forEach(val => {
+  //               obj[val] = obj[val] ? obj[val] : "";
+  //             });
+  //           });
+  //         this.setState({
+  //           tagOptions: result ? result : []
+  //         });
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log("Techtag Fetch error: ", error);
+  //     });
+  // }
+
+  /**
+   *
+   * test of the new dataFetch routine
+   * need to see how much it cleans things up
+   *
+   */
+
+  async loadTechtags2() {
+    let result = await dataFetch(API_TAGS);
+    if (result.error) {
+      console.log("Error retrieving techtags: ", result.error);
+      result = [];
+    }
+    this.setState({
+      tagOptions: result ? result : []
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {

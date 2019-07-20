@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 import PersonSetupForm from "./PersonSetupForm";
-import { objCopy, convertNullsToEmpty } from "../../assets/js/library";
+import { objCopy } from "../../assets/js/library";
+import dataFetch from "../../assets/js/dataFetch";
 
 const API_PERSON = "persons";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 const clearFormFields = {
   id: "",
@@ -70,67 +70,106 @@ class PersonSetupContainer extends Component {
   }
 
   handleSubmit = () => {
-    // submit to api and send info back to calling
+    this.postPerson();
+    // // submit to api and send info back to calling
+    // let body = {
+    //   ...this.state.formFields
+    // };
+    // // need to know if this is a new skill or update
+    // // (post vs put)
+    // const id = this.state.formFields.id;
+    // const httpMethod = id ? "put" : "post";
+    // const basicUrl =
+    //   (id
+    //     ? `${this.state.apiBase}${API_PERSON}/${id}`
+    //     : `${this.state.apiBase}${API_PERSON}`) + API_QUERY;
+    // let httpConfig = {
+    //   method: httpMethod,
+    //   body: JSON.stringify(body),
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // };
+
+    // fetch(basicUrl, httpConfig)
+    //   .then(response => {
+    //     response.json().then(result => {
+    //       // figure out what to do here
+    //       if (result.error) {
+    //         this.setState({
+    //           errMsg:
+    //             result.errorCode === 45001
+    //               ? `Person ${
+    //                   this.state.formFields.formattedName
+    //                 } already exists.`
+    //               : "An unknown error has occurred"
+    //         });
+    //       } else {
+    //         result = convertNullsToEmpty(result.data);
+    //         // success.  let user know and clear out form
+    //         /**
+    //          * need some kind of popup message that closes in time or click
+    //          *
+    //          *
+    //          *
+    //          *
+    //          *
+    //          */
+    //         this.setState(
+    //           {
+    //             formFields: result,
+    //             userMsg: `Personal Info has been ${
+    //               httpMethod === "post" ? "created." : "updated."
+    //             }`
+    //           },
+    //           () => {
+    //             this.props.handleSubmit && this.props.handleSubmit(result);
+    //           }
+    //         );
+    //       }
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.log("Fetch error: ", error);
+    //   });
+  };
+
+  postPerson = async () => {
     let body = {
       ...this.state.formFields
     };
     // need to know if this is a new skill or update
     // (post vs put)
     const id = this.state.formFields.id;
-    const httpMethod = id ? "put" : "post";
-    const basicUrl =
-      (id
-        ? `${this.state.apiBase}${API_PERSON}/${id}`
-        : `${this.state.apiBase}${API_PERSON}`) + API_QUERY;
-    let httpConfig = {
-      method: httpMethod,
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
+    const httpMethod = id ? "PUT" : "POST";
+    const endpoint = id ? `${API_PERSON}/${id}` : `${API_PERSON}`;
 
-    fetch(basicUrl, httpConfig)
-      .then(response => {
-        response.json().then(result => {
-          // figure out what to do here
-          if (result.error) {
-            this.setState({
-              errMsg:
-                result.errorCode === 45001
-                  ? `Person ${
-                      this.state.formFields.formattedName
-                    } already exists.`
-                  : "An unknown error has occurred"
-            });
-          } else {
-            result = convertNullsToEmpty(result.data);
-            // success.  let user know and clear out form
-            /**
-             * need some kind of popup message that closes in time or click
-             *
-             *
-             *
-             *
-             *
-             */
-            this.setState(
-              {
-                formFields: result,
-                userMsg: `Personal Info has been ${
-                  httpMethod === "post" ? "created." : "updated."
-                }`
-              },
-              () => {
-                this.props.handleSubmit && this.props.handleSubmit(result);
-              }
-            );
-          }
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
+    let result = await dataFetch(endpoint, "", httpMethod, body);
+    if (result.error) {
+      this.setState({
+        errMsg:
+          result.errorCode === 45001
+            ? `Person ${this.state.formFields.formattedName} already exists.`
+            : "An unknown error has occurred"
       });
+    } else {
+      // success.  let user know and clear out form
+      /**
+       * need some kind of popup message that closes in time or click
+       *
+       */
+      this.setState(
+        {
+          formFields: result,
+          userMsg: `Personal Info has been ${
+            httpMethod === "post" ? "created." : "updated."
+          }`
+        },
+        () => {
+          this.props.handleSubmit && this.props.handleSubmit(result);
+        }
+      );
+    }
   };
 
   handleCancel = () => {
