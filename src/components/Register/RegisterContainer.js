@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Register from "./Register";
+import { candidateCreate } from "../CandidateSetup/candidateCreate";
 import { UserContext } from "../UserProvider";
 
 const API_MEMBER = "members";
@@ -9,14 +10,6 @@ class RegisterContainer extends Component {
   static contextType = UserContext;
   constructor(props) {
     super(props);
-
-    /**
-     *
-     * **** add url parameters for github redirect from githubCallback
-     * same code as LoginContainer
-     *
-     *
-     */
 
     // check for query string in case this is the github callback from the server
     const urlParams = new URLSearchParams(window.location.search);
@@ -61,7 +54,6 @@ class RegisterContainer extends Component {
     };
     fetch(`${this.state.apiBase}${API_MEMBER}${API_QUERY}`, postConfig)
       .then(response => {
-        console.log("response: ", response);
         response.json().then(result => {
           if (result.error) {
             this.setState({
@@ -72,20 +64,39 @@ class RegisterContainer extends Component {
               confirmMsg: ""
             });
           } else {
-            console.log("Result: ", result);
-            // success.  let user know and log them in
-            // get UserContext and log the user in
-            this.setState(
-              {
-                confirmMsg: site
-                  ? "You have been successfully registered through " +
-                    site +
-                    "."
-                  : "You have been successfully registered.  Please check your email for confirmation.",
-                errMsg: ""
-              },
-              () => this.context.handleLogin(result, null, false)
-            );
+            /**
+             * have to split name out into first last
+             * github does not break it out so not trying
+             * to force first and last just to register
+             */
+            const names = result.data.fullName
+              .trim()
+              .replace(/\s+/g, ",")
+              .split(",");
+            const givenName = names[0];
+            const familyName = names.length > 1 ? names[1] : names[0];
+            const personInfo = {
+              givenName,
+              familyName,
+              email1: result.data.email
+            };
+            candidateCreate(personInfo).then(createResp => {
+              console.log("create candidate response: ", createResp);
+              // success.  let user know and log them in
+              // get UserContext and log the user in with new candidate Id
+              result.data.candidateId = createResp.id;
+              this.setState(
+                {
+                  confirmMsg: site
+                    ? "You have been successfully registered through " +
+                      site +
+                      "."
+                    : "You have been successfully registered.  Please check your email for confirmation.",
+                  errMsg: ""
+                },
+                () => this.context.handleLogin(result, null, false)
+              );
+            });
           }
         });
       })
