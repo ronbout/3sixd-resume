@@ -67,6 +67,7 @@ const CandidateExperience = props => {
             experience={sortJobs[editNdx]}
             handleSave={props.handleSave}
             handleCancel={props.handleCancel}
+            candId={props.candId}
           />
         </Modal>
       )}

@@ -56,6 +56,7 @@ const Highlights = props => {
           handleHighlightChange={handleHighlightChange}
           includeInSummary={false}
           heading={false}
+          candId={props.candId}
         />
         <HighlightsFooter handleSubmit={handleSubmit} />
       </div>

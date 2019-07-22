@@ -52,6 +52,7 @@ const CandidateExperienceContainer = props => {
   };
 
   useEffect(() => {
+    console.log("props.experience: ", props.experience);
     setSortJobs(
       props.experience
         ? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
@@ -121,6 +122,7 @@ const CandidateExperienceContainer = props => {
       handleAddNewJob={handleAddNewJob}
       handleSave={handleSave}
       handleCancel={handleCancel}
+      candId={props.candId}
     />
   );
 };

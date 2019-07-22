@@ -117,6 +117,7 @@ const CandidateExperienceCrud = props => {
       handlePersonSubmit={handlePersonSubmit}
       handleCompanyCancel={handleCompanyCancel}
       handleCompanySubmit={handleCompanySubmit}
+      candId={props.candId}
     />
   );
 };

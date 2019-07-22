@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import SkillSearchContainer from "../../search/SkillSearch/";
 import MakePopup from "../../hoc/MakePopup";
+import dataFetch from "../../../assets/js/dataFetch";
 
 import "./css/skillList.css";
 
@@ -23,7 +24,7 @@ const SkillList = props => {
     setDispSkillSearchFlag(true);
   };
 
-  const handleAddSkill = skillInfo => {
+  const handleAddSkill = async skillInfo => {
     // check for duplicate
     if (
       props.skills.some(skill => {
@@ -31,9 +32,32 @@ const SkillList = props => {
       })
     )
       return;
+    /**
+     *
+     *
+     *  run api call to see if this skill is already
+     *  part of the candidate's list.  if so, attach
+     *  the candidate_skills id.  otherwise, just leave
+     *  as an empty string.
+     *
+     *
+     */
+    const csId = await getCandidateSkillId(props.candId, skillInfo.id);
+    skillInfo.candidateSkillId = csId;
     let tmpSkills = props.skills.slice();
     tmpSkills.push(skillInfo);
     props.handleSkillsChange(tmpSkills);
+  };
+
+  const getCandidateSkillId = async (candId, skillId) => {
+    const csApiUrl = `/candidate_skills/skill_candidate_id/${skillId}`;
+    const queryStr = `&candidateId=${candId}`;
+    let csId = "";
+    let result = await dataFetch(csApiUrl, queryStr);
+    if (!result.error) {
+      csId = result.id;
+    }
+    return csId;
   };
 
   const handleDelSkill = ndx => {

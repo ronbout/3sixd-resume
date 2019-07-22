@@ -15,7 +15,8 @@ const HighlightsForm = props => {
     includeInSummary,
     heading,
     listingCallbacks,
-    skills
+    skills,
+    candId
   } = props;
 
   const addHighlight = () => {
@@ -83,6 +84,7 @@ const HighlightsForm = props => {
           skills={skills}
           editFlag={editFlag}
           handleSkillsChange={props.handleSkillsChange}
+          candId={candId}
         />
       </div>
     );

@@ -221,6 +221,7 @@ const CandidateExperienceCrudForm = props => {
               highlights={job.highlights}
               handleHighlightChange={props.handleHighlightChange}
               includeInSummary={true}
+              candId={props.candId}
               disabled={showPerson || showCompany}
             />
           </div>

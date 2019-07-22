@@ -114,6 +114,7 @@ const HighlightsContainer = props => {
       handleOnChange={handleOnChange}
       handleAddHighlight={handleAddHighlight}
       handleSkillsChange={handleSkillsChange}
+      candId={props.candId}
     />
   );
 };
