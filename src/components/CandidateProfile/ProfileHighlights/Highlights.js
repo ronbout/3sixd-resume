@@ -4,6 +4,10 @@ import ProfileSectionHeader from "../ProfileSectionHeader";
 import HighlightsContainer from "../../CandidateSetup/formSections/HighlightsContainer";
 import HighlightsFooter from "./HighlightsFooter";
 import { objCopy } from "../../../assets/js/library.js";
+import dataFetch from "../../../assets/js/dataFetch";
+
+const API_CANDIDATES = "candidates/";
+const API_HIGHLIGHTS = "/highlights";
 
 const Highlights = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
@@ -22,18 +26,38 @@ const Highlights = props => {
     setDivStyle({ height: sliderOpen ? "550px" : "0" });
   }, [sliderOpen]);
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event && event.preventDefault();
     console.log("Highlights api update goes here");
     // api update and then pass new data up
-    /***
-     *
-     * pass new data up
-     *
-     */
+    postHighlights();
     props.handleUpdate({
       candidateHighlights: highlights
     });
+  };
+
+  /**
+   *
+   *
+   *  fix for highlights
+   *
+   */
+  const postHighlights = async () => {
+    let body = {
+      highlights
+    };
+    // need to know if this is a new skill or update
+    // (post vs put)
+    const id = props.candId;
+    const httpMethod = "PUT";
+    const endpoint = `${API_CANDIDATES}${id}${API_HIGHLIGHTS}`;
+
+    let result = await dataFetch(endpoint, "", httpMethod, body);
+    if (result.error) {
+      console.log(result.error);
+    } else {
+      // need user message here
+    }
   };
 
   const handleHighlightChange = highlights => {
