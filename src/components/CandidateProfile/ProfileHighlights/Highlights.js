@@ -36,18 +36,10 @@ const Highlights = props => {
     });
   };
 
-  /**
-   *
-   *
-   *  fix for highlights
-   *
-   */
   const postHighlights = async () => {
     let body = {
       highlights
     };
-    // need to know if this is a new skill or update
-    // (post vs put)
     const id = props.candId;
     const httpMethod = "PUT";
     const endpoint = `${API_CANDIDATES}${id}${API_HIGHLIGHTS}`;

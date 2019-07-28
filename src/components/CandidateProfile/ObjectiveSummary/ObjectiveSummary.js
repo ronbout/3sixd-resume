@@ -3,6 +3,10 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import ObjectiveSummaryForm from "./ObjectiveSummaryForm";
 import ObjectiveSummaryFooter from "./ObjectiveSummaryFooter";
+import dataFetch from "../../../assets/js/dataFetch";
+
+const API_CANDIDATES = "candidates/";
+const API_OBJECTIVE = "/objective";
 
 const ObjectiveSummary = props => {
   const [sliderOpen, setSliderOpen] = useState(true);
@@ -38,16 +42,28 @@ const ObjectiveSummary = props => {
     event && event.preventDefault();
     console.log("Objective / Summary api update goes here");
     // api update and then pass new data up
-    /***
-     * pass new data up with handleUpdate({
-     * objective: newObjective,
-     * summary: newSummary
-     * })
-     */
+    postObjective();
     props.handleUpdate({
       objective,
       executiveSummary
     });
+  };
+
+  const postObjective = async () => {
+    let body = {
+      objective,
+      executiveSummary
+    };
+    const id = props.candId;
+    const httpMethod = "PUT";
+    const endpoint = `${API_CANDIDATES}${id}${API_OBJECTIVE}`;
+
+    let result = await dataFetch(endpoint, "", httpMethod, body);
+    if (result.error) {
+      console.log(result.error);
+    } else {
+      // need user message here
+    }
   };
 
   return (
