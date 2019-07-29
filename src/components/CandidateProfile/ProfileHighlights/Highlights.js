@@ -31,9 +31,6 @@ const Highlights = props => {
     console.log("Highlights api update goes here");
     // api update and then pass new data up
     postHighlights();
-    props.handleUpdate({
-      candidateHighlights: highlights
-    });
   };
 
   const postHighlights = async () => {
@@ -49,6 +46,9 @@ const Highlights = props => {
       console.log(result.error);
     } else {
       // need user message here
+      props.handleUpdate({
+        candidateHighlights: result
+      });
     }
   };
 
