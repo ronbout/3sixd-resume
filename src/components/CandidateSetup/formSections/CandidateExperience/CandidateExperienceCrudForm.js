@@ -212,6 +212,7 @@ const CandidateExperienceCrudForm = props => {
                 skills={job.skills}
                 editFlag={true}
                 handleSkillsChange={props.handleSkillsChange}
+                candId={props.candId}
               />
             </div>
           </React.Fragment>
