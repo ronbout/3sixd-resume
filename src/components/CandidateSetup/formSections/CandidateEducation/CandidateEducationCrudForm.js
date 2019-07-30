@@ -151,6 +151,7 @@ const CandidateEducationCrudForm = props => {
             skills={education.skills}
             editFlag={true}
             handleSkillsChange={props.handleSkillsChange}
+            candId={props.candId}
           />
         </div>
         <div className="button-section">

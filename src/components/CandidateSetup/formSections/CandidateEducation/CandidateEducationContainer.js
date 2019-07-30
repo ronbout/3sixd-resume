@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import CandidateEducation from "./CandidateEducation";
 import { objCopy } from "../../../../assets/js/library";
 import "./css/candidateEducation.css";
+import dataFetch from "../../../../assets/js/dataFetch";
+
+const API_CANDIDATES = "candidates/";
+const API_EDUCATION = "/education";
 
 const CandidateEducationContainer = props => {
   const [editNdx, setEditNdx] = useState(false);
@@ -36,14 +40,21 @@ const CandidateEducationContainer = props => {
     );
   }, [props.education]);
 
-  const updateEducation = educations => {
-    /**
-     * update api goes here
-     *
-     */
-    console.log("education update api goes here");
-    props.handleEducationChange &&
-      props.handleEducationChange(objCopy(educations));
+  const updateEducation = async education => {
+    let body = {
+      education
+    };
+    const id = props.candId;
+    const httpMethod = "PUT";
+    const endpoint = `${API_CANDIDATES}${id}${API_EDUCATION}`;
+
+    let result = await dataFetch(endpoint, "", httpMethod, body);
+    if (result.error) {
+      console.log(result.error);
+    } else {
+      // need user message here
+      props.handleEducationChange(objCopy(education));
+    }
   };
 
   const handleDelEducation = ndx => {
@@ -54,7 +65,7 @@ const CandidateEducationContainer = props => {
      *
      *
      */
-    const tmp = sortEducation.slice();
+    const tmp = objCopy(sortEducation.slice());
     tmp.splice(ndx, 1);
     updateEducation(tmp);
   };
@@ -68,7 +79,7 @@ const CandidateEducationContainer = props => {
   };
 
   const handleSave = ed => {
-    const tmp = sortEducation.slice();
+    const tmp = objCopy(sortEducation.slice());
     tmp[editNdx] = ed;
     updateEducation(tmp);
     handleCloseModal();
@@ -98,6 +109,7 @@ const CandidateEducationContainer = props => {
       handleAddNewEducation={handleAddNewEducation}
       handleSave={handleSave}
       handleCancel={handleCancel}
+      candId={props.candId}
     />
   );
 };

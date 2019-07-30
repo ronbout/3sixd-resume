@@ -47,6 +47,7 @@ const CandidateEducationCrud = props => {
       handleSkillsChange={handleSkillsChange}
       handleSave={handleSave}
       handleCancel={handleCancel}
+      candId={props.candId}
     />
   );
 };

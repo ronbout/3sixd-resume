@@ -23,7 +23,6 @@ const Education = props => {
   };
 
   const handleEducationChange = education => {
-    console.log("Education change: ", education);
     props.handleUpdate({
       education
     });

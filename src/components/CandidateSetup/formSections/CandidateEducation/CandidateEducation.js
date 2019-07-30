@@ -30,6 +30,7 @@ const CandidateEducation = props => {
             education={sortEducation[editNdx]}
             handleSave={props.handleSave}
             handleCancel={props.handleCancel}
+            candId={props.candId}
           />
         </Modal>
       )}
