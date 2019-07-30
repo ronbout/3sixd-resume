@@ -53,7 +53,7 @@ const CandidateEducationContainer = props => {
       console.log(result.error);
     } else {
       // need user message here
-      props.handleEducationChange(objCopy(education));
+      props.handleEducationChange(result);
     }
   };
 
