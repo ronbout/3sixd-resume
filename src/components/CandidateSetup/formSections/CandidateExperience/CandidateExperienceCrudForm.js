@@ -2,7 +2,7 @@ import React from "react";
 
 import SkillList from "../../../SkillSetup/SkillList/";
 import HighlightsContainer from "../HighlightsContainer";
-import CompanySetup from "../../../CompanySetup/";
+import CompanySetupContainer from "../../../CompanySetup/";
 import PersonSetup from "../../../PersonSetup/";
 import MakePopup from "../../../hoc/MakePopup";
 
@@ -10,7 +10,7 @@ const CandidateExperienceCrudForm = props => {
   const { job, showPerson, showCompany, showHighlights } = props;
 
   const CompanyPopup = MakePopup(
-    CompanySetup,
+    CompanySetupContainer,
     { left: "250px", top: "200px", width: "1000px" },
     true
   );

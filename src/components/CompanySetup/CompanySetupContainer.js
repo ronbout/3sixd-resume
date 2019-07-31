@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import CompanySetupForm from "./CompanySetupForm";
 import { objCopy } from "../../assets/js/library";
+import dataFetch from "../../assets/js/dataFetch";
+
+const API_COMPANY = "companies";
 
 const clearFormFields = {
   id: "",
@@ -48,7 +51,7 @@ class CompanySetupContainer extends Component {
       };
     }
     this.state = {
-      formFields,
+      formFields: objCopy(formFields),
       showPerson: false
     };
     this.state.origForm = objCopy(formFields);
@@ -56,8 +59,45 @@ class CompanySetupContainer extends Component {
 
   handleSubmit = () => {
     // submit to api and send info back to calling
-    console.log("submit the company info");
-    this.props.handleSubmit && this.props.handleSubmit(this.state.formFields);
+    this.postCompany();
+  };
+
+  postCompany = async () => {
+    let body = {
+      ...this.state.formFields
+    };
+    // need to know if this is a new skill or update
+    // (post vs put)
+    const id = this.state.formFields.id;
+    const httpMethod = id ? "PUT" : "POST";
+    const endpoint = id ? `${API_COMPANY}/${id}` : `${API_COMPANY}`;
+
+    let result = await dataFetch(endpoint, "", httpMethod, body);
+    if (result.error) {
+      this.setState({
+        errMsg:
+          result.errorCode === 45001
+            ? `Company ${this.state.formFields.name} already exists.`
+            : "An unknown error has occurred"
+      });
+    } else {
+      // success.  let user know and clear out form
+      /**
+       * need some kind of popup message that closes in time or click
+       *
+       */
+      this.setState(
+        {
+          formFields: result,
+          userMsg: `Company Info has been ${
+            httpMethod === "post" ? "created." : "updated."
+          }`
+        },
+        () => {
+          this.props.handleSubmit && this.props.handleSubmit(result);
+        }
+      );
+    }
   };
 
   handleCancel = () => {
