@@ -65,7 +65,7 @@ const CandidateExperienceContainer = props => {
      * update api goes here
      *
      */
-    console.log("experience update api goes here");
+    console.log("experience update api goes here: ", experiences);
     props.handleExperienceChange &&
       props.handleExperienceChange(objCopy(experiences));
   };

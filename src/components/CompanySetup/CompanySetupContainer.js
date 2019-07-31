@@ -63,9 +63,14 @@ class CompanySetupContainer extends Component {
   };
 
   postCompany = async () => {
+    const contactPersonId = this.state.formFields.contactPerson
+      ? this.state.formFields.contactPerson.id
+      : "";
     let body = {
-      ...this.state.formFields
+      ...this.state.formFields,
+      contactPersonId
     };
+    delete body.contactPerson;
     // need to know if this is a new skill or update
     // (post vs put)
     const id = this.state.formFields.id;
@@ -102,7 +107,6 @@ class CompanySetupContainer extends Component {
 
   handleCancel = () => {
     // just go back with no update
-    console.log("Cancel ");
     this.props.handleCancel && this.props.handleCancel();
   };
 

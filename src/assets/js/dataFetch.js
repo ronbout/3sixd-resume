@@ -7,6 +7,8 @@
 import { convertNullsToEmpty } from "./library.js";
 
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
+const API_COMPANY = "companies";
+const API_PERSON = "persons";
 
 export default async function dataFetch(
   endpoint,
@@ -41,4 +43,16 @@ export default async function dataFetch(
     console.log("Fetch error: ", error);
     return { error: error };
   }
+}
+
+export async function fetchCompany(id) {
+  const endpoint = `${API_COMPANY}/${id}`;
+  const company = await dataFetch(endpoint);
+  return company;
+}
+
+export async function fetchPerson(id) {
+  const endpoint = `${API_PERSON}/${id}`;
+  const person = await dataFetch(endpoint);
+  return person;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import CandidateExperienceCrudForm from "./CandidateExperienceCrudForm";
 import { objCopy } from "../../../../assets/js/library";
+import { fetchCompany, fetchPerson } from "../../../../assets/js/dataFetch";
 
 const CandidateExperienceCrud = props => {
   const [showHighlights, setShowHighlights] = useState(false);
@@ -9,6 +10,9 @@ const CandidateExperienceCrud = props => {
   const [showCompany, setShowCompany] = useState(false);
   const [showPerson, setShowPerson] = useState(false);
   const [job, setJob] = useState(objCopy(props.experience));
+
+  let fetchCompanyFlag = false;
+  let fetchPersonFlag = false;
 
   useEffect(() => {
     setJob(objCopy(props.experience));
@@ -34,15 +38,43 @@ const CandidateExperienceCrud = props => {
     setJob(tmpJob);
   };
 
-  const handleCompanyClick = event => {
+  const handleCompanyClick = async event => {
     // do not open if Person is already open
     if (showPerson && !showCompany) return;
+    // if we are opening this for the first time, we need
+    // to fetch the full company info
+    if (!fetchCompanyFlag) {
+      fetchCompanyFlag = true;
+      if (job.company.id) {
+        let companyInfo = await fetchCompany(job.company.id);
+        setJob(origJob => {
+          return {
+            ...origJob,
+            company: companyInfo
+          };
+        });
+      }
+    }
     setShowCompany(!showCompany);
   };
 
-  const handlePersonClick = event => {
+  const handlePersonClick = async event => {
     // do not open if Company is already open
     if (showCompany && !showPerson) return;
+    // if we are opening this for the first time, we need
+    // to fetch the full company info
+    if (!fetchPersonFlag) {
+      fetchPersonFlag = true;
+      if (job.contactPerson.id) {
+        let contactPersonInfo = await fetchPerson(job.contactPerson.id);
+        setJob(origJob => {
+          return {
+            ...origJob,
+            contactPerson: contactPersonInfo
+          };
+        });
+      }
+    }
     setShowPerson(!showPerson);
   };
 
