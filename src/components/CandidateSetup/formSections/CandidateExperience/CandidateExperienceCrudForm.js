@@ -233,6 +233,7 @@ const CandidateExperienceCrudForm = props => {
             type="button"
             className="btn btn-primary"
             onClick={props.handleSave}
+            disabled={!job.company.id || !job.jobTitle}
           >
             Save
           </button>
