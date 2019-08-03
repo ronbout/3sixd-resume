@@ -25,12 +25,13 @@ const HighlightsContainer = props => {
     const newSequence =
       tmp.reduce((low, obj) => {
         return Math.max(low, obj.sequence);
-      }, -999) + 1;
+      }, 0) + 1;
     tmp.push({
       id: "",
       highlight: newHighlight,
       skills: [],
-      sequence: newSequence
+      sequence: newSequence,
+      includeInSummary: 0
     });
     setNewHightlight("");
     passHighlightUp(tmp);

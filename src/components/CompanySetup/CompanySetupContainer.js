@@ -52,7 +52,8 @@ class CompanySetupContainer extends Component {
     }
     this.state = {
       formFields: objCopy(formFields),
-      showPerson: false
+      showPerson: false,
+      dispSearch: false
     };
     this.state.origForm = objCopy(formFields);
   }
@@ -91,6 +92,7 @@ class CompanySetupContainer extends Component {
        * need some kind of popup message that closes in time or click
        *
        */
+      console.log("fetch company: ", result);
       this.setState(
         {
           formFields: result,
@@ -127,6 +129,27 @@ class CompanySetupContainer extends Component {
         ...this.state.formFields,
         [target.name]: value
       }
+    });
+  };
+
+  handleSearch = () => {
+    this.setState({
+      dispSearch: true
+    });
+  };
+
+  handleCompanySelect = companyInfo => {
+    this.setState(
+      {
+        formFields: { ...companyInfo }
+      },
+      () => this.handleCloseCompanySearch()
+    );
+  };
+
+  handleCloseCompanySearch = () => {
+    this.setState({
+      dispSearch: false
     });
   };
 
@@ -170,6 +193,9 @@ class CompanySetupContainer extends Component {
         handleSubmit={this.handleSubmit}
         handleCancel={this.handleCancel}
         handleClear={this.handleClear}
+        handleSearch={this.handleSearch}
+        handleCloseCompanySearch={this.handleCloseCompanySearch}
+        handleCompanySelect={this.handleCompanySelect}
         handlePersonCancel={this.handlePersonCancel}
         handlePersonSubmit={this.handlePersonSubmit}
       />

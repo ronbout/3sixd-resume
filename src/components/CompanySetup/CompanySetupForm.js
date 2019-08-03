@@ -1,13 +1,23 @@
 import React from "react";
 
+import CompanySearchContainer from "../search/CompanySearch";
 import PersonSetup from "../PersonSetup/";
 import MakePopup from "../hoc/MakePopup";
-
 import "./css/companySetup.css";
 
 const PersonPopup = MakePopup(
   PersonSetup,
   { left: "250px", top: "200px", width: "1000px" },
+  true
+);
+
+const CompanySearchPopup = MakePopup(
+  CompanySearchContainer,
+  {
+    right: "100px",
+    top: "200px",
+    width: "344px"
+  },
   true
 );
 
@@ -217,7 +227,23 @@ const CompanySetupForm = props => {
         >
           Clear
         </button>
+        <button
+          type="button"
+          className="btn btn-info"
+          onClick={props.handleSearch}
+        >
+          Search
+        </button>
       </div>
+    );
+  };
+
+  const dispCompanySearch = () => {
+    return (
+      <CompanySearchPopup
+        handleCompanySelect={props.handleCompanySelect}
+        closeBtn={props.handleCloseCompanySearch}
+      />
     );
   };
 
@@ -228,6 +254,7 @@ const CompanySetupForm = props => {
         <div className="company-form">
           {companyDetails()}
           {buttonSection()}
+          {props.state.dispSearch && dispCompanySearch()}
         </div>
 
         {props.state.showPerson && (

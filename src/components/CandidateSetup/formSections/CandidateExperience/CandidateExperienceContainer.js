@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import CandidateExperience from "./CandidateExperience";
 import "./css/candidateExperience.css";
 import { objCopy } from "../../../../assets/js/library";
+import dataFetch from "../../../../assets/js/dataFetch";
+
+const API_CANDIDATES = "candidates/";
+const API_EXPERIENCE = "/experience";
 
 const CandidateExperienceContainer = props => {
   const [editNdx, setEditNdx] = useState(false);
@@ -43,7 +47,7 @@ const CandidateExperienceContainer = props => {
     },
     payType: "Salary",
     startPay: "",
-    endpay: "",
+    endPay: "",
     jobTitleId: "",
     jobTitle: "",
     summary: "",
@@ -60,14 +64,31 @@ const CandidateExperienceContainer = props => {
     );
   }, [props.experience]);
 
-  const updateExperience = experiences => {
-    /**
-     * update api goes here
-     *
-     */
-    console.log("experience update api goes here: ", experiences);
-    props.handleExperienceChange &&
-      props.handleExperienceChange(objCopy(experiences));
+  const updateExperience = async experiences => {
+    let body = {
+      experience: objCopy(experiences).map(exp => {
+        const contactPersonId = exp.contactPerson ? exp.contactPerson.id : "";
+        const companyId = exp.company ? exp.company.id : "";
+        return {
+          ...exp,
+          contactPersonId,
+          companyId
+        };
+      })
+    };
+
+    const id = props.candId;
+    const httpMethod = "PUT";
+    const endpoint = `${API_CANDIDATES}${id}${API_EXPERIENCE}`;
+
+    let result = await dataFetch(endpoint, "", httpMethod, body);
+    if (result.error) {
+      console.log("fetch error: ", result);
+      handleCancel();
+    } else {
+      // need user message here
+      props.handleExperienceChange(result);
+    }
   };
 
   const handleDelExperience = ndx => {
@@ -107,6 +128,11 @@ const CandidateExperienceContainer = props => {
 
   const handleCancel = () => {
     setEditNdx(false);
+    setSortJobs(
+      props.experience
+        ? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
+        : []
+    );
   };
 
   const actions = {
