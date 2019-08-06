@@ -55,21 +55,24 @@ const TechtagSelect = props => {
     <div className="tag-select">
       <h2>Add Tech Tags</h2>
       {/* search field for techtags which will filter select */}
-      <div className="form-group">
-        <label htmlFor="keyword">
-          Select (Double Click) to Add or Drag and Drop
-        </label>
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          name="keyword"
-          id="keyword"
-          placeholder="Enter term to search Techtags"
-          value={props.state.formFields.keyword}
-          onChange={props.handleInputChange}
-        />
-      </div>
+      {!props.hideFilter && (
+        <div className="form-group">
+          <label htmlFor="keyword">
+            Select (Double Click) to Add or Drag and Drop
+          </label>
+          <br />
+          <input
+            type="text"
+            className="form-control"
+            name="keyword"
+            id="keyword"
+            placeholder="Enter term to search Techtags"
+            value={props.state.formFields.keyword}
+            onChange={props.handleInputChange}
+          />
+        </div>
+      )}
+
       {/* Techtag List returned from api */}
       <div className="div-select-container" style={{ maxHeight: divHeight }}>
         {props.state.tagOptions &&

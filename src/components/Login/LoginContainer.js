@@ -56,9 +56,11 @@ class LoginContainer extends Component {
           console.log("result: ", result.data);
           if (result.data) {
             const loginReferrer =
-              this.state.referrer && this.state.referrer !== "/profile"
-                ? this.state.referrer
-                : `/profile/${result.data.candidateId}`;
+              this.state.referrer &&
+              (this.state.referrer === "/profile" ||
+                this.state.referrer === "/cand-skills")
+                ? `${this.state.referrer}/${result.data.candidateId}`
+                : this.state.referrer;
             sessionStorage.removeItem("referrer");
             sessionStorage.removeItem("oauthType");
             this.context.handleLogin(result, loginReferrer);

@@ -4,6 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "./css/styles.css";
 import "./css/app.css";
 
+import Error404 from "./components/Error404";
 import Siteheader from "./components/Siteheader/";
 import Footer from "./components/Footer/";
 import Sitebody from "./components/Sitebody/";
@@ -11,15 +12,13 @@ import SkillSetup from "./components/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
 import CandidateSetup from "./components/CandidateSetup/";
 import CandidateProfile from "./components/CandidateProfile/";
+import CandidateSkills from "./components/CandidateSkills/";
 import PersonSetup from "./components/PersonSetup/";
 import LoginContainer from "./components/Login/";
 import Register from "./components/Register/";
 import GithubCallback from "./components/GithubCallback";
 import PrivateRoute from "./components/PrivateRoute";
 import { UserContext } from "./components/UserProvider";
-
-// eslint-disable-next-line
-import Error404 from "./components/error404";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -117,7 +116,12 @@ class App extends Component {
                 path="/profile/:candId"
                 component={CandidateProfile}
               />
+              <PrivateRoute
+                path="/cand-skills/:candId"
+                component={CandidateSkills}
+              />
               <PrivateRoute path="/profile" component={CandidateProfile} />
+              <Route component={Error404} />
             </Switch>
           </main>
           <footer id="footer">

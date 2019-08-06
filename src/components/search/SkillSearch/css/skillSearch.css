@@ -76,6 +76,7 @@ section.skill-search .div-select-container {
 
 section.skill-search .div-select-container .div-select {
   padding: 2px;
+  cursor: default;
 }
 
 section.skill-search .div-select-container .div-select.selected {

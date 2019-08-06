@@ -7,7 +7,8 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const authValue = React.useContext(UserContext);
   // because github login will take us completely out of the program, set
   // a session variable for the page referrer, that can be used after login
-  const stripPath = path === "/profile/:candId" ? "/profile" : path;
+  const stripPath =
+    path.slice(-8) === "/:candId" ? path.substring(0, path.length - 8) : path;
   if (!authValue.userInfo) {
     console.log("path: ", stripPath);
     sessionStorage.setItem("referrer", stripPath);

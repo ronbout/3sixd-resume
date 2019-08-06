@@ -34,6 +34,14 @@ function NavSignin() {
             </NavLink>
           </li>
           <li>
+            <NavLink
+              to={"/cand-skills/" + authValue.userInfo.candidateId}
+              className="nav-link"
+            >
+              Cand Skills
+            </NavLink>
+          </li>
+          <li>
             <button id="signin-button" onClick={() => authValue.handleLogout()}>
               Sign Out
             </button>

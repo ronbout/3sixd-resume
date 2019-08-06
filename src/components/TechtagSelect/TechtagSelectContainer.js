@@ -24,8 +24,28 @@ class TechtagSelectContainer extends Component {
   componentDidMount() {
     // need to load techtags.  just load once.
     // they are not being updated programmatically
-    this.loadTechtags();
+    if (this.props.tagOptions) {
+      this.setState({
+        tagOptions: this.props.tagOptions
+      });
+    } else {
+      this.loadTechtags();
+    }
   }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.tagOptions &&
+      JSON.stringify(this.props.tagOptions) !==
+        JSON.stringify(prevProps.tagOptions)
+    ) {
+      this.setState({
+        tagOptions: this.props.tagOptions
+      });
+    }
+  }
+
+  setTagOptions = () => {};
 
   loadTechtags() {
     const apiUrl = `${this.state.apiBase}${API_TAGS}${API_QUERY}`;
