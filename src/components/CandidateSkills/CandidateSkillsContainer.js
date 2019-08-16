@@ -63,42 +63,37 @@ class CandidateSkillsContainer extends Component {
     if (candidateSkillsInfo.error) {
       console.log(candidateSkillsInfo);
     } else {
-      console.log("load candidate skills info: ", candidateSkillsInfo);
       const techtagList = this.buildTagList(candidateSkillsInfo.skills);
       const candidateSkills = {
         ...candidateSkillsInfo,
         id: candId,
         techtags: techtagList
       };
-      this.setState(
-        {
-          candidateSkills
-        },
-        () =>
-          console.log(
-            "candidate skills after building techtag list: ",
-            this.state.candidateSkills
-          )
-      );
+      this.setState({
+        candidateSkills
+      });
     }
   };
 
   buildTagList = skills => {
-    // use reduce to build the techtag list from the skills
     return skills.reduce((list, skill) => {
       if (!skill.resumeTechtagId) return list;
-      if (list[skill.resumeTechtagId]) {
-        list[skill.resumeTechtagId].skills.push({
+      let fndNdx = list.findIndex(tag => tag.id === skill.resumeTechtagId);
+      if (fndNdx !== -1) {
+        list[fndNdx].skills.push({
           skillId: skill.skillId,
           skillName: skill.skillName
         });
       } else {
-        list[skill.resumeTechtagId] = {
+        list.push({
+          id: skill.resumeTechtagId,
+          name: skill.resumeTechtagName,
+          description: skill.resumeTechtagDescription,
           skills: [{ skillId: skill.skillId, skillName: skill.skillName }]
-        };
+        });
       }
       return list;
-    }, {});
+    }, []);
   };
 
   handleUpdate = async skillList => {

@@ -64,7 +64,7 @@ const CandidateSkillsSkillTab = props => {
   });
   return (
     <div>
-      <h1>Candidate Skills Tab</h1>
+      <h1>Candidate Skills</h1>
       <div className="candidate-skill-tab-container">
         <div className="candidate-skill">
           <label>Selected Skill:</label>
