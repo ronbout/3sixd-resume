@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "./css/styles.css";
 import "./css/app.css";
 
-import Error404 from "./components/Error404";
+import Error_404 from "./components/Error_404";
 import Siteheader from "./components/Siteheader/";
 import Footer from "./components/Footer/";
 import Sitebody from "./components/Sitebody/";
@@ -122,7 +122,7 @@ class App extends Component {
                 component={CandidateSkills}
               />
               <PrivateRoute path="/profile" component={CandidateProfile} />
-              <Route component={Error404} />
+              <Route component={Error_404} />
             </Switch>
           </main>
           <footer id="footer">
