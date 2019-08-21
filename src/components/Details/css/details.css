@@ -7,7 +7,7 @@
   -ms-grid-columns: 1fr;
       grid-template-columns: 1fr;
   grid-auto-rows: minmax(75px, auto);
-      grid-template-areas: "title" "image-1" "thing-1" "image-2" "thing-2" "image-3" "thing-3";
+      grid-template-areas: "title" "image-1" "thing-1" "image-2" "thing-2" "image-3" "thing-3";
 }
 
 @media screen and (min-width: 761px) {
@@ -16,7 +16,7 @@
     display: grid;
     -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
-        grid-template-areas: "title title title" "image-1 image-2 image-3" "thing-1 thing-2 thing-3";
+        grid-template-areas: "title title title" "image-1 image-2 image-3" "thing-1 thing-2 thing-3";
   }
   .details #title {
     font-size: 2em;
