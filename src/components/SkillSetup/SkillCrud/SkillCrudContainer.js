@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import SkillCrudForm from "./SkillCrudForm";
+import { objCopy } from "../../../assets/js/library";
 
 const API_SKILL = "skills";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
@@ -33,7 +34,7 @@ class SkillCrudContainer extends Component {
       tabIndex: TECHTAGS_NDX,
       apiBase: window.apiUrl
     };
-    this.state.origForm = this.state.formFields;
+    this.state.origForm = objCopy(this.state.formFields);
   }
 
   componentDidUpdate(prevProps) {
@@ -164,11 +165,16 @@ class SkillCrudContainer extends Component {
   };
 
   handleDelRelatedSkill = (skillFieldName, ndx, event) => {
-    let rSkills = this.state.formFields[skillFieldName];
-    rSkills.splice(ndx, 1);
-
+    let rSkills = objCopy(this.state.formFields[skillFieldName]);
+    let treeList = objCopy(this.state.formFields.treeList);
+    const delSkill = rSkills.splice(ndx, 1);
+    treeList.splice(treeList.indexOf(delSkill[0].id), 1);
     this.setState({
-      formFields: { ...this.state.formFields }
+      formFields: {
+        ...this.state.formFields,
+        [skillFieldName]: rSkills,
+        treeList
+      }
     });
   };
 
@@ -200,19 +206,22 @@ class SkillCrudContainer extends Component {
     // check that a skill is not being related to itself
     if (skillInfo.id === this.state.formFields.id) return;
 
-    let rSkills = this.state.formFields[skillField];
-    // check for duplicate
-    if (
-      rSkills.some(rSkill => {
-        return rSkill.id === skillInfo.id;
-      })
-    )
+    // rSkills is the list of either the parent or child skills
+    // treeList is the entire tree of related skill id's
+    let rSkills = objCopy(this.state.formFields[skillField]);
+    let treeList = objCopy(this.state.formFields.treeList);
+    // check for duplicate in skill tree
+    if (treeList.includes(skillInfo.id)) {
+      console.log(
+        `Skill Id: ${skillInfo.id} is already in the parent or child tree`
+      );
       return;
-
+    }
     rSkills.push(skillInfo);
+    treeList.push(skillInfo.id);
 
     this.setState({
-      formFields: { ...this.state.formFields }
+      formFields: { ...this.state.formFields, [skillField]: rSkills, treeList }
     });
     return true;
   };

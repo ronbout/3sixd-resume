@@ -1,19 +1,11 @@
 import React, { Component } from "react";
 import SkillSearchContainer from "../../search/SkillSearch/";
 import SkillCrudContainer from "../SkillCrud/";
+import dataFetch from "../../../assets/js/dataFetch";
 
 import "./css/skillSetup.css";
 
 const API_SKILLS = "skills";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
-
-function convertNullsToEmpty(obj) {
-  obj.forEach(obj => {
-    Object.keys(obj).forEach(val => {
-      obj[val] = obj[val] ? obj[val] : "";
-    });
-  });
-}
 
 class SkillSetup extends Component {
   constructor(props) {
@@ -47,40 +39,51 @@ class SkillSetup extends Component {
     }
   };
 
-  loadSkill = skillInfo => {
-    // need to fetch related info
-    const apiTechtagsUrl = `${this.state.apiBase}${API_SKILLS}/${
-      skillInfo.id
-    }${API_QUERY}`;
-    fetch(apiTechtagsUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // need to convert nulls to "" for react forms
-          result && convertNullsToEmpty(result.techtags);
-          result && convertNullsToEmpty(result.parentSkills);
-          result && convertNullsToEmpty(result.childSkills);
-          this.setState({
-            skillInfo: {
-              ...skillInfo,
-              techtags: result ? (result.techtags ? result.techtags : []) : [],
-              parentSkills: result
-                ? result.parentSkills
-                  ? result.parentSkills
-                  : []
-                : [],
-              childSkills: result
-                ? result.childSkills
-                  ? result.childSkills
-                  : []
-                : []
-            }
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Error fetching skill techtags: ", error);
+  loadSkill = async skillInfo => {
+    const endpoint = `${API_SKILLS}/${skillInfo.id}`;
+    let result = await dataFetch(endpoint);
+    if (result.error) {
+      this.setState({
+        errMsg: "An unknown error has occurred"
       });
+      console.log(result);
+    } else {
+      // need to make a single array of all related skills
+      // from the entire parent and child trees
+      const treeList = this.getSkillsFromTree(
+        result.parentSkills,
+        "parents"
+      ).concat(this.getSkillsFromTree(result.childSkills, "children"));
+      this.setState({
+        skillInfo: {
+          ...skillInfo,
+          techtags: result ? (result.techtags ? result.techtags : []) : [],
+          parentSkills: result.parentSkills,
+          childSkills: result.childSkills,
+          parentTree: result.parentTree,
+          childTree: result.childTree,
+          treeList
+        }
+      });
+    }
+  };
+
+  getSkillsFromTree = (skillList, relationType = "parents", fullList = []) => {
+    let objectName = relationType === "parents" ? "parents" : "children";
+
+    return skillList
+      .reduce((sArray, skill) => {
+        !fullList.includes(skill.id) &&
+          sArray.push(skill.id) &&
+          fullList.push(skill.id);
+        if (skill[objectName] && skill[objectName].length) {
+          sArray.push(
+            this.getSkillsFromTree(skill[objectName], relationType, fullList)
+          );
+        }
+        return sArray;
+      }, [])
+      .flat(Infinity);
   };
 
   handleChangeMode = editMode => {
