@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SkillSearchContainer from "../../search/SkillSearch/";
 import SkillCrudContainer from "../SkillCrud/";
 import dataFetch from "../../../assets/js/dataFetch";
+import getSkillsFromTree from "../getSkillsFromTree";
 
 import "./css/skillSetup.css";
 
@@ -50,10 +51,10 @@ class SkillSetup extends Component {
     } else {
       // need to make a single array of all related skills
       // from the entire parent and child trees
-      const treeList = this.getSkillsFromTree(
-        result.parentSkills,
-        "parents"
-      ).concat(this.getSkillsFromTree(result.childSkills, "children"));
+      console.log("result: ", result);
+      const treeList = getSkillsFromTree(result.parentTree, "parents").concat(
+        getSkillsFromTree(result.childTree, "children")
+      );
       this.setState({
         skillInfo: {
           ...skillInfo,
@@ -66,24 +67,6 @@ class SkillSetup extends Component {
         }
       });
     }
-  };
-
-  getSkillsFromTree = (skillList, relationType = "parents", fullList = []) => {
-    let objectName = relationType === "parents" ? "parents" : "children";
-
-    return skillList
-      .reduce((sArray, skill) => {
-        !fullList.includes(skill.id) &&
-          sArray.push(skill.id) &&
-          fullList.push(skill.id);
-        if (skill[objectName] && skill[objectName].length) {
-          sArray.push(
-            this.getSkillsFromTree(skill[objectName], relationType, fullList)
-          );
-        }
-        return sArray;
-      }, [])
-      .flat(Infinity);
   };
 
   handleChangeMode = editMode => {

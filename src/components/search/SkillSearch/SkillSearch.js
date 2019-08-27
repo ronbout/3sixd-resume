@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { convertHtmlToText } from "../../../assets/js/library";
 import "./css/skillSearch.css";
 
 const SkillSearch = props => {
@@ -9,17 +10,6 @@ const SkillSearch = props => {
       event && event.preventDefault();
       props.handleSearch();
     }
-  };
-
-  const convertHtmlToText = value => {
-    let d = document.createElement("div");
-    d.innerHTML = value;
-    d.id = "tmp-div";
-    let retVal = d.innerText;
-    document.body.appendChild(d);
-    let tmp = document.getElementById("tmp-div");
-    tmp.parentNode.removeChild(tmp);
-    return retVal;
   };
 
   const displayTechtagSelect = () => {
@@ -148,6 +138,8 @@ const SkillSearch = props => {
                   onClick={() => props.handleSkillClick(ndx)}
                   onDoubleClick={props.handleSelect}
                   title={
+                    `Skill Id: ${skillInfo.id}` +
+                    convertHtmlToText("&#013;&#010;") +
                     (skillInfo.description
                       ? skillInfo.description
                       : "No description available ") +

@@ -2,6 +2,7 @@ import React from "react";
 import TechtagSelectContainer from "../../TechtagSelect/";
 import SkillDescSection from "./SkillDescSection";
 import RelatedItemsList from "./RelatedItemsList";
+import SkillTreeContainer from "./SkillTreeContainer";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   TabbedUI,
@@ -20,11 +21,13 @@ const SkillCrudForm = props => {
             <Tab>Techtags</Tab>
             <Tab>Parent Skills</Tab>
             <Tab>Child Skills</Tab>
+            <Tab>Skill Trees</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>{techTagSection()}</TabPanel>
             <TabPanel>{parentSkillSection()}</TabPanel>
             <TabPanel>{childSkillSection()}</TabPanel>
+            <TabPanel>{skillTreeSection()}</TabPanel>
           </TabPanels>
         </TabbedUI>
       </div>
@@ -59,6 +62,10 @@ const SkillCrudForm = props => {
 
   const childSkillSection = () => {
     return parentChildSkillsSection("childSkills", "Child Skills");
+  };
+
+  const skillTreeSection = () => {
+    return <SkillTreeContainer />;
   };
 
   const techTagSection = () => {

@@ -2,8 +2,11 @@ import React, { Component } from "react";
 
 import SkillCrudForm from "./SkillCrudForm";
 import { objCopy } from "../../../assets/js/library";
+import dataFetch from "../../../assets/js/dataFetch";
+import getSkillsFromTree from "../getSkillsFromTree";
 
 const API_SKILL = "skills";
+const API_RELATED_SKILLS = "skill/relatedtree";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 const TECHTAGS_NDX = 0;
 const PSKILLS_NDX = 1;
@@ -165,14 +168,34 @@ class SkillCrudContainer extends Component {
   };
 
   handleDelRelatedSkill = (skillFieldName, ndx, event) => {
+    let treeName, otherTreeName, subFieldName, otherSubFieldName;
+    if (skillFieldName === "parentSkills") {
+      treeName = "parentTree";
+      otherTreeName = "childTree";
+      subFieldName = "parents";
+      otherSubFieldName = "children";
+    } else {
+      treeName = "childTree";
+      otherTreeName = "parentTree";
+      subFieldName = "children";
+      otherSubFieldName = "parents";
+    }
     let rSkills = objCopy(this.state.formFields[skillFieldName]);
-    let treeList = objCopy(this.state.formFields.treeList);
+    let rTree = objCopy(this.state.formFields[treeName]);
     const delSkill = rSkills.splice(ndx, 1);
-    treeList.splice(treeList.indexOf(delSkill[0].id), 1);
+    rTree.splice(rTree.findIndex(s => s.id === delSkill[0].id), 1);
+    // treeList cannot be altered by just removing the one skill
+    // an entire branch may have just been removed, so it needs to
+    // be completely recalculated
+    const treeList = getSkillsFromTree(rTree, subFieldName).concat(
+      getSkillsFromTree(this.state.formFields[otherTreeName], otherSubFieldName)
+    );
+
     this.setState({
       formFields: {
         ...this.state.formFields,
         [skillFieldName]: rSkills,
+        [treeName]: rTree,
         treeList
       }
     });
@@ -198,32 +221,74 @@ class SkillCrudContainer extends Component {
     return true;
   };
 
-  handleAddRelatedSkill = (skillField, skillInfo) => {
-    // need to check that
-    // 1) a skill is not being related to itself
-    // 2) a duplicate is not being added
-
+  handleAddRelatedSkill = async (skillFieldName, skillInfo) => {
+    let treeName, otherTreeName, subFieldName, otherSubFieldName;
+    if (skillFieldName === "parentSkills") {
+      treeName = "parentTree";
+      otherTreeName = "childTree";
+      subFieldName = "parents";
+      otherSubFieldName = "children";
+    } else {
+      treeName = "childTree";
+      otherTreeName = "parentTree";
+      subFieldName = "children";
+      otherSubFieldName = "parents";
+    }
     // check that a skill is not being related to itself
     if (skillInfo.id === this.state.formFields.id) return;
-
-    // rSkills is the list of either the parent or child skills
-    // treeList is the entire tree of related skill id's
-    let rSkills = objCopy(this.state.formFields[skillField]);
-    let treeList = objCopy(this.state.formFields.treeList);
     // check for duplicate in skill tree
-    if (treeList.includes(skillInfo.id)) {
+    if (this.state.formFields.treeList.includes(skillInfo.id)) {
       console.log(
         `Skill Id: ${skillInfo.id} is already in the parent or child tree`
       );
       return;
     }
+
+    const newTrees = await this.getAddedSkillTrees(skillInfo.id);
+    // false return means error.  Cannot process more and must exit
+    if (!newTrees) return;
+
+    // rSkills is the list of either the parent or child skills
+    let rSkills = objCopy(this.state.formFields[skillFieldName]);
     rSkills.push(skillInfo);
-    treeList.push(skillInfo.id);
+
+    // create a treeName property on the new skill
+    let rTree = objCopy(this.state.formFields[treeName]);
+    const treeSkillInfo = {
+      ...skillInfo,
+      [subFieldName]: newTrees[treeName]
+    };
+    rTree.push(treeSkillInfo);
+
+    // treeList is the entire tree of related skill id's
+    // and needs to be recalculated with the new branch
+    const treeList = getSkillsFromTree(rTree, subFieldName).concat(
+      getSkillsFromTree(this.state.formFields[otherTreeName], otherSubFieldName)
+    );
 
     this.setState({
-      formFields: { ...this.state.formFields, [skillField]: rSkills, treeList }
+      formFields: {
+        ...this.state.formFields,
+        [skillFieldName]: rSkills,
+        [treeName]: rTree,
+        treeList
+      }
     });
     return true;
+  };
+
+  getAddedSkillTrees = async relatedSkillId => {
+    const endpoint = `${API_RELATED_SKILLS}/${relatedSkillId}`;
+    let result = await dataFetch(endpoint);
+    if (result.error) {
+      this.setState({
+        errMsg: "An unknown error has occurred"
+      });
+      console.log(result);
+      return false;
+    } else {
+      return result;
+    }
   };
 
   handleTagStartDrag = tagInfo => {

@@ -5,6 +5,24 @@
  *
  */
 
+/**
+ * This function is used to add CR/LF to a title
+ * attribue for an easy hover tooltip
+ * 'title' does not accept html, so this is one
+ * way around that
+ * most common use case: convertHtmlToText("&#013;&#010;")
+ */
+export const convertHtmlToText = value => {
+  let d = document.createElement("div");
+  d.innerHTML = value;
+  d.id = "tmp-div";
+  let retVal = d.innerText;
+  document.body.appendChild(d);
+  let tmp = document.getElementById("tmp-div");
+  tmp.parentNode.removeChild(tmp);
+  return retVal;
+};
+
 export function isEmail(email) {
   // returns true or false if email is correctly formatted
 
