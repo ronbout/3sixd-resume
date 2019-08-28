@@ -5,6 +5,7 @@ import ObjectiveSummary from "./ObjectiveSummary";
 import Highlights from "./ProfileHighlights";
 import Experience from "./Experience";
 import Education from "./Education";
+import SocialMedia from "./SocialMedia";
 import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
 import { objCopy, convertNullsToEmpty } from "../../assets/js/library";
@@ -34,9 +35,7 @@ class CandidateProfile extends Component {
   }
 
   loadCandidateInfo = candId => {
-    const apiUrl = `${
-      this.state.apiBase
-    }${API_CANDIDATES}/${candId}${API_QUERY}`;
+    const apiUrl = `${this.state.apiBase}${API_CANDIDATES}/${candId}${API_QUERY}`;
     fetch(apiUrl)
       .then(response => {
         response.json().then(result => {
@@ -64,6 +63,8 @@ class CandidateProfile extends Component {
   };
 
   render() {
+    const socialMedia = this.state.formFields.socialMedia;
+    console.log("socialMedia: ", socialMedia);
     return (
       <div className="tsd-container candidate-profile">
         <h1>Candidate Profile Page</h1>
@@ -89,6 +90,19 @@ class CandidateProfile extends Component {
         />
         <Education
           education={this.state.formFields.education}
+          handleUpdate={this.handleUpdate}
+          candId={this.state.candId}
+        />
+        <SocialMedia
+          linkedInLink={
+            socialMedia[
+              socialMedia.findIndex(sm => sm.socialType === "LinkedIn")
+            ].socialLink
+          }
+          githubLink={
+            socialMedia[socialMedia.findIndex(sm => sm.socialType === "Github")]
+              .socialLink
+          }
           handleUpdate={this.handleUpdate}
           candId={this.state.candId}
         />

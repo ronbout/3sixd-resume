@@ -65,7 +65,12 @@ const SkillCrudForm = props => {
   };
 
   const skillTreeSection = () => {
-    return <SkillTreeContainer />;
+    return (
+      <SkillTreeContainer
+        parentTree={props.state.formFields.parentTree}
+        childTree={props.state.formFields.childTree}
+      />
+    );
   };
 
   const techTagSection = () => {

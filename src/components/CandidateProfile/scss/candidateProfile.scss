@@ -73,7 +73,8 @@
   transition-timing-function: ease-in-out;
 }
 
-.objective-form {
+.objective-form,
+.social-form {
   min-width: 1140px;
   display: grid;
   grid-template-columns: 180px 1fr;

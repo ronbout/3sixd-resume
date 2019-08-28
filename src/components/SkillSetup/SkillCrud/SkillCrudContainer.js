@@ -20,7 +20,10 @@ const clearFormFields = {
     url: "",
     techtags: [],
     parentSkills: [],
-    childSkills: []
+    childSkills: [],
+    parentTree: [],
+    childTree: [],
+    treeList: []
   }
 };
 

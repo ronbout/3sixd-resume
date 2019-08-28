@@ -47,8 +47,8 @@ library.add(
 
 // setup global api url
 // if not on my dev, use remote api
-window.apiUrl = "http://localhost/3sixd/api/";
-//window.apiUrl = "http://13.90.143.153/3sixd/api/";
+//window.apiUrl = "http://localhost/3sixd/api/";
+window.apiUrl = "http://13.90.143.153/3sixd/api/";
 
 class App extends Component {
   constructor(props) {

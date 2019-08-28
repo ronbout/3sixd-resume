@@ -26,7 +26,16 @@ export const candidateInfo = {
   experience: "",
   education: "",
   certifications: "",
-  socialMedia: ""
+  socialMedia: [
+    {
+      socialType: "LinkedIn",
+      socialLink: ""
+    },
+    {
+      socialType: "Github",
+      socialLink: ""
+    }
+  ]
 };
 
 /**
