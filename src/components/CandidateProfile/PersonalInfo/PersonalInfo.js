@@ -5,9 +5,9 @@ import PersonalInfoDisp from "./PersonalInfoDisplay";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import PersonalInfoFooter from "./PersonalInfoFooter";
 
-const PersonalInfo = props => {
+const PersonalInfo = ({ person, candId, handleUpdate }) => {
   const handleSubmit = personObj => {
-    props.handleUpdate({ person: personObj });
+    handleUpdate({ person: personObj });
   };
   return (
     <section className="tsd-card personal-info profile-section">
@@ -17,9 +17,12 @@ const PersonalInfo = props => {
         profileSectionCompleted={true}
       />
       <div className="pi-content">
-        <PersonalInfoDisp formattedName={props.person.formattedName} />
+        <PersonalInfoDisp
+          formattedName={person.formattedName}
+          candId={candId}
+        />
         <div id="pi-divider" className="tsd-vdiv" />
-        <PersonalInfoForm handleSubmit={handleSubmit} person={props.person} />
+        <PersonalInfoForm handleSubmit={handleSubmit} person={person} />
       </div>
       <PersonalInfoFooter />
     </section>

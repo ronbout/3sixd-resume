@@ -71,6 +71,7 @@ class CandidateProfile extends Component {
         <PersonalInfo
           person={this.state.formFields.person}
           handleUpdate={this.handleUpdate}
+          candId={this.state.candId}
         />
         <ObjectiveSummary
           objective={this.state.formFields.objective}
