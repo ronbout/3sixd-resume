@@ -5,7 +5,6 @@ import { UserContext } from "../UserProvider";
 import dataFetch from "../../assets/js/dataFetch";
 
 const API_MEMBER = "members";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class RegisterContainer extends Component {
   static contextType = UserContext;
@@ -46,86 +45,72 @@ class RegisterContainer extends Component {
     console.log("Register userInfo: ", userInfo);
     let postBody = { ...userInfo };
     delete postBody.password2;
-    let postConfig = {
-      method: "post",
-      body: JSON.stringify(postBody),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    fetch(`${this.state.apiBase}${API_MEMBER}${API_QUERY}`, postConfig)
-      .then(response => {
-        response.json().then(result => {
-          if (result.error) {
-            this.setState({
-              errMsg:
-                result.errorCode === 23000
-                  ? `Email ${userInfo.email} is already a registered user.`
-                  : result.message,
-              confirmMsg: ""
-            });
-          } else {
-            /**
-             * have to split name out into first last
-             * github does not break it out so not trying
-             * to force first and last just to register
-             */
-            result = result.data;
-            const names = result.fullName
-              .trim()
-              .replace(/\s+/g, ",")
-              .split(",");
-            const givenName = names[0];
-            const familyName = names.length > 1 ? names[1] : names[0];
-            const personInfo = {
-              givenName,
-              familyName,
-              email1: result.email
-            };
-            candidateCreate(personInfo).then(createResp => {
-              console.log("create candidate response: ", createResp);
-              // success.  let user know and log them in
-              // get UserContext and log the user in with new candidate Id
 
-              /**
-               *
-               * need to update members table now with the candidate id
-               * have to do it in this order as I cannot create candidate
-               * w/o knowing that it is a legitimate member.
-               *
-               *
-               */
-              result.candidateId = createResp.id;
+    let endpoint = API_MEMBER;
+    let httpMethod = "POST";
 
-              const endpoint = `${API_MEMBER}/${result.id}`;
-              const body = {
-                candidateId: result.candidateId
-              };
-              const httpMethod = "PUT";
-              dataFetch(endpoint, "", httpMethod, body).then(membersUpdate => {
-                if (membersUpdate.error) {
-                  console.log("Error update Members table: ", membersUpdate);
-                }
-              });
+    let result = await dataFetch(endpoint, "", httpMethod, postBody);
 
-              this.setState(
-                {
-                  confirmMsg: site
-                    ? "You have been successfully registered through " +
-                      site +
-                      "."
-                    : "You have been successfully registered.  Please check your email for confirmation.",
-                  errMsg: ""
-                },
-                () => this.context.handleLogin(result, null, false)
-              );
-            });
-          }
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
+    if (result.error) {
+      this.setState({
+        errMsg:
+          result.errorCode === 23000
+            ? `Email ${userInfo.email} is already a registered user.`
+            : result.message,
+        confirmMsg: ""
       });
+    } else {
+      /**
+       * have to split name out into first last
+       * github does not break it out so not trying
+       * to force first and last just to register
+       */
+      const names = result.fullName
+        .trim()
+        .replace(/\s+/g, ",")
+        .split(",");
+      const givenName = names[0];
+      const familyName = names.length > 1 ? names[1] : names[0];
+      const personInfo = {
+        givenName,
+        familyName,
+        email1: result.email
+      };
+      const createResp = await candidateCreate(personInfo);
+      console.log("create candidate response: ", createResp);
+      // success.  let user know and log them in
+      // get UserContext and log the user in with new candidate Id
+
+      /**
+       *
+       * need to update members table now with the candidate id
+       * have to do it in this order as I cannot create candidate
+       * w/o knowing that it is a legitimate member.
+       *
+       *
+       */
+      result.candidateId = createResp.id;
+
+      endpoint = `${API_MEMBER}/${result.id}`;
+      const body = {
+        candidateId: result.candidateId
+      };
+      httpMethod = "PUT";
+      const membersUpdate = await dataFetch(endpoint, "", httpMethod, body);
+      if (membersUpdate.error) {
+        console.log("Error update Members table: ", membersUpdate);
+      }
+
+      this.setState(
+        {
+          confirmMsg: site
+            ? "You have been successfully registered through " + site + "."
+            : "You have been successfully registered.  Please check your email for confirmation.",
+          errMsg: ""
+        },
+        () => this.context.handleLogin(result, null, false)
+      );
+    }
   };
 
   render() {
