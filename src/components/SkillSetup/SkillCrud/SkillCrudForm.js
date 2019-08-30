@@ -17,7 +17,7 @@ const SkillCrudForm = props => {
     return (
       <div className="related-skill-section">
         <TabbedUI>
-          <TabList>
+          <TabList callBk={tabPanelsCallBk}>
             <Tab>Techtags</Tab>
             <Tab>Parent Skills</Tab>
             <Tab>Child Skills</Tab>
@@ -32,6 +32,10 @@ const SkillCrudForm = props => {
         </TabbedUI>
       </div>
     );
+  };
+
+  const tabPanelsCallBk = activeNdx => {
+    props.handleTabClick(activeNdx);
   };
 
   const parentChildSkillsSection = (skillFieldName, dispName) => {

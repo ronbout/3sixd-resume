@@ -8,7 +8,9 @@ const TabList = props => {
   const children = React.Children.map(props.children, (child, index) => {
     return React.cloneElement(child, {
       activeTab: index === activeIndex,
-      activateTab: () => props.activateTab(index)
+      activateTab: () => props.activateTab(index),
+      callBk: props.callBk,
+      ndx: index
     });
   });
   return <ul className="tab-list">{children}</ul>;
@@ -17,7 +19,13 @@ const TabList = props => {
 const Tab = props => {
   const classes = props.activeTab ? "tab active-tab" : "tab";
   return (
-    <li className={classes} onClick={() => props.activateTab()}>
+    <li
+      className={classes}
+      onClick={() => {
+        props.activateTab();
+        props.callBk(props.ndx);
+      }}
+    >
       {props.children}
     </li>
   );
