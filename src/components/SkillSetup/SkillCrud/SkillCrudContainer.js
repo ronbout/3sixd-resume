@@ -7,7 +7,6 @@ import getSkillsFromTree from "../getSkillsFromTree";
 
 const API_SKILL = "skills";
 const API_RELATED_SKILLS = "skill/relatedtree";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 const TECHTAGS_NDX = 0;
 const PSKILLS_NDX = 1;
 const CSKILLS_NDX = 2;
@@ -99,7 +98,7 @@ class SkillCrudContainer extends Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
 
     // clear out any error msg
@@ -112,44 +111,27 @@ class SkillCrudContainer extends Component {
     // (post vs put)
     const id = this.state.formFields.id;
     const httpMethod = id ? "put" : "post";
-    const basicUrl =
-      (id
-        ? `${this.state.apiBase}${API_SKILL}/${id}`
-        : `${this.state.apiBase}${API_SKILL}`) + API_QUERY;
-    let httpConfig = {
-      method: httpMethod,
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    fetch(basicUrl, httpConfig)
-      .then(response => {
-        response.json().then(result => {
-          // figure out what to do here
-          if (result.error) {
-            this.setState({
-              errMsg:
-                result.errorCode === 45001
-                  ? `Skill ${this.state.formFields.name} already exists.`
-                  : "An unknown error has occurred"
-            });
-          } else {
-            result = result.data;
-            // success.  let user know and clear out form
-            const skillName = this.state.formFields.name;
-            this.handleClear();
-            this.setState({
-              userMsg: `Skill "${skillName}" has been ${
-                httpMethod === "post" ? "created." : "updated."
-              }`
-            });
-          }
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
+    const endpoint = id ? `${API_SKILL}/${id}` : API_SKILL;
+    const result = await dataFetch(endpoint, "", httpMethod, body);
+    // figure out what to do here
+    if (result.error) {
+      this.setState({
+        errMsg:
+          result.errorCode === 45001
+            ? `Skill ${this.state.formFields.name} already exists.`
+            : "An unknown error has occurred"
       });
+      console.log("Error update Skill: ", result);
+    } else {
+      // success.  let user know and clear out form
+      const skillName = this.state.formFields.name;
+      this.handleClear();
+      this.setState({
+        userMsg: `Skill "${skillName}" has been ${
+          httpMethod === "post" ? "created." : "updated."
+        }`
+      });
+    }
   };
 
   handleInputChange = event => {

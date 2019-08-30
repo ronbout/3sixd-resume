@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 import TechtagSelect from "./TechtagSelect";
+import dataFetch from "../../assets/js/dataFetch";
 
 const API_TAGS = "techtags";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 const clearFormFields = {
   formFields: {
@@ -47,28 +47,17 @@ class TechtagSelectContainer extends Component {
 
   setTagOptions = () => {};
 
-  loadTechtags() {
-    const apiUrl = `${this.state.apiBase}${API_TAGS}${API_QUERY}`;
-    fetch(apiUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // need to convert nulls to "" for react forms
-          result &&
-            result.forEach(obj => {
-              Object.keys(obj).forEach(val => {
-                obj[val] = obj[val] ? obj[val] : "";
-              });
-            });
-          this.setState({
-            tagOptions: result ? result : []
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
+  loadTechtags = async () => {
+    const endpoint = API_TAGS;
+    const result = await dataFetch(endpoint);
+    if (result.error) {
+      console.log("Error loading techtags for select list: ", result);
+    } else {
+      this.setState({
+        tagOptions: result ? result : []
       });
-  }
+    }
+  };
 
   handleInputChange = event => {
     const target = event.target;

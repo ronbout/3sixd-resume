@@ -51,7 +51,6 @@ class SkillSetup extends Component {
     } else {
       // need to make a single array of all related skills
       // from the entire parent and child trees
-      console.log("result: ", result);
       const treeList = getSkillsFromTree(result.parentTree, "parents").concat(
         getSkillsFromTree(result.childTree, "children")
       );
