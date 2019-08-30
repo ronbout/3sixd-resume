@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Register from "./Register";
 import { candidateCreate } from "../CandidateSetup/candidateCreate";
 import { UserContext } from "../UserProvider";
+import dataFetch from "../../assets/js/dataFetch";
 
 const API_MEMBER = "members";
 const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
@@ -40,7 +41,7 @@ class RegisterContainer extends Component {
     }
   }
 
-  handleRegister = (userInfo, site = false) => {
+  handleRegister = async (userInfo, site = false) => {
     sessionStorage.removeItem("oauthType");
     console.log("Register userInfo: ", userInfo);
     let postBody = { ...userInfo };
@@ -69,7 +70,8 @@ class RegisterContainer extends Component {
              * github does not break it out so not trying
              * to force first and last just to register
              */
-            const names = result.data.fullName
+            result = result.data;
+            const names = result.fullName
               .trim()
               .replace(/\s+/g, ",")
               .split(",");
@@ -78,13 +80,34 @@ class RegisterContainer extends Component {
             const personInfo = {
               givenName,
               familyName,
-              email1: result.data.email
+              email1: result.email
             };
             candidateCreate(personInfo).then(createResp => {
               console.log("create candidate response: ", createResp);
               // success.  let user know and log them in
               // get UserContext and log the user in with new candidate Id
-              result.data.candidateId = createResp.id;
+
+              /**
+               *
+               * need to update members table now with the candidate id
+               * have to do it in this order as I cannot create candidate
+               * w/o knowing that it is a legitimate member.
+               *
+               *
+               */
+              result.candidateId = createResp.id;
+
+              const endpoint = `${API_MEMBER}/${result.id}`;
+              const body = {
+                candidateId: result.candidateId
+              };
+              const httpMethod = "PUT";
+              dataFetch(endpoint, "", httpMethod, body).then(membersUpdate => {
+                if (membersUpdate.error) {
+                  console.log("Error update Members table: ", membersUpdate);
+                }
+              });
+
               this.setState(
                 {
                   confirmMsg: site

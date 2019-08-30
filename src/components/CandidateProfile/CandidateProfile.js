@@ -8,10 +8,10 @@ import Education from "./Education";
 import SocialMedia from "./SocialMedia";
 import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
-import { objCopy, convertNullsToEmpty } from "../../assets/js/library";
+import { objCopy } from "../../assets/js/library";
+import dataFetch from "../../assets/js/dataFetch";
 
 const API_CANDIDATES = "candidates";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class CandidateProfile extends Component {
   constructor(props) {
@@ -33,24 +33,18 @@ class CandidateProfile extends Component {
     this.state.candId !== "undefined" &&
       this.loadCandidateInfo(this.state.candId);
   }
-
-  loadCandidateInfo = candId => {
-    const apiUrl = `${this.state.apiBase}${API_CANDIDATES}/${candId}${API_QUERY}`;
-    fetch(apiUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // need to convert nulls to "" for react forms
-          result && (result = convertNullsToEmpty(result));
-          console.log("result: ", result);
-          this.setState({
-            formFields: result ? result : candidateInfo
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Candidate Fetch error: ", error);
+  loadCandidateInfo = async candId => {
+    const endpoint = `${API_CANDIDATES}/${candId}`;
+    const candidateApiInfo = await dataFetch(endpoint);
+    if (candidateApiInfo.error) {
+      console.log(candidateApiInfo);
+    } else {
+      const formFields = candidateApiInfo ? candidateApiInfo : candidateInfo;
+      this.setState({
+        formFields,
+        origForm: objCopy(formFields)
       });
+    }
   };
 
   handleUpdate = updateObj => {
@@ -64,7 +58,6 @@ class CandidateProfile extends Component {
 
   render() {
     const socialMedia = this.state.formFields.socialMedia;
-    console.log("socialMedia: ", socialMedia);
     return (
       <div className="tsd-container candidate-profile">
         <h1>Candidate Profile Page</h1>

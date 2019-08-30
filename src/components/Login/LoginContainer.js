@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Login from "./Login";
 import { UserContext } from "../UserProvider";
+import dataFetch from "../../assets/js/dataFetch";
 
 const API_MEMBERS = "members";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class LoginContainer extends Component {
   static contextType = UserContext;
@@ -44,38 +44,30 @@ class LoginContainer extends Component {
     }
   }
 
-  handleLogin = (email, password) => {
-    fetch(
-      `${
-        this.state.apiBase
-      }${API_MEMBERS}${API_QUERY}&password=${password}&email=${email}`
-    )
-      .then(response => {
-        response.json().then(result => {
-          // need to check for user not found
-          console.log("result: ", result.data);
-          if (result.data) {
-            const loginReferrer =
-              this.state.referrer &&
-              (this.state.referrer === "/profile" ||
-                this.state.referrer === "/cand-skills")
-                ? `${this.state.referrer}/${result.data.candidateId}`
-                : this.state.referrer;
-            sessionStorage.removeItem("referrer");
-            sessionStorage.removeItem("oauthType");
-            this.context.handleLogin(result, loginReferrer);
-          } else {
-            if (result.errorCode && result.errorCode === 45002) {
-              this.setState({ errMsg: "Email " + email + " not found." });
-            } else {
-              this.setState({ errMsg: result.message });
-            }
-          }
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
-      });
+  handleLogin = async (email, password) => {
+    const endpoint = API_MEMBERS;
+    const queryStr = `&password=${password}&email=${email}`;
+
+    const result = await dataFetch(endpoint, queryStr);
+    if (result.error) {
+      if (result.errorCode && result.errorCode === 45002) {
+        this.setState({ errMsg: "Email " + email + " not found." });
+        console.log("Email " + email + " not found.");
+      } else {
+        this.setState({ errMsg: result.message });
+      }
+      console.log(result);
+    } else {
+      const loginReferrer =
+        this.state.referrer &&
+        (this.state.referrer === "/profile" ||
+          this.state.referrer === "/cand-skills")
+          ? `${this.state.referrer}/${result.candidateId}`
+          : this.state.referrer;
+      sessionStorage.removeItem("referrer");
+      sessionStorage.removeItem("oauthType");
+      this.context.handleLogin(result, loginReferrer);
+    }
   };
 
   componentWillUnmount = () => {
