@@ -1,4 +1,5 @@
 import React from "react";
+import TechtagDropdown from "./TechtagDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { convertHtmlToText } from "../../../assets/js/library";
@@ -10,67 +11,6 @@ const SkillSearch = props => {
       event && event.preventDefault();
       props.handleSearch();
     }
-  };
-
-  const displayTechtagSelect = () => {
-    const tagList = props.state.tagOptions ? props.state.tagOptions : [];
-    const optionHeight = 23;
-    const OptionRows = Math.min(10, tagList.length);
-    let divHeight = props.state.openTagOptions
-      ? optionHeight * OptionRows + 6
-      : 30;
-    return (
-      <div className="div-select-container" style={{ height: divHeight }}>
-        {(props.state.formFields.tagSelect === -1 ||
-          props.state.openTagOptions) && (
-          <div
-            className="div-select d-flex justify-content-between tag-option"
-            key={-1}
-            data-value="-1"
-            onClick={() => props.handleTagSelect(-1)}
-            value="-1"
-          >
-            <div>Select Techtag to Filter Skills</div>
-
-            <div>
-              <FontAwesomeIcon icon="chevron-down" /> &nbsp;
-            </div>
-          </div>
-        )}
-        {props.state.tagOptions ? (
-          props.state.tagOptions.map((tagInfo, ndx) => {
-            return (
-              (props.state.openTagOptions ||
-                props.state.formFields.tagSelect === ndx) && (
-                <div
-                  className={
-                    "div-select d-flex justify-content-between tag-option" +
-                    (props.state.formFields.tagSelect === ndx
-                      ? " selected"
-                      : "")
-                  }
-                  key={ndx}
-                  data-value={ndx}
-                  onClick={() => props.handleTagSelect(ndx)}
-                  title={tagInfo.description}
-                >
-                  <div>{tagInfo.name}</div>
-                  <div>
-                    {props.state.formFields.tagSelect === ndx &&
-                      !props.state.openTagOptions && (
-                        <FontAwesomeIcon icon="chevron-down" />
-                      )}
-                    &nbsp;
-                  </div>
-                </div>
-              )
-            );
-          })
-        ) : (
-          <p>Loading....</p>
-        )}
-      </div>
-    );
   };
 
   return (
@@ -87,7 +27,12 @@ const SkillSearch = props => {
       <div className="skill-search-form">
         {/* techtag <select> for filter */}
 
-        <div className="form-group">{displayTechtagSelect()}</div>
+        <TechtagDropdown
+          tagOptions={props.state.tagOptions}
+          openTagOptions={props.state.openTagOptions}
+          tagSelect={props.state.formFields.tagSelect}
+          handleTagSelect={props.handleTagSelect}
+        />
 
         {/* keyword entry */}
         <div className="form-group">
