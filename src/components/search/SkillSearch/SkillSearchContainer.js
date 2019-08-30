@@ -5,7 +5,6 @@ import dataFetch from "../../../assets/js/dataFetch";
 
 const API_SKILL_SEARCH = "skills/search/";
 const API_SKILLS = "skills";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 const API_TAGS = "techtags";
 const API_TAG_SKILLS = "techtag_skills/";
 
@@ -33,42 +32,11 @@ class SkillSearchContainer extends Component {
   }
 
   componentDidMount() {
-    this.loadTechtags2();
+    this.loadTechtags();
     this.handleSearch();
   }
 
-  // loadTechtags() {
-  //   const apiUrl = `${this.state.apiBase}${API_TAGS}${API_QUERY}`;
-
-  //   fetch(apiUrl)
-  //     .then(response => {
-  //       response.json().then(result => {
-  //         result = result.data;
-  //         // need to convert nulls to "" for react forms
-  //         result &&
-  //           result.forEach(obj => {
-  //             Object.keys(obj).forEach(val => {
-  //               obj[val] = obj[val] ? obj[val] : "";
-  //             });
-  //           });
-  //         this.setState({
-  //           tagOptions: result ? result : []
-  //         });
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log("Techtag Fetch error: ", error);
-  //     });
-  // }
-
-  /**
-   *
-   * test of the new dataFetch routine
-   * need to see how much it cleans things up
-   *
-   */
-
-  async loadTechtags2() {
+  async loadTechtags() {
     let result = await dataFetch(API_TAGS);
     if (result.error) {
       console.log("Error retrieving techtags: ", result.error);
@@ -91,12 +59,12 @@ class SkillSearchContainer extends Component {
     }
   }
 
-  handleSearch = event => {
+  handleSearch = async event => {
     event && event.preventDefault();
     this.setState({
       loading: true
     });
-    let apiQuery = API_QUERY;
+    let apiQuery = "";
     let skillApi;
     // 3 api possibilities: 1) no keyword, no techtag
     // 2) keyword, no techtag or keyword, techtag
@@ -120,27 +88,16 @@ class SkillSearchContainer extends Component {
       skillApi = API_TAG_SKILLS + techtagId;
     }
 
-    const apiUrl = `${this.state.apiBase}${skillApi}${apiQuery}`;
-    fetch(apiUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // need to convert nulls to "" for react forms
-          result &&
-            result.forEach(obj => {
-              Object.keys(obj).forEach(val => {
-                obj[val] = obj[val] ? obj[val] : "";
-              });
-            });
-          this.setState({
-            skillOptions: result ? result : [],
-            loading: false
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
+    const result = await dataFetch(skillApi, apiQuery);
+    if (result.error) {
+      console.log("Error searching for Skill: ", result);
+      this.setState({ loading: false });
+    } else {
+      this.setState({
+        skillOptions: result ? result : [],
+        loading: false
       });
+    }
   };
 
   handleInputChange = event => {

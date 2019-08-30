@@ -71,67 +71,6 @@ class PersonSetupContainer extends Component {
 
   handleSubmit = () => {
     this.postPerson();
-    // // submit to api and send info back to calling
-    // let body = {
-    //   ...this.state.formFields
-    // };
-    // // need to know if this is a new skill or update
-    // // (post vs put)
-    // const id = this.state.formFields.id;
-    // const httpMethod = id ? "put" : "post";
-    // const basicUrl =
-    //   (id
-    //     ? `${this.state.apiBase}${API_PERSON}/${id}`
-    //     : `${this.state.apiBase}${API_PERSON}`) + API_QUERY;
-    // let httpConfig = {
-    //   method: httpMethod,
-    //   body: JSON.stringify(body),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // };
-
-    // fetch(basicUrl, httpConfig)
-    //   .then(response => {
-    //     response.json().then(result => {
-    //       // figure out what to do here
-    //       if (result.error) {
-    //         this.setState({
-    //           errMsg:
-    //             result.errorCode === 45001
-    //               ? `Person ${
-    //                   this.state.formFields.formattedName
-    //                 } already exists.`
-    //               : "An unknown error has occurred"
-    //         });
-    //       } else {
-    //         result = convertNullsToEmpty(result.data);
-    //         // success.  let user know and clear out form
-    //         /**
-    //          * need some kind of popup message that closes in time or click
-    //          *
-    //          *
-    //          *
-    //          *
-    //          *
-    //          */
-    //         this.setState(
-    //           {
-    //             formFields: result,
-    //             userMsg: `Personal Info has been ${
-    //               httpMethod === "post" ? "created." : "updated."
-    //             }`
-    //           },
-    //           () => {
-    //             this.props.handleSubmit && this.props.handleSubmit(result);
-    //           }
-    //         );
-    //       }
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log("Fetch error: ", error);
-    //   });
   };
 
   postPerson = async () => {

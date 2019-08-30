@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 import PersonSearch from "./PersonSearch";
+import dataFetch from "../../../assets/js/dataFetch";
 
 const API_SKILL_SEARCH = "persons/search";
-const API_QUERY = "?api_cc=three&api_key=fj49fk390gfk3f50";
 
 class PersonSearchContainer extends Component {
   constructor(props) {
@@ -32,12 +32,12 @@ class PersonSearchContainer extends Component {
     });
   };
 
-  handleSearch = event => {
+  handleSearch = async event => {
     event && event.preventDefault();
     this.setState({
       loading: true
     });
-    let apiQuery = API_QUERY;
+    let apiQuery = "";
     // add the query parameters to apiQuery string
     if (this.state.formFields.searchName) {
       apiQuery += `&name=${this.state.formFields.searchName}`;
@@ -48,27 +48,17 @@ class PersonSearchContainer extends Component {
     if (this.state.formFields.searchPhone) {
       apiQuery += `&phone=${this.state.formFields.searchPhone}`;
     }
-    const apiUrl = `${this.state.apiBase}${API_SKILL_SEARCH}${apiQuery}`;
-    fetch(apiUrl)
-      .then(response => {
-        response.json().then(result => {
-          result = result.data;
-          // need to convert nulls to "" for react forms
-          result &&
-            result.forEach(obj => {
-              Object.keys(obj).forEach(val => {
-                obj[val] = obj[val] ? obj[val] : "";
-              });
-            });
-          this.setState({
-            results: result ? result : [],
-            loading: false
-          });
-        });
-      })
-      .catch(error => {
-        console.log("Fetch error: ", error);
+    const endpoint = API_SKILL_SEARCH;
+    const result = await dataFetch(endpoint, apiQuery);
+    if (result.error) {
+      console.log("Error searching for Person: ", result);
+      this.setState({ loading: false });
+    } else {
+      this.setState({
+        results: result ? result : [],
+        loading: false
       });
+    }
   };
 
   handleKeyPress = event => {
