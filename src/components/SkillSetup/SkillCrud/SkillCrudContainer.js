@@ -34,6 +34,8 @@ class SkillCrudContainer extends Component {
       ...clearFormFields,
       errMsg: "",
       userMsg: "",
+      dispUserMsg: false,
+      dispErrMsg: false,
       dragTag: false,
       dragSkill: this.props.dragSkill ? this.props.dragSkill : false,
       tabIndex: TECHTAGS_NDX,
@@ -119,7 +121,8 @@ class SkillCrudContainer extends Component {
         errMsg:
           result.errorCode === 45001
             ? `Skill ${this.state.formFields.name} already exists.`
-            : "An unknown error has occurred"
+            : "An unknown error has occurred",
+        dispErrMsg: true
       });
       console.log("Error update Skill: ", result);
     } else {
@@ -129,7 +132,8 @@ class SkillCrudContainer extends Component {
       this.setState({
         userMsg: `Skill "${skillName}" has been ${
           httpMethod === "post" ? "created." : "updated."
-        }`
+        }`,
+        dispUserMsg: true
       });
     }
   };
@@ -192,6 +196,8 @@ class SkillCrudContainer extends Component {
       ...clearFormFields,
       errMsg: "",
       userMsg: "",
+      dispUserMsg: false,
+      dispErrMsg: false,
       origForm: clearFormFields.formFields
     });
   };
