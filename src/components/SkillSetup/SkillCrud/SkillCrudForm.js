@@ -163,7 +163,6 @@ const SkillCrudForm = props => {
             msg={props.state.userMsg}
             msgHeader="Success!"
             msgType="success"
-            msgStyle={{ backgroundColor: "blue" }}
             handleClose={closeUserMsg}
           />
         )}
