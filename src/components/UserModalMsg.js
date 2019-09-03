@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "../Modal";
+import Modal from "./Modal";
 
 const ModalMsg = ({
 	msgHeader,
@@ -65,6 +65,9 @@ const UserModalMsg = ({
 		modal: {
 			width: "70%",
 			height: "auto",
+			textAlign: "center",
+			color: "black",
+			fontFamily: "'Segoe UI', sans-serif",
 			...mStyles
 		}
 	};
