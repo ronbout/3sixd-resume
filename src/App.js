@@ -50,6 +50,9 @@ library.add(
 //window.apiUrl = "http://localhost/3sixd/api/";
 window.apiUrl = "http://13.90.143.153/3sixd/api/";
 
+//window.resumeUrl = "http://localhost/3sixd/resume-build/resume-pdf.php";
+window.resumeUrl = "http://13.90.143.153/3sixd/resume-build/resume-pdf.php";
+
 class App extends Component {
 	constructor(props) {
 		super(props);
