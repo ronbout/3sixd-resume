@@ -5,7 +5,7 @@ import "./css/styles.css";
 import "./css/app.css";
 
 import Error_404 from "./components/Error_404";
-import Siteheader from "./components/Siteheader/";
+import Siteheader from "components/Siteheader/";
 import Footer from "./components/Footer/";
 import Sitebody from "./components/Sitebody/";
 import SkillSetup from "./components/SkillSetup/";
