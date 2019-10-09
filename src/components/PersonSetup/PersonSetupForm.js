@@ -24,7 +24,7 @@ const PersonSearchPopup = MakePopup(
 );
 
 const PersonSetupForm = props => {
-	const { formFields, BtnSubmit, BtnCancel } = useForm(
+	const { formFields, BtnSubmit, BtnCancel, BtnClear, dirtyMsg } = useForm(
 		props.personInfo,
 		props.clearFormFields,
 		props.handleSubmit
@@ -33,6 +33,7 @@ const PersonSetupForm = props => {
 	const personDetails = () => {
 		return (
 			<section className="candidate-person">
+				{dirtyMsg}
 				<input type="hidden" name="id" value={formFields.id} />
 				{/* Name Row */}
 				<div className="tsd-form-row">
@@ -145,9 +146,7 @@ const PersonSetupForm = props => {
 				)}
 
 				{props.buttons && props.buttons.clear === true && (
-					<Button type="button" color="secondary" onClick={props.handleClear}>
-						Clear
-					</Button>
+					<BtnClear checkDirty />
 				)}
 
 				{props.buttons && props.buttons.search === true && (

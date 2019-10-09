@@ -116,13 +116,14 @@ class PersonSetupContainer extends Component {
 		this.props.handleCancel && this.props.handleCancel();
 	};
 
-	handleClear = () => {
-		// reset state
-		this.setState({
-			formFields: clearFormFields,
-			origForm: objCopy(clearFormFields)
-		});
-	};
+	// handleClear = () => {
+	// 	console.log("handleClear");
+	// 	// reset state
+	// 	this.setState({
+	// 		formFields: clearFormFields,
+	// 		origForm: objCopy(clearFormFields)
+	// 	});
+	// };
 
 	handleInputChange = event => {
 		const target = event.target;
@@ -165,11 +166,10 @@ class PersonSetupContainer extends Component {
 					personInfo={this.state.formFields}
 					clearFormFields={clearFormFields}
 					heading={this.props.heading}
-					dispSearch={this.props.dispSearch}
+					dispSearch={this.state.dispSearch}
 					handleInputChange={this.handleInputChange}
 					handleSubmit={this.handleSubmit}
 					handleCancel={this.handleCancel}
-					handleClear={this.handleClear}
 					handleSearch={this.handleSearch}
 					handlePersonSelect={this.handlePersonSelect}
 					handleClosePersonSearch={this.handleClosePersonSearch}
