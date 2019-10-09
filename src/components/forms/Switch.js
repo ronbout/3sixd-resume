@@ -1,5 +1,5 @@
 import React from "react";
-import SwitchUI from "../../styles/mui/SwitchUI";
+import SwitchUI from "styledComponents/mui/SwitchUI";
 
 const Switch = props => {
 	const { inpType, name, onBlur, ...rest } = props;

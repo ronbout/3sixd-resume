@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PhoneFieldUI from "styles/mui/PhoneFieldUI";
+import PhoneFieldUI from "styledComponents/mui/PhoneFieldUI";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 

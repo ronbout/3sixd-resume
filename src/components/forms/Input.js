@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TextField from "../../styles/mui/TextField";
+import TextField from "styledComponents/mui/TextField";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
@@ -56,7 +56,7 @@ const Input = props => {
 				onKeyDown={handleKeyDown}
 				{...rest}
 			/>
-			<ErrorMsg errMsg={errMsg} />
+			{errMsg ? <ErrorMsg errMsg={errMsg} /> : <p></p>}
 		</div>
 	);
 };

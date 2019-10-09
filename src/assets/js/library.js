@@ -96,3 +96,22 @@ export function convertNullsToEmpty(obj) {
 	// to be here, we have a scalar
 	return obj !== null ? obj : "";
 }
+
+export function getDateStr(date) {
+	// takes a javascript Date object and converts
+	// into yyyy-MM-dd stringify
+
+	if (isNaN(Date.parse(date))) {
+		return "Invalid Date";
+	}
+	return `${date.getFullYear()}-${(date.getMonth() + 1)
+		.toString()
+		.padStart(2, "0")}-${date
+		.getDate()
+		.toString()
+		.padStart(2, "0")}`;
+}
+
+export function createDate(dateStr) {
+	return new Date(dateStr + "T12:00:00");
+}

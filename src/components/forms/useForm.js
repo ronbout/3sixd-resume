@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
-import Button from "styles/mui/Button";
-import UserModalMsg from "../UserModalMsg";
-import { objCopy, deepCompare } from "../../assets/library";
+import Button from "styledComponents/Button";
+import UserModalMsg from "components/UserModalMsg";
+import { objCopy, deepCompare } from "assets/js/library";
 import { FormsContext } from "./FormsContext";
 
 /**
@@ -56,6 +56,7 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 			errorList && errorList.length && setErrors(errorList);
 			if (!errorList.length) {
 				setOrigValues(objCopy(values));
+				console.log("useForm submit: ", values);
 				submitCb(values);
 			}
 		},
@@ -137,8 +138,6 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 		const disabled = props.disabled || state.disableSubmit;
 		return (
 			<Button
-				variant="contained"
-				color="primary"
 				onClick={submitForm}
 				{...props}
 				disabled={disabled}
@@ -169,14 +168,7 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 			: clearForm;
 
 		return (
-			<Button
-				variant="contained"
-				color="primary"
-				type="button"
-				onClick={onClick}
-				onMouseDown={onClick}
-				{...props}
-			>
+			<Button type="button" onClick={onClick} onMouseDown={onClick} {...props}>
 				{children}
 			</Button>
 		);
@@ -206,14 +198,7 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 			  }
 			: onCancel;
 		return (
-			<Button
-				variant="contained"
-				color="primary"
-				type="button"
-				onClick={onClick}
-				onMouseDown={onClick}
-				{...props}
-			>
+			<Button type="button" onClick={onClick} onMouseDown={onClick} {...props}>
 				{children}
 			</Button>
 		);

@@ -1,251 +1,184 @@
 import React from "react";
-
+import { useForm } from "components/forms/useForm";
+import Button from "styledComponents/Button";
 import PersonSearchContainer from "../search/PersonSearch";
 import MakePopup from "../hoc/MakePopup";
+import {
+	InpString,
+	InpEmail,
+	InpUrl,
+	InpPhone,
+	InpZip
+} from "components/forms/formInputs";
 import "./css/personSetup.css";
 
 const PersonSearchPopup = MakePopup(
-  PersonSearchContainer,
-  {
-    right: "100px",
-    top: "200px",
-    width: "344px"
-  },
-  true
+	PersonSearchContainer,
+	{
+		right: "100px",
+		top: "200px",
+		width: "344px"
+	},
+	true
 );
 
 const PersonSetupForm = props => {
-  const personDetails = () => {
-    return (
-      <section className="candidate-person">
-        <input type="hidden" name="id" value={props.state.formFields.id} />
-        {/* Name Row */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">First Name: *</label>
-          <div className="col-3">
-            <input
-              type="text"
-              className="form-control"
-              name="givenName"
-              placeholder="First Name (required)"
-              value={props.state.formFields.givenName}
-              onChange={props.handleInputChange}
-              required
-            />
-          </div>
-          <label className="col-2 col-form-label label-right">
-            Last Name: *
-          </label>
-          <div className="col-3">
-            <input
-              type="text"
-              className="form-control"
-              name="familyName"
-              placeholder="Last Name (required)"
-              value={props.state.formFields.familyName}
-              onChange={props.handleInputChange}
-              required
-            />
-          </div>
-        </div>
-        {/* Email Row */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">Primary Email:</label>
-          <div className="col-6">
-            <input
-              type="email"
-              className="form-control"
-              name="email1"
-              placeholder="Primary Email"
-              value={props.state.formFields.email1}
-              onChange={props.handleInputChange}
-            />
-          </div>
-        </div>
-        {/* Phone Row */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">Mobile Phone:</label>
-          <div className="col-3">
-            <input
-              type="tel"
-              className="form-control"
-              name="mobilePhone"
-              placeholder="Mobile Phone"
-              value={props.state.formFields.mobilePhone}
-              onChange={props.handleInputChange}
-            />
-          </div>
-          <label className="col-2 col-form-label label-right">
-            Work Phone:
-          </label>
-          <div className="col-3">
-            <input
-              type="tel"
-              className="form-control"
-              name="workPhone"
-              placeholder="Work Phone"
-              value={props.state.formFields.workPhone}
-              onChange={props.handleInputChange}
-            />
-          </div>
-        </div>
-        {/* Address Row */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">Address:</label>
-          <div className="col-4">
-            <input
-              type="text"
-              className="form-control"
-              name="addressLine1"
-              placeholder="Street Address"
-              value={props.state.formFields.addressLine1}
-              onChange={props.handleInputChange}
-            />
-          </div>
-          <label className="col-1 col-form-label label-right">Apt #:</label>
-          <div className="col-2">
-            <input
-              type="text"
-              className="form-control"
-              name="addressLine2"
-              placeholder="Apt/Suite"
-              value={props.state.formFields.addressLine2}
-              onChange={props.handleInputChange}
-            />
-          </div>
-        </div>
-        {/* City / State / Zip */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">City/St/Zip/Country:</label>
-          <div className="col-4">
-            <input
-              type="text"
-              className="form-control"
-              name="municipality"
-              placeholder="City"
-              value={props.state.formFields.municipality}
-              onChange={props.handleInputChange}
-            />
-          </div>
-          <div className="col-2">
-            <input
-              type="text"
-              className="form-control"
-              name="region"
-              placeholder="State"
-              value={props.state.formFields.region}
-              onChange={props.handleInputChange}
-            />
-          </div>
-          <div className="col-2">
-            <input
-              type="text"
-              className="form-control"
-              name="postalCode"
-              placeholder="Zip Code"
-              value={props.state.formFields.postalCode}
-              onChange={props.handleInputChange}
-            />
-          </div>
-        </div>
-        {/* Website Row */}
-        <div className="form-group row">
-          <label className="col-2 col-form-label">Country:</label>
-          <div className="col-2">
-            <input
-              type="text"
-              className="form-control"
-              name="countryCode"
-              placeholder="Country"
-              value={props.state.formFields.countryCode}
-              onChange={props.handleInputChange}
-            />
-          </div>
-          <label className="col-2 col-form-label label-right">
-            Website URL:
-          </label>
-          <div className="col-3">
-            <input
-              type="url"
-              className="form-control"
-              name="website"
-              placeholder="Website URL"
-              value={props.state.formFields.website}
-              onChange={props.handleInputChange}
-            />
-          </div>
-        </div>
-      </section>
-    );
-  };
+	const { formFields, BtnSubmit, BtnCancel } = useForm(
+		props.personInfo,
+		props.clearFormFields,
+		props.handleSubmit
+	);
 
-  const buttonSection = () => {
-    return (
-      <div className="button-section">
-        {props.buttons && props.buttons.save === true && (
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={props.handleSubmit}
-          >
-            Save
-          </button>
-        )}
+	const personDetails = () => {
+		return (
+			<section className="candidate-person">
+				<input type="hidden" name="id" value={formFields.id} />
+				{/* Name Row */}
+				<div className="tsd-form-row">
+					<InpString
+						id="givenName"
+						name="givenName"
+						label="First Name *"
+						value={formFields.givenName}
+						autoFocus
+						required
+					/>
+					<InpString
+						id="familyName"
+						name="familyName"
+						label="Last Name *"
+						value={formFields.givenName}
+						required
+					/>
+					<InpEmail
+						id="email"
+						name="email1"
+						label="Primary Email"
+						value={formFields.email1}
+					/>
+				</div>
+				{/* Phone Row */}
+				<div className="tsd-form-row">
+					<InpPhone
+						id="mobilePhone"
+						name="mobilePhone"
+						defaultCountry={"us"}
+						preferredCountries={["us", "gb", "ie", "in"]}
+						label="Mobile Phone"
+						value={formFields.mobilePhone}
+					/>
+					<InpPhone
+						id="workPhone"
+						name="workPhone"
+						defaultCountry={"us"}
+						preferredCountries={["us", "gb", "ie", "in"]}
+						label="Work Phone"
+						value={formFields.workPhone}
+					/>
+				</div>
+				{/* Address Row */}
+				<div className="tsd-form-row">
+					<InpString
+						id="addressLine1"
+						name="addressLine1"
+						label="Street Address"
+						value={formFields.addressLine1}
+					/>
+					<InpString
+						id="addressLine2"
+						name="addressLine2"
+						label="Apt/Suite #"
+						value={formFields.addressLine2}
+					/>
+				</div>
+				{/* City / State / Zip */}
+				<div className="tsd-form-row">
+					<InpString
+						id="municipality"
+						name="municipality"
+						label="City"
+						value={formFields.municipality}
+					/>
+					<InpString
+						id="region"
+						name="region"
+						label="State"
+						value={formFields.region}
+					/>
+					<InpZip
+						id="postalCode"
+						name="postalCode"
+						label="Zipcode"
+						value={formFields.postalCode}
+					/>
+				</div>
+				{/* Website Row */}
+				<div className="tsd-form-row">
+					<InpString
+						id="countryCode"
+						name="countryCode"
+						label="Country"
+						value={formFields.countryCode}
+					/>
+					<InpUrl
+						id="website"
+						name="website"
+						label="Website URL"
+						type="url"
+						value={formFields.website}
+					/>
+				</div>
+			</section>
+		);
+	};
 
-        {props.buttons && props.buttons.cancel === true && (
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={props.handleCancel}
-          >
-            Cancel
-          </button>
-        )}
+	const buttonSection = () => {
+		return (
+			<div className="button-section">
+				{props.buttons && props.buttons.save === true && (
+					<BtnSubmit>Save</BtnSubmit>
+				)}
 
-        {props.buttons && props.buttons.clear === true && (
-          <button
-            type="button"
-            className="btn btn-warning"
-            onClick={props.handleClear}
-          >
-            Clear
-          </button>
-        )}
+				{props.buttons && props.buttons.cancel === true && (
+					<BtnCancel checkDirty onCancel={props.handleCancel} />
+				)}
 
-        {props.buttons && props.buttons.search === true && (
-          <button
-            type="button"
-            className="btn btn-info"
-            onClick={props.handleSearch}
-          >
-            Search
-          </button>
-        )}
-      </div>
-    );
-  };
+				{props.buttons && props.buttons.clear === true && (
+					<Button type="button" color="secondary" onClick={props.handleClear}>
+						Clear
+					</Button>
+				)}
 
-  const dispPersonSearch = () => {
-    return (
-      <PersonSearchPopup
-        handlePersonSelect={props.handlePersonSelect}
-        closeBtn={props.handleClosePersonSearch}
-      />
-    );
-  };
+				{props.buttons && props.buttons.search === true && (
+					<Button type="button" onClick={props.handleSearch}>
+						Search
+					</Button>
+				)}
+			</div>
+		);
+	};
 
-  return (
-    <div className="container-fluid person-main">
-      {props.heading && <h1>{props.heading}</h1>}
-      <div className="person-setup">
-        <div className="person-form">
-          {personDetails()}
-          {buttonSection()}
-          {props.state.dispSearch && dispPersonSearch()}
-        </div>
-      </div>
-    </div>
-  );
+	const dispPersonSearch = () => {
+		return (
+			<PersonSearchPopup
+				handlePersonSelect={props.handlePersonSelect}
+				closeBtn={props.handleClosePersonSearch}
+			/>
+		);
+	};
+
+	return (
+		<div className="container-fluid person-main">
+			{props.heading && <h1>{props.heading}</h1>}
+			<div className="person-setup">
+				<div className="person-form">
+					{personDetails()}
+					{buttonSection()}
+					{props.dispSearch && dispPersonSearch()}
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default PersonSetupForm;

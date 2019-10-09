@@ -4,67 +4,23 @@
 }
 
 .person-setup {
-  font-size: 15px;
+  font-size: 14px;
   text-align: center;
   width: 95%;
   margin: 1em auto;
 }
 
-.person-setup h1 {
-  font-size: 2.2em;
-  text-align: center;
-}
-
-.person-setup h2 {
-  font-size: 1.8em;
-  text-align: center;
-}
-
-.person-setup form,
-.person-setup div,
-.person-setup label,
-.person-setup input,
-.person-setup button,
-.person-setup select,
-.person-setup p {
-  font-size: 1em;
-  line-height: 1.4;
-}
-
-.person-setup input[type="checkbox"] {
-  position: relative;
-  margin: 0 1em;
-  height: 20px;
-  width: 20px;
-}
-
-.person-setup label,
-.person-setup p {
-  margin: 0;
-  padding: calc(0.375rem + 1px) 0;
-}
-
-.person-setup option {
-  font-size: 0.96em;
-  line-height: 1.45;
-  padding-bottom: 2px;
-}
-
-.person-setup option {
-  overflow-x: hidden;
-}
-
-.person-setup input,
-.person-setup select {
-  padding: 0.2em 0.4em;
-  height: auto;
-}
-
 .person-setup .person-form {
+  font-size: 14px;
   background: #ddd;
   color: #212529;
   border: 1px solid black;
   padding: 2em 2em 1em;
+  min-width: 700px;
+}
+
+.person-setup .person-form input.MuiInput-input {
+  font-size: 14px;
 }
 
 .person-setup .button-section button {

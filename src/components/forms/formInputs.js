@@ -7,7 +7,7 @@ import PhoneField from "./PhoneField";
 import Switch from "./Switch";
 import { checkValidForm } from "./checkValidForm";
 import { isEmail, isUrl, isZipcode } from "./validFns";
-import { getDateStr, createDate } from "assets/library.js";
+import { getDateStr, createDate } from "assets/js/library.js";
 
 /**
  *	Form Component

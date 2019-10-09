@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DatePickerUi from "styles/mui/DatePickerUI";
+import DatePickerUi from "styledComponents/mui/DatePickerUI";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 

@@ -1,31 +1,38 @@
 // mixins
-@import "../../../scss/mixins";
+//@import "../../../scss/mixins";
 
 .person-main {
-  text-align: center;
-  margin-top: 2em;
+	text-align: center;
+	margin-top: 2em;
 }
 
 .person-setup {
-  @include lg-form(15px);
-  text-align: center;
-  width: 95%;
-  margin: 1em auto;
+	//@include lg-form(15px);
+	font-size: 14px;
+	text-align: center;
+	width: 95%;
+	margin: 1em auto;
 
-  .person-form {
-    background: #ddd;
-    color: #212529;
-    border: 1px solid black;
-    padding: 2em 2em 1em;
-  }
+	.person-form {
+		font-size: 14px;
+		background: #ddd;
+		color: #212529;
+		border: 1px solid black;
+		padding: 2em 2em 1em;
+		min-width: 700px;
 
-  .button-section {
-    button {
-      margin: 1em;
-    }
-  }
+		input.MuiInput-input {
+			font-size: 14px;
+		}
+	}
 
-  label.col-form-label.label-right {
-    text-align: right;
-  }
+	.button-section {
+		button {
+			margin: 1em;
+		}
+	}
+
+	label.col-form-label.label-right {
+		text-align: right;
+	}
 }

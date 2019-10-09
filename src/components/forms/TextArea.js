@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TextAreaUI from "../../styles/mui/TextAreaUI";
+import TextAreaUI from "styledComponents/mui/TextAreaUI";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
