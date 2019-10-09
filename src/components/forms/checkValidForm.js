@@ -131,12 +131,15 @@ export const checkValidInput = (props, inpName) => {
 };
 
 export const checkValidForm = children => {
+	//console.log("checkValidForm children: ", children);
 	// check against the validation props for each element
 	// and return true if all pass
 	let validForm = { error: false };
 	const childCount = children.length;
 	for (let i = 0; i < childCount && !validForm.error; i++) {
+		//console.log("i of count: ", i, " of ", childCount);
 		let child = children[i];
+		if (child === undefined) continue;
 		if (!child.props) continue;
 		if (child.props && child.props.children) {
 			if (!isArray(child.props.children)) continue;

@@ -56,7 +56,7 @@ const PhoneField = props => {
 				onKeyDown={handleKeyDown}
 				{...rest}
 			/>
-			<ErrorMsg errMsg={errMsg} />
+			{errMsg ? <ErrorMsg errMsg={errMsg} /> : <p></p>}
 		</div>
 	);
 };

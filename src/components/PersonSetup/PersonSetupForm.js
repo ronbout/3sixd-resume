@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "components/forms/useForm";
+import { Form } from "components/forms/formInputs";
 import Button from "styledComponents/Button";
 import PersonSearchContainer from "../search/PersonSearch";
 import MakePopup from "../hoc/MakePopup";
@@ -172,9 +173,11 @@ const PersonSetupForm = props => {
 			{props.heading && <h1>{props.heading}</h1>}
 			<div className="person-setup">
 				<div className="person-form">
-					{personDetails()}
-					{buttonSection()}
-					{props.dispSearch && dispPersonSearch()}
+					<Form className="personal-form">
+						{personDetails()}
+						{buttonSection()}
+						{props.dispSearch && dispPersonSearch()}
+					</Form>
 				</div>
 			</div>
 		</div>

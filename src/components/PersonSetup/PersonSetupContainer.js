@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { FormsProvider } from "components/forms/FormsContext";
 import PersonSetupForm from "./PersonSetupForm";
 import { objCopy } from "../../assets/js/library";
 import dataFetch from "../../assets/js/dataFetch";
@@ -160,20 +160,22 @@ class PersonSetupContainer extends Component {
 
 	render() {
 		return (
-			<PersonSetupForm
-				personInfo={this.state.formFields}
-				clearFormFields={clearFormFields}
-				heading={this.props.heading}
-				dispSearch={this.props.dispSearch}
-				handleInputChange={this.handleInputChange}
-				handleSubmit={this.handleSubmit}
-				handleCancel={this.handleCancel}
-				handleClear={this.handleClear}
-				handleSearch={this.handleSearch}
-				handlePersonSelect={this.handlePersonSelect}
-				handleClosePersonSearch={this.handleClosePersonSearch}
-				buttons={this.state.buttons}
-			/>
+			<FormsProvider>
+				<PersonSetupForm
+					personInfo={this.state.formFields}
+					clearFormFields={clearFormFields}
+					heading={this.props.heading}
+					dispSearch={this.props.dispSearch}
+					handleInputChange={this.handleInputChange}
+					handleSubmit={this.handleSubmit}
+					handleCancel={this.handleCancel}
+					handleClear={this.handleClear}
+					handleSearch={this.handleSearch}
+					handlePersonSelect={this.handlePersonSelect}
+					handleClosePersonSearch={this.handleClosePersonSearch}
+					buttons={this.state.buttons}
+				/>
+			</FormsProvider>
 		);
 	}
 }
