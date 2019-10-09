@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import TextField from "styledComponents/mui/TextField";
-import { checkValidInput } from "./checkValidForm";
+//import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
 const Input = props => {
 	const [errFlg, setErrFlg] = useState(false);
 	const [errMsg, setErrMsg] = useState(props.errMsg);
-	const { inpType, performErrCheck, onBlur, required, ...rest } = props;
+	const { performErrCheck, onBlur, onChange, required, ...rest } = props;
 
 	useEffect(() => {
 		setErrMsg(props.errMsg);
 	}, [props.errMsg]);
 
 	useEffect(() => {
-		const valid = checkValidInput(props, inpType);
-		setErrFlg(!valid);
+		props.value && checkRequired(props.value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props]);
+	}, [props.value]);
 
 	useEffect(() => {
 		setErrFlg(errMsg === true);
@@ -32,6 +31,11 @@ const Input = props => {
 			}
 			return false;
 		}
+	};
+
+	const handleChange = ev => {
+		checkRequired(ev.target.value);
+		onChange(ev);
 	};
 
 	const handleOnBlur = ev => {
@@ -53,6 +57,7 @@ const Input = props => {
 			<TextField
 				error={errFlg}
 				onBlur={handleOnBlur}
+				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 				{...rest}
 			/>

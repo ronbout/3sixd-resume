@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { FormsContext } from "./FormsContext";
 import Input from "./Input";
 import TextArea from "./TextArea";
@@ -20,7 +20,6 @@ export const Form = ({ children, ...props }) => {
 		//console.log(children);
 		const validObj = checkValidForm(children);
 		//console.log("validObj: ", validObj);
-		//console.log("form valid? ", valid);
 		setErrObj(validObj);
 	}, [children]);
 
@@ -53,25 +52,33 @@ export const InpString = props => {
 		...rest
 	} = props;
 
-	const performErrCheck = val => {
-		// check here for maxLimit/min
-		if (minlength !== null && !isNaN(minlength) && val.length < minlength) {
-			setErrMsg(`Must contain ${minlength} characters`);
-			return;
-		} else {
-			if (errMsg) {
-				setErrMsg("");
+	const performErrCheck = useCallback(
+		val => {
+			// check here for maxLimit/min
+			if (minlength !== null && !isNaN(minlength) && val.length < minlength) {
+				setErrMsg(`Must contain ${minlength} characters`);
+				return;
+			} else {
+				if (errMsg) {
+					setErrMsg("");
+				}
 			}
-		}
-		if (maxlength !== null && !isNaN(maxlength) && val.length > maxlength) {
-			setErrMsg(`Max characters: ${maxlength}`);
-			return;
-		} else {
-			if (errMsg) {
-				setErrMsg("");
+			if (maxlength !== null && !isNaN(maxlength) && val.length > maxlength) {
+				setErrMsg(`Max characters: ${maxlength}`);
+				return;
+			} else {
+				if (errMsg) {
+					setErrMsg("");
+				}
 			}
-		}
-	};
+		},
+		[minlength, maxlength, errMsg]
+	);
+
+	useEffect(() => {
+		performErrCheck(props.value);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.value, performErrCheck]);
 
 	const handleChange = ev => {
 		if (errMsg) performErrCheck(ev.target.value);
