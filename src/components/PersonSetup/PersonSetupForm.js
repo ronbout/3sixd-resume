@@ -47,7 +47,7 @@ const PersonSetupForm = props => {
 						id="familyName"
 						name="familyName"
 						label="Last Name *"
-						value={formFields.givenName}
+						value={formFields.familyName}
 						required
 					/>
 					<InpEmail
