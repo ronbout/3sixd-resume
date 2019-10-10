@@ -13,7 +13,7 @@ const PersonalInfoForm = props => {
 				person={props.person}
 				heading={false}
 				handleSubmit={handleFormSubmit}
-				buttons={{ save: true }}
+				buttons={{ save: true, cancel: true }}
 			/>
 		</div>
 	);
