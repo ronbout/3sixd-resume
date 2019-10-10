@@ -25,6 +25,10 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 		setDispModalMsg(false);
 	};
 
+	const cancelForm = () => {
+		setValues({ ...origValues });
+	};
+
 	const closeModalMsg = () => {
 		setDispModalMsg(false);
 	};
@@ -177,7 +181,7 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 	const BtnCancel = ({
 		children = "Cancel",
 		checkDirty = false,
-		onCancel = clearForm,
+		onCancel = cancelForm,
 		...props
 	}) => {
 		const onClick = checkDirty

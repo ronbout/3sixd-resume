@@ -111,20 +111,6 @@ class PersonSetupContainer extends Component {
 		}
 	};
 
-	handleCancel = () => {
-		// just go back with no update
-		this.props.handleCancel && this.props.handleCancel();
-	};
-
-	// handleClear = () => {
-	// 	console.log("handleClear");
-	// 	// reset state
-	// 	this.setState({
-	// 		formFields: clearFormFields,
-	// 		origForm: objCopy(clearFormFields)
-	// 	});
-	// };
-
 	handleInputChange = event => {
 		const target = event.target;
 		const value = target.type === "checkbox" ? target.checked : target.value;
@@ -169,7 +155,6 @@ class PersonSetupContainer extends Component {
 					dispSearch={this.state.dispSearch}
 					handleInputChange={this.handleInputChange}
 					handleSubmit={this.handleSubmit}
-					handleCancel={this.handleCancel}
 					handleSearch={this.handleSearch}
 					handlePersonSelect={this.handlePersonSelect}
 					handleClosePersonSearch={this.handleClosePersonSearch}

@@ -142,7 +142,7 @@ const PersonSetupForm = props => {
 				)}
 
 				{props.buttons && props.buttons.cancel === true && (
-					<BtnCancel checkDirty onCancel={props.handleCancel} />
+					<BtnCancel checkDirty />
 				)}
 
 				{props.buttons && props.buttons.clear === true && (
