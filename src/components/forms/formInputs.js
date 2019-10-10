@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FormsContext } from "./FormsContext";
 import Input from "./Input";
 import TextArea from "./TextArea";
@@ -52,33 +52,25 @@ export const InpString = props => {
 		...rest
 	} = props;
 
-	const performErrCheck = useCallback(
-		val => {
-			// check here for maxLimit/min
-			if (minlength !== null && !isNaN(minlength) && val.length < minlength) {
-				setErrMsg(`Must contain ${minlength} characters`);
-				return;
-			} else {
-				if (errMsg) {
-					setErrMsg("");
-				}
+	const performErrCheck = val => {
+		// check here for maxLimit/min
+		if (minlength !== null && !isNaN(minlength) && val.length < minlength) {
+			setErrMsg(`Must contain ${minlength} characters`);
+			return;
+		} else {
+			if (errMsg) {
+				setErrMsg("");
 			}
-			if (maxlength !== null && !isNaN(maxlength) && val.length > maxlength) {
-				setErrMsg(`Max characters: ${maxlength}`);
-				return;
-			} else {
-				if (errMsg) {
-					setErrMsg("");
-				}
+		}
+		if (maxlength !== null && !isNaN(maxlength) && val.length > maxlength) {
+			setErrMsg(`Max characters: ${maxlength}`);
+			return;
+		} else {
+			if (errMsg) {
+				setErrMsg("");
 			}
-		},
-		[minlength, maxlength, errMsg]
-	);
-
-	useEffect(() => {
-		performErrCheck(props.value);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.value, performErrCheck]);
+		}
+	};
 
 	const handleChange = ev => {
 		if (errMsg) performErrCheck(ev.target.value);
@@ -281,6 +273,10 @@ export const InpUrl = props => {
 	const { state } = useContext(FormsContext);
 
 	const { name, value, onBlur = null, required = false, ...rest } = props;
+
+	// useEffect(() => {
+	// 	console.log("InpUrl useEffect value: ", value);
+	// }, [value]);
 
 	const performErrCheck = val => {
 		// check here for valid email

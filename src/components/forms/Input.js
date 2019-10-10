@@ -13,7 +13,7 @@ const Input = props => {
 	}, [props.errMsg]);
 
 	useEffect(() => {
-		props.value && checkRequired(props.value);
+		(props.value || (!props.value && errMsg)) && checkRequired(props.value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.value]);
 
