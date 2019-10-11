@@ -150,7 +150,7 @@ const PersonSetupForm = props => {
 				)}
 
 				{props.buttons && props.buttons.search === true && (
-					<Button type="button" onClick={props.handleSearch}>
+					<Button type="button" btnType="info" onClick={props.handleSearch}>
 						Search
 					</Button>
 				)}

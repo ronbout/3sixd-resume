@@ -172,7 +172,13 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 			: clearForm;
 
 		return (
-			<Button type="button" onClick={onClick} onMouseDown={onClick} {...props}>
+			<Button
+				type="button"
+				btnType="warning"
+				onClick={onClick}
+				onMouseDown={onClick}
+				{...props}
+			>
 				{children}
 			</Button>
 		);
@@ -202,7 +208,13 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 			  }
 			: onCancel;
 		return (
-			<Button type="button" onClick={onClick} onMouseDown={onClick} {...props}>
+			<Button
+				type="button"
+				btnType="secondary"
+				onClick={onClick}
+				onMouseDown={onClick}
+				{...props}
+			>
 				{children}
 			</Button>
 		);
