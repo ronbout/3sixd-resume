@@ -30,6 +30,7 @@ export const checkValidInput = (props, inpName) => {
 	} else {
 		displayName = props.name;
 	}
+	displayName = props.label ? props.label : displayName;
 	if (props.required && !props.value) {
 		return { ...falseObj, errMsg: `${displayName}: Required Field`, inpName };
 	}
@@ -151,6 +152,7 @@ export const checkValidForm = children => {
 		if (!isInput) continue;
 		// we have an Input component.  See if it is
 		// required and has an empty value
+		//console.log("validForm child: ", child);
 		const props = child.props;
 		validForm = checkValidInput(props, child.type.name);
 
