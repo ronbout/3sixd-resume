@@ -231,12 +231,14 @@ export const InpEmail = props => {
 	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
 
+	const invalidEmailMsg = "Invalid Email format";
+
 	const { name, value, onBlur = null, required = false, ...rest } = props;
 
 	const performErrCheck = val => {
 		// check here for valid email
 		if (!isEmail(val)) {
-			setErrMsg(`Invalid Email format`);
+			setErrMsg(invalidEmailMsg);
 			return;
 		} else {
 			if (errMsg) {
@@ -246,7 +248,7 @@ export const InpEmail = props => {
 	};
 
 	const handleChange = ev => {
-		if (errMsg) performErrCheck(ev.target.value);
+		if (errMsg === invalidEmailMsg) performErrCheck(ev.target.value);
 		state.onChangeFn(ev);
 	};
 

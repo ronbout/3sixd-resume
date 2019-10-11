@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from "react";
 import TextField from "styledComponents/mui/TextField";
-//import { checkValidInput } from "./checkValidForm";
+import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
 const Input = props => {
 	const [errFlg, setErrFlg] = useState(false);
 	const [errMsg, setErrMsg] = useState(props.errMsg);
-	const { performErrCheck, onBlur, onChange, required, ...rest } = props;
+	const {
+		inpType,
+		performErrCheck,
+		onBlur,
+		onChange,
+		required,
+		...rest
+	} = props;
+
+	const reqErrMsg = "This field is required";
 
 	useEffect(() => {
 		setErrMsg(props.errMsg);
 	}, [props.errMsg]);
 
 	useEffect(() => {
-		(props.value || (!props.value && errMsg)) && checkRequired(props.value);
+		let reqErr = false;
+		const valid = checkValidInput(props, inpType);
+		setErrFlg(!valid);
+		props.value && (reqErr = checkRequired(props.value));
+		setErrFlg(reqErr || !valid);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.value]);
 
@@ -23,10 +36,10 @@ const Input = props => {
 
 	const checkRequired = val => {
 		if (required && val.length === 0) {
-			setErrMsg("This field is required");
+			setErrMsg(reqErrMsg);
 			return true;
 		} else {
-			if (errMsg) {
+			if (errMsg === reqErrMsg) {
 				setErrMsg("");
 			}
 			return false;

@@ -3,6 +3,9 @@
  */
 
 export function isEmail(email) {
+	// empty email is not invalid
+	if (!email) return true;
+
 	// test length
 	if (email.length < 6) return false;
 
