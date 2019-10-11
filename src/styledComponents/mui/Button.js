@@ -11,8 +11,6 @@ const Button = ({
 	btnType = null,
 	...rest
 }) => {
-	console.log("btnType, rest: ", btnType, rest);
-
 	const styleBtn = () => {
 		if (!btnType) {
 			return <MuiButton variant={variant} color={color} {...rest} />;

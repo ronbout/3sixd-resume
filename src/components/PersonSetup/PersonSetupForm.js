@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "components/forms/useForm";
-import { Form } from "components/forms/formInputs";
 import Button from "styledComponents/Button";
 import PersonSearchContainer from "../search/PersonSearch";
 import MakePopup from "../hoc/MakePopup";
@@ -9,7 +8,8 @@ import {
 	InpEmail,
 	InpUrl,
 	InpPhone,
-	InpZip
+	InpZip,
+	Form
 } from "components/forms/formInputs";
 import "./css/personSetup.css";
 
@@ -33,7 +33,6 @@ const PersonSetupForm = props => {
 	const personDetails = () => {
 		return (
 			<section className="candidate-person">
-				{dirtyMsg}
 				<input type="hidden" name="id" value={formFields.id} />
 				{/* Name Row */}
 				<div className="tsd-form-row">
@@ -169,6 +168,7 @@ const PersonSetupForm = props => {
 
 	return (
 		<div className="container-fluid person-main">
+			{dirtyMsg}
 			{props.heading && <h1>{props.heading}</h1>}
 			<div className="person-setup">
 				<div className="person-form">

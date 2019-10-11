@@ -139,6 +139,7 @@
   display: grid;
   -ms-grid-columns: 180px 1fr;
       grid-template-columns: 180px 1fr;
+  text-align: center;
 }
 
 .objective-form label,
@@ -162,5 +163,13 @@
 
 .highlight-list {
   margin-bottom: 1em;
+}
+
+.button-section {
+  text-align: center;
+}
+
+.button-section button {
+  margin: 1em;
 }
 /*# sourceMappingURL=candidateProfile.css.map */
