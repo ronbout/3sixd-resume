@@ -5,9 +5,11 @@ import TextArea from "./TextArea";
 import DatePicker from "./DatePicker";
 import PhoneField from "./PhoneField";
 import Switch from "./Switch";
-import { checkValidForm } from "./checkValidForm";
+import { checkValidForm, getFormInputs } from "./checkValidForm";
 import { isEmail, isUrl, isZipcode } from "./validFns";
 import { getDateStr, createDate } from "assets/js/library.js";
+import { isEqual } from "lodash";
+import { usePrevious } from "components/hooks/usePrevious";
 
 /**
  *	Form Component
@@ -16,11 +18,21 @@ export const Form = ({ children, ...props }) => {
 	const [errObj, setErrObj] = useState({ error: false });
 	const { state, dispatch } = useContext(FormsContext);
 
+	const inputs = getFormInputs(children);
+	const prevInputs = usePrevious(inputs);
+
 	useEffect(() => {
-		//console.log(children);
-		const validObj = checkValidForm(children);
-		//console.log("validObj: ", validObj);
-		setErrObj(validObj);
+		const inputProps = inputs.map(input => input.props);
+		const prevInputProps = prevInputs
+			? prevInputs.map(input => input.props)
+			: prevInputs;
+		//console.log("isEqual: ", isEqual(inputProps, prevInputProps));
+		if (!isEqual(inputProps, prevInputProps)) {
+			const validForm = checkValidForm(children);
+			console.log("validForm: ", validForm);
+			setErrObj(validForm);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [children]);
 
 	useEffect(() => {

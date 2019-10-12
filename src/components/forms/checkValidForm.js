@@ -10,6 +10,7 @@ const inpTypes = [
 	"InpTextAsNumber",
 	"InpEmail",
 	"InpPassword",
+	"InpPhone",
 	"InpUrl",
 	"InpZip",
 	"InpTextArea",
@@ -160,4 +161,28 @@ export const checkValidForm = children => {
 	}
 
 	return validForm;
+};
+
+export const getFormInputs = children => {
+	let formInputs = [];
+	const childCount = children.length;
+	for (let i = 0; i < childCount; i++) {
+		//console.log("i of count: ", i, " of ", childCount);
+		let child = children[i];
+		if (child === undefined) continue;
+		if (!child.props) continue;
+		if (child.props && child.props.children) {
+			if (!isArray(child.props.children)) continue;
+			formInputs = formInputs.concat(getFormInputs(child.props.children));
+			continue;
+		}
+		if (!child.type.name) continue;
+		const isInput = inpTypes.includes(child.type.name);
+		if (!isInput) continue;
+		// we have an Input component.  Add it to formInputs
+		formInputs.push(child);
+		//validForm = !props.error
+	}
+
+	return formInputs;
 };
