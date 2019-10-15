@@ -15,12 +15,13 @@ const Input = props => {
 		...rest
 	} = props;
 
-	const reqErrMsg = "This field is required";
+	//const reqErrMsg = "This field is required";
 
 	useEffect(() => {
 		setErrMsg(props.errMsg);
 	}, [props.errMsg]);
 
+	/*
 	useEffect(() => {
 		let reqErr = false;
 		//const valid = checkValidInput(props, inpType);
@@ -30,11 +31,13 @@ const Input = props => {
 		setErrFlg(reqErr || !valid);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.value]);
+*/
 
 	useEffect(() => {
 		setErrFlg(errMsg === true);
 	}, [errMsg]);
 
+	/*
 	const checkRequired = val => {
 		if (required && val.length === 0) {
 			setErrMsg(reqErrMsg);
@@ -46,16 +49,18 @@ const Input = props => {
 			return false;
 		}
 	};
+*/
 
 	const handleChange = ev => {
-		checkRequired(ev.target.value);
+		//checkRequired(ev.target.value);
 		onChange(ev);
 	};
 
 	const handleOnBlur = ev => {
 		const inputVal = ev.target.value;
-		const reqFlg = checkRequired(inputVal);
-		!reqFlg && performErrCheck && performErrCheck(ev.target.value);
+		//const reqFlg = checkRequired(inputVal);
+		//!reqFlg && performErrCheck && performErrCheck(inputVal);
+		performErrCheck && performErrCheck(inputVal);
 		onBlur && onBlur(ev);
 	};
 

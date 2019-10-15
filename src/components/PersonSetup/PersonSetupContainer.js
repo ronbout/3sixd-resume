@@ -111,18 +111,6 @@ class PersonSetupContainer extends Component {
 		}
 	};
 
-	handleInputChange = event => {
-		const target = event.target;
-		const value = target.type === "checkbox" ? target.checked : target.value;
-
-		this.setState({
-			formFields: {
-				...this.state.formFields,
-				[target.name]: value
-			}
-		});
-	};
-
 	handleSearch = () => {
 		this.setState({
 			dispSearch: true
@@ -133,7 +121,7 @@ class PersonSetupContainer extends Component {
 		console.log("person info: ", personInfo);
 		this.setState(
 			{
-				formFields: { ...personInfo }
+				formFields: personInfo
 			},
 			() => this.handleClosePersonSearch()
 		);
@@ -153,7 +141,6 @@ class PersonSetupContainer extends Component {
 					clearFormFields={clearFormFields}
 					heading={this.props.heading}
 					dispSearch={this.state.dispSearch}
-					handleInputChange={this.handleInputChange}
 					handleSubmit={this.handleSubmit}
 					handleSearch={this.handleSearch}
 					handlePersonSelect={this.handlePersonSelect}

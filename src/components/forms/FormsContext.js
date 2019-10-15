@@ -4,26 +4,30 @@ const FormsContext = React.createContext([{}, () => {}]);
 
 const FormsProvider = props => {
 	const formState = {
-		disableSubmit: false,
 		onChangeFn: null,
 		onSubmitFn: null,
-		errMsg: ""
+		resetErrMsg: false,
+		errMsg: { email1: "Hello, Watson" }
 	};
 
 	const formsReducer = (state, action) => {
 		switch (action.type) {
-			case "setDisableSubmit":
-				return {
-					...state,
-					disableSubmit: action.payload.error,
-					errMsg: action.payload.errMsg
-				};
 			case "setOnChangeFn":
 				return { ...state, onChangeFn: action.payload };
 			case "setOnSubmitFn":
 				return { ...state, onSubmitFn: action.payload };
 			case "setErrMsg":
+				return {
+					...state,
+					errMsg: {
+						...state.errMsg,
+						[action.payloadproperty]: action.payload.msg
+					}
+				};
+			case "setErrObj":
 				return { ...state, errMsg: action.payload };
+			case "resetErrMsg":
+				return { ...state, errMsg: {}, resetErrMsg: action.payload };
 			default:
 				return state;
 		}

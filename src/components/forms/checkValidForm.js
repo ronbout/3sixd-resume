@@ -2,7 +2,7 @@
 // to see if it can be submitted.
 // Took out of formInputs.js due to size
 
-import { isEmail, isUrl, isZipcode } from "./validFns";
+import { isEmail, isUrl, isZipcode, convertNameToProperty } from "./formFns";
 import { isArray } from "util";
 
 const inpTypes = [
@@ -18,46 +18,28 @@ const inpTypes = [
 ];
 
 export const checkValidInput = (props, inpName) => {
-	const trueObj = { error: false };
-	const falseObj = {
-		error: true,
-		errMsg: `${props.name} field is Invalid`,
-		inpName
-	};
-	let displayName;
-	if (props.name.includes("-")) {
-		const tmp = props.name.split("-");
-		displayName = tmp[tmp.length - 1];
-	} else {
-		displayName = props.name;
-	}
-	displayName = props.label ? props.label : displayName;
+	// let displayName;
+	// if (props.name.includes("-")) {
+	// 	const tmp = props.name.split("-");
+	// 	displayName = tmp[tmp.length - 1];
+	// } else {
+	// 	displayName = props.name;
+	// }
+	//displayName = props.label ? props.label : displayName;
 	if (props.required && !props.value) {
-		return { ...falseObj, errMsg: `${displayName}: Required Field`, inpName };
+		return `Required Field`;
 	}
 	// check if email
 	if (inpName === "InpEmail" && !isEmail(props.value)) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Invalid Email Format`,
-			inpName
-		};
+		return `Invalid Email Format`;
 	}
 	// check if url
 	if (inpName === "InpUrl" && !isUrl(props.value)) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Invalid URL Format`,
-			inpName
-		};
+		return `Invalid URL Format`;
 	}
 	// check if zipcode
 	if (inpName === "InpZip" && !isZipcode(props.value)) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Invalid Zipcode Format`,
-			inpName
-		};
+		return `Invalid Zipcode Format`;
 	}
 	// check if min/max
 	if (
@@ -66,11 +48,7 @@ export const checkValidInput = (props, inpName) => {
 		!isNaN(props.min) &&
 		props.value < props.min
 	) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Min Value = ${props.min}`,
-			inpName
-		};
+		return `Min Value = ${props.min}`;
 	}
 	if (
 		(props.max || props.max === 0) &&
@@ -78,11 +56,7 @@ export const checkValidInput = (props, inpName) => {
 		!isNaN(props.max) &&
 		props.value > props.max
 	) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Max Value = ${props.max}`,
-			inpName
-		};
+		return `Max Value = ${props.max}`;
 	}
 	// check minlength/maxlength
 	if (
@@ -90,79 +64,65 @@ export const checkValidInput = (props, inpName) => {
 		!isNaN(props.minlength) &&
 		props.value.length < props.minlength
 	) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Min characters = ${props.minlength}`,
-			inpName
-		};
+		return `Min characters = ${props.minlength}`;
 	}
 	if (
 		props.maxlength &&
 		!isNaN(props.maxlength) &&
 		props.value.length > props.maxlength
 	) {
-		return {
-			...falseObj,
-			errMsg: `${displayName}: Max characters = ${props.maxlength}`,
-			inpName
-		};
+		return `Max characters = ${props.maxlength}`;
 	}
 	// check here for props.maxDate/min
 	let testDt;
 	if (props.minDate !== null && !isNaN(Date.parse(props.minDate))) {
 		testDt = new Date(props.minDate);
 		if (props.value < testDt) {
-			return {
-				...falseObj,
-				errMsg: `${displayName}: Earliest date is ${props.minDate}`,
-				inpName
-			};
+			return `Earliest allowed date is ${props.minDate}`;
 		}
 	}
 	if (props.maxDate !== null && !isNaN(Date.parse(props.maxDate))) {
 		testDt = new Date(props.maxDate);
 		if (props.value > testDt) {
-			return {
-				...falseObj,
-				errMsg: `${displayName}: Latest date is ${props.maxDate}`,
-				inpName
-			};
+			return `Latest allowed date is ${props.maxDate}`;
 		}
 	}
-	return trueObj;
+	return "";
 };
 
 export const checkValidForm = children => {
 	//console.log("checkValidForm children: ", children);
 	// check against the validation props for each element
 	// and return true if all pass
-	let validForm = { error: false };
+	let errObj = {};
 	const childCount = children.length;
-	for (let i = 0; i < childCount && !validForm.error; i++) {
+	for (let i = 0; i < childCount; i++) {
 		//console.log("i of count: ", i, " of ", childCount);
 		let child = children[i];
 		if (child === undefined) continue;
 		if (!child.props) continue;
 		if (child.props && child.props.children) {
 			if (!isArray(child.props.children)) continue;
-			validForm = checkValidForm(child.props.children);
+			const tmpObj = checkValidForm(child.props.children);
+			errObj = { ...errObj, ...tmpObj };
 			continue;
 		}
 		if (!child.type.name) continue;
 		const isInput = inpTypes.includes(child.type.name);
 		if (!isInput) continue;
+		if (child.props.disabled) continue;
 		// we have an Input component.  See if it is
-		// required and has an empty value
+		// required and has an invalid value
 		//console.log("validForm child: ", child);
-		const props = child.props;
-		validForm = checkValidInput(props, child.type.name);
-
-		//validForm = !props.error
+		const propertyName = convertNameToProperty(child.props.name);
+		const errMsg = checkValidInput(child.props, child.type.name);
+		if (errMsg) errObj[propertyName] = errMsg;
 	}
 
-	return validForm;
+	return errObj;
 };
 
+/*
 export const getFormInputs = children => {
 	let formInputs = [];
 	const childCount = children.length;
@@ -180,9 +140,11 @@ export const getFormInputs = children => {
 		const isInput = inpTypes.includes(child.type.name);
 		if (!isInput) continue;
 		// we have an Input component.  Add it to formInputs
+		//if (child.props.name === "email1") console.log("email 1 child: ", child);
 		formInputs.push(child);
 		//validForm = !props.error
 	}
 
 	return formInputs;
 };
+*/

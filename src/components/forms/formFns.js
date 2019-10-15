@@ -63,7 +63,11 @@ export function isUrl(url) {
 export function isZipcode(zip) {
 	if (zip === "") return true;
 	if (zip.length < 2) return false;
-	const urlReg = /[0-9a-zA-Z]+/gm;
+	const urlReg = /^[a-z0-9]+$/i;
 
 	return zip.match(urlReg);
+}
+
+export function convertNameToProperty(name) {
+	return name.replace(/-/g, "_");
 }

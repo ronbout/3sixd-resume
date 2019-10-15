@@ -3,6 +3,8 @@ import Button from "styledComponents/Button";
 import UserModalMsg from "components/UserModalMsg";
 import { objCopy, deepCompare } from "assets/js/library";
 import { FormsContext } from "./FormsContext";
+import { isEqual } from "lodash";
+import { usePrevious } from "components/hooks/usePrevious";
 
 /**
  *
@@ -19,14 +21,26 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 	const [errors, setErrors] = useState([]);
 	const { state, dispatch } = useContext(FormsContext);
 
+	const prevOrigValues = usePrevious(origValues);
+	const prevValues = usePrevious(values);
+
+	useEffect(() => {
+		if (!isEqual(origValues, prevOrigValues)) {
+			dispatch({ type: "resetErrMsg", payload: true });
+		}
+	}, [origValues, dispatch, prevOrigValues]);
+
 	const clearForm = () => {
 		setValues({ ...clearValues });
 		setOrigValues({ ...objCopy(clearValues) });
+		dispatch({ type: "resetErrMsg", payload: true });
 		setDispModalMsg(false);
 	};
 
 	const cancelForm = () => {
 		setValues({ ...origValues });
+		console.log("Dispatch reset Err Msg, cancelForm");
+		dispatch({ type: "resetErrMsg", payload: true });
 	};
 
 	const closeModalMsg = () => {
@@ -49,13 +63,19 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 		setValues(objCopy(startValues));
 	}, [startValues]);
 
+	useEffect(() => {
+		if (!isEqual(values, origValues) && state.resetErrMsg) {
+			dispatch({ type: "resetErrMsg", payload: false });
+		}
+	}, [values, origValues, prevValues, dispatch, state.resetErrMsg]);
+
 	/**
 	 * These are the methods that can be performed on the form
 	 * and its input elements
 	 */
 	const submitForm = useCallback(
 		ev => {
-			ev.preventDefault();
+			ev.preventDefault && ev.preventDefault();
 			const errorList = validCb ? validCb(values) : [];
 			errorList && errorList.length && setErrors(errorList);
 			if (!errorList.length) {
@@ -139,14 +159,9 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 
 	const BtnSubmit = props => {
 		const disp = props.children ? props.children : "Submit";
-		const disabled = props.disabled || state.disableSubmit;
+		const disabled = props.disabled;
 		return (
-			<Button
-				onClick={submitForm}
-				{...props}
-				disabled={disabled}
-				tooltip={state.errMsg}
-			>
+			<Button type="submit" {...props} disabled={disabled}>
 				{disp}
 			</Button>
 		);

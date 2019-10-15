@@ -5,22 +5,22 @@ import TextArea from "./TextArea";
 import DatePicker from "./DatePicker";
 import PhoneField from "./PhoneField";
 import Switch from "./Switch";
-import { checkValidForm, getFormInputs } from "./checkValidForm";
-import { isEmail, isUrl, isZipcode } from "./validFns";
+import { checkValidForm } from "./checkValidForm";
+import { isEmail, isUrl, isZipcode, convertNameToProperty } from "./formFns";
 import { getDateStr, createDate } from "assets/js/library.js";
-import { isEqual } from "lodash";
-import { usePrevious } from "components/hooks/usePrevious";
+//import { isEqual } from "lodash";
+//import { usePrevious } from "components/hooks/usePrevious";
 
 /**
  *	Form Component
  */
 export const Form = ({ children, ...props }) => {
-	const [errObj, setErrObj] = useState({ error: false });
 	const { state, dispatch } = useContext(FormsContext);
 
-	const inputs = getFormInputs(children);
-	const prevInputs = usePrevious(inputs);
+	//const inputs = getFormInputs(children);
+	//const prevInputs = usePrevious(inputs);
 
+	/*
 	useEffect(() => {
 		const inputProps = inputs.map(input => input.props);
 		const prevInputProps = prevInputs
@@ -29,19 +29,39 @@ export const Form = ({ children, ...props }) => {
 		//console.log("isEqual: ", isEqual(inputProps, prevInputProps));
 		if (!isEqual(inputProps, prevInputProps)) {
 			const validForm = checkValidForm(children);
-			console.log("validForm: ", validForm);
+			//console.log("validForm: ", validForm);
 			setErrObj(validForm);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [children]);
+	*/
 
+	const formIsValid = () => {
+		const errObj = checkValidForm(children);
+		if (Object.keys(errObj).length > 0) {
+			dispatch({ type: "setErrObj", payload: errObj });
+			return false;
+		}
+		return true;
+	};
+
+	/*
 	useEffect(() => {
 		dispatch({ type: "setDisableSubmit", payload: errObj });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [errObj.errMsg, dispatch]);
+	*/
+
+	const handleSubmit = ev => {
+		ev.preventDefault && ev.preventDefault();
+		console.log("Can I check validation here???");
+		if (formIsValid()) {
+			state.onSubmitFn(ev);
+		}
+	};
 
 	return (
-		<form noValidate autoComplete="off" onSubmit={state.onSubmitFn} {...props}>
+		<form noValidate autoComplete="off" onSubmit={handleSubmit} {...props}>
 			{children}
 		</form>
 	);
@@ -51,9 +71,7 @@ export const Form = ({ children, ...props }) => {
  *	InpString Component
  */
 export const InpString = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const {
 		name,
 		value,
@@ -63,6 +81,20 @@ export const InpString = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for maxLimit/min
@@ -118,9 +150,7 @@ export const InpString = props => {
  *	InpTextAsNumber Component
  */
 export const InpTextAsNumber = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const {
 		name,
 		value,
@@ -130,6 +160,20 @@ export const InpTextAsNumber = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for maxLimit/min
@@ -183,9 +227,7 @@ export const InpTextAsNumber = props => {
  *	InpNumber Component
  */
 export const InpNumber = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const {
 		name,
 		value,
@@ -195,6 +237,20 @@ export const InpNumber = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for maxLimit/min
@@ -240,12 +296,24 @@ export const InpNumber = props => {
  *	InpEmail Component
  */
 export const InpEmail = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
+	const { name, value, onBlur = null, required = false, ...rest } = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const invalidEmailMsg = "Invalid Email format";
-
-	const { name, value, onBlur = null, required = false, ...rest } = props;
 
 	const performErrCheck = val => {
 		// check here for valid email
@@ -283,14 +351,22 @@ export const InpEmail = props => {
  *	InpUrl Component
  */
 export const InpUrl = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const { name, value, onBlur = null, required = false, ...rest } = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
 
-	// useEffect(() => {
-	// 	console.log("InpUrl useEffect value: ", value);
-	// }, [value]);
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for valid email
@@ -328,9 +404,7 @@ export const InpUrl = props => {
  *	InpPassword Component
  */
 export const InpPassword = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const {
 		name,
 		value,
@@ -340,6 +414,20 @@ export const InpPassword = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for maxLimit/min
@@ -385,16 +473,7 @@ export const InpPassword = props => {
  *	InpDate Component
  */
 export const InpDate = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-	const [dateVal, setDateVal] = useState(
-		Date.parse(props.value) ? createDate(props.value) : new Date()
-	);
-
-	useEffect(() => {
-		setDateVal(Date.parse(props.value) ? createDate(props.value) : new Date());
-	}, [props.value]);
-
 	const {
 		name,
 		onBlur = null,
@@ -404,6 +483,27 @@ export const InpDate = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+	const [dateVal, setDateVal] = useState(
+		Date.parse(props.value) ? createDate(props.value) : new Date()
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
+
+	useEffect(() => {
+		setDateVal(Date.parse(props.value) ? createDate(props.value) : new Date());
+	}, [props.value]);
 
 	const minAdjDate = minDate ? createDate(minDate) : null;
 	const maxAdjDate = maxDate ? createDate(maxDate) : null;
@@ -477,9 +577,7 @@ export const InpDate = props => {
  *	InpPhone Component
  */
 export const InpPhone = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const {
 		name,
 		value,
@@ -489,6 +587,20 @@ export const InpPhone = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for maxLimit/min
@@ -548,12 +660,24 @@ export const InpPhone = props => {
  *	InpZip Component
  */
 export const InpZip = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
+	const { name, value, onBlur = null, required = false, ...rest } = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const maxlength = 12;
-
-	const { name, value, onBlur = null, required = false, ...rest } = props;
 
 	const performErrCheck = val => {
 		// check here for valid email
@@ -601,9 +725,7 @@ export const InpZip = props => {
  *	InpTextArea Component
  */
 export const InpTextArea = props => {
-	const [errMsg, setErrMsg] = useState("");
 	const { state } = useContext(FormsContext);
-
 	const {
 		name,
 		value,
@@ -613,6 +735,20 @@ export const InpTextArea = props => {
 		required = false,
 		...rest
 	} = props;
+	const propertyName = convertNameToProperty(name);
+	const [errMsg, setErrMsg] = useState(
+		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
+	);
+
+	useEffect(() => {
+		state.errMsg[propertyName] && setErrMsg(state.errMsg[propertyName]);
+	}, [state.errMsg, propertyName]);
+
+	useEffect(() => {
+		if (state.resetErrMsg && errMsg) {
+			setErrMsg("");
+		}
+	}, [state.resetErrMsg, errMsg]);
 
 	const performErrCheck = val => {
 		// check here for maxLimit/min
