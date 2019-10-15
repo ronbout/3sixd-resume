@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TextAreaUI from "styledComponents/mui/TextAreaUI";
+import TextAreaBase from "styledComponents/TextAreaBase";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
@@ -50,7 +50,7 @@ const Input = props => {
 
 	return (
 		<div className="textarea MuiFormControl-root MuiTextField-root">
-			<TextAreaUI
+			<TextAreaBase
 				error={errFlg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PhoneFieldUI from "styledComponents/mui/PhoneFieldUI";
+import PhoneFieldBase from "styledComponents/PhoneFieldBase";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
@@ -50,7 +50,7 @@ const PhoneField = props => {
 
 	return (
 		<div>
-			<PhoneFieldUI
+			<PhoneFieldBase
 				error={errFlg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}

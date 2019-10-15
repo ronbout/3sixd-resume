@@ -1,5 +1,5 @@
 import React from "react";
-import SwitchUI from "styledComponents/mui/SwitchUI";
+import SwitchBase from "styledComponents/SwitchBase";
 
 const Switch = props => {
 	const { inpType, name, onBlur, ...rest } = props;
@@ -17,7 +17,7 @@ const Switch = props => {
 
 	return (
 		<div>
-			<SwitchUI
+			<SwitchBase
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
 				value={name}

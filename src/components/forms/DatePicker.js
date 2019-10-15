@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DatePickerUi from "styledComponents/mui/DatePickerUI";
+import DatePickerBase from "styledComponents/DatePickerBase";
 import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
@@ -50,7 +50,7 @@ const DatePicker = props => {
 
 	return (
 		<div>
-			<DatePickerUi
+			<DatePickerBase
 				error={errFlg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
