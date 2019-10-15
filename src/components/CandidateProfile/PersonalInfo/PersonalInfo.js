@@ -34,24 +34,16 @@ const PersonalInfo = ({ person, candId, handleUpdate }) => {
 		);
 	};
 
-	const header2 = () => {
-		return (
-			<div>
-				<p>my heading</p>
-			</div>
-		);
-	};
-
 	const ExpandProfileInfo = makeExpansion(PersonalInfoDiv, header);
 
-	// 	<section className="tsd-card personal-info profile-section">
-
 	return (
-		<ExpandProfileInfo
-			person={person}
-			candId={candId}
-			handleUpdate={handleUpdate}
-		/>
+		<section className="tsd-card personal-info profile-section">
+			<ExpandProfileInfo
+				person={person}
+				candId={candId}
+				handleUpdate={handleUpdate}
+			/>
+		</section>
 	);
 };
 
