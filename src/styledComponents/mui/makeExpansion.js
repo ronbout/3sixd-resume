@@ -4,12 +4,14 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-const makeExpansion = (ExpandComponent, heading) => {
+const makeExpansion = (ExpandComponent, Heading) => {
+	console.log("typeof heading: ", typeof Heading);
+	console.log("isValidElement: ", React.isValidElement(Heading));
 	return props => {
 		return (
 			<ExpansionPanel>
 				<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-					{heading}
+					<Heading />
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails>
 					<ExpandComponent {...props} />
