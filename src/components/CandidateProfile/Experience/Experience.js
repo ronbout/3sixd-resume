@@ -1,52 +1,55 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateExperienceContainer from "../../CandidateSetup/formSections/CandidateExperience/";
-import ExperienceFooter from "./ExperienceFooter";
 import { objCopy } from "../../../assets/js/library.js";
+import makeExpansion from "styledComponents/makeExpansion";
+
+const ExperienceDiv = ({ experience, candId, handleExperienceChange }) => {
+	return (
+		<section className="tsd-card Experience profile-section">
+			<CandidateExperienceContainer
+				experience={experience}
+				candId={candId}
+				handleExperienceChange={handleExperienceChange}
+			/>
+		</section>
+	);
+};
 
 const Experience = props => {
-  const [experience, setExperience] = useState(objCopy(props.experience));
-  const [sliderOpen, setSliderOpen] = useState(true);
-  const [divStyle, setDivStyle] = useState({ display: "none" });
+	const [experience, setExperience] = useState(objCopy(props.experience));
 
-  useEffect(() => {
-    setExperience(objCopy(props.experience));
-  }, [props.experience]);
+	useEffect(() => {
+		setExperience(objCopy(props.experience));
+	}, [props.experience]);
 
-  useLayoutEffect(() => {
-    setDivStyle({ height: sliderOpen ? "440px" : "0" });
-  }, [sliderOpen]);
+	const handleExperienceChange = experience => {
+		props.handleUpdate({
+			experience
+		});
+	};
 
-  const handleSlider = () => {
-    setSliderOpen(!sliderOpen);
-  };
+	const header = () => {
+		return (
+			<ProfileSectionHeader
+				headerTitle="Candidate Experience"
+				profilePercentage="20"
+				profileSectionCompleted={true}
+			/>
+		);
+	};
 
-  const handleExperienceChange = experience => {
-    props.handleUpdate({
-      experience
-    });
-  };
+	const ExpandExperienceDiv = makeExpansion(ExperienceDiv, header);
 
-  return (
-    <section className="tsd-card Experience profile-section">
-      <ProfileSectionHeader
-        headerTitle="Candidate Experience"
-        profilePercentage="20"
-        profileSectionCompleted={true}
-        slider="arrow-down"
-        handleSlider={handleSlider}
-      />
-      <div className="slide-section" style={divStyle}>
-        <CandidateExperienceContainer
-          experience={experience}
-          candId={props.candId}
-          handleExperienceChange={handleExperienceChange}
-        />
-        <ExperienceFooter />
-      </div>
-    </section>
-  );
+	return (
+		<section className="tsd-card Experience profile-section">
+			<ExpandExperienceDiv
+				experience={experience}
+				candId={props.candId}
+				handleExperienceChange={handleExperienceChange}
+			/>
+		</section>
+	);
 };
 
 export default Experience;
