@@ -1,12 +1,25 @@
-import React, { useState, useLayoutEffect } from "react";
+import React from "react";
 import { FormsProvider } from "components/forms/FormsContext";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import ObjectiveSummaryForm from "./ObjectiveSummaryForm";
-import ObjectiveSummaryFooter from "./ObjectiveSummaryFooter";
 import dataFetch from "../../../assets/js/dataFetch";
+import makeExpansion from "styledComponents/makeExpansion";
 
 const API_CANDIDATES = "candidates/";
 const API_OBJECTIVE = "/objective";
+
+const ObjectiveSummaryDiv = ({ objective, executiveSummary, handleSubmit }) => {
+	return (
+		<section className="tsd-card personal-info profile-section">
+			<FormsProvider>
+				<ObjectiveSummaryForm
+					formData={{ objective, executiveSummary }}
+					handleSubmit={handleSubmit}
+				/>
+			</FormsProvider>
+		</section>
+	);
+};
 
 const ObjectiveSummary = ({
 	objective,
@@ -14,17 +27,6 @@ const ObjectiveSummary = ({
 	handleUpdate,
 	candId
 }) => {
-	const [sliderOpen, setSliderOpen] = useState(true);
-	const [divStyle, setDivStyle] = useState({ display: "none" });
-
-	const handleSlider = () => {
-		setSliderOpen(!sliderOpen);
-	};
-
-	useLayoutEffect(() => {
-		setDivStyle({ height: sliderOpen ? "390px" : "0" });
-	}, [sliderOpen]);
-
 	const handleSubmit = formData => {
 		const { objective, executiveSummary } = formData;
 		postObjective(formData);
@@ -51,24 +53,25 @@ const ObjectiveSummary = ({
 		}
 	};
 
-	return (
-		<section className="tsd-card objective-summary profile-section">
+	const header = () => {
+		return (
 			<ProfileSectionHeader
 				headerTitle="Objective / Executive Summary"
 				profilePercentage="15"
 				profileSectionCompleted={false}
-				slider="arrow-down"
-				handleSlider={handleSlider}
 			/>
-			<div className="slide-section" style={divStyle}>
-				<FormsProvider>
-					<ObjectiveSummaryForm
-						formData={{ objective, executiveSummary }}
-						handleSubmit={handleSubmit}
-					/>
-					<ObjectiveSummaryFooter />
-				</FormsProvider>
-			</div>
+		);
+	};
+
+	const ExpandObjectiveDiv = makeExpansion(ObjectiveSummaryDiv, header);
+
+	return (
+		<section className="tsd-card objective-summary profile-section">
+			<ExpandObjectiveDiv
+				objective={objective}
+				executiveSummary={executiveSummary}
+				handleSubmit={handleSubmit}
+			/>
 		</section>
 	);
 };
