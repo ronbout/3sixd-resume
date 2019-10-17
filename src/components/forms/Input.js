@@ -72,7 +72,7 @@ const Input = props => {
 	};
 
 	return (
-		<div>
+		<div className="input-div">
 			<TextField
 				error={errFlg}
 				onBlur={handleOnBlur}

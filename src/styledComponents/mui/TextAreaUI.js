@@ -25,14 +25,16 @@ const TextAreaUI = ({
 	}));
 	const classes = useStyles();
 	return (
-		<TextareaAutosize
-			className={classes.textArea}
-			name={name}
-			value={value}
-			type={type}
-			label={label}
-			{...rest}
-		/>
+		<React.Fragment>
+			<label className="MuiFormLabel-root tsd-label">{label}</label>
+			<TextareaAutosize
+				className={classes.textArea}
+				name={name}
+				value={value}
+				type={type}
+				{...rest}
+			/>
+		</React.Fragment>
 	);
 };
 
