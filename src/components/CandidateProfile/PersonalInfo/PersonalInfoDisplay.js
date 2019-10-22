@@ -1,6 +1,7 @@
 import React from "react";
 import ProfileImg from "../ProfileImg";
 import ProfileCompGraph from "../ProfileCompGraph";
+import Button from "styledComponents/Button";
 
 const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
 	return (
@@ -8,19 +9,14 @@ const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
 			<ProfileImg formattedName={formattedName} />
 			<ProfileCompGraph pct={pct} />
 			<div>
-				<button>Manage My Resumes</button>
+				<Button>Manage Resumes</Button>
 			</div>
 			<br />
 			<div>
-				<button>
-					<a
-						href={`${window.resumeUrl}?id=${candId}`}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						Create Resume PDF
-					</a>
-				</button>
+				<Button href={`${window.resumeUrl}?id=${candId}`} target="_blank">
+					{" "}
+					Generate Resume PDF
+				</Button>
 			</div>
 		</div>
 	);

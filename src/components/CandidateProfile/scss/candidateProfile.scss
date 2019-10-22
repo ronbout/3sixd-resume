@@ -13,6 +13,10 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	.personal-info-display {
+		text-align: center;
+	}
 }
 
 .pi-content {

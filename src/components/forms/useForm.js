@@ -6,6 +6,8 @@ import { FormsContext } from "./FormsContext";
 import { isEqual } from "lodash";
 import { usePrevious } from "components/hooks/usePrevious";
 
+import "./css/forms.css";
+
 /**
  *
  * This is the useForm Hook

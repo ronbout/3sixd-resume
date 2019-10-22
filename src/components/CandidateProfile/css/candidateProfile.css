@@ -67,6 +67,10 @@
           align-items: center;
 }
 
+.profile-section .personal-info-display {
+  text-align: center;
+}
+
 .pi-content {
   display: -webkit-box;
   display: -ms-flexbox;
