@@ -14,10 +14,10 @@ import * as serviceWorker from "./serviceWorker";
 
 //JIM: Is there any reason not to put <BroswerRounter> under App.js?
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById("root")
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>,
+	document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
@@ -26,5 +26,5 @@ ReactDOM.render(
 serviceWorker.unregister();
 
 if (module.hot) {
-  // module.hot.accept();
+	// module.hot.accept();
 }

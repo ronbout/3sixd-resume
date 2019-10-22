@@ -4,32 +4,27 @@ import { NavLink } from "react-router-dom";
 import "../../css/nav.css";
 
 const Navmenu = () => {
-  return (
-    <nav className="navbar nav">
-      <ul>
-        <li>
-          <NavLink to="/candidate/setup" className="nav-link">
-            Candidate
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/skill/setup" className="nav-link">
-            Skills
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/company/setup" className="nav-link">
-            Company
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/person/setup" className="nav-link">
-            Person
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
-  );
+	return (
+		<nav className="navbar nav">
+			<ul>
+				<li>
+					<NavLink to="/skill/setup" className="nav-link">
+						Skills
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to="/company/setup" className="nav-link">
+						Company
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to="/person/setup" className="nav-link">
+						Person
+					</NavLink>
+				</li>
+			</ul>
+		</nav>
+	);
 };
 
 export default Navmenu;
