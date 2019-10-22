@@ -10,7 +10,7 @@ const PersonalInfoDiv = ({ person, candId, handleUpdate }) => {
 	};
 
 	return (
-		<section className="tsd-card personal-info profile-section">
+		<section>
 			<div className="pi-content">
 				<PersonalInfoDisp
 					formattedName={person.formattedName}

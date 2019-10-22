@@ -14,8 +14,7 @@ const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
 			<br />
 			<div>
 				<Button href={`${window.resumeUrl}?id=${candId}`} target="_blank">
-					{" "}
-					Generate Resume PDF
+					Resume PDF
 				</Button>
 			</div>
 		</div>
