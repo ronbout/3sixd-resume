@@ -5,7 +5,7 @@ const ProfileCompGraph = ({ pct = 70 }) => {
 	return (
 		<div className="comp-graph-container">
 			<div>
-				<ProgressBar value={pct} />
+				<ProgressBar id="candidate-complete-pct" value={pct} />
 			</div>
 			<p>Profile: {pct} Complete</p>
 		</div>

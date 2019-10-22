@@ -1,5 +1,5 @@
 import React from "react";
-
+import Button from "styledComponents/Button";
 import "./css/modal.css";
 
 const Modal = props => {
@@ -38,13 +38,13 @@ const Modal = props => {
 				</div>
 				{props.hideClose || (
 					<div className="tsd-modal-footer" style={styles.modalFooter || {}}>
-						<button
+						<Button
 							type="button"
 							className="btn btn-secondary"
 							onClick={handleCloseModal}
 						>
 							Close
-						</button>
+						</Button>
 					</div>
 				)}
 			</div>

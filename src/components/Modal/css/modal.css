@@ -23,10 +23,7 @@ body.tsd-modal-open {
 }
 
 .tsd-modal {
-  width: 800px;
-  height: 500px;
   max-height: 100%;
-  border: 3px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,9 +37,9 @@ body.tsd-modal-open {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 2em;
+  padding: 2em 1em;
   z-index: 1010;
-  background: #ddd;
+  background: #fff;
 }
 
 .tsd-modal > div {
