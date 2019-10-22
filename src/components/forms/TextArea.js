@@ -6,7 +6,14 @@ import ErrorMsg from "./ErrorMsg";
 const Input = props => {
 	const [errFlg, setErrFlg] = useState(false);
 	const [errMsg, setErrMsg] = useState(props.errMsg);
-	const { inpType, performErrCheck, onBlur, required, ...rest } = props;
+	const {
+		inpType,
+		performErrCheck,
+		onBlur,
+		required,
+		rows = 1,
+		...rest
+	} = props;
 
 	useEffect(() => {
 		setErrMsg(props.errMsg);
@@ -54,6 +61,7 @@ const Input = props => {
 				error={errFlg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
+				rows={rows}
 				{...rest}
 			/>
 			<ErrorMsg errMsg={errMsg} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextField from "styledComponents/TextField";
 //import { checkValidInput } from "./checkValidForm";
-import ErrorMsg from "./ErrorMsg";
+//import ErrorMsg from "./ErrorMsg";
 
 const Input = props => {
 	const [errFlg, setErrFlg] = useState(false);
@@ -34,7 +34,7 @@ const Input = props => {
 */
 
 	useEffect(() => {
-		setErrFlg(errMsg === true);
+		setErrFlg(errMsg.length > 0);
 	}, [errMsg]);
 
 	/*
@@ -51,9 +51,14 @@ const Input = props => {
 	};
 */
 
-	const handleChange = ev => {
+	const handleChange = val => {
 		//checkRequired(ev.target.value);
-		onChange(ev);
+		// react-md only returns the value
+		// must mimic event to stay consistent
+		const event = { target: {} };
+		event.target.value = val;
+		event.target.name = props.name;
+		onChange(event);
 	};
 
 	const handleOnBlur = ev => {
@@ -78,9 +83,9 @@ const Input = props => {
 				onBlur={handleOnBlur}
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
+				errMsg={errMsg}
 				{...rest}
 			/>
-			{errMsg ? <ErrorMsg errMsg={errMsg} /> : <p></p>}
 		</div>
 	);
 };

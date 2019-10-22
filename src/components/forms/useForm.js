@@ -39,7 +39,6 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 
 	const cancelForm = () => {
 		setValues({ ...origValues });
-		console.log("Dispatch reset Err Msg, cancelForm");
 		dispatch({ type: "resetErrMsg", payload: true });
 	};
 
@@ -80,7 +79,6 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 			errorList && errorList.length && setErrors(errorList);
 			if (!errorList.length) {
 				setOrigValues(objCopy(values));
-				console.log("useForm submit: ", values);
 				submitCb(values);
 			}
 		},

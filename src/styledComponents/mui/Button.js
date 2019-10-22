@@ -2,7 +2,7 @@ import React from "react";
 import MuiButton from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import "./button.css";
+import "../button.css";
 
 const Button = ({
 	variant = "contained",

@@ -63,16 +63,12 @@ const PersonSetupForm = props => {
 					<InpPhone
 						id="mobilePhone"
 						name="mobilePhone"
-						defaultCountry={"us"}
-						preferredCountries={["us", "gb", "ie", "in"]}
 						label="Mobile Phone"
 						value={formFields.mobilePhone}
 					/>
 					<InpPhone
 						id="workPhone"
 						name="workPhone"
-						defaultCountry={"us"}
-						preferredCountries={["us", "gb", "ie", "in"]}
 						label="Work Phone"
 						value={formFields.workPhone}
 					/>

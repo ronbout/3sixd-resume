@@ -3,7 +3,7 @@ import { FormsContext } from "./FormsContext";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import DatePicker from "./DatePicker";
-import PhoneField from "./PhoneField";
+//import PhoneField from "./PhoneField";
 import Switch from "./Switch";
 import { checkValidForm } from "./checkValidForm";
 import { isEmail, isUrl, isZipcode, convertNameToProperty } from "./formFns";
@@ -54,7 +54,6 @@ export const Form = ({ children, ...props }) => {
 
 	const handleSubmit = ev => {
 		ev.preventDefault && ev.preventDefault();
-		console.log("Can I check validation here???");
 		if (formIsValid()) {
 			state.onSubmitFn(ev);
 		}
@@ -513,41 +512,48 @@ export const InpDate = props => {
 	if (maxAdjDate) minMaxDate.maxDate = maxAdjDate;
 
 	const performErrCheck = val => {
-		const minDate = props.minDate ? props.minDate : null;
-		const maxDate = props.maxDate ? props.maxDate : null;
-		let testDt;
-		// check here for maxDate/min
-		if (minDate !== null && !isNaN(Date.parse(minDate))) {
-			testDt = createDate(minDate);
-			if (val < testDt) {
-				setErrMsg(`Earliest date is ${minDate}`);
-				return;
-			}
-			if (errMsg) {
-				setErrMsg("");
-			}
-		} else {
-			if (errMsg) {
-				setErrMsg("");
-			}
-		}
-		if (maxDate !== null && !isNaN(Date.parse(maxDate))) {
-			testDt = createDate(maxDate);
-			if (val > testDt) {
-				setErrMsg(`Latest date is ${maxDate}`);
-				return;
-			}
-			if (errMsg) {
-				setErrMsg("");
-			}
-		} else {
-			if (errMsg) {
-				setErrMsg("");
-			}
-		}
+		return;
+		// const minDate = props.minDate ? props.minDate : null;
+		// const maxDate = props.maxDate ? props.maxDate : null;
+		// let testDt;
+		// // check here for maxDate/min
+		// if (minDate !== null && !isNaN(Date.parse(minDate))) {
+		// 	testDt = createDate(minDate);
+		// 	if (val < testDt) {
+		// 		setErrMsg(`Earliest date is ${minDate}`);
+		// 		return;
+		// 	}
+		// 	if (errMsg) {
+		// 		setErrMsg("");
+		// 	}
+		// } else {
+		// 	if (errMsg) {
+		// 		setErrMsg("");
+		// 	}
+		// }
+		// if (maxDate !== null && !isNaN(Date.parse(maxDate))) {
+		// 	testDt = createDate(maxDate);
+		// 	if (val > testDt) {
+		// 		setErrMsg(`Latest date is ${maxDate}`);
+		// 		return;
+		// 	}
+		// 	if (errMsg) {
+		// 		setErrMsg("");
+		// 	}
+		// } else {
+		// 	if (errMsg) {
+		// 		setErrMsg("");
+		// 	}
+		// }
 	};
 
-	const handleChange = date => {
+	const handleChange = inpDate => {
+		const tmp = inpDate.split("/");
+		const tmpDate = `${tmp[2]}-${tmp[0].padStart(2, "0")}-${tmp[1].padStart(
+			2,
+			"0"
+		)}`;
+		const date = createDate(tmpDate);
 		setDateVal(date);
 		if (errMsg) performErrCheck(date);
 		// unlike EVERY other onChange behavior, this does not
@@ -622,13 +628,9 @@ export const InpPhone = props => {
 		}
 	};
 
-	const handleChange = phone => {
-		// unlike EVERY other onChange behavior, this does not
-		// return an event object, so must mimic one
-		const event = { target: {} };
-		event.target.value = phone;
-		event.target.name = name;
-		state.onChangeFn(event);
+	const handleChange = ev => {
+		if (errMsg) performErrCheck(ev.target.value);
+		state.onChangeFn(ev);
 	};
 
 	const handleInput = ev => {
@@ -641,8 +643,8 @@ export const InpPhone = props => {
 	};
 
 	return (
-		<PhoneField
-			type="text"
+		<Input
+			type="tel"
 			name={name}
 			value={value}
 			onChange={handleChange}
@@ -707,7 +709,7 @@ export const InpZip = props => {
 
 	return (
 		<Input
-			type="zipcode"
+			type="text"
 			name={name}
 			value={value}
 			onChange={handleChange}
@@ -769,10 +771,15 @@ export const InpTextArea = props => {
 			}
 		}
 	};
-
-	const handleChange = ev => {
-		if (errMsg) performErrCheck(ev.target.value);
-		state.onChangeFn(ev);
+	const handleChange = val => {
+		//checkRequired(ev.target.value);
+		// react-md only returns the value
+		// must mimic event to stay consistent
+		const event = { target: {} };
+		event.target.value = val;
+		event.target.name = props.name;
+		if (errMsg) performErrCheck(val);
+		state.onChangeFn(event);
 	};
 
 	const handleInput = ev => {
@@ -809,17 +816,16 @@ export const InpSwitch = props => {
 	const { name, checked, onBlur = null, ...rest } = props;
 
 	const handleChange = ev => {
-		// once again mui screws up the onChange!!!!
-		// have to take the value and convert to name
+		console.log("switch handleChange: ", ev);
 		const event = { target: { type: "checkbox" } };
-		event.target.name = ev.target.value;
-		event.target.checked = ev.target.checked;
+		event.target.name = name;
+		event.target.checked = ev;
 		state.onChangeFn(event);
 	};
 
 	return (
 		<Switch
-			type="checkbox"
+			type="switch"
 			name={name}
 			checked={checked}
 			onChange={handleChange}

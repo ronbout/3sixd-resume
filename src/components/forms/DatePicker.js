@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DatePickerBase from "styledComponents/DatePickerBase";
 import { checkValidInput } from "./checkValidForm";
-import ErrorMsg from "./ErrorMsg";
 
 const DatePicker = props => {
 	const [errFlg, setErrFlg] = useState(false);
@@ -19,7 +18,7 @@ const DatePicker = props => {
 	}, [props]);
 
 	useEffect(() => {
-		setErrFlg(errMsg === true);
+		setErrFlg(errMsg.length > 0);
 	}, [errMsg]);
 
 	const checkRequired = val => {
@@ -49,14 +48,14 @@ const DatePicker = props => {
 	};
 
 	return (
-		<div>
+		<div className="md-grid">
 			<DatePickerBase
 				error={errFlg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
+				errMsg={errMsg}
 				{...rest}
 			/>
-			{errMsg ? <ErrorMsg errMsg={errMsg} /> : <p></p>}
 		</div>
 	);
 };

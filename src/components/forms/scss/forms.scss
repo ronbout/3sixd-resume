@@ -1,9 +1,29 @@
-button {
-	margin: 0 1rem;
+.btns-container {
+	button.md-btn {
+		margin: 2rem 1rem;
+	}
 }
 
 .errorMsg {
 	margin: 0;
 	font-size: 0.9rem;
 	color: red;
+}
+
+.form-container {
+	width: 800px;
+	margin: 1rem auto;
+}
+
+/* form based css for use with material ui inputs */
+.tsd-form-row {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
+
+	> div {
+		flex-grow: 1;
+		text-align: left;
+	}
 }

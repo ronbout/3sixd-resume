@@ -1,10 +1,35 @@
-button {
-  margin: 0 1rem;
+.btns-container button.md-btn {
+  margin: 2rem 1rem;
 }
 
 .errorMsg {
   margin: 0;
   font-size: 0.9rem;
   color: red;
+}
+
+.form-container {
+  width: 800px;
+  margin: 1rem auto;
+}
+
+/* form based css for use with material ui inputs */
+.tsd-form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.tsd-form-row > div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: left;
 }
 /*# sourceMappingURL=forms.css.map */

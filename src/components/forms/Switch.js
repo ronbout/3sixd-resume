@@ -2,7 +2,7 @@ import React from "react";
 import SwitchBase from "styledComponents/SwitchBase";
 
 const Switch = props => {
-	const { inpType, name, onBlur, ...rest } = props;
+	const { inpType, name, checked = false, onBlur, ...rest } = props;
 
 	const handleOnBlur = ev => {
 		onBlur && onBlur(ev);
@@ -20,7 +20,8 @@ const Switch = props => {
 			<SwitchBase
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
-				value={name}
+				checked={checked}
+				name={name}
 				{...rest}
 			/>
 		</div>
