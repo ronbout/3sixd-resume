@@ -115,3 +115,7 @@ export function getDateStr(date) {
 export function createDate(dateStr) {
 	return new Date(dateStr + "T12:00:00");
 }
+
+export function isEmptyObject(obj) {
+	return Object.keys(obj).length === 0;
+}

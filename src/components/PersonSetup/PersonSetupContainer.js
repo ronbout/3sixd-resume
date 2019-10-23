@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { FormsProvider } from "components/forms/FormsContext";
 import PersonSetupForm from "./PersonSetupForm";
-import { objCopy } from "../../assets/js/library";
-import dataFetch from "../../assets/js/dataFetch";
+import { objCopy } from "assets/js/library";
+import dataFetch from "assets/js/dataFetch";
+import { isEmptyObject } from "assets/js/library";
+import Snackbar from "styledComponents/Snackbar";
 
 const API_PERSON = "persons";
 
@@ -49,7 +51,8 @@ class PersonSetupContainer extends Component {
 			dispSearch: false,
 			userMsg: "",
 			buttons,
-			apiBase: window.apiUrl
+			apiBase: window.apiUrl,
+			toast: {}
 		};
 		this.state.origForm = objCopy(formFields);
 	}
@@ -74,6 +77,7 @@ class PersonSetupContainer extends Component {
 	};
 
 	postPerson = async personInfo => {
+		this.closeToast();
 		let body = {
 			...personInfo
 		};
@@ -85,24 +89,24 @@ class PersonSetupContainer extends Component {
 
 		let result = await dataFetch(endpoint, "", httpMethod, body);
 		if (result.error) {
+			const errMsg =
+				result.errorCode === 45001
+					? `Person ${this.state.formFields.formattedName} already exists.`
+					: "An unknown error has occurred";
+			this.addToast(errMsg, "Ok", false);
 			this.setState({
-				errMsg:
-					result.errorCode === 45001
-						? `Person ${this.state.formFields.formattedName} already exists.`
-						: "An unknown error has occurred"
+				errMsg
 			});
 		} else {
-			// success.  let user know and clear out form
-			/**
-			 * need some kind of popup message that closes in time or click
-			 *
-			 */
+			// success.  display toast to userMsg
+			const userMsg = `Personal Info has been ${
+				httpMethod === "post" ? "created." : "updated."
+			}`;
+			this.addToast(userMsg, null, true);
 			this.setState(
 				{
 					formFields: result,
-					userMsg: `Personal Info has been ${
-						httpMethod === "post" ? "created." : "updated."
-					}`
+					userMsg
 				},
 				() => {
 					this.props.handleSubmit && this.props.handleSubmit(result);
@@ -133,21 +137,41 @@ class PersonSetupContainer extends Component {
 		});
 	};
 
+	addToast = (text, action, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		this.setState({ toast });
+	};
+
+	closeToast = () => {
+		this.setState({ toast: {} });
+	};
+
 	render() {
 		return (
-			<FormsProvider>
-				<PersonSetupForm
-					personInfo={this.state.formFields}
-					clearFormFields={clearFormFields}
-					heading={this.props.heading}
-					dispSearch={this.state.dispSearch}
-					handleSubmit={this.handleSubmit}
-					handleSearch={this.handleSearch}
-					handlePersonSelect={this.handlePersonSelect}
-					handleClosePersonSearch={this.handleClosePersonSearch}
-					buttons={this.state.buttons}
-				/>
-			</FormsProvider>
+			<React.Fragment>
+				<FormsProvider>
+					<PersonSetupForm
+						personInfo={this.state.formFields}
+						clearFormFields={clearFormFields}
+						heading={this.props.heading}
+						dispSearch={this.state.dispSearch}
+						handleSubmit={this.handleSubmit}
+						handleSearch={this.handleSearch}
+						handlePersonSelect={this.handlePersonSelect}
+						handleClosePersonSearch={this.handleClosePersonSearch}
+						buttons={this.state.buttons}
+					/>
+				</FormsProvider>
+				{isEmptyObject(this.state.toast) || (
+					<Snackbar
+						text={this.state.toast.text}
+						action={this.state.toast.action}
+						autohide={this.state.toast.autoHide}
+						timeout={this.state.toast.timeout}
+						closeCallBk={this.closeToast}
+					/>
+				)}
+			</React.Fragment>
 		);
 	}
 }

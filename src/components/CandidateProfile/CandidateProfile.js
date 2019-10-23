@@ -11,6 +11,7 @@ import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
 import { objCopy } from "../../assets/js/library";
 import dataFetch from "../../assets/js/dataFetch";
+import { isEqual } from "lodash";
 
 const API_CANDIDATES = "candidates";
 
@@ -34,6 +35,16 @@ class CandidateProfile extends Component {
 		this.state.candId !== "undefined" &&
 			this.loadCandidateInfo(this.state.candId);
 	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		// the section components should not re-render
+		// when they pass update info up to top state
+		return (
+			!isEqual(nextProps, this.props) ||
+			isEqual(this.state.formFields, candidateInfo)
+		);
+	}
+
 	loadCandidateInfo = async candId => {
 		const endpoint = `${API_CANDIDATES}/${candId}`;
 		const candidateApiInfo = await dataFetch(endpoint);
