@@ -29,6 +29,18 @@ const HighlightsDiv = ({
 	);
 };
 
+const header = () => {
+	return (
+		<ProfileSectionHeader
+			headerTitle="Candidate Highlights"
+			profilePercentage="20"
+			profileSectionCompleted={true}
+		/>
+	);
+};
+
+const ExpandHighlightDiv = makeExpansion(HighlightsDiv, header);
+
 const Highlights = props => {
 	const [highlights, setHighlights] = useState(objCopy(props.highlights));
 
@@ -66,18 +78,6 @@ const Highlights = props => {
 		console.log("handle change: ", highlights);
 		setHighlights(highlights);
 	};
-
-	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Candidate Highlights"
-				profilePercentage="20"
-				profileSectionCompleted={true}
-			/>
-		);
-	};
-
-	const ExpandHighlightDiv = makeExpansion(HighlightsDiv, header);
 
 	return (
 		<section className="tsd-card highlights profile-section">
