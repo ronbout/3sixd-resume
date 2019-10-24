@@ -3,7 +3,6 @@ import PersonSetupContainer from "components/PersonSetup/";
 
 const PersonalInfoForm = props => {
 	const handleFormSubmit = personInfo => {
-		console.log("submit: ", personInfo);
 		props.handleSubmit(personInfo);
 	};
 

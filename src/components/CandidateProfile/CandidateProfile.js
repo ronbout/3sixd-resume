@@ -60,12 +60,17 @@ class CandidateProfile extends Component {
 	};
 
 	handleUpdate = updateObj => {
-		this.setState({
-			formFields: {
-				...this.state.formFields,
-				...updateObj
-			}
-		});
+		// this does not really need to be set as once it passes
+		// off the data to the sections, it is no longer involved
+		// turn it off to stop the children from re-rendering
+		/*
+		const newFormFields = {
+			...this.state.formFields,
+			...updateObj
+		};
+
+		this.setState({ formFields: newFormFields });
+		*/
 	};
 
 	render() {

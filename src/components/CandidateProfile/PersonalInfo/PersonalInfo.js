@@ -6,7 +6,7 @@ import ProfileSectionHeader from "../ProfileSectionHeader";
 
 const PersonalInfoDiv = ({ person, candId, handleUpdate }) => {
 	const handleSubmit = personObj => {
-		handleUpdate({ person: personObj });
+		//handleUpdate({ person: personObj });
 	};
 
 	return (

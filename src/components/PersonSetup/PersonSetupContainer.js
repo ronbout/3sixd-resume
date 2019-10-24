@@ -93,7 +93,7 @@ class PersonSetupContainer extends Component {
 				result.errorCode === 45001
 					? `Person ${this.state.formFields.formattedName} already exists.`
 					: "An unknown error has occurred";
-			this.addToast(errMsg, "Ok", false);
+			this.addToast(errMsg, "Close", false);
 			this.setState({
 				errMsg
 			});
@@ -102,7 +102,7 @@ class PersonSetupContainer extends Component {
 			const userMsg = `Personal Info has been ${
 				httpMethod === "post" ? "created." : "updated."
 			}`;
-			this.addToast(userMsg, null, true);
+			this.addToast(userMsg);
 			this.setState(
 				{
 					formFields: result,
