@@ -1,31 +1,33 @@
 .skills-list {
-  min-height: 100px;
-  width: 80%;
-  margin: auto;
-  border: 1px solid gray;
-  text-align: left;
-  overflow: hidden;
-  overflow-y: auto;
+	min-height: 100px;
+	width: 80%;
+	margin: auto;
+	padding: 4px;
+	border: 1px solid gray;
+	text-align: left;
+	overflow: hidden;
+	overflow-y: auto;
 
-  .badge {
-    font-size: 1em;
-    padding: 0.75em 0.5em;
-    margin: 1em;
-  }
-  button#btn-add-skill {
-    margin: 1em;
-  }
+	button {
+		margin: 6px;
+	}
 
-  .del-skill-badge {
-    float: right;
-    margin-left: 2em;
-  }
+	.badge {
+		font-size: 1em;
+		padding: 0.75em 0.5em;
+		margin: 1em;
+	}
 
-  .badge-edit {
-    cursor: pointer;
-  }
+	.del-skill-badge {
+		float: right;
+		margin-left: 2em;
+	}
 
-  .btn-add-skill {
-    padding: 0.5rem 0.75rem;
-  }
+	.badge-edit {
+		cursor: pointer;
+	}
+
+	.btn-add-skill {
+		padding: 0.5rem 0.75rem;
+	}
 }
