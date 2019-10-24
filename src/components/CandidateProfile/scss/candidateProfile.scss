@@ -81,9 +81,8 @@
 
 .objective-form,
 .social-form {
-	min-width: 1140px;
-	display: grid;
-	grid-template-columns: 180px 1fr;
+	width: 80%;
+	margin: auto;
 	text-align: center;
 
 	label {
@@ -110,6 +109,7 @@
 
 .button-section {
 	text-align: center;
+	margin-top: 7px;
 
 	button {
 		margin: 1em;

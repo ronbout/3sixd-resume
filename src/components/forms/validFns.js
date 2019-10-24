@@ -64,3 +64,5 @@ export function isZipcode(zip) {
 
 	return zip.match(urlReg);
 }
+
+export function isPhone(phone) {}

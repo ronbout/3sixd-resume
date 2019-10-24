@@ -139,11 +139,8 @@
 
 .objective-form,
 .social-form {
-  min-width: 1140px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 180px 1fr;
-      grid-template-columns: 180px 1fr;
+  width: 80%;
+  margin: auto;
   text-align: center;
 }
 
@@ -172,6 +169,7 @@
 
 .button-section {
   text-align: center;
+  margin-top: 7px;
 }
 
 .button-section button {

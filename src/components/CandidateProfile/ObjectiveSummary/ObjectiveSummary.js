@@ -10,7 +10,7 @@ const API_OBJECTIVE = "/objective";
 
 const ObjectiveSummaryDiv = ({ objective, executiveSummary, handleSubmit }) => {
 	return (
-		<section className="tsd-card personal-info profile-section">
+		<section>
 			<FormsProvider>
 				<ObjectiveSummaryForm
 					formData={{ objective, executiveSummary }}

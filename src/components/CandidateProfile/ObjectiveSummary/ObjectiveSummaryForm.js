@@ -14,8 +14,8 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 			<div className="objective-form">
 				<InpTextArea
 					id="objective"
-					label="Objectie"
-					rows={4}
+					label="Objective"
+					rows={1}
 					maxLength={499}
 					name="objective"
 					value={formFields.objective}
@@ -23,7 +23,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 				<InpTextArea
 					id="executiveSummary"
 					label="Executive Summary"
-					rows={6}
+					rows={2}
 					name="executiveSummary"
 					value={formFields.executiveSummary}
 				/>
