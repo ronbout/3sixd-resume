@@ -10,7 +10,13 @@ import { isEmptyObject } from "assets/js/library";
 const API_CANDIDATES = "candidates/";
 const API_OBJECTIVE = "/objective";
 
-const ObjectiveSummaryDiv = ({ objective, executiveSummary, handleSubmit }) => {
+const ObjectiveSummaryDiv = ({
+	objective,
+	executiveSummary,
+	handleSubmit,
+	toast,
+	closeToast
+}) => {
 	return (
 		<section>
 			<FormsProvider>
@@ -19,6 +25,15 @@ const ObjectiveSummaryDiv = ({ objective, executiveSummary, handleSubmit }) => {
 					handleSubmit={handleSubmit}
 				/>
 			</FormsProvider>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					closeCallBk={closeToast}
+				/>
+			)}
 		</section>
 	);
 };
@@ -92,16 +107,9 @@ const ObjectiveSummary = ({ objective, executiveSummary, candId }) => {
 				objective={candObjective}
 				executiveSummary={candSummary}
 				handleSubmit={handleSubmit}
+				toast={toast}
+				closeToast={closeToast}
 			/>
-			{isEmptyObject(toast) || (
-				<Snackbar
-					text={toast.text}
-					action={toast.action}
-					autohide={toast.autoHide}
-					timeout={toast.timeout}
-					closeCallBk={closeToast}
-				/>
-			)}
 		</section>
 	);
 };
