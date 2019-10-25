@@ -31,7 +31,7 @@ const HighlightsExpContainer = props => {
 
 		let result = await dataFetch(endpoint, "", httpMethod, body);
 		if (result.error) {
-			console.log(result.error);
+			console.log(result);
 		} else {
 			// need user message here
 			/* 			props.handleUpdate({

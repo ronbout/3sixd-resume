@@ -34,7 +34,7 @@ const ObjectiveSummaryContainer = ({ objective, executiveSummary, candId }) => {
 
 		let result = await dataFetch(endpoint, "", httpMethod, body);
 		if (result.error) {
-			console.log(result.error);
+			console.log(result);
 			addToast("An unknown error occurred", "Close", false);
 		} else {
 			setCandObjective(objective);
