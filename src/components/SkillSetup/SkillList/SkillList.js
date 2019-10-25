@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Chip from "styledComponents/Chip";
-import Button from "styledComponents/Button";
 import SkillSearchContainer from "../../search/SkillSearch/";
 import MakePopup from "../../hoc/MakePopup";
 import dataFetch from "../../../assets/js/dataFetch";
@@ -122,7 +121,7 @@ const SkillList = props => {
 						<Chip
 							id="btn-add-skill"
 							label="Add Skill"
-							labelStyle={{ fontWeight: "bold" }}
+							className="chip-btn"
 							onClick={handleOpenSkillSearch}
 						/>
 					</React.Fragment>

@@ -16,7 +16,7 @@ const HighlightsDiv = ({
 	handleSubmit
 }) => {
 	return (
-		<section className="tsd-card highlights profile-section">
+		<section>
 			<HighlightsContainer
 				highlights={highlights}
 				handleHighlightChange={handleHighlightChange}
