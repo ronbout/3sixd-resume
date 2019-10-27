@@ -1,12 +1,12 @@
 import React from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
-import HighlightsExpContainer from "./HighlightsExpContainer";
+import HighlightsContainer from "./HighlightsContainer";
 import makeExpansion from "styledComponents/makeExpansion";
 
 const HighlightsDiv = ({ highlights, candId }) => {
 	return (
 		<section>
-			<HighlightsExpContainer highlights={highlights} candId={candId} />
+			<HighlightsContainer highlights={highlights} candId={candId} />
 		</section>
 	);
 };

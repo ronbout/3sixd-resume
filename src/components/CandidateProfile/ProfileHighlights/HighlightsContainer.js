@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import HighlightsContainer from "../../CandidateSetup/formSections/HighlightsContainer";
+import HighlightsFormContainer from "../highlights/HighlightsFormContainer";
 import HighlightsFooter from "./HighlightsFooter";
 import { objCopy } from "../../../assets/js/library.js";
 import dataFetch from "../../../assets/js/dataFetch";
@@ -7,7 +7,7 @@ import dataFetch from "../../../assets/js/dataFetch";
 const API_CANDIDATES = "candidates/";
 const API_HIGHLIGHTS = "/highlights";
 
-const HighlightsExpContainer = props => {
+const HighlightsContainer = props => {
 	const [highlights, setHighlights] = useState(objCopy(props.highlights));
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ const HighlightsExpContainer = props => {
 
 	return (
 		<section>
-			<HighlightsContainer
+			<HighlightsFormContainer
 				highlights={highlights}
 				handleHighlightChange={handleHighlightChange}
 				includeInSummary={false}
@@ -59,4 +59,4 @@ const HighlightsExpContainer = props => {
 	);
 };
 
-export default HighlightsExpContainer;
+export default HighlightsContainer;
