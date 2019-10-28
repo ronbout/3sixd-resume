@@ -24,6 +24,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 					id="executiveSummary"
 					label="Executive Summary"
 					rows={2}
+					maxLength={999}
 					name="executiveSummary"
 					value={formFields.executiveSummary}
 				/>
