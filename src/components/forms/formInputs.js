@@ -116,7 +116,15 @@ export const InpString = props => {
 	};
 
 	const handleChange = ev => {
+		// if the value is a numeric, convert to number
+		// otherwise, the comparison against original value
+		// will fail string vs. number
+		const value = ev.target.value;
+		const val = isNaN(Number(value)) ? value : Number(value);
 		if (errMsg) performErrCheck(ev.target.value);
+		// have to convert back to event
+		const event = { ...ev };
+		event.target.value = val;
 		state.onChangeFn(ev);
 	};
 

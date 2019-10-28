@@ -159,7 +159,7 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 
 	const BtnSubmit = props => {
 		const disp = props.children ? props.children : "Submit";
-		const disabled = props.disabled;
+		const disabled = props.disabled || isEqual(values, origValues);
 		return (
 			<Button type="submit" {...props} disabled={disabled}>
 				{disp}

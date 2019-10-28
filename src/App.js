@@ -10,7 +10,7 @@ import Footer from "./components/Footer/";
 import Sitebody from "./components/Sitebody/";
 import SkillSetup from "./components/SkillSetup/";
 import CompanySetup from "./components/CompanySetup/";
-import CandidateSetup from "./components/CandidateSetup/";
+//import CandidateSetup from "./components/CandidateSetup/";
 import CandidateProfile from "./components/CandidateProfile/";
 import CandidateSkills from "./components/CandidateSkills/";
 import PersonSetup from "./components/PersonSetup/";
@@ -106,10 +106,6 @@ class App extends Component {
 					<main id="body">
 						<Switch>
 							<PrivateRoute path="/skill/setup" component={SkillSetup} />
-							<PrivateRoute
-								path="/candidate/setup"
-								component={CandidateSetup}
-							/>
 							<PrivateRoute path="/company/setup" component={CompanySetup} />
 							<PrivateRoute path="/person/setup" component={PersonSetup} />
 							<Route path="/signin" component={LoginContainer} />
