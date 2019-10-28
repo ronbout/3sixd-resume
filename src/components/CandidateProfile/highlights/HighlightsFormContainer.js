@@ -26,8 +26,8 @@ const HighlightsFormContainer = props => {
 		props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
 	};
 
-	const handleOnChange = event => {
-		setNewHightlight(event.target.value);
+	const handleOnChange = newHighlight => {
+		setNewHightlight(newHighlight);
 	};
 
 	const handleAddHighlight = () => {

@@ -16,7 +16,6 @@ const HighlightsContainer = props => {
 
 	const handleSubmit = async event => {
 		event && event.preventDefault();
-		console.log("Highlights api update goes here");
 		// api update and then pass new data up
 		postHighlights();
 	};
@@ -41,7 +40,6 @@ const HighlightsContainer = props => {
 	};
 
 	const handleHighlightChange = highlights => {
-		console.log("handle change: ", highlights);
 		setHighlights(highlights);
 	};
 

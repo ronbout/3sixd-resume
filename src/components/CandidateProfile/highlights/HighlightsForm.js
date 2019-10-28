@@ -1,5 +1,6 @@
 import React from "react";
-
+import TextAreaBase from "styledComponents/TextAreaBase";
+import Button from "styledComponents/Button";
 import SkillList from "../../SkillSetup/SkillList";
 import ListingHoc from "../../hoc/ListingHoc";
 import HighlightDetail from "./HighlightDetail";
@@ -26,26 +27,26 @@ const HighlightsForm = props => {
 				<div className="highlight-row">
 					<div />
 					<div>
-						<textarea
-							className=""
-							rows="2"
-							maxLength="200"
+						<TextAreaBase
+							id="add-highlight-field"
+							rows={1}
+							maxLength={200}
 							name="newHighlight"
-							placeholder="Enter a highlight and click Add"
+							label="Enter a highlight and click Add"
 							value={newHighlight}
 							onChange={props.handleOnChange}
 						/>
 					</div>
 					<div />
 					<div>
-						<button
+						<Button
 							type="button"
 							className="btn btn-info"
 							onClick={props.handleAddHighlight}
 							disabled={newHighlight === ""}
 						>
 							Add
-						</button>
+						</Button>
 					</div>
 					<div />
 					<div />
