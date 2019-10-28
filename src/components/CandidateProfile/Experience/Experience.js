@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
-import CandidateExperienceContainer from "../../CandidateSetup/formSections/CandidateExperience/";
+import CandidateExperienceContainer from "./CandidateExperienceContainer";
 import { objCopy } from "../../../assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
 
