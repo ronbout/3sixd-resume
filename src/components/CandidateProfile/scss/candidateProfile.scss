@@ -117,8 +117,18 @@
 }
 
 .objective-form,
-.candidate-highlights {
+.candidate-highlights,
+.experience-list,
+.education-list,
+.social-form {
 	background: #ddd;
 	padding: 2em 2em 1em;
 	border: 1px solid black;
+}
+
+button.btn-move {
+	i {
+		color: white;
+		font-weight: bold;
+	}
 }
