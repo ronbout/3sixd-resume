@@ -12,7 +12,7 @@ const Button = ({
 }) => {
 	const btnAttrs = {};
 	btnAttrs[variant] = true;
-	btnAttrs[color] = true;
+	color && (btnAttrs[color] = true);
 	tooltip && (btnAttrs.tooltipLabel = tooltip);
 
 	const styleBtn = () => {
