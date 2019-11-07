@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "styledComponents/Card";
 import Button from "styledComponents/Button";
 import {
@@ -10,28 +10,12 @@ import {
 	EditDialogColumn
 } from "styledComponents/DataTables";
 import "./css/highlights.css";
-//import { objCopy } from "assets/js/library";
-import highlightsData from "./highlightsData";
 
-//import "./styles.css";
 import KebabMenu from "./KebabMenu";
 import SelectMenu from "./SelectMenu";
 import SearchHighlightsDialog from "./SearchHighlightsDialog";
 
-const HighlightsTable = props => {
-	const {
-		actions,
-		highlights: highlightsData,
-		showSkillsFlag,
-		newHighlight,
-		editFlag,
-		editSkillNdx,
-		includeInSummary,
-		heading,
-		listingCallbacks,
-		skills,
-		candId
-	} = props;
+const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 	const [highlights, setHighlights] = useState(highlightsData);
 	const [showSearch, setShowSearch] = useState(false);
 	const [selectedRows, setSelectedRows] = useState(
@@ -39,18 +23,26 @@ const HighlightsTable = props => {
 	);
 	const [selectCount, setSelectCount] = useState(0);
 
-	// let highlights = highlightsData;
+	const dataCount = highlights.length;
 
-	// const setHighlights = newHighlights => {
-	// 	highlights = objCopy(newHighlights);
-	// };
-
-	/**
-	 * set highlight refs for focus
-	 */
+	useEffect(() => {
+		setHighlights(highlightsData);
+	}, [highlightsData]);
 
 	const onMenuClick = (action, ndx) => {
-		alert(action);
+		switch (action) {
+			case "skills":
+				actions.skills(ndx);
+				break;
+			case "moveUp":
+				actions.move(ndx, ndx - 1);
+				break;
+			case "moveDown":
+				actions.move(ndx, ndx + 1);
+				break;
+			default:
+				console.log("invalid action");
+		}
 	};
 
 	const showSearchDialog = () => {
@@ -66,9 +58,10 @@ const HighlightsTable = props => {
 	};
 
 	const onHighlightChange = (ndx, highlight) => {
-		const newHighlights = highlights.slice();
-		newHighlights[ndx].highlight = highlight;
-		setHighlights(newHighlights);
+		// const newHighlights = highlights.slice();
+		// newHighlights[ndx].highlight = highlight;
+		// setHighlights(newHighlights);
+		actions.edit(ndx, highlight);
 	};
 
 	const handleRowToggle = (row, selected, count) => {
@@ -95,7 +88,7 @@ const HighlightsTable = props => {
 				baseId="highlights-table"
 				onRowToggle={handleRowToggle}
 				fixedHeader
-				fixedHeight={500}
+				fixedHeight={360}
 			>
 				<TableHeader>
 					<TableRow>
@@ -148,11 +141,15 @@ const HighlightsTable = props => {
 									className={skills.length ? "" : "md-text--error"}
 									{...skillsTooltip}
 								>
-									<Button flat onClick={() => alert("edit Skills")}>
+									<Button variant="flat" onClick={() => actions.skills(i)}>
 										{skills.length ? skills.length : "--"}
 									</Button>
 								</TableColumn>
-								<KebabMenu ndx={i} onMenuClick={onMenuClick} />
+								<KebabMenu
+									ndx={i}
+									onMenuClick={onMenuClick}
+									dataCount={dataCount}
+								/>
 							</TableRow>
 						);
 					})}

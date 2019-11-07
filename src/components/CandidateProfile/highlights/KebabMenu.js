@@ -4,7 +4,7 @@ import { MenuButtonColumn } from "styledComponents/DataTables";
 import { FontIcon } from "styledComponents/FontIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const menuItems = (ndx, onMenuClick) => {
+const menuItems = (ndx, onMenuClick, dataCount) => {
 	return [
 		/*
 		{
@@ -16,12 +16,14 @@ const menuItems = (ndx, onMenuClick) => {
 		{
 			leftIcon: <FontIcon secondary>arrow_upward</FontIcon>,
 			primaryText: "Move Up",
-			onClick: () => onMenuClick("moveUp", ndx)
+			onClick: () => onMenuClick("moveUp", ndx),
+			disabled: ndx === 0
 		},
 		{
 			leftIcon: <FontIcon secondary>arrow_downward</FontIcon>,
 			primaryText: "Move Down",
-			onClick: () => onMenuClick("moveDown", ndx)
+			onClick: () => onMenuClick("moveDown", ndx),
+			disabled: ndx === dataCount - 1
 		},
 		{
 			leftIcon: (
@@ -44,12 +46,12 @@ const menuItems = (ndx, onMenuClick) => {
 	];
 };
 
-const KebabMenu = ({ ndx, onMenuClick, ...props }) => {
+const KebabMenu = ({ ndx, dataCount, onMenuClick, ...props }) => {
 	return (
 		<MenuButtonColumn
 			{...props}
 			icon
-			menuItems={menuItems(ndx, onMenuClick)}
+			menuItems={menuItems(ndx, onMenuClick, dataCount)}
 			listClassName="tables__with-menus__kebab-list"
 		>
 			<FontIcon primary>more_vert</FontIcon>

@@ -4,6 +4,7 @@ import Button from "styledComponents/Button";
 import SkillList from "../../SkillSetup/SkillList";
 import ListingHoc from "../../hoc/ListingHoc";
 import HighlightDetail from "./HighlightDetail";
+import HighlightsTable from "./HighlightsTable";
 
 const HighlightsForm = props => {
 	const {
@@ -55,26 +56,43 @@ const HighlightsForm = props => {
 		);
 	};
 
+	// const highlightList = () => {
+	// 	const sortHighlights = highlights.sort((a, b) => a.sequence - b.sequence);
+	// 	// setup current parms for listing hoc
+	// 	const listingParms = {
+	// 		editFlag,
+	// 		editSkillNdx,
+	// 		includeSummaryButton: includeInSummary === true ? true : false
+	// 	};
+	// 	return (
+	// 		<div className="highlight-list justify-content-center">
+	// 			<ListingHoc
+	// 				data={sortHighlights}
+	// 				actions={actions}
+	// 				detailClassname="highlight-row"
+	// 				callBacks={listingCallbacks}
+	// 				parms={listingParms}
+	// 			>
+	// 				<HighlightDetail />
+	// 			</ListingHoc>
+	// 		</div>
+	// 	);
+	// };
+
 	const highlightList = () => {
 		const sortHighlights = highlights.sort((a, b) => a.sequence - b.sequence);
-		// setup current parms for listing hoc
 		const listingParms = {
 			editFlag,
 			editSkillNdx,
 			includeSummaryButton: includeInSummary === true ? true : false
 		};
 		return (
-			<div className="highlight-list justify-content-center">
-				<ListingHoc
-					data={sortHighlights}
-					actions={actions}
-					detailClassname="highlight-row"
-					callBacks={listingCallbacks}
-					parms={listingParms}
-				>
-					<HighlightDetail />
-				</ListingHoc>
-			</div>
+			<HighlightsTable
+				listingParms={listingParms}
+				highlightsData={sortHighlights}
+				handleEditHighlight={listingCallbacks.handleEditHighlight}
+				actions={{ ...actions, skills: listingCallbacks.handleRowClick }}
+			/>
 		);
 	};
 

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAEE,cAFY,CAAC,aAAa,CAC3B,sBAAsB,CACrB,sBAAsB;AAFxB,cAAc,CAAC,aAAa,CAC3B,sBAAsB,CAErB,8BAA8B,CAAC;EAC9B,KAAK,EAAE,KAAK;CACZ",
+    "sources": [
+        "../scss/highlights.scss"
+    ],
+    "names": [],
+    "file": "highlights.css"
+}

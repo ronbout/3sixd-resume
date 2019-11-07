@@ -52,8 +52,8 @@ const HighlightsFormContainer = props => {
 		if (editSkillNdx === ndx) setEditSkillNdx(newNdx);
 	};
 
-	const handleEditHighlight = (ndx, event) => {
-		dispatch({ type: "editHighlight", ndx, editValue: event.target.value });
+	const handleEditHighlight = (ndx, val) => {
+		dispatch({ type: "editHighlight", ndx, editValue: val });
 	};
 
 	const handleRowClick = ndx => {
@@ -76,7 +76,8 @@ const HighlightsFormContainer = props => {
 
 	const actions = {
 		delete: handleDelHighlight,
-		move: handleMoveHighlight
+		move: handleMoveHighlight,
+		edit: handleEditHighlight
 	};
 
 	const listingCallbacks = {
