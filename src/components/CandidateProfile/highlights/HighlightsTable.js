@@ -10,13 +10,14 @@ import {
 	EditDialogColumn
 } from "styledComponents/DataTables";
 import "./css/highlights.css";
+import { objCopy } from "assets/js/library";
 
 import KebabMenu from "./KebabMenu";
 import SelectMenu from "./SelectMenu";
 import SearchHighlightsDialog from "./SearchHighlightsDialog";
 
 const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
-	const [highlights, setHighlights] = useState(highlightsData);
+	const [highlights, setHighlights] = useState(objCopy(highlightsData));
 	const [showSearch, setShowSearch] = useState(false);
 	const [selectedRows, setSelectedRows] = useState(
 		highlightsData.map(() => false)
@@ -26,7 +27,7 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 	const dataCount = highlights.length;
 
 	useEffect(() => {
-		setHighlights(highlightsData);
+		setHighlights(objCopy(highlightsData));
 	}, [highlightsData]);
 
 	const onMenuClick = (action, ndx) => {
@@ -122,7 +123,10 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 
 						return (
 							<TableRow key={`hrow-${sequence}`.replace(/\s+/g, "-")}>
-								<TableColumn>{i + 1}</TableColumn>
+								<TableColumn style={{ paddingRight: "16px" }}>
+									{i + 1}
+								</TableColumn>
+								{/*}
 								<EditDialogColumn
 									title=""
 									large
@@ -137,7 +141,21 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 									maxLength={200}
 									helpText="max chars = 200"
 								/>
+						*/}
 								<TableColumn
+									className="table-edit-full-width"
+									style={{
+										maxWidth: "500px",
+										overflow: "hidden",
+										whiteSpace: "nowrap",
+										textOverflow: "ellipsis",
+										paddingRight: "16px"
+									}}
+								>
+									{highlight}
+								</TableColumn>
+								<TableColumn
+									style={{ paddingRight: "16px" }}
 									className={skills.length ? "" : "md-text--error"}
 									{...skillsTooltip}
 								>

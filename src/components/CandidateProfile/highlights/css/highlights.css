@@ -1,5 +1,4 @@
-.md-table-body .md-table-row .table-edit-full-width .md-edit-dialog__label,
-.md-table-body .md-table-row .table-edit-full-width .md-edit-dialog__blocked-field {
+.md-table-column.table-edit-full-width {
   width: 500px;
 }
 /*# sourceMappingURL=highlights.css.map */

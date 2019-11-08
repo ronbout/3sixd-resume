@@ -6,13 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const menuItems = (ndx, onMenuClick, dataCount) => {
 	return [
-		/*
 		{
 			leftIcon: <FontIcon secondary>edit</FontIcon>,
 			primaryText: "Edit",
 			onClick: () => onMenuClick("edit", ndx)
 		},
-		*/
 		{
 			leftIcon: <FontIcon secondary>arrow_upward</FontIcon>,
 			primaryText: "Move Up",
