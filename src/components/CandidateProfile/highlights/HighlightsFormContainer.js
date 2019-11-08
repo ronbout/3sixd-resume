@@ -129,6 +129,7 @@ const HighlightsFormContainer = props => {
 				title="Delete Highlight"
 				actions={dialogActions}
 			>
+				<p>You are going to delete Highlight # {delNdx + 1}.</p>
 				Are you sure?
 			</DialogContainer>
 		</React.Fragment>
