@@ -1,46 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DialogContainer from "styledComponents/DialogContainer";
 import Button from "styledComponents/Button";
 import TextAreaBase from "styledComponents/TextAreaBase";
 
 const EditHighlightsDialog = ({
-	highlight,
-	showSearch,
-	editHighlights,
-	hideSearchDialog
+	highlight: highlightData,
+	editNdx,
+	hideEditDialog,
+	onHighlightChange
 }) => {
-	const [searchTerm, setSearchTerm] = useState("");
+	const [highlight, setHighlight] = useState(highlightData.highlight);
 
-	const handleOnChange = term => {
-		setSearchTerm(term);
+	useEffect(() => {
+		setHighlight(highlightData.highlight);
+	}, [highlightData]);
+
+	const handleOnChange = highval => {
+		setHighlight(highval);
 	};
 
 	const actions = [];
 	actions.push({
 		secondary: true,
 		children: "Cancel",
-		onClick: hideSearchDialog
+		onClick: hideEditDialog
 	});
 	actions.push(
-		<Button flat primary onClick={highlight => editHighlights(searchTerm)}>
-			Search
+		<Button
+			variant="flat"
+			color="primary"
+			onClick={() => onHighlightChange(editNdx, highlight)}
+		>
+			Save
 		</Button>
 	);
 
 	return (
 		<DialogContainer
-			id="highlight-search-dialog"
-			visible={showSearch}
-			onHide={hideSearchDialog}
+			id="highlight-edit-dialog"
+			visible={editNdx >= 0}
+			onHide={hideEditDialog}
 			actions={actions}
-			title="Search Highlights"
+			title="Edit Highlight"
 			height={400}
 			width={600}
 		>
 			<div>
 				<TextAreaBase
-					id="highlight-search-term"
-					label="Search Term"
+					id="highlight-edit"
+					label={`Edit Highlight #${editNdx + 1}`}
 					value={highlight}
 					onChange={handleOnChange}
 					rows={2}

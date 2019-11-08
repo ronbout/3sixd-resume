@@ -4,12 +4,7 @@ import { TableCardHeader } from "react-md";
 import Button from "styledComponents/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SelectMenu = ({
-	count,
-	onDeleteClick,
-	onMoveClick,
-	showSearchDialog
-}) => {
+const SelectMenu = ({ count, onDeleteClick, onMoveClick, onSearchClick }) => {
 	const title = <span>Highlights</span>;
 
 	return (
@@ -46,7 +41,7 @@ const SelectMenu = ({
 				</Button>
 			]}
 		>
-			<Button variant="flat" iconChildren="search" onClick={showSearchDialog}>
+			<Button variant="flat" iconChildren="search" onClick={onSearchClick}>
 				Search
 			</Button>
 		</TableCardHeader>

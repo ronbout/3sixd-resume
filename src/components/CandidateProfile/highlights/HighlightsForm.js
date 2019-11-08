@@ -2,8 +2,6 @@ import React from "react";
 import TextAreaBase from "styledComponents/TextAreaBase";
 import Button from "styledComponents/Button";
 import SkillList from "../../SkillSetup/SkillList";
-import ListingHoc from "../../hoc/ListingHoc";
-import HighlightDetail from "./HighlightDetail";
 import HighlightsTable from "./HighlightsTable";
 
 const HighlightsForm = props => {

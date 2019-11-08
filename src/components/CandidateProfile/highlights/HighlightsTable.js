@@ -6,19 +6,18 @@ import {
 	TableHeader,
 	TableBody,
 	TableRow,
-	TableColumn,
-	EditDialogColumn
+	TableColumn
 } from "styledComponents/DataTables";
 import "./css/highlights.css";
 import { objCopy } from "assets/js/library";
 
 import KebabMenu from "./KebabMenu";
 import SelectMenu from "./SelectMenu";
-import SearchHighlightsDialog from "./SearchHighlightsDialog";
+import EditHighlightsDialog from "./EditHighlightsDialog";
 
 const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
-	const [showSearch, setShowSearch] = useState(false);
+	const [editNdx, setEditNdx] = useState(-1);
 	const [selectedRows, setSelectedRows] = useState(
 		highlightsData.map(() => false)
 	);
@@ -44,17 +43,16 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 			case "delete":
 				actions.delete(ndx);
 				break;
+			case "edit":
+				setEditNdx(ndx);
+				break;
 			default:
 				console.log("invalid action");
 		}
 	};
 
-	const showSearchDialog = () => {
-		setShowSearch(true);
-	};
-
-	const hideSearchDialog = () => {
-		setShowSearch(false);
+	const hideEditDialog = () => {
+		setEditNdx(-1);
 	};
 
 	const searchHighlights = () => {
@@ -62,10 +60,11 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 	};
 
 	const onHighlightChange = (ndx, highlight) => {
-		// const newHighlights = highlights.slice();
-		// newHighlights[ndx].highlight = highlight;
-		// setHighlights(newHighlights);
+		const newHighlights = highlights.slice();
+		newHighlights[ndx].highlight = highlight;
+		setHighlights(newHighlights);
 		actions.edit(ndx, highlight);
+		hideEditDialog();
 	};
 
 	const handleRowToggle = (row, selected, count) => {
@@ -86,7 +85,7 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 				count={selectCount}
 				onDeleteClick={() => onMenuClick("delete")}
 				onMoveClick={() => onMenuClick("Move")}
-				showSearchDialog={showSearchDialog}
+				onSearchClick={searchHighlights}
 			/>
 			<DataTable
 				baseId="highlights-table"
@@ -177,10 +176,11 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 					})}
 				</TableBody>
 			</DataTable>
-			<SearchHighlightsDialog
-				searchHighlights={searchHighlights}
-				showSearch={showSearch}
-				hideSearchDialog={hideSearchDialog}
+			<EditHighlightsDialog
+				highlight={editNdx >= 0 ? highlights[editNdx] : ""}
+				editNdx={editNdx}
+				hideEditDialog={hideEditDialog}
+				onHighlightChange={onHighlightChange}
 			/>
 		</Card>
 	);

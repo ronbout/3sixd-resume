@@ -41,7 +41,7 @@ const HighlightsFormContainer = props => {
 		setDelNdx(ndx);
 	};
 
-	const hideDialog = () => {
+	const hideDelDialog = () => {
 		setDelNdx(-1);
 	};
 
@@ -53,11 +53,11 @@ const HighlightsFormContainer = props => {
 			setEditSkillNdx("");
 			setShowSkillsFlag(false);
 		}
-		hideDialog();
+		hideDelDialog();
 	};
 
-	const dialogActions = [
-		{ secondary: true, children: "Cancel", onClick: hideDialog },
+	const delDialogActions = [
+		{ secondary: true, children: "Cancel", onClick: hideDelDialog },
 		<Button
 			className="btn btn-danger"
 			variant="flat"
@@ -128,11 +128,11 @@ const HighlightsFormContainer = props => {
 				candId={props.candId}
 			/>
 			<DialogContainer
-				id="delete-confirm"
+				id="delete-dialog"
 				visible={delNdx >= 0}
-				onHide={hideDialog}
+				onHide={hideDelDialog}
 				title="Delete Highlight"
-				actions={dialogActions}
+				actions={delDialogActions}
 			>
 				<p>You are going to delete Highlight # {delNdx + 1}.</p>
 				Are you sure?
