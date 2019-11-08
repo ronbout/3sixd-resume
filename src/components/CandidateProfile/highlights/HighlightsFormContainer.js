@@ -1,6 +1,8 @@
 import React, { useState, useReducer, useEffect } from "react";
 import HighlightsForm from "./HighlightsForm";
 import { highlightsReducer } from "./highlightsReducer";
+import DialogContainer from "styledComponents/DialogContainer";
+import Button from "styledComponents/Button";
 import { isEqual } from "lodash";
 
 const HighlightsFormContainer = props => {
@@ -9,7 +11,7 @@ const HighlightsFormContainer = props => {
 		highlightsReducer,
 		props.highlights
 	);
-
+	const [delNdx, setDelNdx] = useState(-1);
 	const [showSkillsFlag, setShowSkillsFlag] = useState(false);
 	const [newHighlight, setNewHightlight] = useState("");
 	const [editSkillNdx, setEditSkillNdx] = useState("");
@@ -36,14 +38,30 @@ const HighlightsFormContainer = props => {
 	};
 
 	const handleDelHighlight = ndx => {
-		dispatch({ type: "addHighlight", ndx });
+		setDelNdx(ndx);
+	};
+
+	const hideDialog = () => {
+		setDelNdx(-1);
+	};
+
+	const confirmDelete = () => {
+		dispatch({ type: "delHighlight", delNdx });
 		// if the deleted highlight is the edit
 		// highlight, turn off edit mode
-		if (editSkillNdx === ndx) {
+		if (editSkillNdx === delNdx) {
 			setEditSkillNdx("");
 			setShowSkillsFlag(false);
 		}
+		hideDialog();
 	};
+
+	const dialogActions = [
+		{ secondary: true, children: "Cancel", onClick: hideDialog },
+		<Button variant="flat" color="primary" onClick={confirmDelete}>
+			Delete
+		</Button>
+	];
 
 	const handleMoveHighlight = (ndx, newNdx) => {
 		dispatch({ type: "moveHighlight", ndx, newNdx });
@@ -87,22 +105,33 @@ const HighlightsFormContainer = props => {
 	};
 
 	return (
-		<HighlightsForm
-			actions={actions}
-			highlights={highlights}
-			showSkillsFlag={showSkillsFlag}
-			newHighlight={newHighlight}
-			editFlag={editFlag}
-			editSkillNdx={editSkillNdx}
-			includeInSummary={props.includeInSummary}
-			heading={props.heading}
-			listingCallbacks={listingCallbacks}
-			skills={skills}
-			handleOnChange={handleOnChange}
-			handleAddHighlight={handleAddHighlight}
-			handleSkillsChange={handleSkillsChange}
-			candId={props.candId}
-		/>
+		<React.Fragment>
+			<HighlightsForm
+				actions={actions}
+				highlights={highlights}
+				showSkillsFlag={showSkillsFlag}
+				newHighlight={newHighlight}
+				editFlag={editFlag}
+				editSkillNdx={editSkillNdx}
+				includeInSummary={props.includeInSummary}
+				heading={props.heading}
+				listingCallbacks={listingCallbacks}
+				skills={skills}
+				handleOnChange={handleOnChange}
+				handleAddHighlight={handleAddHighlight}
+				handleSkillsChange={handleSkillsChange}
+				candId={props.candId}
+			/>
+			<DialogContainer
+				id="delete-confirm"
+				visible={delNdx >= 0}
+				onHide={hideDialog}
+				title="Delete Highlight"
+				actions={dialogActions}
+			>
+				Are you sure?
+			</DialogContainer>
+		</React.Fragment>
 	);
 };
 

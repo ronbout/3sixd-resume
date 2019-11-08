@@ -41,6 +41,9 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 			case "moveDown":
 				actions.move(ndx, ndx + 1);
 				break;
+			case "delete":
+				actions.delete(ndx);
+				break;
 			default:
 				console.log("invalid action");
 		}
