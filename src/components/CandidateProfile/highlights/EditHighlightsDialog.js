@@ -31,7 +31,7 @@ const EditHighlightsDialog = ({
 			color="primary"
 			onClick={() => onHighlightChange(editNdx, highlight)}
 		>
-			Save
+			OK
 		</Button>
 	);
 

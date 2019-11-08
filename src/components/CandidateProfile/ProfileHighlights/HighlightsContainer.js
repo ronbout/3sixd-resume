@@ -3,15 +3,20 @@ import HighlightsFormContainer from "../highlights/HighlightsFormContainer";
 import HighlightsFooter from "./HighlightsFooter";
 import { objCopy } from "../../../assets/js/library.js";
 import dataFetch from "../../../assets/js/dataFetch";
+import { isEqual } from "lodash";
 
 const API_CANDIDATES = "candidates/";
 const API_HIGHLIGHTS = "/highlights";
 
 const HighlightsContainer = props => {
 	const [highlights, setHighlights] = useState(objCopy(props.highlights));
+	const [origHighlights, setOrigHighlights] = useState(
+		objCopy(props.highlights)
+	);
 
 	useEffect(() => {
 		setHighlights(objCopy(props.highlights));
+		setOrigHighlights(objCopy(props.highlights));
 	}, [props.highlights]);
 
 	const handleSubmit = async event => {
@@ -33,9 +38,7 @@ const HighlightsContainer = props => {
 			console.log(result);
 		} else {
 			// need user message here
-			/* 			props.handleUpdate({
-				candidateHighlights: result
-			}); */
+			setOrigHighlights(highlights);
 		}
 	};
 
@@ -52,7 +55,10 @@ const HighlightsContainer = props => {
 				heading={false}
 				candId={props.candId}
 			/>
-			<HighlightsFooter handleSubmit={handleSubmit} />
+			<HighlightsFooter
+				disableSubmit={isEqual(origHighlights, highlights)}
+				handleSubmit={handleSubmit}
+			/>
 		</section>
 	);
 };
