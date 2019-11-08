@@ -58,7 +58,12 @@ const HighlightsFormContainer = props => {
 
 	const dialogActions = [
 		{ secondary: true, children: "Cancel", onClick: hideDialog },
-		<Button variant="flat" color="primary" onClick={confirmDelete}>
+		<Button
+			className="btn btn-danger"
+			variant="flat"
+			color="primary"
+			onClick={confirmDelete}
+		>
 			Delete
 		</Button>
 	];

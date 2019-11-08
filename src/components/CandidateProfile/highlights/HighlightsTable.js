@@ -154,6 +154,7 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 										textOverflow: "ellipsis",
 										paddingRight: "16px"
 									}}
+									title={highlight}
 								>
 									{highlight}
 								</TableColumn>
