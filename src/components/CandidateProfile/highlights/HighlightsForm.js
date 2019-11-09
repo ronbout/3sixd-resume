@@ -16,6 +16,7 @@ const HighlightsForm = props => {
 		heading,
 		listingCallbacks,
 		skills,
+		setEditSkillNdx,
 		candId
 	} = props;
 
@@ -88,8 +89,10 @@ const HighlightsForm = props => {
 			<HighlightsTable
 				listingParms={listingParms}
 				highlightsData={sortHighlights}
-				handleEditHighlight={listingCallbacks.handleEditHighlight}
 				actions={{ ...actions, skills: listingCallbacks.handleRowClick }}
+				handleSkillsChange={props.handleSkillsChange}
+				setEditSkillNdx={setEditSkillNdx}
+				candId={candId}
 			/>
 		);
 	};
@@ -111,7 +114,7 @@ const HighlightsForm = props => {
 		<section className="candidate-highlights candidate-tab-section">
 			{addHighlight()}
 			{highlights && highlightList()}
-			{showSkillsFlag && displaySkills()}
+			{false && showSkillsFlag && displaySkills()}
 		</section>
 	);
 };

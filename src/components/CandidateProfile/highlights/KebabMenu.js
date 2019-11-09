@@ -33,7 +33,7 @@ const menuItems = (ndx, onMenuClick, dataCount) => {
 				/>
 			),
 			primaryText: "Skills",
-			onClick: () => onMenuClick("skills", ndx)
+			onClick: () => onMenuClick("edit", ndx)
 		},
 		{ divider: true },
 		{

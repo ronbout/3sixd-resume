@@ -15,7 +15,14 @@ import KebabMenu from "./KebabMenu";
 import SelectMenu from "./SelectMenu";
 import EditHighlightsDialog from "./EditHighlightsDialog";
 
-const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
+const HighlightsTable = ({
+	listingParms,
+	highlightsData,
+	actions,
+	handleSkillsChange,
+	setEditSkillNdx,
+	candId
+}) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
 	const [editNdx, setEditNdx] = useState(-1);
 	const [selectedRows, setSelectedRows] = useState(
@@ -24,6 +31,11 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 	const [selectCount, setSelectCount] = useState(0);
 
 	const dataCount = highlights.length;
+
+	useEffect(() => {
+		setEditSkillNdx(editNdx);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [editNdx]);
 
 	useEffect(() => {
 		setHighlights(objCopy(highlightsData));
@@ -162,7 +174,7 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 									className={skills.length ? "" : "md-text--error"}
 									{...skillsTooltip}
 								>
-									<Button variant="flat" onClick={() => actions.skills(i)}>
+									<Button variant="flat" onClick={() => onMenuClick("edit", i)}>
 										{skills.length ? skills.length : "--"}
 									</Button>
 								</TableColumn>
@@ -181,6 +193,8 @@ const HighlightsTable = ({ highlightsData, actions, listingParms }) => {
 				editNdx={editNdx}
 				hideEditDialog={hideEditDialog}
 				onHighlightChange={onHighlightChange}
+				handleSkillsChange={handleSkillsChange}
+				candId={candId}
 			/>
 		</Card>
 	);

@@ -125,6 +125,7 @@ const HighlightsFormContainer = props => {
 				handleOnChange={handleOnChange}
 				handleAddHighlight={handleAddHighlight}
 				handleSkillsChange={handleSkillsChange}
+				setEditSkillNdx={setEditSkillNdx}
 				candId={props.candId}
 			/>
 			<DialogContainer

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SkillList from "../../SkillSetup/SkillList";
 import DialogContainer from "styledComponents/DialogContainer";
 import Button from "styledComponents/Button";
 import TextAreaBase from "styledComponents/TextAreaBase";
@@ -7,12 +8,16 @@ const EditHighlightsDialog = ({
 	highlight: highlightData,
 	editNdx,
 	hideEditDialog,
-	onHighlightChange
+	onHighlightChange,
+	handleSkillsChange,
+	candId
 }) => {
 	const [highlight, setHighlight] = useState(highlightData.highlight);
+	const [skills, setSkills] = useState(highlightData.skills || []);
 
 	useEffect(() => {
 		setHighlight(highlightData.highlight);
+		setSkills(highlightData.skills || []);
 	}, [highlightData]);
 
 	const handleOnChange = highval => {
@@ -52,6 +57,14 @@ const EditHighlightsDialog = ({
 					value={highlight}
 					onChange={handleOnChange}
 					rows={2}
+				/>
+			</div>
+			<div className="skill-edit-list">
+				<SkillList
+					skills={skills}
+					editFlag={true}
+					handleSkillsChange={handleSkillsChange}
+					candId={candId}
 				/>
 			</div>
 		</DialogContainer>
