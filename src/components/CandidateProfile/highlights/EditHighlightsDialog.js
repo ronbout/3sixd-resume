@@ -57,7 +57,7 @@ const EditHighlightsDialog = ({
 			height={400}
 			width={600}
 		>
-			<div>
+			<div style={{ marginBottom: "16px" }}>
 				<TextAreaBase
 					id="highlight-edit"
 					label={`Edit Highlight #${editNdx + 1}`}
