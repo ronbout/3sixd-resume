@@ -86,8 +86,8 @@ const HighlightsFormContainer = props => {
 		//if (editSkillNdx !== ndx) setEditFlag(false);
 	};
 
-	const handleSkillsChange = newSkills => {
-		dispatch({ type: "editSkills", ndx: editSkillNdx, editValue: newSkills });
+	const handleSkillsChange = (newSkills, ndx) => {
+		dispatch({ type: "editSkills", ndx, editValue: newSkills });
 		setSkills(newSkills);
 	};
 
@@ -125,7 +125,6 @@ const HighlightsFormContainer = props => {
 				handleOnChange={handleOnChange}
 				handleAddHighlight={handleAddHighlight}
 				handleSkillsChange={handleSkillsChange}
-				setEditSkillNdx={setEditSkillNdx}
 				candId={props.candId}
 			/>
 			<DialogContainer

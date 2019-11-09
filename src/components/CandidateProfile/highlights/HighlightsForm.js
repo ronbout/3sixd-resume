@@ -16,7 +16,6 @@ const HighlightsForm = props => {
 		heading,
 		listingCallbacks,
 		skills,
-		setEditSkillNdx,
 		candId
 	} = props;
 
@@ -91,7 +90,6 @@ const HighlightsForm = props => {
 				highlightsData={sortHighlights}
 				actions={{ ...actions, skills: listingCallbacks.handleRowClick }}
 				handleSkillsChange={props.handleSkillsChange}
-				setEditSkillNdx={setEditSkillNdx}
 				candId={candId}
 			/>
 		);

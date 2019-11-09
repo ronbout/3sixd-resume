@@ -24,6 +24,10 @@ const EditHighlightsDialog = ({
 		setHighlight(highval);
 	};
 
+	const handleOnSkillsChange = skills => {
+		setSkills(skills);
+	};
+
 	const actions = [];
 	actions.push({
 		secondary: true,
@@ -34,7 +38,10 @@ const EditHighlightsDialog = ({
 		<Button
 			variant="flat"
 			color="primary"
-			onClick={() => onHighlightChange(editNdx, highlight)}
+			onClick={() => {
+				onHighlightChange(editNdx, highlight);
+				handleSkillsChange(skills, editNdx);
+			}}
 		>
 			OK
 		</Button>
@@ -63,7 +70,7 @@ const EditHighlightsDialog = ({
 				<SkillList
 					skills={skills}
 					editFlag={true}
-					handleSkillsChange={handleSkillsChange}
+					handleSkillsChange={handleOnSkillsChange}
 					candId={candId}
 				/>
 			</div>

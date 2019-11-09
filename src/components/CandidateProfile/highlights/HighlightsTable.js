@@ -20,7 +20,6 @@ const HighlightsTable = ({
 	highlightsData,
 	actions,
 	handleSkillsChange,
-	setEditSkillNdx,
 	candId
 }) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
@@ -31,11 +30,6 @@ const HighlightsTable = ({
 	const [selectCount, setSelectCount] = useState(0);
 
 	const dataCount = highlights.length;
-
-	useEffect(() => {
-		setEditSkillNdx(editNdx);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [editNdx]);
 
 	useEffect(() => {
 		setHighlights(objCopy(highlightsData));
