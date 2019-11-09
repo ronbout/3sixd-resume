@@ -24,7 +24,7 @@ const HighlightsFormContainer = props => {
 	}, [highlights]);
 
 	const passHighlightUp = tmpHighlights => {
-		console.log("pass highlight up: ", tmpHighlights);
+		//console.log("pass highlight up: ", tmpHighlights);
 		props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
 	};
 
