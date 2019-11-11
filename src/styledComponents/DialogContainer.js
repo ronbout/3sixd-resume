@@ -1,3 +1,3 @@
-import { DialogContainer } from "react-md";
+import DialogContainer from "styledComponents/react-md/DialogContainer";
 
 export default DialogContainer;
