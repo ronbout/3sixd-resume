@@ -82,38 +82,42 @@ const SkillSearch = props => {
 					{/* skill List returned from search api */}
 					<div className="div-select-container" style={{ height: "300px" }}>
 						{props.state.skillOptions && !props.state.loading ? (
-							props.state.skillOptions.map((skillInfo, ndx) => {
-								return (
-									<div
-										className={
-											"div-select" +
-											(props.state.formFields.skillSelect === ndx
-												? " selected"
-												: "")
-										}
-										key={ndx}
-										data-value={ndx}
-										draggable={true}
-										onDragStart={event =>
-											props.handleDragStart(skillInfo, ndx, event)
-										}
-										onDragEnd={event => event.stopPropagation()}
-										onClick={() => props.handleSkillClick(ndx)}
-										onDoubleClick={props.handleSelect}
-										title={
-											`Skill Id: ${skillInfo.id}` +
-											convertHtmlToText("&#013;&#010;") +
-											(skillInfo.description
-												? skillInfo.description
-												: "No description available ") +
-											convertHtmlToText("&#013;&#010;") +
-											(skillInfo.url ? "URL: " + skillInfo.url : "")
-										}
-									>
-										{skillInfo.name}
-									</div>
-								);
-							})
+							props.state.skillOptions.length === 0 ? (
+								<div-select>No records found</div-select>
+							) : (
+								props.state.skillOptions.map((skillInfo, ndx) => {
+									return (
+										<div
+											className={
+												"div-select" +
+												(props.state.formFields.skillSelect === ndx
+													? " selected"
+													: "")
+											}
+											key={ndx}
+											data-value={ndx}
+											draggable={true}
+											onDragStart={event =>
+												props.handleDragStart(skillInfo, ndx, event)
+											}
+											onDragEnd={event => event.stopPropagation()}
+											onClick={() => props.handleSkillClick(ndx)}
+											onDoubleClick={props.handleSelect}
+											title={
+												`Skill Id: ${skillInfo.id}` +
+												convertHtmlToText("&#013;&#010;") +
+												(skillInfo.description
+													? skillInfo.description
+													: "No description available ") +
+												convertHtmlToText("&#013;&#010;") +
+												(skillInfo.url ? "URL: " + skillInfo.url : "")
+											}
+										>
+											{skillInfo.name}
+										</div>
+									);
+								})
+							)
 						) : (
 							<p>Loading....</p>
 						)}
