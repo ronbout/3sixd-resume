@@ -10,7 +10,7 @@ const SkillSearchPopup = MakePopup(
 	SkillSearchContainer,
 	{
 		right: "100px",
-		top: "200px",
+		top: "100px",
 		width: "344px"
 	},
 	true

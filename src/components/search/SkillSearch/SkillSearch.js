@@ -142,7 +142,7 @@ const SkillSearch = props => {
 							<Button
 								type="button"
 								variant="raised"
-								color="primary"
+								className="btn btn-info"
 								onClick={props.state.closeBtn}
 							>
 								Close
