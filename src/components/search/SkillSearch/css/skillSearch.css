@@ -1,7 +1,7 @@
 .skill-search {
   background: #888;
   color: #212529;
-  min-width: 312px;
+  min-width: 345px;
   max-height: 585px;
 }
 
@@ -44,6 +44,7 @@
           transition-duration: 0.5s;
   -webkit-transition-timing-function: ease-in-out;
           transition-timing-function: ease-in-out;
+  margin: 18px 0 8px;
 }
 
 .skill-search #skill-search-row input {

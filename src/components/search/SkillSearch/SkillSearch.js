@@ -1,8 +1,8 @@
 import React from "react";
 import TechtagDropdown from "./TechtagDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { convertHtmlToText } from "../../../assets/js/library";
+import SearchBar from "styledComponents/SearchBar";
+import { convertHtmlToText } from "assets/js/library";
 import "./css/skillSearch.css";
 import { Card, CardTitle, CardText } from "react-md";
 
@@ -36,6 +36,26 @@ const SkillSearch = props => {
 					/>
 
 					{/* keyword entry */}
+
+					{/**
+					 *
+					 *
+					 *
+					 * REPLACE WITH TEXTFIELD AND SEARCH FontAwesomeIcon
+					 *
+					 *
+					 */}
+					<SearchBar
+						id="skills-search"
+						label="Search Skills"
+						textProps={{
+							value: props.state.formFields.keyword,
+							onChange: (val, e) => props.handleInputChange(e),
+							onKeyPress: handleKeyPress
+						}}
+						onSearch={props.handleSearch}
+					/>
+					{/*}
 					<div className="search-field-div">
 						<label htmlFor="keyword">
 							<strong>Search Skills</strong>
@@ -60,10 +80,7 @@ const SkillSearch = props => {
 						</div>
 					</div>
 					{/* skill List returned from search api */}
-					<div
-						className="div-select-container"
-						style={{ maxHeight: "300px", minHeight: "300px" }}
-					>
+					<div className="div-select-container" style={{ height: "300px" }}>
 						{props.state.skillOptions && !props.state.loading ? (
 							props.state.skillOptions.map((skillInfo, ndx) => {
 								return (
