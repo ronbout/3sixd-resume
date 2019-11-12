@@ -1,10 +1,10 @@
 import React from "react";
 import TechtagDropdown from "./TechtagDropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "styledComponents/SearchBar";
+import Button from "styledComponents/Button";
 import { convertHtmlToText } from "assets/js/library";
+import { Card, CardTitle, CardText } from "styledComponents/Card";
 import "./css/skillSearch.css";
-import { Card, CardTitle, CardText } from "react-md";
 
 const SkillSearch = props => {
 	const handleKeyPress = event => {
@@ -124,9 +124,10 @@ const SkillSearch = props => {
 						className="search-skills-buttons mt-3"
 						style={{ textAlign: "center" }}
 					>
-						<button
+						<Button
 							type="button"
-							className="btn btn-primary"
+							variant="raised"
+							color="primary"
 							onClick={props.handleSelect}
 							disabled={
 								!(
@@ -136,15 +137,16 @@ const SkillSearch = props => {
 							}
 						>
 							{props.searchButton}
-						</button>
+						</Button>
 						{props.state.closeBtn && (
-							<button
+							<Button
 								type="button"
-								className="btn btn-warning"
+								variant="raised"
+								color="primary"
 								onClick={props.state.closeBtn}
 							>
 								Close
-							</button>
+							</Button>
 						)}
 					</div>
 				</div>

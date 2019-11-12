@@ -1,1 +1,1 @@
-export { Card } from "react-md";
+export { Card, CardTitle, CardText } from "react-md";
