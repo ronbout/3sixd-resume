@@ -1,6 +1,6 @@
 /* SelectMenu.js */
 import React from "react";
-import { TableCardHeader } from "react-md";
+import { TableCardHeader } from "styledComponents/DataTables";
 import Button from "styledComponents/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

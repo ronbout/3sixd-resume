@@ -99,7 +99,13 @@ const CandidateExperienceContainer = props => {
 		 *
 		 */
 		const tmp = sortJobs.slice();
-		tmp.splice(ndx, 1);
+		/**
+		 *
+		 * Don't actually activate delete code until warning
+		 *
+		 */
+		alert("delete job!!  Need warning!!");
+		//tmp.splice(ndx, 1);
 		updateExperience(tmp);
 	};
 

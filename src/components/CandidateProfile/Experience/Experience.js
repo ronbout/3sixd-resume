@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateExperienceContainer from "./CandidateExperienceContainer";
-import { objCopy } from "../../../assets/js/library.js";
+import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
 
 const ExperienceDiv = ({ experience, candId, handleExperienceChange }) => {
 	return (
-		<section className="tsd-card Experience profile-section">
+		<section>
 			<CandidateExperienceContainer
 				experience={experience}
 				candId={candId}
