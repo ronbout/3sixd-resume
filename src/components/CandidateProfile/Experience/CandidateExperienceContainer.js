@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import CandidateExperience from "./CandidateExperience";
+import Snackbar from "styledComponents/Snackbar";
 import "./css/candidateExperience.css";
-import { objCopy } from "assets/js/library";
+import { isEmptyObject, objCopy } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
 
 const API_CANDIDATES = "candidates/";
@@ -15,6 +15,7 @@ const CandidateExperienceContainer = props => {
 			? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
 			: []
 	);
+	const [toast, setToast] = useState({});
 
 	const emptyExperience = {
 		id: "",
@@ -63,7 +64,17 @@ const CandidateExperienceContainer = props => {
 		);
 	}, [props.experience]);
 
+	const addToast = (text, action, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		setToast(toast);
+	};
+
+	const closeToast = () => {
+		setToast({});
+	};
+
 	const updateExperience = async experiences => {
+		closeToast();
 		let body = {
 			experience: objCopy(experiences).map(exp => {
 				const contactPersonId = exp.contactPerson ? exp.contactPerson.id : "";
@@ -83,10 +94,13 @@ const CandidateExperienceContainer = props => {
 		let result = await dataFetch(endpoint, "", httpMethod, body);
 		if (result.error) {
 			console.log("fetch error: ", result);
+			addToast("An unknown error has occurred", "Close", false);
 			handleCancel();
 		} else {
-			// need user message here
-			props.handleExperienceChange(result);
+			addToast("Experience has been updated");
+			setSortJobs(
+				experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
+			);
 		}
 	};
 
@@ -146,15 +160,26 @@ const CandidateExperienceContainer = props => {
 	};
 
 	return (
-		<CandidateExperience
-			sortJobs={sortJobs}
-			actions={actions}
-			editNdx={editNdx}
-			handleAddNewJob={handleAddNewJob}
-			handleSave={handleSave}
-			handleCancel={handleCancel}
-			candId={props.candId}
-		/>
+		<React.Fragment>
+			<CandidateExperience
+				sortJobs={sortJobs}
+				actions={actions}
+				editNdx={editNdx}
+				handleAddNewJob={handleAddNewJob}
+				handleSave={handleSave}
+				handleCancel={handleCancel}
+				candId={props.candId}
+			/>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					closeCallBk={closeToast}
+				/>
+			)}
+		</React.Fragment>
 	);
 };
 

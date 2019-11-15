@@ -23,12 +23,6 @@ const Experience = props => {
 		setExperience(objCopy(props.experience));
 	}, [props.experience]);
 
-	const handleExperienceChange = experience => {
-		props.handleUpdate({
-			experience
-		});
-	};
-
 	const header = () => {
 		return (
 			<ProfileSectionHeader
@@ -43,11 +37,7 @@ const Experience = props => {
 
 	return (
 		<section className="tsd-card Experience profile-section">
-			<ExpandExperienceDiv
-				experience={experience}
-				candId={props.candId}
-				handleExperienceChange={handleExperienceChange}
-			/>
+			<ExpandExperienceDiv experience={experience} candId={props.candId} />
 		</section>
 	);
 };

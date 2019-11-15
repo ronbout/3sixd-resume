@@ -25,7 +25,6 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 				</TableHeader>
 				<TableBody>
 					{jobs.map((job, ndx) => {
-						console.log("job: ", job);
 						return (
 							<TableRow key={ndx}>
 								<TableColumn>{job.jobTitle}</TableColumn>

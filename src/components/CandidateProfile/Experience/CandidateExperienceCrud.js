@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { FormsProvider } from "components/forms/FormsContext";
 import CandidateExperienceCrudForm from "./CandidateExperienceCrudForm";
 import { objCopy } from "assets/js/library";
 import { fetchCompany, fetchPerson } from "assets/js/dataFetch";
@@ -96,8 +96,7 @@ const CandidateExperienceCrud = props => {
 		}));
 	};
 
-	const handleSave = event => {
-		event && event.preventDefault();
+	const handleSave = job => {
 		props.handleSave && props.handleSave(job);
 	};
 
@@ -131,26 +130,30 @@ const CandidateExperienceCrud = props => {
 	};
 
 	return (
-		<CandidateExperienceCrudForm
-			job={job}
-			showPerson={showPerson}
-			showCompany={showCompany}
-			showHighlights={showHighlights}
-			handleInputChange={handleInputChange}
-			handleCompanyClick={handleCompanyClick}
-			handlePersonClick={handlePersonClick}
-			handleContactChange={handleContactChange}
-			handleSkillsChange={handleSkillsChange}
-			handleHighlightChange={handleHighlightChange}
-			handleSave={handleSave}
-			handleCancel={handleCancel}
-			toggleHighlights={toggleHighlights}
-			handlePersonCancel={handlePersonCancel}
-			handlePersonSubmit={handlePersonSubmit}
-			handleCompanyCancel={handleCompanyCancel}
-			handleCompanySubmit={handleCompanySubmit}
-			candId={props.candId}
-		/>
+		<React.Fragment>
+			<FormsProvider>
+				<CandidateExperienceCrudForm
+					job={job}
+					showPerson={showPerson}
+					showCompany={showCompany}
+					showHighlights={showHighlights}
+					handleInputChange={handleInputChange}
+					handleCompanyClick={handleCompanyClick}
+					handlePersonClick={handlePersonClick}
+					handleContactChange={handleContactChange}
+					handleSkillsChange={handleSkillsChange}
+					handleHighlightChange={handleHighlightChange}
+					handleSave={handleSave}
+					handleCancel={handleCancel}
+					toggleHighlights={toggleHighlights}
+					handlePersonCancel={handlePersonCancel}
+					handlePersonSubmit={handlePersonSubmit}
+					handleCompanyCancel={handleCompanyCancel}
+					handleCompanySubmit={handleCompanySubmit}
+					candId={props.candId}
+				/>
+			</FormsProvider>
+		</React.Fragment>
 	);
 };
 

@@ -8,6 +8,7 @@ import Switch from "./Switch";
 import { checkValidForm } from "./checkValidForm";
 import { isEmail, isUrl, isZipcode, convertNameToProperty } from "./formFns";
 import { getDateStr, createDate } from "assets/js/library.js";
+import Radio from "./Radio";
 //import { isEqual } from "lodash";
 //import { usePrevious } from "components/hooks/usePrevious";
 
@@ -495,7 +496,7 @@ export const InpDate = props => {
 		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
 	);
 	const [dateVal, setDateVal] = useState(
-		Date.parse(props.value) ? createDate(props.value) : new Date()
+		Date.parse(value) ? createDate(value) : ""
 	);
 
 	useEffect(() => {
@@ -509,8 +510,8 @@ export const InpDate = props => {
 	}, [state.resetErrMsg, errMsg]);
 
 	useEffect(() => {
-		setDateVal(Date.parse(props.value) ? createDate(props.value) : new Date());
-	}, [props.value]);
+		setDateVal(Date.parse(value) ? createDate(value) : "");
+	}, [value]);
 
 	const minAdjDate = minDate ? createDate(minDate) : null;
 	const maxAdjDate = maxDate ? createDate(maxDate) : null;
@@ -836,6 +837,34 @@ export const InpSwitch = props => {
 			type="switch"
 			name={name}
 			checked={checked}
+			onChange={handleChange}
+			onBlur={onBlur}
+			{...rest}
+		/>
+	);
+};
+
+/**
+ *	InpRadio Component
+ */
+export const InpRadio = props => {
+	const { state } = useContext(FormsContext);
+
+	// controls must be an array of objects {label: 'Apple', value: 'A1' }
+	const { name, value, controls = [], onBlur = null, ...rest } = props;
+
+	const handleChange = ev => {
+		console.log("radio handleChange: ", ev);
+		const event = { target: { type: "radio" } };
+		event.target.name = name;
+		event.target.checked = ev;
+		state.onChangeFn(event);
+	};
+
+	return (
+		<Radio
+			name={name}
+			controls={controls}
 			onChange={handleChange}
 			onBlur={onBlur}
 			{...rest}
