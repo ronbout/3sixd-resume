@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CandidateExperience from "./CandidateExperience";
 import Snackbar from "styledComponents/Snackbar";
+import Button from "styledComponents/Button";
+import DialogContainer from "styledComponents/DialogContainer";
 import "./css/candidateExperience.css";
 import { isEmptyObject, objCopy } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
@@ -9,6 +11,7 @@ const API_CANDIDATES = "candidates/";
 const API_EXPERIENCE = "/experience";
 
 const CandidateExperienceContainer = props => {
+	const [delNdx, setDelNdx] = useState(-1);
 	const [editNdx, setEditNdx] = useState(false);
 	const [sortJobs, setSortJobs] = useState(
 		props.experience
@@ -105,23 +108,33 @@ const CandidateExperienceContainer = props => {
 	};
 
 	const handleDelExperience = ndx => {
-		/**
-		 *
-		 * must have warning here!!!
-		 *
-		 *
-		 *
-		 */
-		const tmp = sortJobs.slice();
-		/**
-		 *
-		 * Don't actually activate delete code until warning
-		 *
-		 */
-		alert("delete job!!  Need warning!!");
-		//tmp.splice(ndx, 1);
-		updateExperience(tmp);
+		setDelNdx(ndx);
 	};
+
+	const hideDelDialog = () => {
+		setDelNdx(-1);
+	};
+
+	const confirmedDelete = ndx => {
+		const tmp = objCopy(sortJobs.slice());
+		tmp.splice(ndx, 1);
+		console.log("deleted experience, if turned on: ", tmp);
+		////updateExperience(tmp)
+		alert("not actually deleting experience until later in testing");
+		hideDelDialog();
+	};
+
+	const delDialogActions = [
+		{ secondary: true, children: "Cancel", onClick: hideDelDialog },
+		<Button
+			className="btn btn-danger"
+			variant="flat"
+			color="primary"
+			onClick={confirmedDelete}
+		>
+			Delete
+		</Button>
+	];
 
 	const handleDispEditModal = ndx => {
 		setEditNdx(ndx);
@@ -170,6 +183,22 @@ const CandidateExperienceContainer = props => {
 				handleCancel={handleCancel}
 				candId={props.candId}
 			/>
+			<DialogContainer
+				id="delete-dialog"
+				visible={delNdx >= 0}
+				onHide={hideDelDialog}
+				title="Delete Highlight"
+				actions={delDialogActions}
+			>
+				<p>
+					You are going to delete &nbsp;
+					{sortJobs.length && delNdx !== -1
+						? `${sortJobs[delNdx].jobTitle} - ${sortJobs[delNdx].company.name}`
+						: ""}
+					.
+				</p>
+				Are you sure?
+			</DialogContainer>
 			{isEmptyObject(toast) || (
 				<Snackbar
 					text={toast.text}

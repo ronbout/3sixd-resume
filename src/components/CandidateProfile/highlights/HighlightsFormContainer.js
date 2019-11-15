@@ -45,7 +45,7 @@ const HighlightsFormContainer = props => {
 		setDelNdx(-1);
 	};
 
-	const confirmDelete = () => {
+	const confirmedDelete = () => {
 		dispatch({ type: "delHighlight", delNdx });
 		// if the deleted highlight is the edit
 		// highlight, turn off edit mode
@@ -62,7 +62,7 @@ const HighlightsFormContainer = props => {
 			className="btn btn-danger"
 			variant="flat"
 			color="primary"
-			onClick={confirmDelete}
+			onClick={confirmedDelete}
 		>
 			Delete
 		</Button>
