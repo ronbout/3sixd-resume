@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import {
 	InpString,
@@ -9,6 +9,8 @@ import {
 	Form
 } from "components/forms/formInputs";
 import Button from "styledComponents/Button";
+import Checkbox from "styledComponents/Checkbox";
+import { FontIcon } from "styledComponents/FontIcon";
 import {
 	ExpansionList,
 	ExpansionPanel
@@ -25,6 +27,8 @@ const CandidateExperienceCrudForm = props => {
 		{},
 		props.handleSave
 	);
+	const [currentJob, setCurrentJob] = useState(!formFields.endDate);
+	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
 	const { job, showPerson, showCompany, showHighlights } = props;
 
 	const CompanyPopup = MakePopup(
@@ -42,6 +46,7 @@ const CandidateExperienceCrudForm = props => {
 	const jobForm = () => {
 		return (
 			<Form className="experience-form">
+				<FontIcon onClick={() => alert("test")}>arrow_upward</FontIcon>
 				<div className="tsd-form-row">
 					<InpString
 						id="titleDescription"
@@ -88,16 +93,35 @@ const CandidateExperienceCrudForm = props => {
 								id="startDate"
 								name="startDate"
 								label="Start Date"
+								className="date-entry"
 								value={formFields.startDate}
 								required
 								disabled={showPerson || showCompany}
 							/>
+							<Checkbox
+								id="endDateCheck"
+								name="endDate"
+								label="Current Job"
+								value="currentJob"
+								style={{ paddingTop: "36px" }}
+								checked={currentJob}
+								onChange={(check, ev) => {
+									if (!check) {
+										formFields.endDate = oldEndDate;
+									} else {
+										formFields.endDate && setOldEndDAte(formFields.endDate);
+										formFields.endDate = null;
+									}
+									setCurrentJob(check);
+								}}
+							/>
 							<InpDate
 								id="endDate"
 								name="endDate"
+								className="date-entry"
 								label="End Date"
-								value={formFields.endDate}
-								disabled={showPerson || showCompany}
+								value={currentJob ? null : formFields.endDate}
+								disabled={currentJob || showPerson || showCompany}
 							/>
 						</div>
 						<div className="tsd-form-row">
