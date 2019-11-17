@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { ExpansionList } from "react-md";
+import { ExpansionList } from "styledComponents/ExpansionPanels";
 import PersonalInfo from "./PersonalInfo/";
 import ObjectiveSummary from "./ObjectiveSummary";
 import Highlights from "./ProfileHighlights";
@@ -9,8 +9,8 @@ import Education from "./Education";
 import SocialMedia from "./SocialMedia";
 import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
-import { objCopy } from "../../assets/js/library";
-import dataFetch from "../../assets/js/dataFetch";
+import { objCopy } from "assets/js/library";
+import dataFetch from "assets/js/dataFetch";
 import { isEqual } from "lodash";
 
 const API_CANDIDATES = "candidates";

@@ -39,4 +39,9 @@
 .experience-list {
   padding: 2em 2em 1em;
 }
+
+.salary-radio .md-selection-control-container {
+  display: inline-block;
+  width: 100px;
+}
 /*# sourceMappingURL=candidateExperience.css.map */

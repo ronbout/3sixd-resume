@@ -9,6 +9,10 @@ import {
 	Form
 } from "components/forms/formInputs";
 import Button from "styledComponents/Button";
+import {
+	ExpansionList,
+	ExpansionPanel
+} from "styledComponents/ExpansionPanels";
 import SkillList from "components/SkillSetup/SkillList/";
 import HighlightsFormContainer from "../highlights/HighlightsFormContainer";
 import CompanySetupContainer from "components/CompanySetup/";
@@ -37,7 +41,7 @@ const CandidateExperienceCrudForm = props => {
 
 	const jobForm = () => {
 		return (
-			<Form>
+			<Form className="experience-form">
 				<div className="tsd-form-row">
 					<InpString
 						id="titleDescription"
@@ -100,6 +104,7 @@ const CandidateExperienceCrudForm = props => {
 							<InpRadio
 								id="salary"
 								name="salary"
+								className="salary-radio"
 								value={formFields.payType}
 								label={"Salary / Hourly"}
 								controls={[
@@ -129,14 +134,29 @@ const CandidateExperienceCrudForm = props => {
 								disabled={showPerson || showCompany}
 							/>
 						</div>
-						<div className="skill-edit-list">
-							<SkillList
-								skills={job.skills}
-								editFlag={true}
-								handleSkillsChange={props.handleSkillsChange}
-								candId={props.candId}
-							/>
-						</div>
+						<ExpansionList>
+							<ExpansionPanel label="Job Related Skills">
+								<div className="skill-edit-list">
+									<SkillList
+										skills={job.skills}
+										editFlag={true}
+										handleSkillsChange={props.handleSkillsChange}
+										candId={props.candId}
+									/>
+								</div>
+							</ExpansionPanel>
+							<ExpansionPanel label="Job Highlights">
+								<div className="experience-highlights">
+									<HighlightsFormContainer
+										highlights={job.highlights}
+										handleHighlightChange={props.handleHighlightChange}
+										includeInSummary={true}
+										candId={props.candId}
+										disabled={showPerson || showCompany}
+									/>
+								</div>
+							</ExpansionPanel>
+						</ExpansionList>
 					</React.Fragment>
 				) : (
 					<div className="experience-highlights">

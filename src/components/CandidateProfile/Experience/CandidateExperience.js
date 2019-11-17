@@ -56,9 +56,10 @@ const CandidateExperience = props => {
 
 	const modalStyles = {
 		modal: {
-			width: "80%",
+			width: "1080px",
 			height: "600px",
-			minWidth: "960px"
+			minWidth: "960px",
+			margin: "auto"
 		}
 	};
 
