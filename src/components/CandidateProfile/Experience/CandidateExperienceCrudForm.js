@@ -22,11 +22,13 @@ import PersonSetup from "components/PersonSetup/";
 import MakePopup from "components/hoc/MakePopup";
 
 const CandidateExperienceCrudForm = props => {
-	const { formFields, BtnSubmit, BtnCancel, dirtyMsg } = useForm(
-		props.job,
-		{},
-		props.handleSave
-	);
+	const {
+		formFields,
+		BtnSubmit,
+		BtnCancel,
+		dirtyMsg,
+		changeFormFields
+	} = useForm(props.job, {}, props.handleSave);
 	const [currentJob, setCurrentJob] = useState(!formFields.endDate);
 	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
 	const { job, showPerson, showCompany, showHighlights } = props;
@@ -108,9 +110,10 @@ const CandidateExperienceCrudForm = props => {
 								onChange={(check, ev) => {
 									if (!check) {
 										formFields.endDate = oldEndDate;
+										changeFormFields("endDate", oldEndDate);
 									} else {
 										formFields.endDate && setOldEndDAte(formFields.endDate);
-										formFields.endDate = null;
+										changeFormFields("endDate", null);
 									}
 									setCurrentJob(check);
 								}}
@@ -159,7 +162,7 @@ const CandidateExperienceCrudForm = props => {
 							/>
 						</div>
 						<ExpansionList>
-							<ExpansionPanel label="Job Related Skills">
+							<ExpansionPanel label="Job Related Skills" footer={null}>
 								<div className="skill-edit-list">
 									<SkillList
 										skills={job.skills}
@@ -169,14 +172,17 @@ const CandidateExperienceCrudForm = props => {
 									/>
 								</div>
 							</ExpansionPanel>
-							<ExpansionPanel label="Job Highlights">
+							<ExpansionPanel label="Job Highlights" footer={null}>
 								<div className="experience-highlights">
 									<HighlightsFormContainer
-										highlights={job.highlights}
-										handleHighlightChange={props.handleHighlightChange}
+										highlights={formFields.highlights}
+										handleHighlightChange={h => {
+											changeFormFields("highlights", h);
+										}}
 										includeInSummary={true}
 										candId={props.candId}
 										disabled={showPerson || showCompany}
+										tableHeight={250}
 									/>
 								</div>
 							</ExpansionPanel>
@@ -185,8 +191,10 @@ const CandidateExperienceCrudForm = props => {
 				) : (
 					<div className="experience-highlights">
 						<HighlightsFormContainer
-							highlights={job.highlights}
-							handleHighlightChange={props.handleHighlightChange}
+							highlights={formFields.highlights}
+							handleHighlightChange={h => {
+								changeFormFields("highlights", h);
+							}}
 							includeInSummary={true}
 							candId={props.candId}
 							disabled={showPerson || showCompany}

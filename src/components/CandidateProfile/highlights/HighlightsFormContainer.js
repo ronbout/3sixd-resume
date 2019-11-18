@@ -126,6 +126,7 @@ const HighlightsFormContainer = props => {
 				handleAddHighlight={handleAddHighlight}
 				handleSkillsChange={handleSkillsChange}
 				candId={props.candId}
+				tableHeight={props.tableHeight || 360}
 			/>
 			<DialogContainer
 				id="delete-dialog"

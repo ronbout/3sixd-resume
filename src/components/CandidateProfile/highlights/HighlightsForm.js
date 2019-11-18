@@ -16,7 +16,8 @@ const HighlightsForm = props => {
 		heading,
 		listingCallbacks,
 		skills,
-		candId
+		candId,
+		tableHeight
 	} = props;
 
 	const addHighlight = () => {
@@ -37,7 +38,7 @@ const HighlightsForm = props => {
 						/>
 					</div>
 					<div />
-					<div>
+					<div style={{ paddingTop: "20px" }}>
 						<Button
 							type="button"
 							className="btn btn-info"
@@ -91,6 +92,7 @@ const HighlightsForm = props => {
 				actions={{ ...actions, skills: listingCallbacks.handleRowClick }}
 				handleSkillsChange={props.handleSkillsChange}
 				candId={candId}
+				tableHeight={tableHeight}
 			/>
 		);
 	};

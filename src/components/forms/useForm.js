@@ -111,6 +111,13 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 		}
 	}, []);
 
+	// in some cases, the values (formFields) need to be changed by hand
+	// in the form.  this provides access to that.
+	const changeFormFields = (name, value) => {
+		// have to convert to event to pass to handleChange
+		handleChange({ target: { name, value } });
+	};
+
 	useEffect(() => {
 		dispatch({ type: "setOnChangeFn", payload: handleChange });
 		dispatch({ type: "setOnSubmitFn", payload: submitForm });
@@ -243,7 +250,8 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 		BtnCancel,
 		checkDirtyForm,
 		dirtyMsg,
-		errors
+		errors,
+		changeFormFields
 	};
 };
 

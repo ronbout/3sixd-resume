@@ -20,7 +20,8 @@ const HighlightsTable = ({
 	highlightsData,
 	actions,
 	handleSkillsChange,
-	candId
+	candId,
+	tableHeight = 360
 }) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
 	const [editNdx, setEditNdx] = useState(-1);
@@ -97,7 +98,7 @@ const HighlightsTable = ({
 				baseId="highlights-table"
 				onRowToggle={handleRowToggle}
 				fixedHeader
-				fixedHeight={360}
+				fixedHeight={tableHeight}
 			>
 				<TableHeader>
 					<TableRow>
@@ -114,7 +115,7 @@ const HighlightsTable = ({
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{highlights.map(({ highlight, sequence, skills }, i) => {
+					{highlights.map(({ highlight, id, sequence, skills }, i) => {
 						let skillsTooltip = {};
 						if (skills.length) {
 							skillsTooltip = {
@@ -122,7 +123,7 @@ const HighlightsTable = ({
 								tooltipDelay: 500,
 								tooltipPosition: "left",
 								tooltipLabel: skills.map(s => (
-									<p key={s.id}>
+									<p key={`${id}-${s.id}`}>
 										{s.id}-{s.name}
 									</p>
 								))
@@ -130,7 +131,7 @@ const HighlightsTable = ({
 						}
 
 						return (
-							<TableRow key={`hrow-${sequence}`.replace(/\s+/g, "-")}>
+							<TableRow key={`hrow-${id}`}>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									{i + 1}
 								</TableColumn>

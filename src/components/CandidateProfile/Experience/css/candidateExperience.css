@@ -1,27 +1,3 @@
-.candidate-experience .add-job-button {
-  text-align: center;
-  margin-top: 2em;
-}
-
-.candidate-experience .experience-highlights {
-  padding: 1em 2em;
-}
-
-.candidate-experience .experience-highlights .candidate-highlights {
-  -webkit-box-shadow: inset 0 0 8px #555;
-          box-shadow: inset 0 0 8px #555;
-  padding: 0 1em 1em;
-  background: #aaa;
-}
-
-.candidate-experience .experience-highlights .candidate-highlights .highlight-list {
-  height: 180px;
-}
-
-.candidate-experience .experience-highlights .skills-list {
-  background: #ccc;
-}
-
 .candidate-experience .candidate-job {
   min-height: 520px;
   padding: 2em;

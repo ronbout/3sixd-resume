@@ -89,12 +89,12 @@ const CandidateExperienceCrud = props => {
 		setShowHighlights(!showHighlights);
 	};
 
-	const handleHighlightChange = highlights => {
-		setJob(prevJob => ({
-			...prevJob,
-			highlights
-		}));
-	};
+	// const handleHighlightChange = highlights => {
+	// 	setJob(prevJob => ({
+	// 		...prevJob,
+	// 		highlights
+	// 	}));
+	// };
 
 	const handleSave = job => {
 		props.handleSave && props.handleSave(job);
@@ -142,7 +142,6 @@ const CandidateExperienceCrud = props => {
 					handlePersonClick={handlePersonClick}
 					handleContactChange={handleContactChange}
 					handleSkillsChange={handleSkillsChange}
-					handleHighlightChange={handleHighlightChange}
 					handleSave={handleSave}
 					handleCancel={handleCancel}
 					toggleHighlights={toggleHighlights}

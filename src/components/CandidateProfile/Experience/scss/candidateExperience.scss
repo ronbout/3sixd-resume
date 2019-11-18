@@ -1,26 +1,4 @@
 .candidate-experience {
-	.add-job-button {
-		text-align: center;
-		margin-top: 2em;
-	}
-
-	.experience-highlights {
-		padding: 1em 2em;
-
-		.candidate-highlights {
-			box-shadow: inset 0 0 8px #555;
-			padding: 0 1em 1em;
-			background: #aaa;
-
-			.highlight-list {
-				height: 180px;
-			}
-		}
-		.skills-list {
-			background: #ccc;
-		}
-	}
-
 	.candidate-job {
 		min-height: 520px;
 		padding: 2em;
