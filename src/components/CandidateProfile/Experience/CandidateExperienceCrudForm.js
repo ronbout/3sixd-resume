@@ -167,7 +167,9 @@ const CandidateExperienceCrudForm = props => {
 									<SkillList
 										skills={job.skills}
 										editFlag={true}
-										handleSkillsChange={props.handleSkillsChange}
+										handleSkillsChange={s => {
+											changeFormFields("skills", s);
+										}}
 										candId={props.candId}
 									/>
 								</div>
