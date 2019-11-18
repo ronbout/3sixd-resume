@@ -4,71 +4,20 @@
 }
 
 .company-setup {
-  font-size: 15px;
+  font-size: 14px;
   text-align: center;
-  width: 90%;
+  width: 95%;
   margin: 1em auto;
 }
 
-.company-setup h1 {
-  font-size: 2.2em;
-  text-align: center;
-}
-
-.company-setup h2 {
-  font-size: 1.8em;
-  text-align: center;
-}
-
-.company-setup form,
-.company-setup div,
-.company-setup label,
-.company-setup input,
-.company-setup button,
-.company-setup select,
-.company-setup p {
-  font-size: 1em;
-  line-height: 1.4;
-}
-
-.company-setup input[type="checkbox"] {
-  position: relative;
-  margin: 0 1em;
-  height: 20px;
-  width: 20px;
-}
-
-.company-setup label,
-.company-setup p {
-  margin: 0;
-  padding: calc(0.375rem + 1px) 0;
-}
-
-.company-setup option {
-  font-size: 0.96em;
-  line-height: 1.45;
-  padding-bottom: 2px;
-}
-
-.company-setup option {
-  overflow-x: hidden;
-}
-
-.company-setup input,
-.company-setup select {
-  padding: 0.2em 0.4em;
-  height: auto;
-}
-
 .company-setup .company-form {
+  font-size: 14px;
   background: #ddd;
   color: #212529;
   border: 1px solid black;
   padding: 2em 2em 1em;
-}
-
-.company-setup .button-section button {
-  margin: 1em;
+  width: 700px;
+  margin: 0 auto;
 }
 
 .company-setup label.col-form-label.label-right {

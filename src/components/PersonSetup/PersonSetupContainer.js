@@ -47,11 +47,9 @@ class PersonSetupContainer extends Component {
 			search: true
 		};
 		this.state = {
-			formFields,
+			formFields: objCopy(formFields),
 			dispSearch: false,
-			userMsg: "",
 			buttons,
-			apiBase: window.apiUrl,
 			toast: {}
 		};
 		this.state.origForm = objCopy(formFields);
@@ -91,12 +89,9 @@ class PersonSetupContainer extends Component {
 		if (result.error) {
 			const errMsg =
 				result.errorCode === 45001
-					? `Person ${this.state.formFields.formattedName} already exists.`
+					? `Person ${personInfo.formattedName} already exists.`
 					: "An unknown error has occurred";
 			this.addToast(errMsg, "Close", false);
-			this.setState({
-				errMsg
-			});
 		} else {
 			// success.  display toast to userMsg
 			const userMsg = `Personal Info has been ${
@@ -105,8 +100,7 @@ class PersonSetupContainer extends Component {
 			this.addToast(userMsg);
 			this.setState(
 				{
-					formFields: result,
-					userMsg
+					formFields: result
 				},
 				() => {
 					this.props.handleSubmit && this.props.handleSubmit(result);

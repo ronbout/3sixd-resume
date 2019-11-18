@@ -1,8 +1,17 @@
 import React from "react";
-
+import { useForm } from "components/forms/useForm";
 import CompanySearchContainer from "../search/CompanySearch";
 import PersonSetup from "../PersonSetup/";
 import MakePopup from "../hoc/MakePopup";
+import Button from "styledComponents/Button";
+import {
+	InpString,
+	InpEmail,
+	InpUrl,
+	InpPhone,
+	InpZip,
+	Form
+} from "components/forms/formInputs";
 import "./css/companySetup.css";
 
 const PersonPopup = MakePopup(
@@ -22,218 +31,132 @@ const CompanySearchPopup = MakePopup(
 );
 
 const CompanySetupForm = props => {
+	const { formFields, BtnSubmit, BtnCancel, BtnClear, dirtyMsg } = useForm(
+		props.companyInfo,
+		props.clearFormFields,
+		props.handleSubmit
+	);
+
 	const companyDetails = () => {
 		return (
-			<div>
-				<input type="hidden" name="id" value={props.state.formFields.id} />
-				<div className="form-group row">
-					<label className="col-2 col-form-label">Name: *</label>
-					<div className="col-3">
-						<input
-							type="text"
-							className="form-control"
-							size="20"
-							name="name"
-							placeholder="Company Name"
-							value={props.state.formFields.name}
-							onChange={props.handleInputChange}
-							required
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<label className="col-2 col-form-label label-right">
-						Description:
-					</label>
-					<div className="col-5">
-						<input
-							type="text"
-							className="form-control"
-							size="40"
-							name="description"
-							placeholder="Description"
-							value={props.state.formFields.description}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
+			<section>
+				<input type="hidden" name="id" value={formFields.id} />
+				<div className="tsd-form-row">
+					<InpString
+						id="company-name"
+						name="name"
+						label="Name *"
+						value={formFields.name}
+						autoFocus
+						required
+						disabled={props.showPerson}
+					/>
+					<InpString
+						id="company-desc"
+						name="description"
+						label="Description"
+						size={40}
+						value={formFields.description}
+						disabled={props.showPerson}
+					/>
 				</div>
 				{/* Contact Row */}
-				<div className="form-group row">
-					<label className="col-2 col-form-label">Primary Phone:</label>
-					<div className="col-3">
-						<input
-							type="tel"
-							className="form-control"
-							name="companyPhone"
-							placeholder="Primary Phone"
-							value={props.state.formFields.companyPhone}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<label className="col-2 col-form-label label-right">
-						Primary Contact:
-					</label>
-					<div className="col-3">
-						<input
-							type="text"
-							className="form-control"
-							name="contactPerson"
-							placeholder="Primary Contact"
-							value={props.state.formFields.contactPerson.formattedName}
-							onChange={props.handleContactPersonChange}
-							onClick={props.handlePersonClick}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<InpPhone
+						id="companyPhone"
+						name="companyPhone"
+						label="Primary Phone"
+						value={formFields.companyPhone}
+						disabled={props.showPerson}
+					/>
+					<InpString
+						id="company-contactPerson"
+						name="contactPerson"
+						label="Primary Contact"
+						value={formFields.contactPerson.formattedName}
+						onChange={props.handleContactPersonChange}
+						onClick={props.handlePersonClick}
+					/>
 				</div>
 				{/* Email Row */}
-				<div className="form-group row">
-					<label className="col-2 col-form-label">Company Email:</label>
-					<div className="col-3">
-						<input
-							type="email"
-							className="form-control"
-							name="email"
-							placeholder="Company Email"
-							value={props.state.formFields.email}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<label className="col-2 col-form-label label-right">
-						Website URL:
-					</label>
-					<div className="col-3">
-						<input
-							type="url"
-							className="form-control"
-							name="website"
-							placeholder="Website URL"
-							value={props.state.formFields.website}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<InpEmail
+						id="email"
+						name="email"
+						label="Company Email"
+						value={formFields.email}
+						disabled={props.showPerson}
+					/>
+					<InpUrl
+						id="website"
+						name="website"
+						label="Website URL"
+						type="url"
+						value={formFields.website}
+						disabled={props.showPerson}
+					/>
 				</div>
 				{/* Address Row */}
-				<div className="form-group row">
-					<label className="col-2 col-form-label" htmlFor="addressLine1">
-						Address:
-					</label>
-					<div className="col-4">
-						<input
-							type="text"
-							className="form-control"
-							name="addressLine1"
-							placeholder="Street Address"
-							value={props.state.formFields.addressLine1}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<label
-						className="col-1 col-form-label label-right"
-						htmlFor="addressLine2"
-					>
-						Apt #:
-					</label>
-					<div className="col-2">
-						<input
-							type="text"
-							className="form-control"
-							name="addressLine2"
-							placeholder="Apt/Suite"
-							value={props.state.formFields.addressLine2}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<InpString
+						id="addressLine1"
+						name="addressLine1"
+						label="Street Address"
+						value={formFields.addressLine1}
+						disabled={props.showPerson}
+					/>
+					<InpString
+						id="addressLine2"
+						name="addressLine2"
+						label="Apt/Suite #"
+						value={formFields.addressLine2}
+						disabled={props.showPerson}
+					/>
 				</div>
 				{/* City / State / Zip */}
-				<div className="form-group row">
-					<label className="col-2 col-form-label" htmlFor="municipality">
-						City/State/Zip:
-					</label>
-					<div className="col-4">
-						<input
-							type="text"
-							className="form-control"
-							name="municipality"
-							placeholder="City"
-							value={props.state.formFields.municipality}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<div className="col-2">
-						<input
-							type="text"
-							className="form-control"
-							name="region"
-							placeholder="State"
-							value={props.state.formFields.region}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<div className="col-2">
-						<input
-							type="text"
-							className="form-control"
-							name="postalCode"
-							placeholder="Zip Code"
-							value={props.state.formFields.postalCode}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
-					<div className="col-2">
-						<input
-							type="text"
-							className="form-control"
-							name="countryCode"
-							placeholder="Country"
-							value={props.state.formFields.countryCode}
-							onChange={props.handleInputChange}
-							disabled={props.state.showPerson}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<InpString
+						id="municipality"
+						name="municipality"
+						label="City"
+						value={formFields.municipality}
+						disabled={props.showPerson}
+					/>
+					<InpString
+						id="region"
+						name="region"
+						label="State"
+						value={formFields.region}
+						disabled={props.showPerson}
+					/>
+					<InpZip
+						id="postalCode"
+						name="postalCode"
+						label="Zipcode"
+						value={formFields.postalCode}
+						disabled={props.showPerson}
+					/>
+					<InpString
+						id="countryCode"
+						name="countryCode"
+						label="Country"
+						value={formFields.countryCode}
+						disabled={props.showPerson}
+					/>
 				</div>
-			</div>
+			</section>
 		);
 	};
 
 	const buttonSection = () => {
 		return (
 			<div className="button-section">
-				<button
-					type="button"
-					className="btn btn-primary"
-					onClick={props.handleSubmit}
-				>
-					Save
-				</button>
-				<button
-					type="button"
-					className="btn btn-secondary"
-					onClick={props.handleCancel}
-				>
-					Cancel
-				</button>
-				<button
-					type="button"
-					className="btn btn-warning"
-					onClick={props.handleClear}
-				>
-					Clear
-				</button>
-				<button
-					type="button"
-					className="btn btn-info"
-					onClick={props.handleSearch}
-				>
+				<BtnSubmit>Save</BtnSubmit>
+				<BtnCancel checkDirty />
+				<BtnClear checkDirty />
+				<Button type="button" btnType="info" onClick={props.handleSearch}>
 					Search
-				</button>
+				</Button>
 			</div>
 		);
 	};
@@ -249,17 +172,20 @@ const CompanySetupForm = props => {
 
 	return (
 		<main className="container-fluid company-main">
+			{dirtyMsg}
 			<h1>Company Entry/Update</h1>
 			<div className="company-setup">
 				<div className="company-form">
-					{companyDetails()}
-					{buttonSection()}
-					{props.state.dispSearch && dispCompanySearch()}
+					<Form>
+						{companyDetails()}
+						{buttonSection()}
+						{props.dispSearch && dispCompanySearch()}
+					</Form>
 				</div>
 
-				{props.state.showPerson && (
+				{props.showPerson && (
 					<PersonPopup
-						person={props.state.formFields.contactPerson}
+						person={formFields.contactPerson}
 						heading="Primary Contact Entry"
 						handleCancel={props.handlePersonCancel}
 						handleSubmit={props.handlePersonSubmit}

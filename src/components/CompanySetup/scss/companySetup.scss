@@ -1,31 +1,29 @@
 // mixins
-@import "../../../scss/mixins";
+//@import "../../../scss/mixins";
 
 .company-main {
-  text-align: center;
-  margin-top: 2em;
+	text-align: center;
+	margin-top: 2em;
 }
 
 .company-setup {
-  @include lg-form(15px);
-  text-align: center;
-  width: 90%;
-  margin: 1em auto;
+	//@include lg-form(15px);
+	font-size: 14px;
+	text-align: center;
+	width: 95%;
+	margin: 1em auto;
 
-  .company-form {
-    background: #ddd;
-    color: #212529;
-    border: 1px solid black;
-    padding: 2em 2em 1em;
-  }
+	.company-form {
+		font-size: 14px;
+		background: #ddd;
+		color: #212529;
+		border: 1px solid black;
+		padding: 2em 2em 1em;
+		width: 700px;
+		margin: 0 auto;
+	}
 
-  .button-section {
-    button {
-      margin: 1em;
-    }
-  }
-
-  label.col-form-label.label-right {
-    text-align: right;
-  }
+	label.col-form-label.label-right {
+		text-align: right;
+	}
 }
