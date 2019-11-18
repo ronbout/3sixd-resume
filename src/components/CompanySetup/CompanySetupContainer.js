@@ -203,6 +203,7 @@ class CompanySetupContainer extends Component {
 						clearFormFields={clearFormFields}
 						showPerson={this.state.showPerson}
 						dispSearch={this.state.dispSearch}
+						popup={!!this.props.popup}
 						handleContactPersonChange={this.handleContactPersonChange}
 						handlePersonClick={this.handlePersonClick}
 						handleSubmit={this.handleSubmit}

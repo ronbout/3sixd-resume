@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import CompanySearchContainer from "../search/CompanySearch";
 import PersonSetup from "../PersonSetup/";
@@ -36,6 +36,7 @@ const CompanySetupForm = props => {
 		props.clearFormFields,
 		props.handleSubmit
 	);
+	const [newCompany, setNewCompany] = useState(false);
 
 	const companyDetails = () => {
 		return (
@@ -149,11 +150,23 @@ const CompanySetupForm = props => {
 	};
 
 	const buttonSection = () => {
+		const cancelAction = props.popup ? { onCancel: props.handleCancel } : {};
+		// if it is a popup, it is attached to an experience and changing the company
+		// will require the ability to save so that the experience gets updated
+		// as a result the Save btn must be enabled if a new company is loaded & popup
+		const saveEnable = props.popup && newCompany;
 		return (
 			<div className="button-section">
-				<BtnSubmit>Save</BtnSubmit>
-				<BtnCancel checkDirty />
-				<BtnClear checkDirty />
+				<BtnSubmit enabled={saveEnable}>
+					{props.popup ? "Save & Close" : "Save"}
+				</BtnSubmit>
+				<BtnCancel {...cancelAction} checkDirty />
+				<BtnClear
+					onClick={() => {
+						setNewCompany(false);
+					}}
+					checkDirty
+				/>
 				<Button type="button" btnType="info" onClick={props.handleSearch}>
 					Search
 				</Button>
@@ -164,7 +177,10 @@ const CompanySetupForm = props => {
 	const dispCompanySearch = () => {
 		return (
 			<CompanySearchPopup
-				handleCompanySelect={props.handleCompanySelect}
+				handleCompanySelect={c => {
+					setNewCompany(true);
+					props.handleCompanySelect(c);
+				}}
 				closeBtn={props.handleCloseCompanySearch}
 			/>
 		);

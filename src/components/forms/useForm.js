@@ -164,9 +164,10 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 	 * These are the jsx Components
 	 */
 
-	const BtnSubmit = props => {
+	const BtnSubmit = ({ enabled, ...props }) => {
 		const disp = props.children ? props.children : "Submit";
-		const disabled = props.disabled || isEqual(values, origValues);
+		const disabled =
+			!enabled && (props.disabled || isEqual(values, origValues));
 		return (
 			<Button type="submit" {...props} disabled={disabled}>
 				{disp}
@@ -174,8 +175,13 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 		);
 	};
 
-	const BtnClear = ({ children = "Clear", checkDirty = false, ...props }) => {
-		const onClick = checkDirty
+	const BtnClear = ({
+		children = "Clear",
+		onClick,
+		checkDirty = false,
+		...props
+	}) => {
+		const onClear = checkDirty
 			? () => {
 					setDirtyMsgString("clear the form");
 					setMsgBtns(prev => {
@@ -183,22 +189,29 @@ export const useForm = (startValues, clearValues, submitCb, validCb) => {
 						btn1 = {
 							...btn1,
 							action: () => {
+								onClick && onClick();
 								clearForm();
 								setDispModalMsg(false);
 							}
 						};
 						return [btn1, btn2];
 					});
-					checkDirtyFormCallbk(clearForm);
+					checkDirtyFormCallbk(() => {
+						onClick && onClick();
+						clearForm();
+					});
 			  }
-			: clearForm;
+			: () => {
+					onClick && onClick();
+					clearForm();
+			  };
 
 		return (
 			<Button
 				type="button"
 				btnType="warning"
-				onClick={onClick}
-				onMouseDown={onClick}
+				onClick={onClear}
+				onMouseDown={onClear}
 				{...props}
 			>
 				{children}

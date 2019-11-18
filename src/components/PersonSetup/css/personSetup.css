@@ -20,10 +20,6 @@
   margin: 0 auto;
 }
 
-.person-setup .person-form input.MuiInput-input {
-  font-size: 14px;
-}
-
 .person-setup label.col-form-label.label-right {
   text-align: right;
 }

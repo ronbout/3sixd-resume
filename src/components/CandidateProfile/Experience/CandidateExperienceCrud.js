@@ -109,12 +109,8 @@ const CandidateExperienceCrud = props => {
 		setShowCompany(false);
 	};
 
-	const handleCompanySubmit = companyInfo => {
+	const handleCompanySubmit = () => {
 		setShowCompany(false);
-		setJob(prevJob => ({
-			...prevJob,
-			company: companyInfo
-		}));
 	};
 
 	const handlePersonCancel = () => {

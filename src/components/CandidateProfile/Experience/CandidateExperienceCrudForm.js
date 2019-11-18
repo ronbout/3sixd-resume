@@ -8,7 +8,6 @@ import {
 	InpRadio,
 	Form
 } from "components/forms/formInputs";
-import Button from "styledComponents/Button";
 import Checkbox from "styledComponents/Checkbox";
 import { FontIcon } from "styledComponents/FontIcon";
 import {
@@ -31,7 +30,7 @@ const CandidateExperienceCrudForm = props => {
 	} = useForm(props.job, {}, props.handleSave);
 	const [currentJob, setCurrentJob] = useState(!formFields.endDate);
 	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
-	const { job, showPerson, showCompany, showHighlights } = props;
+	const { job, showPerson, showCompany } = props;
 
 	const CompanyPopup = MakePopup(
 		CompanySetupContainer,
@@ -70,148 +69,129 @@ const CandidateExperienceCrudForm = props => {
 						disabled={showPerson}
 					/>
 				</div>
-				{!showHighlights ? (
-					<React.Fragment>
-						<div className="tsd-form-row">
-							<InpString
-								id="contactperson"
-								name="contactPerson-formattedName"
-								label="Contact Person"
-								value={formFields.contactPerson.formattedName}
-								onClick={props.handlePersonClick}
-								onFocus={props.handlePersonClick}
-								disabled={showCompany}
-							/>
-							<InpPhone
-								id="contactphone"
-								name="contactPerson-workPhone"
-								label="Contact Work Phone"
-								value={formFields.contactPerson.workPhone}
-								disabled
-							/>
-						</div>
-						<div className="tsd-form-row">
-							<InpDate
-								id="startDate"
-								name="startDate"
-								label="Start Date"
-								className="date-entry"
-								value={formFields.startDate}
-								required
-								disabled={showPerson || showCompany}
-							/>
-							<Checkbox
-								id="endDateCheck"
-								name="endDate"
-								label="Current Job"
-								value="currentJob"
-								style={{ paddingTop: "36px" }}
-								checked={currentJob}
-								onChange={(check, ev) => {
-									if (!check) {
-										formFields.endDate = oldEndDate;
-										changeFormFields("endDate", oldEndDate);
-									} else {
-										formFields.endDate && setOldEndDAte(formFields.endDate);
-										changeFormFields("endDate", null);
-									}
-									setCurrentJob(check);
+				<div className="tsd-form-row">
+					<InpString
+						id="contactperson"
+						name="contactPerson-formattedName"
+						label="Contact Person"
+						value={formFields.contactPerson.formattedName}
+						onClick={props.handlePersonClick}
+						onFocus={props.handlePersonClick}
+						disabled={showCompany}
+					/>
+					<InpPhone
+						id="contactphone"
+						name="contactPerson-workPhone"
+						label="Contact Work Phone"
+						value={formFields.contactPerson.workPhone}
+						disabled
+					/>
+				</div>
+				<div className="tsd-form-row">
+					<InpDate
+						id="startDate"
+						name="startDate"
+						label="Start Date"
+						className="date-entry"
+						value={formFields.startDate}
+						required
+						disabled={showPerson || showCompany}
+					/>
+					<Checkbox
+						id="endDateCheck"
+						name="endDate"
+						label="Current Job"
+						value="currentJob"
+						style={{ paddingTop: "36px" }}
+						checked={currentJob}
+						onChange={(check, ev) => {
+							if (!check) {
+								formFields.endDate = oldEndDate;
+								changeFormFields("endDate", oldEndDate);
+							} else {
+								formFields.endDate && setOldEndDAte(formFields.endDate);
+								changeFormFields("endDate", null);
+							}
+							setCurrentJob(check);
+						}}
+					/>
+					<InpDate
+						id="endDate"
+						name="endDate"
+						className="date-entry"
+						label="End Date"
+						value={currentJob ? null : formFields.endDate}
+						disabled={currentJob || showPerson || showCompany}
+					/>
+				</div>
+				<div className="tsd-form-row">
+					<InpRadio
+						id="salary"
+						name="salary"
+						className="salary-radio"
+						value={formFields.payType}
+						label={"Salary / Hourly"}
+						controls={[
+							{
+								label: "Salary",
+								value: "Salary"
+							},
+							{
+								label: "Hourly",
+								value: "Hourly"
+							}
+						]}
+						disabled={showPerson || showCompany}
+					/>
+					<InpTextAsNumber
+						id="startPay"
+						name="startPay"
+						label="Starting Pay"
+						value={formFields.startPay}
+						disabled={showPerson || showCompany}
+					/>
+					<InpTextAsNumber
+						id="endPay"
+						name="endPay"
+						label="Ending Pay"
+						value={formFields.endPay}
+						disabled={showPerson || showCompany}
+					/>
+				</div>
+				<ExpansionList>
+					<ExpansionPanel label="Job Related Skills" footer={null}>
+						<div className="skill-edit-list">
+							<SkillList
+								skills={job.skills}
+								editFlag={true}
+								handleSkillsChange={s => {
+									changeFormFields("skills", s);
 								}}
-							/>
-							<InpDate
-								id="endDate"
-								name="endDate"
-								className="date-entry"
-								label="End Date"
-								value={currentJob ? null : formFields.endDate}
-								disabled={currentJob || showPerson || showCompany}
+								candId={props.candId}
 							/>
 						</div>
-						<div className="tsd-form-row">
-							<InpRadio
-								id="salary"
-								name="salary"
-								className="salary-radio"
-								value={formFields.payType}
-								label={"Salary / Hourly"}
-								controls={[
-									{
-										label: "Salary",
-										value: "Salary"
-									},
-									{
-										label: "Hourly",
-										value: "Hourly"
-									}
-								]}
+					</ExpansionPanel>
+					<ExpansionPanel label="Job Highlights" footer={null}>
+						<div className="experience-highlights">
+							<HighlightsFormContainer
+								highlights={formFields.highlights}
+								handleHighlightChange={h => {
+									changeFormFields("highlights", h);
+								}}
+								includeInSummary={true}
+								candId={props.candId}
 								disabled={showPerson || showCompany}
-							/>
-							<InpTextAsNumber
-								id="startPay"
-								name="startPay"
-								label="Starting Pay"
-								value={formFields.startPay}
-								disabled={showPerson || showCompany}
-							/>
-							<InpTextAsNumber
-								id="endPay"
-								name="endPay"
-								label="Ending Pay"
-								value={formFields.endPay}
-								disabled={showPerson || showCompany}
+								tableHeight={250}
 							/>
 						</div>
-						<ExpansionList>
-							<ExpansionPanel label="Job Related Skills" footer={null}>
-								<div className="skill-edit-list">
-									<SkillList
-										skills={job.skills}
-										editFlag={true}
-										handleSkillsChange={s => {
-											changeFormFields("skills", s);
-										}}
-										candId={props.candId}
-									/>
-								</div>
-							</ExpansionPanel>
-							<ExpansionPanel label="Job Highlights" footer={null}>
-								<div className="experience-highlights">
-									<HighlightsFormContainer
-										highlights={formFields.highlights}
-										handleHighlightChange={h => {
-											changeFormFields("highlights", h);
-										}}
-										includeInSummary={true}
-										candId={props.candId}
-										disabled={showPerson || showCompany}
-										tableHeight={250}
-									/>
-								</div>
-							</ExpansionPanel>
-						</ExpansionList>
-					</React.Fragment>
-				) : (
-					<div className="experience-highlights">
-						<HighlightsFormContainer
-							highlights={formFields.highlights}
-							handleHighlightChange={h => {
-								changeFormFields("highlights", h);
-							}}
-							includeInSummary={true}
-							candId={props.candId}
-							disabled={showPerson || showCompany}
-						/>
-					</div>
-				)}
+					</ExpansionPanel>
+				</ExpansionList>
 
 				<div className="button-section">
 					<BtnSubmit disabled={!formFields.company.id || !formFields.jobTitle}>
 						Save &amp; Close
 					</BtnSubmit>
 					<BtnCancel onCancel={props.handleCancel} checkDirty />
-					<Button type="button" btnType="info" onClick={props.toggleHighlights}>
-						{showHighlights ? "Close " : "Open "} Job Highlights
-					</Button>
 				</div>
 			</Form>
 		);
@@ -226,7 +206,12 @@ const CandidateExperienceCrudForm = props => {
 				<CompanyPopup
 					company={job.company}
 					handleCancel={props.handleCompanyCancel}
-					handleSubmit={props.handleCompanySubmit}
+					handleSubmit={c => {
+						console.log("handleSubmit company: ", c);
+						changeFormFields("company", c);
+						props.handleCompanySubmit();
+					}}
+					popup={true}
 				/>
 			)}
 			{showPerson && (
@@ -234,6 +219,7 @@ const CandidateExperienceCrudForm = props => {
 					person={job.contactPerson}
 					handleCancel={props.handlePersonCancel}
 					handleSubmit={props.handlePersonSubmit}
+					popup={true}
 				/>
 			)}
 		</section>
