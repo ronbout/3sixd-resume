@@ -32,11 +32,14 @@ const CompanySearchPopup = MakePopup(
 );
 
 const CompanySetupForm = props => {
-	const { formFields, BtnSubmit, BtnCancel, BtnClear, dirtyMsg } = useForm(
-		props.companyInfo,
-		props.clearFormFields,
-		props.handleSubmit
-	);
+	const {
+		formFields,
+		BtnSubmit,
+		BtnCancel,
+		BtnClear,
+		dirtyMsg,
+		changeFormFields
+	} = useForm(props.companyInfo, props.clearFormFields, props.handleSubmit);
 	const [newCompany, setNewCompany] = useState(false);
 
 	const companyDetails = () => {
@@ -206,9 +209,14 @@ const CompanySetupForm = props => {
 				{props.showPerson && (
 					<PersonPopup
 						person={formFields.contactPerson}
+						popup={true}
 						heading="Primary Contact Entry"
 						handleCancel={props.handlePersonCancel}
-						handleSubmit={props.handlePersonSubmit}
+						handleSubmit={p => {
+							console.log("handleSubmit person: ", p);
+							changeFormFields("contactPerson", p);
+							props.handlePersonSubmit();
+						}}
 					/>
 				)}
 			</div>

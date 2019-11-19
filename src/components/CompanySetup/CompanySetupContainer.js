@@ -171,10 +171,6 @@ class CompanySetupContainer extends Component {
 
 	handlePersonSubmit = personInfo => {
 		this.setState({
-			formFields: {
-				...this.state.formFields,
-				contactPerson: personInfo
-			},
 			showPerson: false
 		});
 	};

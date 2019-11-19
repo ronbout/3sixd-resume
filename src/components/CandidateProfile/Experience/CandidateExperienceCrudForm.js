@@ -205,7 +205,7 @@ const CandidateExperienceCrudForm = props => {
 			{jobForm()}
 			{showCompany && (
 				<CompanyPopup
-					company={job.company}
+					company={formFields.company}
 					handleCancel={props.handleCompanyCancel}
 					handleSubmit={c => {
 						console.log("handleSubmit company: ", c);
@@ -217,7 +217,7 @@ const CandidateExperienceCrudForm = props => {
 			)}
 			{showPerson && (
 				<PersonPopup
-					person={job.contactPerson}
+					person={formFields.contactPerson}
 					handleCancel={props.handlePersonCancel}
 					handleSubmit={p => {
 						console.log("handleSubmit person: ", p);
