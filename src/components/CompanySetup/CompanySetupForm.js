@@ -25,7 +25,7 @@ const CompanySearchPopup = MakePopup(
 	CompanySearchContainer,
 	{
 		right: "100px",
-		top: "200px",
+		top: "100px",
 		width: "344px"
 	},
 	true
