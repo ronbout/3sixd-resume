@@ -1,3 +1,4 @@
+/* formInputs.js */
 import React, { useState, useContext, useEffect } from "react";
 import { FormsContext } from "./FormsContext";
 import Input from "./Input";
@@ -121,7 +122,12 @@ export const InpString = props => {
 		// otherwise, the comparison against original value
 		// will fail string vs. number
 		const value = ev.target.value;
-		const val = isNaN(Number(value)) ? value : Number(value);
+		const val =
+			value === "" ||
+			value.charAt(value.length - 1) === " " ||
+			isNaN(Number(value))
+				? value
+				: Number(value);
 		if (errMsg) performErrCheck(ev.target.value);
 		// have to convert back to event
 		const event = { ...ev };
