@@ -10,7 +10,6 @@ import {
 	Form
 } from "components/forms/formInputs";
 import Checkbox from "styledComponents/Checkbox";
-import { FontIcon } from "styledComponents/FontIcon";
 import {
 	ExpansionList,
 	ExpansionPanel
@@ -31,7 +30,7 @@ const CandidateExperienceCrudForm = props => {
 	} = useForm(props.job, {}, props.handleSave);
 	const [currentJob, setCurrentJob] = useState(!formFields.endDate);
 	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
-	const { job, showPerson, showCompany } = props;
+	const { showPerson, showCompany } = props;
 
 	const CompanyPopup = MakePopup(
 		CompanySetupContainer,
@@ -48,7 +47,6 @@ const CandidateExperienceCrudForm = props => {
 	const jobForm = () => {
 		return (
 			<Form className="experience-form">
-				<FontIcon onClick={() => alert("test")}>arrow_upward</FontIcon>
 				<div className="tsd-form-row">
 					<InpString
 						id="titleDescription"
@@ -163,7 +161,7 @@ const CandidateExperienceCrudForm = props => {
 					<ExpansionPanel label="Job Related Skills" footer={null}>
 						<div className="skill-edit-list">
 							<SkillList
-								skills={job.skills}
+								skills={formFields.skills}
 								editFlag={true}
 								handleSkillsChange={s => {
 									changeFormFields("skills", s);
@@ -201,7 +199,7 @@ const CandidateExperienceCrudForm = props => {
 	return (
 		<section className="candidate-job">
 			{dirtyMsg}
-			<input type="hidden" name="job-id" value={job.id} />
+			<input type="hidden" name="job-id" value={formFields.id} />
 			{jobForm()}
 			{showCompany && (
 				<CompanyPopup

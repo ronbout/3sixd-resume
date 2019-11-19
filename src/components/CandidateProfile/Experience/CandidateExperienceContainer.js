@@ -115,12 +115,12 @@ const CandidateExperienceContainer = props => {
 		setDelNdx(-1);
 	};
 
-	const confirmedDelete = ndx => {
+	const confirmedDelete = () => {
 		const tmp = objCopy(sortJobs.slice());
-		tmp.splice(ndx, 1);
+		tmp.splice(delNdx, 1);
 		console.log("deleted experience, if turned on: ", tmp);
-		////updateExperience(tmp)
-		alert("not actually deleting experience until later in testing");
+		updateExperience(tmp);
+		//alert("not actually deleting experience until later in testing");
 		hideDelDialog();
 	};
 
