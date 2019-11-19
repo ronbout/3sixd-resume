@@ -1,7 +1,8 @@
+/* Education.js */
 import React, { useState, useEffect } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
-import CandidateEducationContainer from "../../CandidateSetup/formSections/CandidateEducation/";
-import { objCopy } from "../../../assets/js/library.js";
+import CandidateEducationContainer from "./CandidateEducationContainer";
+import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
 
 const EducationDiv = ({ education, candId, handleEducationChange }) => {

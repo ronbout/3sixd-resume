@@ -1,5 +1,5 @@
+/* CandidateProfile.js */
 import React, { Component } from "react";
-
 import { ExpansionList } from "styledComponents/ExpansionPanels";
 import PersonalInfo from "./PersonalInfo/";
 import ObjectiveSummary from "./ObjectiveSummary";
