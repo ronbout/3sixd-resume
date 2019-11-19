@@ -1,3 +1,4 @@
+/* CompanySetupForm.js */
 import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import CompanySearchContainer from "../search/CompanySearch";
@@ -150,6 +151,9 @@ const CompanySetupForm = props => {
 	};
 
 	const buttonSection = () => {
+		// if it is a popup, the cancel needs to call props.handleCancel
+		// so that the popup will close.  Otherwise, cancel just resets
+		// the form to origValues
 		const cancelAction = props.popup ? { onCancel: props.handleCancel } : {};
 		// if it is a popup, it is attached to an experience and changing the company
 		// will require the ability to save so that the experience gets updated

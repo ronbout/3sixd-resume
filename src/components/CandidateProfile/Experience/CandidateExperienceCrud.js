@@ -119,10 +119,6 @@ const CandidateExperienceCrud = props => {
 
 	const handlePersonSubmit = personInfo => {
 		setShowPerson(false);
-		setJob(prevJob => ({
-			...prevJob,
-			contactPerson: personInfo
-		}));
 	};
 
 	return (

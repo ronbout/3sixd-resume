@@ -1,3 +1,4 @@
+/* CandidateExperienceCrudForm.js */
 import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import {
@@ -218,7 +219,11 @@ const CandidateExperienceCrudForm = props => {
 				<PersonPopup
 					person={job.contactPerson}
 					handleCancel={props.handlePersonCancel}
-					handleSubmit={props.handlePersonSubmit}
+					handleSubmit={p => {
+						console.log("handleSubmit person: ", p);
+						changeFormFields("contactPerson", p);
+						props.handlePersonSubmit();
+					}}
 					popup={true}
 				/>
 			)}

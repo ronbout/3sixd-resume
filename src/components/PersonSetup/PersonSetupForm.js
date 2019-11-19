@@ -1,4 +1,5 @@
-import React from "react";
+/* PersonSetupForm.js */
+import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import Button from "styledComponents/Button";
 import PersonSearchContainer from "../search/PersonSearch";
@@ -29,6 +30,7 @@ const PersonSetupForm = props => {
 		props.clearFormFields,
 		props.handleSubmit
 	);
+	const [newCompany, setNewCompany] = useState(false);
 
 	const personDetails = () => {
 		return (
@@ -130,18 +132,29 @@ const PersonSetupForm = props => {
 	};
 
 	const buttonSection = () => {
+		// cancelAction and saveEnable are explained in CompanySetupForm which
+		// is also both a standalone and popup form
+		const cancelAction = props.popup ? { onCancel: props.handleCancel } : {};
+		const saveEnable = props.popup && newCompany;
 		return (
 			<div className="button-section">
 				{props.buttons && props.buttons.save === true && (
-					<BtnSubmit>Save</BtnSubmit>
+					<BtnSubmit enabled={saveEnable}>
+						{props.popup ? "Save & Close" : "Save"}
+					</BtnSubmit>
 				)}
 
 				{props.buttons && props.buttons.cancel === true && (
-					<BtnCancel checkDirty />
+					<BtnCancel {...cancelAction} checkDirty />
 				)}
 
 				{props.buttons && props.buttons.clear === true && (
-					<BtnClear checkDirty />
+					<BtnClear
+						onClick={() => {
+							setNewCompany(false);
+						}}
+						checkDirty
+					/>
 				)}
 
 				{props.buttons && props.buttons.search === true && (
@@ -156,7 +169,10 @@ const PersonSetupForm = props => {
 	const dispPersonSearch = () => {
 		return (
 			<PersonSearchPopup
-				handlePersonSelect={props.handlePersonSelect}
+				handlePersonSelect={p => {
+					setNewCompany(true);
+					props.handlePersonSelect(p);
+				}}
 				closeBtn={props.handleClosePersonSearch}
 			/>
 		);

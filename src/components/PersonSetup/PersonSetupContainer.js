@@ -109,6 +109,11 @@ class PersonSetupContainer extends Component {
 		}
 	};
 
+	handleCancel = () => {
+		// just go back with no update
+		this.props.handleCancel && this.props.handleCancel();
+	};
+
 	handleSearch = () => {
 		this.setState({
 			dispSearch: true
@@ -149,7 +154,9 @@ class PersonSetupContainer extends Component {
 						clearFormFields={clearFormFields}
 						heading={this.props.heading}
 						dispSearch={this.state.dispSearch}
+						popup={!!this.props.popup}
 						handleSubmit={this.handleSubmit}
+						handleCancel={this.handleCancel}
 						handleSearch={this.handleSearch}
 						handlePersonSelect={this.handlePersonSelect}
 						handleClosePersonSearch={this.handleClosePersonSearch}

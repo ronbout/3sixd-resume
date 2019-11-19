@@ -126,14 +126,6 @@ class CompanySetupContainer extends Component {
 		this.props.handleCancel && this.props.handleCancel();
 	};
 
-	handleClear = () => {
-		// reset state
-		this.setState({
-			formFields: clearFormFields,
-			origForm: objCopy(clearFormFields)
-		});
-	};
-
 	handleSearch = () => {
 		this.setState({
 			dispSearch: true
@@ -208,7 +200,6 @@ class CompanySetupContainer extends Component {
 						handlePersonClick={this.handlePersonClick}
 						handleSubmit={this.handleSubmit}
 						handleCancel={this.handleCancel}
-						handleClear={this.handleClear}
 						handleSearch={this.handleSearch}
 						handleCloseCompanySearch={this.handleCloseCompanySearch}
 						handleCompanySelect={this.handleCompanySelect}
