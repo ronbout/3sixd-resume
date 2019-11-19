@@ -46,7 +46,7 @@
 
 .person-search fieldset {
   border: 2px groove threeDface;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 .person-search .div-select-container {

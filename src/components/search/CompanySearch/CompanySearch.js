@@ -1,5 +1,8 @@
+/* CompanySearch.js */
 import React from "react";
-
+import TextField from "styledComponents/TextField";
+import Button from "styledComponents/Button";
+import { Card, CardTitle } from "styledComponents/Card";
 import "./css/companySearch.css";
 
 const CompanySearch = props => {
@@ -13,50 +16,39 @@ const CompanySearch = props => {
 	const inputFields = () => {
 		return (
 			<React.Fragment>
-				<div className="form-group row">
-					<div className="col-1" />
-					<label className="col-2 col-form-label">Name: </label>
-					<div className="col-8">
-						<input
-							type="text"
-							className="form-control"
-							name="searchName"
-							placeholder="Enter Search Name"
-							value={props.state.formFields.searchName}
-							onChange={props.handleInputChange}
-							onKeyPress={handleKeyPress}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<TextField
+						id="company-searchName"
+						name="searchName"
+						label="Name"
+						value={props.state.formFields.searchName}
+						onChange={(val, e) => props.handleInputChange(e)}
+						onKeyPress={handleKeyPress}
+						autoComplete="new-password"
+						autoFocus
+					/>
 				</div>
-				<div className="form-group row">
-					<div className="col-1" />
-					<label className="col-2 col-form-label">Phone: </label>
-					<div className="col-8">
-						<input
-							type="tel"
-							className="form-control"
-							name="searchPhone"
-							placeholder="Enter Search Phone"
-							value={props.state.formFields.searchPhone}
-							onChange={props.handleInputChange}
-							onKeyPress={handleKeyPress}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<TextField
+						id="company-searchPhone"
+						name="searchPhone"
+						label="Phone"
+						value={props.state.formFields.searchPhone}
+						onChange={(val, e) => props.handleInputChange(e)}
+						onKeyPress={handleKeyPress}
+						autoComplete="new-password"
+					/>
 				</div>
-				<div className="form-group row">
-					<div className="col-1" />
-					<label className="col-2 col-form-label">Email: </label>
-					<div className="col-8">
-						<input
-							type="email"
-							className="form-control"
-							name="searchEmail"
-							placeholder="Enter Search Email"
-							value={props.state.formFields.searchEmail}
-							onChange={props.handleInputChange}
-							onKeyPress={handleKeyPress}
-						/>
-					</div>
+				<div className="tsd-form-row">
+					<TextField
+						id="company-searchEmail"
+						name="searchEmail"
+						label="Email"
+						value={props.state.formFields.searchEmail}
+						onChange={(val, e) => props.handleInputChange(e)}
+						onKeyPress={handleKeyPress}
+						autoComplete="new-password"
+					/>
 				</div>
 			</React.Fragment>
 		);
@@ -97,35 +89,38 @@ const CompanySearch = props => {
 	const buttons = () => {
 		return (
 			<div>
-				<button
+				<Button
 					type="button"
+					variant="raised"
 					className="btn btn-info"
 					onClick={props.handleSearch}
 				>
 					Search
-				</button>
-				<button
+				</Button>
+				<Button
 					type="button"
+					variant="raised"
 					className="btn btn-primary"
 					onClick={props.handleSelect}
 					disabled={!props.state.results.length || props.state.loading}
 				>
 					Select
-				</button>
-				<button
+				</Button>
+				<Button
 					type="button"
+					variant="raised"
 					className="btn btn-warning"
 					onClick={props.closeBtn}
 				>
 					Close
-				</button>
+				</Button>
 			</div>
 		);
 	};
 
 	return (
-		<section className="company-search">
-			<h2>Company Search</h2>
+		<Card className="company-search md-block-centered">
+			<CardTitle title="Company Search" style={{ paddingBottom: "8px" }} />
 			<div className="company-search-form">
 				<fieldset>
 					<legend>Search Criteria</legend>
@@ -134,7 +129,7 @@ const CompanySearch = props => {
 				{resultListing()}
 				{buttons()}
 			</div>
-		</section>
+		</Card>
 	);
 };
 

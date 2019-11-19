@@ -102,6 +102,7 @@ const PersonSearch = props => {
 					variant="raised"
 					className="btn btn-primary"
 					onClick={props.handleSelect}
+					disabled={!props.state.results.length || props.state.loading}
 				>
 					Select
 				</Button>
