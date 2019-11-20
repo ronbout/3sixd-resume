@@ -1,3 +1,4 @@
+/* SocialMedia.js */
 import React from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import SocialMediaContainer from "./SocialMediaContainer";
@@ -5,7 +6,7 @@ import makeExpansion from "styledComponents/makeExpansion";
 
 const SocialMediaDiv = ({ linkedInLink, githubLink, candId }) => {
 	return (
-		<section className="tsd-card social profile-section">
+		<section>
 			<SocialMediaContainer
 				linkedInLink={linkedInLink}
 				githubLink={githubLink}

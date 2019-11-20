@@ -1,3 +1,4 @@
+/* ObjectiveSummaryForm.js */
 import React from "react";
 import { InpTextArea, Form } from "components/forms/formInputs";
 import { useForm } from "components/forms/useForm";
@@ -23,7 +24,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 				<InpTextArea
 					id="executiveSummary"
 					label="Executive Summary"
-					rows={2}
+					rows={1}
 					maxLength={999}
 					name="executiveSummary"
 					value={formFields.executiveSummary}

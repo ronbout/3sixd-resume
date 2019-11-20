@@ -1,12 +1,16 @@
+/* SocialMediaContainer.js */
 import React, { useState, useEffect } from "react";
+import { FormsProvider } from "components/forms/FormsContext";
 import SocialMediaForm from "./SocialMediaForm";
-import SocialMediaFooter from "./SocialMediaFooter";
-import dataFetch from "../../../assets/js/dataFetch";
+import dataFetch from "assets/js/dataFetch";
+import Snackbar from "styledComponents/Snackbar";
+import { isEmptyObject } from "assets/js/library";
 
 const API_CANDIDATES = "candidates/";
 const API_SOCIAL = "/social";
 
 const SocialMediaContainer = ({ candId, linkedInLink, githubLink }) => {
+	const [toast, setToast] = useState({});
 	const [linkedIn, setLinkedIn] = useState(linkedInLink);
 	const [github, setGithub] = useState(githubLink);
 
@@ -15,35 +19,12 @@ const SocialMediaContainer = ({ candId, linkedInLink, githubLink }) => {
 		setGithub(githubLink);
 	}, [linkedInLink, githubLink]);
 
-	const handleInputChange = event => {
-		const target = event.target;
-		if (target.name === "linkedIn") {
-			setLinkedIn(target.value);
-		} else {
-			setGithub(target.value);
-		}
+	const handleSubmit = formData => {
+		postSocialMedia(formData);
 	};
 
-	const handleSubmit = event => {
-		event && event.preventDefault();
-		console.log("socialMedia api update goes here");
-		// api update and then pass new data up
-		postSocialMedia();
-		/* 		handleUpdate({
-			socialMedia: [
-				{
-					socialType: "Github",
-					socialLink: github
-				},
-				{
-					socialType: "LinkedIn",
-					socialLink: linkedIn
-				}
-			]
-		}); */
-	};
-
-	const postSocialMedia = async () => {
+	const postSocialMedia = async ({ linkedIn, github }) => {
+		closeToast();
 		let body = {
 			linkedIn,
 			github
@@ -55,23 +36,41 @@ const SocialMediaContainer = ({ candId, linkedInLink, githubLink }) => {
 		let result = await dataFetch(endpoint, "", httpMethod, body);
 		if (result.error) {
 			console.log(result);
+			addToast("An unknown error occurred", "Close", false);
 		} else {
-			// need user message here
-			console.log("successfull update...need error msg component!!!");
+			setLinkedIn(linkedIn);
+			setGithub(github);
+			const userMsg = "Social Media Links have been updated";
+			addToast(userMsg);
 		}
 	};
 
+	const addToast = (text, action = null, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		setToast(toast);
+	};
+
+	const closeToast = () => {
+		setToast({});
+	};
+
 	return (
-		<section className="tsd-card social profile-section">
-			<form onSubmit={handleSubmit}>
+		<section>
+			<FormsProvider>
 				<SocialMediaForm
-					linkedIn={linkedIn}
-					github={github}
-					handleInputChange={handleInputChange}
+					formData={{ linkedIn, github }}
 					handleSubmit={handleSubmit}
 				/>
-				<SocialMediaFooter />
-			</form>
+			</FormsProvider>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					closeCallBk={closeToast}
+				/>
+			)}
 		</section>
 	);
 };

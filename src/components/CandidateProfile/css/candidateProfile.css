@@ -144,11 +144,6 @@
   text-align: center;
 }
 
-.objective-form label,
-.social-form label {
-  margin: 1em 0;
-}
-
 .objective-form textarea,
 .social-form textarea {
   max-width: 800px;
