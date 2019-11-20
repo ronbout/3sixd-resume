@@ -1,9 +1,9 @@
-/* Radio.js */
+/* Select.js */
 import React from "react";
-import RadioBase from "styledComponents/RadioBase";
+import SelectField from "styledComponents/SelectField";
 
 const Radio = props => {
-	const { name, onBlur, ...rest } = props;
+	const { name, onBlur, simplifiedMenu = true, ...rest } = props;
 
 	const handleOnBlur = ev => {
 		onBlur && onBlur(ev);
@@ -18,10 +18,11 @@ const Radio = props => {
 
 	return (
 		<div>
-			<RadioBase
+			<SelectField
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
 				name={name}
+				simplifiedMenu={simplifiedMenu}
 				{...rest}
 			/>
 		</div>

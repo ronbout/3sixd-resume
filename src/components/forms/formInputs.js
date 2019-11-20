@@ -10,33 +10,13 @@ import { checkValidForm } from "./checkValidForm";
 import { isEmail, isUrl, isZipcode, convertNameToProperty } from "./formFns";
 import { getDateStr, createDate } from "assets/js/library.js";
 import Radio from "./Radio";
-//import { isEqual } from "lodash";
-//import { usePrevious } from "components/hooks/usePrevious";
+import Select from "./Select";
 
 /**
  *	Form Component
  */
 export const Form = ({ children, ...props }) => {
 	const { state, dispatch } = useContext(FormsContext);
-
-	//const inputs = getFormInputs(children);
-	//const prevInputs = usePrevious(inputs);
-
-	/*
-	useEffect(() => {
-		const inputProps = inputs.map(input => input.props);
-		const prevInputProps = prevInputs
-			? prevInputs.map(input => input.props)
-			: prevInputs;
-		//console.log("isEqual: ", isEqual(inputProps, prevInputProps));
-		if (!isEqual(inputProps, prevInputProps)) {
-			const validForm = checkValidForm(children);
-			//console.log("validForm: ", validForm);
-			setErrObj(validForm);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [children]);
-	*/
 
 	const formIsValid = () => {
 		const errObj = checkValidForm(children);
@@ -46,13 +26,6 @@ export const Form = ({ children, ...props }) => {
 		}
 		return true;
 	};
-
-	/*
-	useEffect(() => {
-		dispatch({ type: "setDisableSubmit", payload: errObj });
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [errObj.errMsg, dispatch]);
-	*/
 
 	const handleSubmit = ev => {
 		ev.preventDefault && ev.preventDefault();
@@ -859,11 +832,10 @@ export const InpRadio = props => {
 	// controls must be an array of objects {label: 'Apple', value: 'A1' }
 	const { name, value, controls = [], onBlur = null, ...rest } = props;
 
-	const handleChange = ev => {
-		console.log("radio handleChange: ", ev);
+	const handleChange = checked => {
 		const event = { target: { type: "radio" } };
 		event.target.name = name;
-		event.target.checked = ev;
+		event.target.checked = checked;
 		state.onChangeFn(event);
 	};
 
@@ -871,6 +843,34 @@ export const InpRadio = props => {
 		<Radio
 			name={name}
 			controls={controls}
+			onChange={handleChange}
+			onBlur={onBlur}
+			{...rest}
+		/>
+	);
+};
+
+/**
+ *	InpSelect Component
+ */
+export const InpSelect = props => {
+	const { state } = useContext(FormsContext);
+
+	// menuItems must be an array of objects {label: 'Apple', value: 'A1' }
+	const { name, value, menuItems = [], onBlur = null, ...rest } = props;
+
+	const handleChange = val => {
+		console.log("select handleChange: ", val);
+		const event = { target: { type: "select" } };
+		event.target.name = name;
+		event.target.checked = val;
+		state.onChangeFn(event);
+	};
+
+	return (
+		<Select
+			name={name}
+			menuItems={menuItems}
 			onChange={handleChange}
 			onBlur={onBlur}
 			{...rest}

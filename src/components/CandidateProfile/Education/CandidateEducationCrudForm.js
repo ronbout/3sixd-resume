@@ -1,178 +1,180 @@
 /* CandidateEducationCrudForm.js */
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "components/forms/useForm";
+import {
+	InpString,
+	InpDate,
+	InpTextAsNumber,
+	InpPhone,
+	InpZip,
+	InpSelect,
+	Form
+} from "components/forms/formInputs";
+import Checkbox from "styledComponents/Checkbox";
+import {
+	ExpansionList,
+	ExpansionPanel
+} from "styledComponents/ExpansionPanels";
 import SkillList from "components/SkillSetup/SkillList";
 
 const CandidateEducationCrudForm = props => {
+	const {
+		formFields,
+		BtnSubmit,
+		BtnCancel,
+		dirtyMsg,
+		changeFormFields
+	} = useForm(props.education, {}, props.handleSave);
+	const [currentEd, setCurrentEd] = useState(!formFields.endDate);
+	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
 	const { education } = props;
+
+	const degreeTypeOptions = [
+		{ label: "Non Degree", value: "non-Degree" },
+		{ label: "Bachelor's", value: "Bachelors" },
+		{ label: "Master's", value: "Masters" },
+		{ label: "Doctorate", value: "Doctorate" },
+		{ label: "Diploma", value: "Diploma" }
+	];
+
+	const educationForm = () => {
+		return (
+			<Form className="education-form">
+				<div className="tsd-form-row">
+					<InpString
+						id="schoolName"
+						name="schoolName"
+						label="School Name *"
+						value={formFields.schoolName}
+						autoFocus
+						required
+					/>
+				</div>
+				<div className="tsd-form-row">
+					<InpString
+						id="degreeName"
+						name="degreeName"
+						label="Degree Name *"
+						placeholder="ex. Bachelor of Science"
+						value={formFields.degreeName}
+						required
+					/>
+					<InpSelect
+						id="degreeType"
+						label="Degree Type *"
+						menuItems={degreeTypeOptions}
+						value={education.degreeType}
+						style={{ width: "100%" }}
+						required
+					/>
+				</div>
+				{/* City / State / Zip */}
+				<div className="tsd-form-row">
+					<InpString
+						id="schoolMunicipality"
+						name="schoolMunicipality"
+						label="City"
+						value={formFields.schoolMunicipality}
+					/>
+					<InpString
+						id="schoolRegion"
+						name="schoolRegion"
+						label="State"
+						value={formFields.schoolRegion}
+					/>
+					<InpString
+						id="schoolCountry"
+						name="schoolCountry"
+						label="Country"
+						value={formFields.schoolCountry}
+					/>
+				</div>
+				<div className="tsd-form-row">
+					<InpDate
+						id="startDate"
+						name="startDate"
+						label="Start Date"
+						className="date-entry"
+						value={formFields.startDate}
+					/>
+					<Checkbox
+						id="endDateCheck"
+						name="endDate"
+						label="Currently Enrolled"
+						value="currentEd"
+						style={{ paddingTop: "36px" }}
+						checked={currentEd}
+						onChange={(check, ev) => {
+							if (!check) {
+								formFields.endDate = oldEndDate;
+								changeFormFields("endDate", oldEndDate);
+							} else {
+								formFields.endDate && setOldEndDAte(formFields.endDate);
+								changeFormFields("endDate", null);
+							}
+							setCurrentEd(check);
+						}}
+					/>
+					<InpDate
+						id="endDate"
+						name="endDate"
+						className="date-entry"
+						label="End Date"
+						value={currentEd ? null : formFields.endDate}
+					/>
+				</div>
+
+				<div className="tsd-form-row" style={{ marginBottom: "18px" }}>
+					<InpString
+						id="degreeMajor"
+						name="degreeMajor"
+						label="Degree Major"
+						placeholder="ex. Computer Science"
+						value={formFields.degreeMajor}
+					/>
+					<InpString
+						id="degreeMinor"
+						name="degreeMinor"
+						label="Degree Minor"
+						placeholder="ex. Economics"
+						value={formFields.degreeMinor}
+					/>
+				</div>
+
+				<ExpansionList>
+					<ExpansionPanel label="Education Based Skills" footer={null}>
+						<div className="skill-edit-list">
+							<SkillList
+								skills={formFields.skills}
+								editFlag={true}
+								handleSkillsChange={s => {
+									changeFormFields("skills", s);
+								}}
+								candId={props.candId}
+							/>
+						</div>
+					</ExpansionPanel>
+				</ExpansionList>
+
+				<div className="button-section">
+					<BtnSubmit
+						disabled={!formFields.schoolName || !formFields.degreeName}
+					>
+						Save &amp; Close
+					</BtnSubmit>
+					<BtnCancel onCancel={props.handleCancel} checkDirty />
+				</div>
+			</Form>
+		);
+	};
+
 	return (
 		<section className="candidate-education-detail">
+			{dirtyMsg}
 			<input type="hidden" name="education-id" value={education.id} />
 			{educationForm()}
 		</section>
 	);
-
-	function educationForm() {
-		return (
-			<React.Fragment>
-				<div className="form-group row">
-					<label className="col-2 col-form-label">School Name: *</label>
-					<div className="col-8">
-						<input
-							type="text"
-							className="form-control"
-							name="schoolName"
-							value={education.schoolName}
-							onChange={props.handleInputChange}
-							required
-						/>
-					</div>
-				</div>
-				<div className="form-group row">
-					<label className="col-2 col-form-label">Degree Name: *</label>
-					<div className="col-3">
-						<input
-							type="text"
-							className="form-control"
-							name="degreeName"
-							placeholder="ex. Bachelor of Computer Science"
-							value={education.degreeName}
-							onChange={props.handleInputChange}
-							required
-						/>
-					</div>
-
-					<label className="col-2 col-form-label label-right">
-						Degree Type: *
-					</label>
-					<div className="col-3">
-						<select
-							className="form-control"
-							name="degreeType"
-							value={education.degreeType}
-							onChange={props.handleInputChange}
-							required
-						>
-							<option value="non-Degree">Non Degree</option>
-							<option value="Bachelors">Bachelor's</option>
-							<option value="Masters">Master's</option>
-							<option value="Doctorate">Doctorate</option>
-							<option value="Diploma">Diploma</option>
-						</select>
-					</div>
-				</div>
-				{/* City / State / Zip */}
-				<div className="form-group row">
-					<label className="col-2 col-form-label">City/State/Country:</label>
-					<div className="col-4">
-						<input
-							type="text"
-							className="form-control"
-							name="schoolMunicipality"
-							placeholder="City"
-							value={education.schoolMunicipality}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-					<div className="col-2">
-						<input
-							type="text"
-							className="form-control"
-							name="schoolRegion"
-							placeholder="State"
-							value={education.schoolRegion}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-					<div className="col-2">
-						<input
-							type="text"
-							className="form-control"
-							name="schoolCountry"
-							placeholder="Country"
-							value={education.schoolCountry}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-				</div>
-				<div className="form-group row">
-					<label className="col-2 col-form-label">Start Date:</label>
-					<div className="col-3">
-						<input
-							type="date"
-							className="form-control"
-							name="startDate"
-							placeholder="YYY-MM-DD"
-							value={education.startDate}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-					<label className="col-2 col-form-label label-right" htmlFor="enddate">
-						End Date:
-					</label>
-					<div className="col-3">
-						<input
-							type="date"
-							className="form-control"
-							name="endDate"
-							placeholder="YYYY-MM-DD"
-							value={education.endDate}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-				</div>
-
-				<div className="form-group row">
-					<label className="col-2 col-form-label">Major: </label>
-					<div className="col-3">
-						<input
-							type="text"
-							className="form-control"
-							name="degreeMajor"
-							placeholder="Degree Major"
-							value={education.degreeMajor}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-					<label className="col-2 col-form-label">Minor: </label>
-					<div className="col-3">
-						<input
-							type="text"
-							className="form-control"
-							name="degreeMinor"
-							placeholder="Degree Minor"
-							value={education.degreeMinor}
-							onChange={props.handleInputChange}
-						/>
-					</div>
-				</div>
-
-				<div className="skill-edit-list">
-					<SkillList
-						skills={education.skills}
-						editFlag={true}
-						handleSkillsChange={props.handleSkillsChange}
-						candId={props.candId}
-					/>
-				</div>
-				<div className="button-section">
-					<button
-						type="button"
-						className="btn btn-primary"
-						onClick={props.handleSave}
-					>
-						Save
-					</button>
-					<button
-						type="button"
-						className="btn btn-secondary"
-						onClick={props.handleCancel}
-					>
-						Cancel
-					</button>
-				</div>
-			</React.Fragment>
-		);
-	}
 };
 
 export default CandidateEducationCrudForm;

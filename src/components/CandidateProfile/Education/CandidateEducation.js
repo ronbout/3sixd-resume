@@ -7,28 +7,6 @@ import Modal from "components/Modal/";
 const CandidateEducation = props => {
 	const { sortEducation, actions, editNdx, handleAddNewEducation } = props;
 
-	// function educationList() {
-	// 	return (
-	// 		<div className="education-list justify-content-center">
-	// 			<div className="education-row">
-	// 				<div className="heading">Degree</div>
-	// 				<div className="heading">School</div>
-	// 				<div className="heading">Start Date</div>
-	// 				<div className="heading">End Date</div>
-	// 				<div className="heading">Delete</div>
-	// 				<div className="heading">Edit</div>
-	// 			</div>
-	// 			<ListingHoc
-	// 				data={sortEducation}
-	// 				actions={actions}
-	// 				detailClassname="education-row"
-	// 			>
-	// 				<CandidateEducationListDetail />
-	// 			</ListingHoc>
-	// 		</div>
-	// 	);
-	// }
-
 	const educationList = () => {
 		return (
 			<div className="education-list">
@@ -44,7 +22,7 @@ const CandidateEducation = props => {
 	const modalStyles = {
 		modal: {
 			width: "1080px",
-			height: "700px",
+			height: "660px",
 			minWidth: "960px",
 			margin: "auto"
 		}

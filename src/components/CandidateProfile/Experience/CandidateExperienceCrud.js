@@ -1,3 +1,4 @@
+/* CandidateExperienceCrud.js */
 import React, { useState, useEffect } from "react";
 import { FormsProvider } from "components/forms/FormsContext";
 import CandidateExperienceCrudForm from "./CandidateExperienceCrudForm";
@@ -5,7 +6,6 @@ import { objCopy } from "assets/js/library";
 import { fetchCompany, fetchPerson } from "assets/js/dataFetch";
 
 const CandidateExperienceCrud = props => {
-	const [showHighlights, setShowHighlights] = useState(false);
 	//const [origJob, setOrigJob] = useState(objCopy(props.experience));
 	const [showCompany, setShowCompany] = useState(false);
 	const [showPerson, setShowPerson] = useState(false);
@@ -23,19 +23,6 @@ const CandidateExperienceCrud = props => {
 		// not going to allow change through the
 		// input field.  Must use popup
 		return;
-	};
-
-	const handleInputChange = event => {
-		let tmpJob = objCopy(job);
-		// the input name is split with hyphen if the data is stored
-		// in a sub-object (person-name => person.name)
-		if (event.target.name.indexOf("-") !== -1) {
-			const targetName = event.target.name.split("-");
-			tmpJob[targetName[0]][targetName[1]] = event.target.value;
-		} else {
-			tmpJob[event.target.name] = event.target.value;
-		}
-		setJob(tmpJob);
 	};
 
 	const handleCompanyClick = async event => {
@@ -85,17 +72,6 @@ const CandidateExperienceCrud = props => {
 		}));
 	};
 
-	const toggleHighlights = () => {
-		setShowHighlights(!showHighlights);
-	};
-
-	// const handleHighlightChange = highlights => {
-	// 	setJob(prevJob => ({
-	// 		...prevJob,
-	// 		highlights
-	// 	}));
-	// };
-
 	const handleSave = job => {
 		props.handleSave && props.handleSave(job);
 	};
@@ -122,29 +98,24 @@ const CandidateExperienceCrud = props => {
 	};
 
 	return (
-		<React.Fragment>
-			<FormsProvider>
-				<CandidateExperienceCrudForm
-					job={job}
-					showPerson={showPerson}
-					showCompany={showCompany}
-					showHighlights={showHighlights}
-					handleInputChange={handleInputChange}
-					handleCompanyClick={handleCompanyClick}
-					handlePersonClick={handlePersonClick}
-					handleContactChange={handleContactChange}
-					handleSkillsChange={handleSkillsChange}
-					handleSave={handleSave}
-					handleCancel={handleCancel}
-					toggleHighlights={toggleHighlights}
-					handlePersonCancel={handlePersonCancel}
-					handlePersonSubmit={handlePersonSubmit}
-					handleCompanyCancel={handleCompanyCancel}
-					handleCompanySubmit={handleCompanySubmit}
-					candId={props.candId}
-				/>
-			</FormsProvider>
-		</React.Fragment>
+		<FormsProvider>
+			<CandidateExperienceCrudForm
+				job={job}
+				showPerson={showPerson}
+				showCompany={showCompany}
+				handleCompanyClick={handleCompanyClick}
+				handlePersonClick={handlePersonClick}
+				handleContactChange={handleContactChange}
+				handleSkillsChange={handleSkillsChange}
+				handleSave={handleSave}
+				handleCancel={handleCancel}
+				handlePersonCancel={handlePersonCancel}
+				handlePersonSubmit={handlePersonSubmit}
+				handleCompanyCancel={handleCompanyCancel}
+				handleCompanySubmit={handleCompanySubmit}
+				candId={props.candId}
+			/>
+		</FormsProvider>
 	);
 };
 

@@ -37,10 +37,10 @@ const CandidateEducationTable = ({ education, actions, onAddClick }) => {
 									{ed.schoolName}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.startDate || "2019-01-12"}
+									{ed.startDate || " "}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.endDate || "2019-12-31"}
+									{ed.endDate || " "}
 								</TableColumn>
 								<KebabMenu ndx={ndx} actions={actions} />
 							</TableRow>
