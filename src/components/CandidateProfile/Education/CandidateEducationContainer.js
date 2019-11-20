@@ -29,7 +29,7 @@ const CandidateEducationContainer = props => {
 		schoolRegion: "",
 		schoolCountry: "",
 		degreeName: "",
-		degreeType: "",
+		degreeType: "non-Degree",
 		degreeMajor: "",
 		degreeMinor: "",
 		startDate: "",
@@ -88,8 +88,8 @@ const CandidateEducationContainer = props => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp.splice(delNdx, 1);
 		console.log("deleted education, if turned on: ", tmp);
-		//updateEducation(tmp);
-		alert("not actually deleting education until later in testing");
+		updateEducation(tmp);
+		//alert("not actually deleting education until later in testing");
 		hideDelDialog();
 	};
 

@@ -873,6 +873,7 @@ export const InpSelect = props => {
 			menuItems={menuItems}
 			onChange={handleChange}
 			onBlur={onBlur}
+			value={value}
 			{...rest}
 		/>
 	);

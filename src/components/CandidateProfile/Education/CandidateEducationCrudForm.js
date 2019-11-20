@@ -4,9 +4,6 @@ import { useForm } from "components/forms/useForm";
 import {
 	InpString,
 	InpDate,
-	InpTextAsNumber,
-	InpPhone,
-	InpZip,
 	InpSelect,
 	Form
 } from "components/forms/formInputs";
@@ -61,9 +58,10 @@ const CandidateEducationCrudForm = props => {
 					/>
 					<InpSelect
 						id="degreeType"
+						name="degreeType"
 						label="Degree Type *"
 						menuItems={degreeTypeOptions}
-						value={education.degreeType}
+						value={formFields.degreeType}
 						style={{ width: "100%" }}
 						required
 					/>
