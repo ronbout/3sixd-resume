@@ -1,3 +1,4 @@
+/* CandidateExperience.js */
 import React from "react";
 import CandidateExperienceTable from "./CandidateExperienceTable";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";

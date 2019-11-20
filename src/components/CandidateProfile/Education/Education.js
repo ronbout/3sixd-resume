@@ -7,7 +7,7 @@ import makeExpansion from "styledComponents/makeExpansion";
 
 const EducationDiv = ({ education, candId, handleEducationChange }) => {
 	return (
-		<section className="tsd-card Education profile-section">
+		<section>
 			<CandidateEducationContainer
 				education={education}
 				candId={candId}
@@ -24,12 +24,6 @@ const Education = props => {
 		setEducation(objCopy(props.education));
 	}, [props.education]);
 
-	const handleEducationChange = education => {
-		props.handleUpdate({
-			education
-		});
-	};
-
 	const header = () => {
 		return (
 			<ProfileSectionHeader
@@ -44,11 +38,7 @@ const Education = props => {
 
 	return (
 		<section className="tsd-card Education profile-section">
-			<ExpandEducationDiv
-				education={education}
-				candId={props.candId}
-				handleEducationChange={handleEducationChange}
-			/>
+			<ExpandEducationDiv education={education} candId={props.candId} />
 		</section>
 	);
 };
