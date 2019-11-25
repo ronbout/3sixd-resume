@@ -17,7 +17,7 @@ export const highlightsReducer = (highlights, action) => {
 			});
 			return tmpHighlights;
 		case "delHighlight":
-			tmpHighlights.splice(action.ndx, 1);
+			tmpHighlights.splice(action.delNdx, 1);
 			return tmpHighlights;
 		case "moveHighlight": {
 			const { ndx, newNdx } = action;

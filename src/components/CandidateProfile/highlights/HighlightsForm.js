@@ -33,6 +33,7 @@ const HighlightsForm = props => {
 							maxLength={200}
 							name="newHighlight"
 							label="Enter a highlight and click Add"
+							autoFocus
 							value={newHighlight}
 							onChange={props.handleOnChange}
 						/>
