@@ -2,6 +2,7 @@
 import React from "react";
 import { MenuButtonColumn } from "styledComponents/DataTables";
 import { FontIcon } from "styledComponents/FontIcon";
+//import { SVGIcon, fileDownloadIcon } from "styledComponents/SVGIcon";
 
 const menuItems = (ndx, actions) => {
 	return [
@@ -9,6 +10,11 @@ const menuItems = (ndx, actions) => {
 			leftIcon: <FontIcon secondary>edit</FontIcon>,
 			primaryText: "Edit",
 			onClick: () => actions.edit(ndx)
+		},
+		{
+			leftIcon: <FontIcon secondary>image</FontIcon>,
+			primaryText: "View image",
+			onClick: () => actions.image(ndx)
 		},
 
 		{ divider: true },

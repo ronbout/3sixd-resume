@@ -1,49 +1,41 @@
-/* CandidateEducationContainer.js */
+/* CandidateCertificationsContainer.js */
 import React, { useState, useEffect } from "react";
-import CandidateEducation from "./CandidateEducation";
+import CandidateCertifications from "./CandidateCertifications";
 import Snackbar from "styledComponents/Snackbar";
 import Button from "styledComponents/Button";
 import DialogContainer from "styledComponents/DialogContainer";
 import { isEmptyObject, objCopy } from "assets/js/library";
-import "./css/candidateEducation.css";
+import "./css/candidateCertifications.css";
 import dataFetch from "assets/js/dataFetch";
 
 const API_CANDIDATES = "candidates/";
-const API_EDUCATION = "/education";
+const API_CERTIFICATIONS = "/certifications";
 
-const CandidateEducationContainer = props => {
+const CandidateCertificationsContainer = props => {
 	const [delNdx, setDelNdx] = useState(-1);
 	const [editNdx, setEditNdx] = useState(false);
-	const [sortEducation, setSortEducation] = useState(
-		props.education
-			? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
-			: []
+	const [certifications, setCertifications] = useState(
+		props.certifications ? objCopy(props.certifications) : []
 	);
 	const [toast, setToast] = useState({});
 
-	const emptyEducation = {
+	console.log("here");
+
+	const emptyCertification = {
 		id: "",
 		candidateId: props.candId || "",
-		schoolName: "",
-		schoolMunicipality: "",
-		schoolRegion: "",
-		schoolCountry: "",
-		degreeName: "",
-		degreeType: "non-Degree",
-		degreeMajor: "",
-		degreeMinor: "",
-		startDate: "",
-		endDate: "",
+		name: "",
+		description: "",
+		issueDate: "",
+		certificateImage: "",
 		skills: []
 	};
 
 	useEffect(() => {
-		setSortEducation(
-			props.education
-				? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
-				: []
+		setCertifications(
+			props.certifications ? objCopy(props.certifications) : []
 		);
-	}, [props.education]);
+	}, [props.certifications]);
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
 		const toast = { text, action, autoHide, timeout };
@@ -54,14 +46,14 @@ const CandidateEducationContainer = props => {
 		setToast({});
 	};
 
-	const updateEducation = async education => {
+	const updateCertifications = async certifications => {
 		closeToast();
 		let body = {
-			education
+			certifications
 		};
 		const id = props.candId;
 		const httpMethod = "PUT";
-		const endpoint = `${API_CANDIDATES}${id}${API_EDUCATION}`;
+		const endpoint = `${API_CANDIDATES}${id}${API_CERTIFICATIONS}`;
 
 		let result = await dataFetch(endpoint, "", httpMethod, body);
 		if (result.error) {
@@ -69,14 +61,14 @@ const CandidateEducationContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			handleCancel();
 		} else {
-			addToast("Education has been updated");
-			setSortEducation(
-				education ? education.sort((a, b) => a.startDate - b.startDate) : []
+			addToast("Certification has been updated");
+			setCertifications(
+				props.certifications ? objCopy(props.certifications) : []
 			);
 		}
 	};
 
-	const handleDelEducation = ndx => {
+	const handleDelCertification = ndx => {
 		setDelNdx(ndx);
 	};
 
@@ -85,11 +77,11 @@ const CandidateEducationContainer = props => {
 	};
 
 	const confirmedDelete = () => {
-		const tmp = objCopy(sortEducation.slice());
+		const tmp = objCopy(certifications.slice());
 		tmp.splice(delNdx, 1);
-		console.log("deleted education, if turned on: ", tmp);
-		updateEducation(tmp);
-		//alert("not actually deleting education until later in testing");
+		console.log("deleted certifications, if turned on: ", tmp);
+		//updateCertifications(tmp);
+		alert("not actually deleting certifications until later in testing");
 		hideDelDialog();
 	};
 
@@ -114,40 +106,39 @@ const CandidateEducationContainer = props => {
 	};
 
 	const handleSave = ed => {
-		const tmp = objCopy(sortEducation.slice());
+		const tmp = objCopy(certifications.slice());
 		tmp[editNdx] = ed;
-		updateEducation(tmp);
+		updateCertifications(tmp);
 		handleCloseModal();
 	};
 
-	const handleAddNewEducation = () => {
+	const handleAddNewCertification = () => {
 		// add empty job to list if not already empty
 		// set editNdx to this new element
-		sortEducation.push(emptyEducation);
-		setEditNdx(sortEducation.length - 1);
+		certifications.push(emptyCertification);
+		setEditNdx(certifications.length - 1);
 	};
 
 	const handleCancel = () => {
 		setEditNdx(false);
-		setSortEducation(
-			props.education
-				? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
-				: []
+		setCertifications(
+			props.certifications ? objCopy(props.certifications) : []
 		);
 	};
 
 	const actions = {
-		delete: handleDelEducation,
-		edit: handleDispEditModal
+		delete: handleDelCertification,
+		edit: handleDispEditModal,
+		image: () => alert("display image")
 	};
 
 	return (
 		<React.Fragment>
-			<CandidateEducation
-				sortEducation={sortEducation}
+			<CandidateCertifications
+				certifications={certifications}
 				actions={actions}
 				editNdx={editNdx}
-				handleAddNewEducation={handleAddNewEducation}
+				handleAddNewCertification={handleAddNewCertification}
 				handleSave={handleSave}
 				handleCancel={handleCancel}
 				candId={props.candId}
@@ -161,8 +152,8 @@ const CandidateEducationContainer = props => {
 			>
 				<p>
 					You are going to delete &nbsp;
-					{sortEducation.length && delNdx !== -1
-						? `${sortEducation[delNdx].degreeName} - ${sortEducation[delNdx].schoolName}`
+					{certifications.length && delNdx !== -1
+						? `${certifications[delNdx].name} - ${certifications[delNdx].description}`
 						: ""}
 					.
 				</p>
@@ -181,4 +172,4 @@ const CandidateEducationContainer = props => {
 	);
 };
 
-export default CandidateEducationContainer;
+export default CandidateCertificationsContainer;

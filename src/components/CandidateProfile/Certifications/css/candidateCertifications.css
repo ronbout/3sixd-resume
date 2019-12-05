@@ -1,0 +1,18 @@
+.candidate-certifications .candidate-certifications-detail {
+  min-height: 480px;
+  padding: 2em;
+}
+
+.candidate-certifications .button-section {
+  text-align: center;
+}
+
+.certifications-section {
+  margin: auto;
+  width: 95%;
+}
+
+.certifications-list {
+  padding: 2em 2em 1em;
+}
+/*# sourceMappingURL=candidateCertifications.css.map */

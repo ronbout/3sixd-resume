@@ -1,26 +1,28 @@
-/* CandidateEducationCrud.js */
+/* CandidateCertificationCrud.js */
 import React, { useState, useEffect } from "react";
 import { FormsProvider } from "components/forms/FormsContext";
-import CandidateEducationCrudForm from "./CandidateEducationCrudForm";
-import { objCopy } from "../../../assets/js/library";
+import CandidateCertificationCrudForm from "./CandidateCertificationCrudForm";
+import { objCopy } from "assets/js/library";
 
-const CandidateEducationCrud = props => {
+const CandidateCertificationCrud = props => {
 	//const [origEducation, setOrigEducation] = useState(null);
-	const [education, setEducation] = useState(objCopy(props.education));
+	const [certification, setCertification] = useState(
+		objCopy(props.certification)
+	);
 
 	useEffect(() => {
-		setEducation(objCopy(props.education));
-	}, [props.education]);
+		setCertification(objCopy(props.certification));
+	}, [props.certification]);
 
 	const handleSkillsChange = skills => {
-		setEducation(prevEd => ({
-			...prevEd,
+		setCertification(prevCert => ({
+			...prevCert,
 			skills
 		}));
 	};
 
-	const handleSave = education => {
-		props.handleSave && props.handleSave(education);
+	const handleSave = certification => {
+		props.handleSave && props.handleSave(certification);
 	};
 
 	const handleCancel = () => {
@@ -29,8 +31,8 @@ const CandidateEducationCrud = props => {
 
 	return (
 		<FormsProvider>
-			<CandidateEducationCrudForm
-				education={education}
+			<CandidateCertificationCrudForm
+				certification={certification}
 				handleSkillsChange={handleSkillsChange}
 				handleSave={handleSave}
 				handleCancel={handleCancel}
@@ -40,4 +42,4 @@ const CandidateEducationCrud = props => {
 	);
 };
 
-export default CandidateEducationCrud;
+export default CandidateCertificationCrud;

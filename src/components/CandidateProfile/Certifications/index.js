@@ -1,3 +1,3 @@
-import Certification from "./Certification";
+import Certification from "./Certifications";
 
 export default Certification;

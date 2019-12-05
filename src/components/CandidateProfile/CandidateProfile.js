@@ -6,6 +6,7 @@ import ObjectiveSummary from "./ObjectiveSummary";
 import Highlights from "./ProfileHighlights";
 import Experience from "./Experience";
 import Education from "./Education";
+import Certifications from "./Certifications";
 import SocialMedia from "./SocialMedia";
 import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
@@ -102,6 +103,11 @@ class CandidateProfile extends Component {
 					/>
 					<Education
 						education={this.state.formFields.education}
+						handleUpdate={this.handleUpdate}
+						candId={this.state.candId}
+					/>
+					<Certifications
+						certifications={this.state.formFields.certifications}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
 					/>

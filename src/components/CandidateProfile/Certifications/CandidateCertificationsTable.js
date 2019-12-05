@@ -1,4 +1,4 @@
-/* CandidateEducationTable.js */
+/* CandidateCertificationsTable.js */
 import React from "react";
 import { Card } from "styledComponents/Card";
 import {
@@ -10,37 +10,51 @@ import {
 } from "styledComponents/DataTables";
 import KebabMenu from "./KebabMenu";
 import TableActions from "./TableActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const columnStylePadding = { paddingRight: "14px", minWidth: "70px" };
 
-const CandidateEducationTable = ({ education, actions, onAddClick }) => {
+const CandidateCertificationsTable = ({
+	certifications,
+	actions,
+	onAddClick
+}) => {
 	return (
-		<Card tableCard className="education-section">
+		<Card tableCard className="certifications-section">
 			<TableActions onAddClick={onAddClick} />
-			<DataTable plain baseId="education-table" fixedHeader fixedHeight={260}>
+			<DataTable
+				plain
+				baseId="certifications-table"
+				fixedHeader
+				fixedHeight={260}
+			>
 				<TableHeader>
 					<TableRow>
-						<TableColumn>Degree</TableColumn>
-						<TableColumn>School</TableColumn>
-						<TableColumn>Start Date</TableColumn>
-						<TableColumn>End Date</TableColumn>
+						<TableColumn>Certificate</TableColumn>
+						<TableColumn>Description</TableColumn>
+						<TableColumn>Issue Date</TableColumn>
+						<TableColumn>Image</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{education.map((ed, ndx) => {
+					{certifications.map((cert, ndx) => {
 						return (
 							<TableRow key={ndx}>
 								<TableColumn style={columnStylePadding}>
-									{ed.degreeName}
+									{cert.name}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.schoolName}
+									{cert.description}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.startDate || " "}
+									{cert.issueDate || " "}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.endDate || " "}
+									{cert.certificateImage ? (
+										<FontAwesomeIcon icon="check" />
+									) : (
+										""
+									)}
 								</TableColumn>
 								<KebabMenu ndx={ndx} actions={actions} />
 							</TableRow>
@@ -52,4 +66,4 @@ const CandidateEducationTable = ({ education, actions, onAddClick }) => {
 	);
 };
 
-export default CandidateEducationTable;
+export default CandidateCertificationsTable;

@@ -4,7 +4,7 @@ import { TableCardHeader } from "styledComponents/DataTables";
 import Button from "styledComponents/Button";
 
 const TableActions = ({ onAddClick }) => {
-	const title = <span>Education</span>;
+	const title = <span>Certifications</span>;
 
 	return (
 		<TableCardHeader title={title} visible={false}>
