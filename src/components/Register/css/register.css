@@ -26,11 +26,7 @@
   margin-bottom: 3em;
 }
 
-.register-section label {
-  text-align: right;
-}
-
-.signin-msg {
+.register-msg {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,7 +36,9 @@
   margin-bottom: 2em;
 }
 
-.signin-msg span {
+.register-msg span,
+.register-msg a {
+  margin: 0 8px;
   padding: 8px 0;
 }
 
@@ -80,19 +78,11 @@
 }
 
 .email-register-form {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 180px 1fr;
-      grid-template-columns: 180px 1fr;
-}
-
-.email-register-form label {
-  margin: 1em 0;
+  padding-left: 36px;
 }
 
 .email-register-form input {
   max-width: 300px;
-  margin: 1em 2em;
 }
 
 .email-register-form .form-err {

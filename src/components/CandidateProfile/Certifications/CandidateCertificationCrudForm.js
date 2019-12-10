@@ -1,13 +1,12 @@
 /* CandidateCertificationCrudForm.js */
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "components/forms/useForm";
 import {
 	InpString,
 	InpDate,
-	InpSelect,
+	// InpSelect,
 	Form
 } from "components/forms/formInputs";
-import Checkbox from "styledComponents/Checkbox";
 import {
 	ExpansionList,
 	ExpansionPanel
@@ -52,6 +51,14 @@ const CandidateCertificationCrudForm = props => {
 						label="Issue Date"
 						className="date-entry"
 						value={formFields.issueDate}
+					/>
+				</div>
+				<div className="tsd-form-row">
+					<InpString
+						id="certificate-img"
+						name="certificateImage"
+						label="Certification Image *"
+						value={formFields.certificateImage}
 					/>
 				</div>
 

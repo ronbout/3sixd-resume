@@ -30,7 +30,7 @@
   text-align: right;
 }
 
-.register-msg {
+.signin-msg {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,7 +40,9 @@
   margin-bottom: 2em;
 }
 
-.register-msg span {
+.signin-msg span,
+.signin-msg a {
+  margin: 0 8px;
   padding: 8px 0;
 }
 

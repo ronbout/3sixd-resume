@@ -19,8 +19,6 @@ const CandidateCertificationsContainer = props => {
 	);
 	const [toast, setToast] = useState({});
 
-	console.log("here");
-
 	const emptyCertification = {
 		id: "",
 		candidateId: props.candId || "",
@@ -61,10 +59,8 @@ const CandidateCertificationsContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			handleCancel();
 		} else {
-			addToast("Certification has been updated");
-			setCertifications(
-				props.certifications ? objCopy(props.certifications) : []
-			);
+			addToast("Certifications have been updated");
+			setCertifications(certifications ? objCopy(certifications) : []);
 		}
 	};
 
@@ -80,8 +76,8 @@ const CandidateCertificationsContainer = props => {
 		const tmp = objCopy(certifications.slice());
 		tmp.splice(delNdx, 1);
 		console.log("deleted certifications, if turned on: ", tmp);
-		//updateCertifications(tmp);
-		alert("not actually deleting certifications until later in testing");
+		updateCertifications(tmp);
+		//alert("not actually deleting certifications until later in testing");
 		hideDelDialog();
 	};
 
