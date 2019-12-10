@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Login from "./Login";
 import { UserContext } from "../UserProvider";
 import dataFetch from "../../assets/js/dataFetch";
+import { isEmptyObject } from "assets/js/library";
+import Snackbar from "styledComponents/Snackbar";
 
 const API_MEMBERS = "members";
 
@@ -24,7 +26,8 @@ class LoginContainer extends Component {
 		this.state = {
 			apiBase: window.apiUrl,
 			errMsg: referrer ? "You must be logged in to access that page" : "",
-			referrer
+			referrer,
+			toast: {}
 		};
 
 		if (email) {
@@ -45,17 +48,20 @@ class LoginContainer extends Component {
 	}
 
 	handleLogin = async (email, password) => {
+		this.closeToast();
 		const endpoint = API_MEMBERS;
 		const queryStr = `&password=${password}&email=${email}`;
+		let errMsg = "";
 
 		const result = await dataFetch(endpoint, queryStr);
 		if (result.error) {
 			if (result.errorCode && result.errorCode === 45002) {
-				this.setState({ errMsg: "Email " + email + " not found." });
-				console.log("Email " + email + " not found.");
+				errMsg = "Email " + email + " not found.";
 			} else {
-				this.setState({ errMsg: result.message });
+				errMsg = result.message;
 			}
+			this.setState({ errMsg });
+			this.addToast(errMsg, "Close", false);
 			console.log(result);
 		} else {
 			const loginReferrer =
@@ -77,8 +83,30 @@ class LoginContainer extends Component {
 		sessionStorage.removeItem("referrer");
 	};
 
+	addToast = (text, action, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		this.setState({ toast });
+	};
+
+	closeToast = () => {
+		this.setState({ toast: {} });
+	};
+
 	render() {
-		return <Login errMsg={this.state.errMsg} handleLogin={this.handleLogin} />;
+		return (
+			<React.Fragment>
+				<Login errMsg={this.state.errMsg} handleLogin={this.handleLogin} />
+				{isEmptyObject(this.state.toast) || (
+					<Snackbar
+						text={this.state.toast.text}
+						action={this.state.toast.action}
+						autohide={this.state.toast.autoHide}
+						timeout={this.state.toast.timeout}
+						closeCallBk={this.closeToast}
+					/>
+				)}
+			</React.Fragment>
+		);
 	}
 }
 
