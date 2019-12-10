@@ -6,7 +6,7 @@ import Button from "styledComponents/Button";
 const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
 	return (
 		<div className="personal-info-display">
-			<ProfileImg formattedName={formattedName} />
+			<ProfileImg formattedName={formattedName} candId={candId} />
 			<ProfileCompGraph pct={pct} />
 			<div>
 				<Button>Manage Resumes</Button>
