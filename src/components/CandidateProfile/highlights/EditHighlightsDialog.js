@@ -1,3 +1,4 @@
+/* EditHighlightsDialog.js */
 import React, { useState, useEffect } from "react";
 import SkillList from "components/SkillSetup/SkillList";
 import DialogContainer from "styledComponents/DialogContainer";
