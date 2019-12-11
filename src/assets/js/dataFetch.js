@@ -11,48 +11,50 @@ const API_COMPANY = "companies";
 const API_PERSON = "persons";
 
 export default async function dataFetch(
-  endpoint,
-  queryStr = "",
-  httpMethod = "GET",
-  body = null
+	endpoint,
+	queryStr = "",
+	httpMethod = "GET",
+	body = null,
+	formData = false
 ) {
-  const urlBase = window.apiUrl;
+	const urlBase = window.apiUrl;
 
-  let basicUrl = `${urlBase}${endpoint}${API_QUERY}${queryStr}`;
+	let basicUrl = `${urlBase}${endpoint}${API_QUERY}${queryStr}`;
+	let headers = formData
+		? {}
+		: { headers: { "Content-Type": "application/json" } };
 
-  let httpConfig = body
-    ? {
-        method: httpMethod,
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    : {};
+	let httpConfig = body
+		? {
+				method: httpMethod,
+				body: formData ? body : JSON.stringify(body),
+				...headers
+		  }
+		: {};
 
-  try {
-    const response = await fetch(basicUrl, httpConfig);
-    let result = await response.json();
-    if (result.error) {
-      return result;
-    } else {
-      result = convertNullsToEmpty(result.data);
-      return result;
-    }
-  } catch (error) {
-    console.log("Fetch error: ", error);
-    return { error: error };
-  }
+	try {
+		const response = await fetch(basicUrl, httpConfig);
+		let result = await response.json();
+		if (result.error) {
+			return result;
+		} else {
+			result = convertNullsToEmpty(result.data);
+			return result;
+		}
+	} catch (error) {
+		console.log("Fetch error: ", error);
+		return { error: error };
+	}
 }
 
 export async function fetchCompany(id) {
-  const endpoint = `${API_COMPANY}/${id}`;
-  const company = await dataFetch(endpoint);
-  return company;
+	const endpoint = `${API_COMPANY}/${id}`;
+	const company = await dataFetch(endpoint);
+	return company;
 }
 
 export async function fetchPerson(id) {
-  const endpoint = `${API_PERSON}/${id}`;
-  const person = await dataFetch(endpoint);
-  return person;
+	const endpoint = `${API_PERSON}/${id}`;
+	const person = await dataFetch(endpoint);
+	return person;
 }

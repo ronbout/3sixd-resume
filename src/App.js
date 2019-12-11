@@ -51,8 +51,16 @@ library.add(
 
 // setup global api url
 // if not on my dev, use remote api
-window.apiUrl = "http://localhost/3sixd/api/";
-//window.apiUrl = "http://13.90.143.153/3sixd/api/";
+const API_LOC = "local";
+//const API_LOC = 'azure'
+
+if (API_LOC === "local") {
+	window.imgLoc = "http://localhost/3sixd/imgs/";
+	window.apiUrl = "http://localhost/3sixd/api/";
+} else {
+	window.imgLoc = "http://13.90.143.153/3sixd/imgs/";
+	window.apiUrl = "http://13.90.143.153/3sixd/api/";
+}
 
 //window.resumeUrl = "http://localhost/3sixd/resume-build/resume-pdf.php";
 window.resumeUrl = "http://13.90.143.153/3sixd/resume-build/resume-pdf.php";

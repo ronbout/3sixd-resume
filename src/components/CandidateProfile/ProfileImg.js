@@ -16,7 +16,7 @@ const ProfileImg = props => {
 	};
 
 	const handleDefaultImg = ev => {
-		ev.target.src = "http://13.90.143.153/3sixd/imgs/default.jpg";
+		ev.target.src = `${window.imgLoc}default.jpg`;
 	};
 
 	return (
@@ -26,7 +26,7 @@ const ProfileImg = props => {
 					<img
 						className="candidate-img"
 						onError={handleDefaultImg}
-						src={`http://13.90.143.153/3sixd/imgs/candidate${props.candId}.jpg`}
+						src={`${window.imgLoc}candidate${props.candId}.jpg`}
 						alt="Candidate"
 						ref={imgElement}
 						onLoad={() => setImgHeight(imgElement.current.height + 4)}

@@ -3,19 +3,34 @@ import React, { useState, useRef } from "react";
 import DialogContainer from "styledComponents/DialogContainer";
 import Button from "styledComponents/Button";
 import { FileUpload } from "styledComponents/FileUpload";
+import dataFetch from "assets/js/dataFetch";
 
 const UploadProfileImageDialog = ({ dispUpload, hideUploadDialog, candId }) => {
+	const [imageFile, setImageFile] = useState(null);
 	const [uploadFile, setUploadFile] = useState(null);
 	const [invalidFile, setInvalidFile] = useState(false);
 	const uploadRef = useRef(null);
 
-	const handleFileUpload = () => {
-		alert("file upload");
-	};
+	const handleFileUpload = async () => {
+		const body = new FormData();
+		body.append("image", uploadFile, uploadFile.name);
+		body.append("name", uploadFile.name);
 
-	// const handleOnChange = file => {
-	// 	setUploadFile(file);
-	// };
+		//closeToast();
+		const id = candId;
+		const httpMethod = "POST";
+		const endpoint = `candidates/${id}/image`;
+
+		let result = await dataFetch(endpoint, "", httpMethod, body, true);
+		if (result.error) {
+			//const errMsg = "An unknown error has occurred";
+			//addToast(errMsg, "Close", false);
+		} else {
+			// success.  display toast to userMsg
+			//	const userMsg = `Image has been uploaded`;
+			//addToast(userMsg);
+		}
+	};
 
 	const handleLoad = (uploadedFile, uploadedData) => {
 		const { name, size, type, lastModified } = uploadedFile;
@@ -29,14 +44,15 @@ const UploadProfileImageDialog = ({ dispUpload, hideUploadDialog, candId }) => {
 			};
 			console.log("handleLoad: ", uploadedFile);
 			console.log("handleLoad file: ", file);
-			setUploadFile(file);
+			setImageFile(file);
+			setUploadFile(uploadedFile);
 		}
 	};
 
 	const handleProgress = (file, progress) => {
 		// The progress event can sometimes happen once more after the abort
 		// has been called. So this just a sanity check
-		if (uploadFile) {
+		if (imageFile) {
 			console.log("progress: ", progress);
 		}
 	};
@@ -45,7 +61,7 @@ const UploadProfileImageDialog = ({ dispUpload, hideUploadDialog, candId }) => {
 		if (!file.type.match(/image/)) {
 			console.log("invalid file type");
 			setInvalidFile(true);
-			setUploadFile(null);
+			setImageFile(null);
 		} else {
 			setInvalidFile(false);
 		}
@@ -58,7 +74,12 @@ const UploadProfileImageDialog = ({ dispUpload, hideUploadDialog, candId }) => {
 		onClick: hideUploadDialog
 	});
 	actions.push(
-		<Button variant="flat" color="primary" onClick={handleFileUpload}>
+		<Button
+			variant="flat"
+			color="primary"
+			onClick={handleFileUpload}
+			disabled={!imageFile || invalidFile}
+		>
 			Upload Image
 		</Button>
 	);
@@ -70,7 +91,6 @@ const UploadProfileImageDialog = ({ dispUpload, hideUploadDialog, candId }) => {
 			onHide={hideUploadDialog}
 			actions={actions}
 			title="Upload Profile Image"
-			height={400}
 			width={600}
 		>
 			<div style={{ marginBottom: "16px" }}>
@@ -89,11 +109,11 @@ const UploadProfileImageDialog = ({ dispUpload, hideUploadDialog, candId }) => {
 					iconBefore
 				/>
 			</div>
-			{uploadFile && (
+			{imageFile && (
 				<img
 					style={{ width: "116px" }}
-					alt={uploadFile.name}
-					src={uploadFile.data}
+					alt={imageFile.name}
+					src={imageFile.data}
 				/>
 			)}
 			{invalidFile && <h3>Invalid File Type</h3>}
