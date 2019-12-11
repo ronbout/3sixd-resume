@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react";
 import UploadProfileImageDialog from "./PersonalInfo/UploadProfileImageDialog";
 
 const ProfileImg = props => {
+	let [, setState] = useState();
 	const [imgHeight, setImgHeight] = useState(145);
+	const [imgHash, setImgHash] = useState(Date.now());
 	const [openDialog, setOpenDialog] = useState(false);
 	const imgElement = useRef(null);
 
@@ -11,7 +13,8 @@ const ProfileImg = props => {
 		setOpenDialog(true);
 	};
 
-	const handleCloseUploadDialog = () => {
+	const handleCloseUploadDialog = (redrawFlag = false) => {
+		setImgHash(Date.now());
 		setOpenDialog(false);
 	};
 
@@ -26,7 +29,7 @@ const ProfileImg = props => {
 					<img
 						className="candidate-img"
 						onError={handleDefaultImg}
-						src={`${window.imgLoc}candidate${props.candId}.jpg`}
+						src={`${window.imgLoc}candidate${props.candId}.jpg?${imgHash}`}
 						alt="Candidate"
 						ref={imgElement}
 						onLoad={() => setImgHeight(imgElement.current.height + 4)}
