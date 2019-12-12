@@ -65,7 +65,7 @@ export function isZipcode(zip) {
 	if (zip.length < 2) return false;
 	const urlReg = /^[a-z0-9]+$/i;
 
-	return zip.match(urlReg);
+	return zip.toString().match(urlReg);
 }
 
 export function convertNameToProperty(name) {
