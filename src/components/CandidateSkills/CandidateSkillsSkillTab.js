@@ -1,7 +1,8 @@
+/* CandidateSkillsSkillTab.js */
 import React, { useState, useEffect } from "react";
-
 import TechtagSelectContainer from "../TechtagSelect/";
 import SelectList from "../SelectList/";
+import Button from "styledComponents/Button";
 import { objCopy } from "../../assets/js/library";
 import dataFetch from "../../assets/js/dataFetch";
 
@@ -63,8 +64,7 @@ const CandidateSkillsSkillTab = props => {
 		return { display: skill.skillName, hover: skill.skillDescription };
 	});
 	return (
-		<div>
-			<h1>Candidate Skills</h1>
+		<div style={{ paddingTop: "24px" }}>
 			<div className="candidate-skill-tab-container">
 				<div className="candidate-skill">
 					<label>Selected Skill:</label>
@@ -98,9 +98,11 @@ const CandidateSkillsSkillTab = props => {
 					/>
 				</div>
 			</div>
-			<button type="button" className="skill-update" onClick={handleUpdate}>
-				Update Skill
-			</button>
+			<div style={{ marginBottom: "24px" }}>
+				<Button type="button" className="skill-update" onClick={handleUpdate}>
+					Update Skill
+				</Button>
+			</div>
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
+/* CandidateSkillsTechtagTab.js */
 import React, { useState, useEffect } from "react";
-
 import SelectList from "../SelectList/";
 import { objCopy } from "../../assets/js/library";
 
@@ -13,7 +13,7 @@ const CandidateSkillsTechtagTab = props => {
 	);
 
 	useEffect(() => {
-		setTagList(objCopy(props.candidateSkills.techtags));
+		setTagList(objCopy(props.candidateSkills.techtags || []));
 	}, [props.candidateSkills.techtags]);
 
 	const handleTagSelect = ndx => {
@@ -25,8 +25,7 @@ const CandidateSkillsTechtagTab = props => {
 		return { display: tag.name, hover: tag.description };
 	});
 	return (
-		<div>
-			<h1>Candidate Resume Techtags</h1>
+		<div style={{ paddingTop: "24px" }}>
 			{tagList.length ? (
 				<div className="candidate-skill-tab-container">
 					<div className="candidate-skill">
