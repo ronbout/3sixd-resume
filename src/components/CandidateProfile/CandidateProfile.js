@@ -24,7 +24,6 @@ class CandidateProfile extends Component {
 		// if no such parm, then must be add mode
 		const candId = props.match.params.candId;
 		this.state = {
-			apiBase: window.apiUrl,
 			formFields: candidateInfo,
 			candId
 		};

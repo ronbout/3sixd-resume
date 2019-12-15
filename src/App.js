@@ -4,21 +4,22 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "./css/styles.css";
 import "./css/app.css";
 
-import Error_404 from "./components/Error_404";
+import Error_404 from "components/Error_404";
 import Siteheader from "components/Siteheader/";
-import Footer from "./components/Footer/";
-import Sitebody from "./components/Sitebody/";
-import SkillSetup from "./components/SkillSetup/";
-import CompanySetup from "./components/CompanySetup/";
-//import CandidateSetup from "./components/CandidateSetup/";
-import CandidateProfile from "./components/CandidateProfile/";
-import CandidateSkills from "./components/CandidateSkills/";
-import PersonSetup from "./components/PersonSetup/";
-import LoginContainer from "./components/Login/";
-import Register from "./components/Register/";
-import GithubCallback from "./components/GithubCallback";
-import PrivateRoute from "./components/PrivateRoute";
-import { UserContext } from "./components/UserProvider";
+import Footer from "components/Footer/";
+import Sitebody from "components/Sitebody/";
+import SkillSetup from "components/SkillSetup/";
+import CompanySetup from "components/CompanySetup/";
+//import CandidateSetup from "components/CandidateSetup/";
+import CandidateProfile from "components/CandidateProfile/";
+import CandidateSkills from "components/CandidateSkills/";
+import PersonSetup from "components/PersonSetup/";
+import LoginContainer from "components/Login/";
+import Register from "components/Register/";
+import CandidateBio from "components/CandidateBio/";
+import GithubCallback from "components/GithubCallback";
+import PrivateRoute from "components/PrivateRoute";
+import { UserContext } from "components/UserProvider";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -128,6 +129,7 @@ class App extends Component {
 								path="/profile/:candId"
 								component={CandidateProfile}
 							/>
+							<PrivateRoute path="/bio/:candId" component={CandidateBio} />
 							<PrivateRoute
 								path="/cand-skills/:candId"
 								component={CandidateSkills}

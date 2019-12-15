@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import UploadProfileImageDialog from "./PersonalInfo/UploadProfileImageDialog";
 
 const ProfileImg = props => {
-	let [, setState] = useState();
 	const [imgHeight, setImgHeight] = useState(145);
 	const [imgHash, setImgHash] = useState(Date.now());
 	const [openDialog, setOpenDialog] = useState(false);
