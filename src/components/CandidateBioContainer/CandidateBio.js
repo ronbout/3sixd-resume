@@ -24,7 +24,7 @@ const dispCandHeader = c => {
 						return (
 							<img
 								key={cert.name}
-								src={require(`assets/img/${cert.certificateImage}`)}
+								src={`${window.imgLoc}certs/${cert.certificateImage}`}
 								height={70}
 								width={70}
 								alt={cert.name}

@@ -33,7 +33,7 @@ class CandidateBioContainer extends Component {
 		const layout = urlParams.get("layout")
 			? JSON.parse(urlParams.get("layout"))
 			: defaultLayout;
-		console.log("layout: ", layout);
+		// console.log("layout: ", layout);
 
 		this.state = {
 			candidate: candidateInfo,
