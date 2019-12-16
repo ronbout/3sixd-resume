@@ -10,13 +10,12 @@ import Footer from "components/Footer/";
 import Sitebody from "components/Sitebody/";
 import SkillSetup from "components/SkillSetup/";
 import CompanySetup from "components/CompanySetup/";
-//import CandidateSetup from "components/CandidateSetup/";
 import CandidateProfile from "components/CandidateProfile/";
 import CandidateSkills from "components/CandidateSkills/";
 import PersonSetup from "components/PersonSetup/";
 import LoginContainer from "components/Login/";
 import Register from "components/Register/";
-import CandidateBio from "components/CandidateBio/";
+import CandidateBioContainer from "components/CandidateBioContainer/";
 import GithubCallback from "components/GithubCallback";
 import PrivateRoute from "components/PrivateRoute";
 import { UserContext } from "components/UserProvider";
@@ -129,7 +128,10 @@ class App extends Component {
 								path="/profile/:candId"
 								component={CandidateProfile}
 							/>
-							<PrivateRoute path="/bio/:candId" component={CandidateBio} />
+							<PrivateRoute
+								path="/bio/:candId"
+								component={CandidateBioContainer}
+							/>
 							<PrivateRoute
 								path="/cand-skills/:candId"
 								component={CandidateSkills}

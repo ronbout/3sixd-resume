@@ -50,6 +50,11 @@ class CandidateProfile extends Component {
 		const candidateApiInfo = await dataFetch(endpoint);
 		if (candidateApiInfo.error) {
 			console.log(candidateApiInfo);
+			/**
+			 *
+			 *  TODO: add error message
+			 *
+			 */
 		} else {
 			const formFields = candidateApiInfo ? candidateApiInfo : candidateInfo;
 			this.setState({
