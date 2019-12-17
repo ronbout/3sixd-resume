@@ -2,6 +2,7 @@ import React from "react";
 import ProfileImg from "../ProfileImg";
 import ProfileCompGraph from "../ProfileCompGraph";
 import Button from "styledComponents/Button";
+import { Link } from "react-router-dom";
 
 const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
 	return (
@@ -9,7 +10,9 @@ const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
 			<ProfileImg formattedName={formattedName} candId={candId} />
 			<ProfileCompGraph pct={pct} />
 			<div>
-				<Button>Manage Resumes</Button>
+				<Link to={`/bio/${candId}`}>
+					<Button type="button">View Bio Page</Button>
+				</Link>
 			</div>
 			<br />
 			<div>
