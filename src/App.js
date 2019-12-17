@@ -16,6 +16,7 @@ import PersonSetup from "components/PersonSetup/";
 import LoginContainer from "components/Login/";
 import Register from "components/Register/";
 import CandidateBioContainer from "components/CandidateBioContainer/";
+import CandidateListContainer from "components/CandidateList/";
 import GithubCallback from "components/GithubCallback";
 import PrivateRoute from "components/PrivateRoute";
 import { UserContext } from "components/UserProvider";
@@ -138,6 +139,10 @@ class App extends Component {
 								component={CandidateSkills}
 							/>
 							<PrivateRoute path="/profile" component={CandidateProfile} />
+							<PrivateRoute
+								path="/candidate-list"
+								component={CandidateListContainer}
+							/>
 							<Route component={Error_404} />
 						</Switch>
 					</main>

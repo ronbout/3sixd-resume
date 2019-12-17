@@ -22,6 +22,11 @@ const Navmenu = () => {
 						Person
 					</NavLink>
 				</li>
+				<li>
+					<NavLink to="/candidate-list" className="nav-link">
+						Candidates
+					</NavLink>
+				</li>
 			</ul>
 		</nav>
 	);
