@@ -9,23 +9,31 @@ import { isEmptyObject } from "assets/js/library";
 const API_CANDIDATES = "candidates/";
 const API_OBJECTIVE = "/objective";
 
-const ObjectiveSummaryContainer = ({ objective, executiveSummary, candId }) => {
+const ObjectiveSummaryContainer = ({
+	jobTitle,
+	objective,
+	executiveSummary,
+	candId
+}) => {
 	const [toast, setToast] = useState({});
+	const [candJobTitle, setCandJobTitle] = useState(jobTitle);
 	const [candObjective, setCandObjective] = useState(objective);
 	const [candSummary, setCandSummary] = useState(executiveSummary);
 
 	useEffect(() => {
+		setCandJobTitle(jobTitle);
 		setCandObjective(objective);
 		setCandSummary(executiveSummary);
-	}, [objective, executiveSummary]);
+	}, [jobTitle, objective, executiveSummary]);
 
 	const handleSubmit = formData => {
 		postObjective(formData);
 	};
 
-	const postObjective = async ({ objective, executiveSummary }) => {
+	const postObjective = async ({ jobTitle, objective, executiveSummary }) => {
 		closeToast();
 		let body = {
+			jobTitle,
 			objective,
 			executiveSummary
 		};
@@ -40,7 +48,7 @@ const ObjectiveSummaryContainer = ({ objective, executiveSummary, candId }) => {
 		} else {
 			setCandObjective(objective);
 			setCandSummary(executiveSummary);
-			const userMsg = "Objective / Executive Summary has been updated";
+			const userMsg = "Job Title / Objective / Summary has been updated";
 			addToast(userMsg);
 		}
 	};
@@ -58,7 +66,11 @@ const ObjectiveSummaryContainer = ({ objective, executiveSummary, candId }) => {
 		<section>
 			<FormsProvider>
 				<ObjectiveSummaryForm
-					formData={{ objective: candObjective, executiveSummary: candSummary }}
+					formData={{
+						jobTitle: candJobTitle,
+						objective: candObjective,
+						executiveSummary: candSummary
+					}}
 					handleSubmit={handleSubmit}
 				/>
 			</FormsProvider>

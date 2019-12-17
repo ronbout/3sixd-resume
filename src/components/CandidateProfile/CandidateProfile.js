@@ -90,6 +90,7 @@ class CandidateProfile extends Component {
 						candId={this.state.candId}
 					/>
 					<ObjectiveSummary
+						jobTitle={this.state.formFields.jobTitle}
 						objective={this.state.formFields.objective}
 						executiveSummary={this.state.formFields.executiveSummary}
 						handleUpdate={this.handleUpdate}

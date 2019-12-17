@@ -6,13 +6,21 @@ import { useForm } from "components/forms/useForm";
 const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 	const { formFields, BtnSubmit, BtnCancel, dirtyMsg } = useForm(
 		formData,
-		{ objective: "", executiveSummary: "" },
+		{ jobTitle: "", objective: "", executiveSummary: "" },
 		handleSubmit
 	);
 	return (
 		<Form>
 			{dirtyMsg}
 			<div className="objective-form">
+				<InpTextArea
+					id="jobtitle"
+					label="Job Title"
+					rows={1}
+					maxLength={30}
+					name="jobTitle"
+					value={formFields.jobTitle}
+				/>
 				<InpTextArea
 					id="objective"
 					label="Objective"
