@@ -19,7 +19,9 @@ const dispCandHeader = c => {
 			<div id="resume-header-container">
 				<span id="resume-header">
 					<span id="header-name">{c.person.formattedName}</span>
-					<span id="header-title">{c.experience[0].jobTitle}</span>
+					<span id="header-title">
+						{c.jobTitle ? c.jobTitle : c.experience[0].jobTitle}
+					</span>
 					{c.certifications.map(cert => {
 						return (
 							<img

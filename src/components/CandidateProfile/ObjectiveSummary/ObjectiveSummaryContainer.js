@@ -46,6 +46,7 @@ const ObjectiveSummaryContainer = ({
 			console.log(result);
 			addToast("An unknown error occurred", "Close", false);
 		} else {
+			setCandJobTitle(jobTitle);
 			setCandObjective(objective);
 			setCandSummary(executiveSummary);
 			const userMsg = "Job Title / Objective / Summary has been updated";
