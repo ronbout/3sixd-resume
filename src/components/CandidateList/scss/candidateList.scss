@@ -1,15 +1,69 @@
 /* candidateList.scss */
 
-.candidate-list-section {
+.clist-heading {
+	padding: 30px 20px 40px;
+	background: white;
+	border-bottom: 1px solid #d8d8d8;
+}
+
+.clist-section {
 	display: flex;
-	padding: 12px;
+	padding: 0 12px 12px;
+	background: white;
 }
 
 .clist-filter {
-	flex-grow: 1;
+	flex: 0 0 25%;
+	padding: 12px 12px 0 8px;
+	background: white;
+
+	button {
+		margin: 12px;
+	}
 }
 
 .clist-display {
-	flex-grow: 3;
-	max-width: 75%;
+	flex: 1 1 500px;
+	padding: 0 12px;
+	background-color: #f7f7f7;
+	padding: 20px 16px 10px;
+
+	ul {
+		font-size: 13px;
+		padding: 0;
+		margin: 0;
+
+		li {
+			list-style-type: none;
+			padding: 0;
+			margin: 0 0 10px 0;
+			max-width: 770px;
+		}
+
+		.md-card {
+			padding-right: 36px;
+		}
+	}
+
+	.clist-header1 {
+		font-size: 14px;
+		color: #999;
+		font-weight: 900;
+	}
+
+	.clist-header2 {
+		margin-bottom: 12px;
+	}
+
+	.clist-btns {
+		button {
+			font-size: 16px;
+		}
+	}
+}
+
+.skill-list {
+	font-size: 12px;
+	color: #888;
+	padding: 0 12px;
 }

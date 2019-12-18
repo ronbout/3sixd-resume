@@ -1,3 +1,8 @@
+.navbar li,
+.signin li {
+  margin: 0 8px;
+}
+
 .siteheader {
   font-family: "helvetica";
   background-color: #32A862;

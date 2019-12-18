@@ -1,78 +1,85 @@
 @import "../../../scss/settings";
 @import "../../../scss/functions";
 
+.navbar,
+.signin {
+	li {
+		margin: 0 8px;
+	}
+}
+
 .siteheader {
-  font-family: font(primary);
-  background-color: color(primary);
-  display: grid;
-  grid-template-columns: 75px 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: "logo burger";
+	font-family: font(primary);
+	background-color: color(primary);
+	display: grid;
+	grid-template-columns: 75px 1fr;
+	grid-template-rows: auto;
+	grid-template-areas: "logo burger";
 }
 
 @media screen and (max-width: screen(desktop)) {
-  #navbar,
-  #signin {
-    display: none;
-  }
+	#navbar,
+	#signin {
+		display: none;
+	}
 }
 
 @media screen and (min-width: screen(desktop)+1) {
-  .siteheader {
-    display: grid;
-    grid-template-columns: 75px 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: "logo navbar signin";
-  }
-  #burger {
-    display: none;
-  }
-  #navbar,
-  #signin {
-    display: block;
-  }
+	.siteheader {
+		display: grid;
+		grid-template-columns: 75px 1fr 1fr;
+		grid-template-rows: auto;
+		grid-template-areas: "logo navbar signin";
+	}
+	#burger {
+		display: none;
+	}
+	#navbar,
+	#signin {
+		display: block;
+	}
 }
 
 #logo {
-  grid-area: logo;
-  //    background-color: yellow;
+	grid-area: logo;
+	//    background-color: yellow;
 }
 
 #burger {
-  grid-area: burger;
-  //    background-color: blue;
-  align-self: center;
-  justify-self: right;
-  padding: 30px;
+	grid-area: burger;
+	//    background-color: blue;
+	align-self: center;
+	justify-self: right;
+	padding: 30px;
 }
 
 #navbar {
-  grid-area: navbar;
-  //    background-color: orange;
-  padding: 20px;
-  align-self: center;
-  justify-self: left;
+	grid-area: navbar;
+	//    background-color: orange;
+	padding: 20px;
+	align-self: center;
+	justify-self: left;
 }
 
 #signin {
-  grid-area: signin;
-  //    background-color: orange;
-  padding: 20px;
-  align-self: center;
-  justify-self: right;
+	grid-area: signin;
+	//    background-color: orange;
+	padding: 20px;
+	align-self: center;
+	justify-self: right;
 
-  li button {
-    padding: 0.5em 1em;
-  }
+	li button {
+		padding: 0.5em 1em;
+	}
 }
 
 #signin-button {
-  font-size: 1em;
-  text-align: left;
-  color: white;
-  background: none;
-  margin: 0 1em 0 0;
-  padding: 0;
-  border: none;
-  cursor: pointer;
+	font-size: 1em;
+	text-align: left;
+	color: white;
+	background: none;
+	margin: 0 1em 0 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
 }

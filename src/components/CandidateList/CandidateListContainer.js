@@ -73,7 +73,6 @@ class CandidateListContainer extends Component {
 		// filter List
 		const filteredList = this.state.candidates.filter(c => {
 			const { name, title, skills } = this.state.filters;
-			console.log("here");
 			if (
 				name &&
 				!c.personFormattedName.toLowerCase().includes(name.toLowerCase())
@@ -90,14 +89,19 @@ class CandidateListContainer extends Component {
 			return true;
 		});
 		return (
-			<section className="candidate-list-section">
-				<div className="clist-filter">
-					<CandidateListFilter filterList={this.filterList} />
+			<React.Fragment>
+				<div className="clist-heading">
+					<h1>Candidate Listing</h1>
 				</div>
-				<div className="clist-display">
-					<CandidateList candidates={filteredList} />
+				<div className="clist-section">
+					<div className="clist-filter">
+						<CandidateListFilter filterList={this.filterList} />
+					</div>
+					<div className="clist-display">
+						<CandidateList candidates={filteredList} />
+					</div>
 				</div>
-			</section>
+			</React.Fragment>
 		);
 	}
 }

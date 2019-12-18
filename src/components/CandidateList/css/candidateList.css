@@ -1,21 +1,73 @@
 /* candidateList.scss */
-.candidate-list-section {
+.clist-heading {
+  padding: 30px 20px 40px;
+  background: white;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.clist-section {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 12px;
+  padding: 0 12px 12px;
+  background: white;
 }
 
 .clist-filter {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 25%;
+          flex: 0 0 25%;
+  padding: 12px 12px 0 8px;
+  background: white;
+}
+
+.clist-filter button {
+  margin: 12px;
 }
 
 .clist-display {
-  -webkit-box-flex: 3;
-      -ms-flex-positive: 3;
-          flex-grow: 3;
-  max-width: 75%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 500px;
+          flex: 1 1 500px;
+  padding: 0 12px;
+  background-color: #f7f7f7;
+  padding: 20px 16px 10px;
+}
+
+.clist-display ul {
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+}
+
+.clist-display ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  max-width: 770px;
+}
+
+.clist-display ul .md-card {
+  padding-right: 36px;
+}
+
+.clist-display .clist-header1 {
+  font-size: 14px;
+  color: #999;
+  font-weight: 900;
+}
+
+.clist-display .clist-header2 {
+  margin-bottom: 12px;
+}
+
+.clist-display .clist-btns button {
+  font-size: 16px;
+}
+
+.skill-list {
+  font-size: 12px;
+  color: #888;
+  padding: 0 12px;
 }
 /*# sourceMappingURL=candidateList.css.map */
