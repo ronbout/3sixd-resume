@@ -1,1 +1,15 @@
 /* candidateList.scss */
+
+.candidate-list-section {
+	display: flex;
+	padding: 12px;
+}
+
+.clist-filter {
+	flex-grow: 1;
+}
+
+.clist-display {
+	flex-grow: 3;
+	max-width: 75%;
+}

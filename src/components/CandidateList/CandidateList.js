@@ -7,8 +7,9 @@ const CandidateList = ({ candidates }) => {
 			<h1>Candidate listing</h1>
 			{candidates.map(c => {
 				return (
-					<div>
-						{c.personFormattedName} - {c.jobTitle ? c.jobTitle : ""}
+					<div key={c.id}>
+						{c.personFormattedName} - {c.jobTitle ? c.jobTitle : ""} -{" "}
+						{c.skillList}
 					</div>
 				);
 			})}

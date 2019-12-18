@@ -1,6 +1,7 @@
 /* CandidateListContainer.js */
 import React, { Component } from "react";
 import CandidateList from "./CandidateList";
+import CandidateListFilter from "./CandidateListFilter";
 import dataFetch from "assets/js/dataFetch";
 
 import "./css/candidateList.css";
@@ -12,7 +13,8 @@ class CandidateListContainer extends Component {
 		super(props);
 
 		this.state = {
-			candidates: []
+			candidates: [],
+			filters: {}
 		};
 	}
 
@@ -33,7 +35,17 @@ class CandidateListContainer extends Component {
 
 			return false;
 		} else {
-			const candidates = candidateListInfo ? candidateListInfo : [];
+			const candidates = candidateListInfo.map(candidate => {
+				let { edSkillName, certSkillName, jobSkillName } = candidate;
+				// add a comma-delimited list of all skills for filtering
+				edSkillName = edSkillName ? edSkillName : [];
+				certSkillName = certSkillName ? certSkillName : [];
+				jobSkillName = jobSkillName ? jobSkillName : [];
+				const skillList = edSkillName
+					.concat(certSkillName, jobSkillName)
+					.join(",");
+				return { ...candidate, skillList };
+			});
 			this.setState({
 				candidates
 			});
@@ -41,8 +53,52 @@ class CandidateListContainer extends Component {
 		return true;
 	};
 
+	filterList = filters => {
+		console.log("filter List: ", filters);
+		this.setState({ filters });
+	};
+
+	testSkillsFilter = (skillFilters, skillList) => {
+		return skillFilters
+			.trim()
+			.split(",")
+			.reduce((flg, sFilter) => {
+				console.log("filter: ", flg, sFilter);
+				if (sFilter.trim() && !skillList.includes(sFilter)) return false;
+				return flg;
+			}, true);
+	};
+
 	render() {
-		return <CandidateList candidates={this.state.candidates} />;
+		// filter List
+		const filteredList = this.state.candidates.filter(c => {
+			const { name, title, skills } = this.state.filters;
+			console.log("here");
+			if (
+				name &&
+				!c.personFormattedName.toLowerCase().includes(name.toLowerCase())
+			)
+				return false;
+			if (title && !c.jobTitle.toLowerCase().includes(title.toLowerCase()))
+				return false;
+			if (
+				skills &&
+				!this.testSkillsFilter(skills.toLowerCase(), c.skillList.toLowerCase())
+			)
+				return false;
+
+			return true;
+		});
+		return (
+			<section className="candidate-list-section">
+				<div className="clist-filter">
+					<CandidateListFilter filterList={this.filterList} />
+				</div>
+				<div className="clist-display">
+					<CandidateList candidates={filteredList} />
+				</div>
+			</section>
+		);
 	}
 }
 
