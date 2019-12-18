@@ -9,6 +9,7 @@ const CandidateList = ({ candidates }) => {
 		<div>
 			<ul>
 				{candidates.map(c => {
+					const skillList = c.skillList.replace(/,/gi, ", ");
 					const headerRow = (
 						<div
 							className="clist-header1"
@@ -70,7 +71,7 @@ const CandidateList = ({ candidates }) => {
 										{headerRow2}
 										<div className="skill-list">
 											<span style={{ fontWeight: "bold" }}>Skills - </span>
-											{c.skillList}
+											{skillList}
 										</div>
 										{btnRow}
 									</CardText>
