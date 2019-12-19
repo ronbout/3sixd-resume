@@ -29,7 +29,7 @@ const CandidateExperienceCrudForm = props => {
 		changeFormFields
 	} = useForm(props.job, {}, props.handleSave);
 	const [currentJob, setCurrentJob] = useState(!formFields.endDate);
-	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
+	const [oldEndDate, setOldEndDate] = useState(formFields.endDate);
 	const { showPerson, showCompany } = props;
 
 	const CompanyPopup = MakePopup(
@@ -108,7 +108,7 @@ const CandidateExperienceCrudForm = props => {
 								formFields.endDate = oldEndDate;
 								changeFormFields("endDate", oldEndDate);
 							} else {
-								formFields.endDate && setOldEndDAte(formFields.endDate);
+								formFields.endDate && setOldEndDate(formFields.endDate);
 								changeFormFields("endDate", null);
 							}
 							setCurrentJob(check);

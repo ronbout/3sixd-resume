@@ -1,9 +1,10 @@
 /* CompanySetupForm.js */
 import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
-import CompanySearchContainer from "../search/CompanySearch";
-import PersonSetup from "../PersonSetup/";
-import MakePopup from "../hoc/MakePopup";
+import CompanySearchContainer from "components/search/CompanySearch";
+import PersonSetup from "components/PersonSetup/";
+import MakePopup from "components/hoc/MakePopup";
+import CompanyAuto from "./CompanyAuto";
 import Button from "styledComponents/Button";
 import {
 	InpString,
@@ -47,15 +48,26 @@ const CompanySetupForm = props => {
 			<section>
 				<input type="hidden" name="id" value={formFields.id} />
 				<div className="tsd-form-row">
-					<InpString
-						id="company-name"
-						name="name"
-						label="Name *"
-						value={formFields.name}
-						autoFocus
-						required
-						disabled={props.showPerson}
-					/>
+					{formFields.id ? (
+						<InpString
+							id="company-name"
+							name="name"
+							label="Name *"
+							value={formFields.name}
+							autoFocus
+							required
+							disabled={props.showPerson}
+						/>
+					) : (
+						<CompanyAuto
+							company={formFields.name}
+							handleOnChange={val => changeFormFields("name", val)}
+							handleCompanySelect={props.handleCompanySelect}
+							autoFocus
+							required
+							disabled={props.showPerson}
+						/>
+					)}
 					<InpString
 						id="company-desc"
 						name="description"
