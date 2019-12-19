@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PersonSearch from "./PersonSearch";
 import dataFetch from "../../../assets/js/dataFetch";
 
-const API_SKILL_SEARCH = "persons/search";
+const API_PERSON_SEARCH = "persons/search";
 
 class PersonSearchContainer extends Component {
 	constructor(props) {
@@ -48,7 +48,7 @@ class PersonSearchContainer extends Component {
 		if (this.state.formFields.searchPhone) {
 			apiQuery += `&phone=${this.state.formFields.searchPhone}`;
 		}
-		const endpoint = API_SKILL_SEARCH;
+		const endpoint = API_PERSON_SEARCH;
 		const result = await dataFetch(endpoint, apiQuery);
 		if (result.error) {
 			console.log("Error searching for Person: ", result);

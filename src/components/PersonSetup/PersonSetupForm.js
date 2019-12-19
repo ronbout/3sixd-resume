@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import Button from "styledComponents/Button";
-import PersonSearchContainer from "../search/PersonSearch";
-import MakePopup from "../hoc/MakePopup";
+import PersonSearchContainer from "components/search/PersonSearch";
+import PersonAuto from "./PersonAuto";
+import MakePopup from "components/hoc/MakePopup";
 import {
 	InpString,
 	InpEmail,
@@ -25,11 +26,14 @@ const PersonSearchPopup = MakePopup(
 );
 
 const PersonSetupForm = props => {
-	const { formFields, BtnSubmit, BtnCancel, BtnClear, dirtyMsg } = useForm(
-		props.personInfo,
-		props.clearFormFields,
-		props.handleSubmit
-	);
+	const {
+		formFields,
+		BtnSubmit,
+		BtnCancel,
+		BtnClear,
+		dirtyMsg,
+		changeFormFields
+	} = useForm(props.personInfo, props.clearFormFields, props.handleSubmit);
 	const [newCompany, setNewCompany] = useState(false);
 
 	const personDetails = () => {
@@ -38,21 +42,45 @@ const PersonSetupForm = props => {
 				<input type="hidden" name="id" value={formFields.id} />
 				{/* Name Row */}
 				<div className="tsd-form-row">
-					<InpString
-						id="givenName"
-						name="givenName"
-						label="First Name *"
-						value={formFields.givenName}
-						autoFocus
-						required
-					/>
-					<InpString
-						id="familyName"
-						name="familyName"
-						label="Last Name *"
-						value={formFields.familyName}
-						required
-					/>
+					{formFields.id ? (
+						<React.Fragment>
+							<InpString
+								id="givenName"
+								name="givenName"
+								label="First Name *"
+								value={formFields.givenName}
+								autoFocus
+								required
+							/>
+							<InpString
+								id="familyName"
+								name="familyName"
+								label="Last Name *"
+								value={formFields.familyName}
+								required
+							/>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<PersonAuto
+								id="autocomplete-firstname"
+								label="First Name *"
+								person={formFields.givenName}
+								handleOnChange={val => changeFormFields("givenName", val)}
+								handlePersonSelect={props.handlePersonSelect}
+								autoFocus
+								required
+							/>
+							<PersonAuto
+								id="autocomplete-familyname"
+								label="Last Name *"
+								person={formFields.familyName}
+								handleOnChange={val => changeFormFields("familyName", val)}
+								handlePersonSelect={props.handlePersonSelect}
+								required
+							/>
+						</React.Fragment>
+					)}
 					<InpEmail
 						id="email"
 						name="email1"

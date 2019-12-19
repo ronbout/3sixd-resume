@@ -121,7 +121,6 @@ class PersonSetupContainer extends Component {
 	};
 
 	handlePersonSelect = personInfo => {
-		console.log("person info: ", personInfo);
 		this.setState(
 			{
 				formFields: personInfo
