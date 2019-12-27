@@ -17,6 +17,16 @@ import { calcPercentComplete } from "./calcPercentComplete";
 
 const API_CANDIDATES = "candidates";
 
+const emptyCompObj = {
+	totPct: 0,
+	person: { curPct: 0, availPct: 20 },
+	summary: { curPct: 0, availPct: 15 },
+	highlights: { curPct: 0, availPct: 20 },
+	experience: { curPct: 0, availPct: 30 },
+	education: { curPct: 0, availPct: 10 },
+	socialMedia: { curPct: 0, availPct: 5 }
+};
+
 class CandidateProfile extends Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +37,7 @@ class CandidateProfile extends Component {
 		this.state = {
 			formFields: candidateInfo,
 			candId,
-			compObj: {}
+			compObj: emptyCompObj
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
@@ -93,7 +103,7 @@ class CandidateProfile extends Component {
 						person={this.state.formFields.person}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
-						compObj={this.state.compObj.person}
+						compObj={this.state.compObj}
 					/>
 					<ObjectiveSummary
 						jobTitle={this.state.formFields.jobTitle}

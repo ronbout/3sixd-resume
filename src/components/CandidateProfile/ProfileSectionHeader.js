@@ -7,6 +7,7 @@ const ProfileSectionHeader = props => {
 			<span>
 				<h2>{props.headerTitle || "Section Header"}</h2>
 			</span>
+			{/* (
 			<span>
 				<h2>({props.profilePercentage || 0}%)</h2>
 			</span>
@@ -15,6 +16,7 @@ const ProfileSectionHeader = props => {
 					{props.profileSectionCompleted && <FontAwesomeIcon icon="check" />}
 				</h2>
 			</span>
+			)*/}
 		</div>
 	);
 };

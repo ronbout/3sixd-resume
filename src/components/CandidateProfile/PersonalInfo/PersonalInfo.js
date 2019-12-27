@@ -4,10 +4,10 @@ import PersonalInfoForm from "./PersonalInfoForm";
 import PersonalInfoDisp from "./PersonalInfoDisplay";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 
-const PersonalInfoDiv = ({ person, candId, handleUpdate }) => {
-	const handleSubmit = personObj => {
-		//handleUpdate({ person: personObj });
-	};
+const PersonalInfoDiv = ({ person, candId, compObj }) => {
+	// const handleSubmit = personObj => {
+	// 	//handleUpdate({ person: personObj });
+	// };
 
 	return (
 		<section>
@@ -15,21 +15,26 @@ const PersonalInfoDiv = ({ person, candId, handleUpdate }) => {
 				<PersonalInfoDisp
 					formattedName={person.formattedName}
 					candId={candId}
+					pct={compObj.totPct}
 				/>
 				<div id="pi-divider" className="tsd-vdiv" />
-				<PersonalInfoForm handleSubmit={handleSubmit} person={person} />
+				<PersonalInfoForm person={person} />
 			</div>
 		</section>
 	);
 };
 
-const PersonalInfo = ({ person, candId, handleUpdate }) => {
+const PersonalInfo = ({ person, candId, compObj }) => {
 	const header = () => {
 		return (
 			<ProfileSectionHeader
 				headerTitle="Personal Info"
-				profilePercentage="20"
-				profileSectionCompleted={true}
+				profilePercentage={
+					compObj.person.curPct + " / " + compObj.person.availPct
+				}
+				profileSectionCompleted={
+					compObj.person.curPct === compObj.person.availPct
+				}
 			/>
 		);
 	};
@@ -38,11 +43,7 @@ const PersonalInfo = ({ person, candId, handleUpdate }) => {
 
 	return (
 		<section className="tsd-card personal-info profile-section">
-			<ExpandProfileInfo
-				person={person}
-				candId={candId}
-				handleUpdate={handleUpdate}
-			/>
+			<ExpandProfileInfo person={person} candId={candId} compObj={compObj} />
 		</section>
 	);
 };

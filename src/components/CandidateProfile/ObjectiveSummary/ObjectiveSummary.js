@@ -26,14 +26,15 @@ const ObjectiveSummary = ({
 	jobTitle,
 	objective,
 	executiveSummary,
-	candId
+	candId,
+	compObj
 }) => {
 	const header = () => {
 		return (
 			<ProfileSectionHeader
 				headerTitle="Title / Objective / Summary"
-				profilePercentage="15"
-				profileSectionCompleted={false}
+				profilePercentage={compObj.curPct + " / " + compObj.availPct}
+				profileSectionCompleted={compObj.curPct === compObj.availPct}
 			/>
 		);
 	};
