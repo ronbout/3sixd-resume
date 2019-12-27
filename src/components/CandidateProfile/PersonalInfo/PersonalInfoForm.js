@@ -11,6 +11,7 @@ const PersonalInfoForm = props => {
 			<PersonSetupContainer
 				person={props.person}
 				heading={false}
+				popup={true}
 				buttons={{ save: true, cancel: true }}
 			/>
 		</div>

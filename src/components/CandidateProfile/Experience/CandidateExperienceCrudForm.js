@@ -217,6 +217,7 @@ const CandidateExperienceCrudForm = props => {
 				<PersonPopup
 					person={formFields.contactPerson}
 					handleCancel={props.handlePersonCancel}
+					heading="Contact Person Entry"
 					handleSubmit={p => {
 						console.log("handleSubmit person: ", p);
 						changeFormFields("contactPerson", p);
