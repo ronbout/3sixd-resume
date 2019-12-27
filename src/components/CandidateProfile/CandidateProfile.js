@@ -13,6 +13,7 @@ import "./css/candidateProfile.css";
 import { objCopy } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
 import { isEqual } from "lodash";
+import { calcPercentComplete } from "./calcPercentComplete";
 
 const API_CANDIDATES = "candidates";
 
@@ -25,7 +26,8 @@ class CandidateProfile extends Component {
 		const candId = props.match.params.candId;
 		this.state = {
 			formFields: candidateInfo,
-			candId
+			candId,
+			compObj: {}
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
@@ -57,9 +59,12 @@ class CandidateProfile extends Component {
 			 */
 		} else {
 			const formFields = candidateApiInfo ? candidateApiInfo : candidateInfo;
+			const compObj = calcPercentComplete(formFields);
+			console.log(compObj);
 			this.setState({
 				formFields,
-				origForm: objCopy(formFields)
+				origForm: objCopy(formFields),
+				compObj
 			});
 		}
 	};
@@ -88,6 +93,7 @@ class CandidateProfile extends Component {
 						person={this.state.formFields.person}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
+						compObj={this.state.compObj.person}
 					/>
 					<ObjectiveSummary
 						jobTitle={this.state.formFields.jobTitle}
@@ -95,21 +101,25 @@ class CandidateProfile extends Component {
 						executiveSummary={this.state.formFields.executiveSummary}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
+						compObj={this.state.compObj.summary}
 					/>
 					<Highlights
 						highlights={this.state.formFields.candidateHighlights}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
+						compObj={this.state.compObj.highlights}
 					/>
 					<Experience
 						experience={this.state.formFields.experience}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
+						compObj={this.state.compObj.experience}
 					/>
 					<Education
 						education={this.state.formFields.education}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
+						compObj={this.state.compObj.education}
 					/>
 					<Certifications
 						certifications={this.state.formFields.certifications}
@@ -129,6 +139,7 @@ class CandidateProfile extends Component {
 						}
 						handleUpdate={this.handleUpdate}
 						candId={this.state.candId}
+						compObj={this.state.compObj.socialMedia}
 					/>
 				</ExpansionList>
 			</div>

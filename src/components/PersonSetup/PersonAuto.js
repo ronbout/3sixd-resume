@@ -16,9 +16,18 @@ const PersonAuto = ({
 }) => {
 	const [results, setResults] = useState([]);
 	const [autoResults, setAutoResults] = useState([]);
+	const isMounted = React.useRef(true);
+
+	useEffect(() => {
+		isMounted.current = true;
+		return () => {
+			isMounted.current = false;
+		};
+	});
 
 	useEffect(() => {
 		handleSearch(person);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [person]);
 
 	const handleSearch = async searchVal => {
@@ -31,8 +40,10 @@ const PersonAuto = ({
 			const data = results.map(r => {
 				return r.formattedName;
 			});
-			setResults(results ? results : []);
-			setAutoResults(data ? data : []);
+			if (isMounted.current) {
+				setResults(results ? results : []);
+				setAutoResults(data ? data : []);
+			}
 		}
 	};
 	const handleChange = (val, e) => {

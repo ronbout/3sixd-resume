@@ -34,7 +34,7 @@ const PersonalInfo = ({ person, candId, handleUpdate }) => {
 		);
 	};
 
-	const ExpandProfileInfo = makeExpansion(PersonalInfoDiv, header);
+	const ExpandProfileInfo = makeExpansion(PersonalInfoDiv, header, null, true);
 
 	return (
 		<section className="tsd-card personal-info profile-section">

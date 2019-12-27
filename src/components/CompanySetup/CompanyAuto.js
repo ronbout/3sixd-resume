@@ -14,9 +14,18 @@ const CompanyAuto = ({
 }) => {
 	const [results, setResults] = useState([]);
 	const [autoResults, setAutoResults] = useState([]);
+	const isMounted = React.useRef(true);
+
+	useEffect(() => {
+		isMounted.current = true;
+		return () => {
+			isMounted.current = false;
+		};
+	});
 
 	useEffect(() => {
 		handleSearch(company);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [company]);
 
 	const handleSearch = async searchVal => {
@@ -29,8 +38,10 @@ const CompanyAuto = ({
 			const data = results.map(r => {
 				return r.name;
 			});
-			setResults(results ? results : []);
-			setAutoResults(data ? data : []);
+			if (isMounted.current) {
+				setResults(results ? results : []);
+				setAutoResults(data ? data : []);
+			}
 		}
 	};
 	const handleChange = (val, e) => {
