@@ -29,15 +29,15 @@ export const calcPercentComplete = candInfo => {
 	const { person } = candInfo;
 	if (!person.mobilePhone && !person.workPhone) {
 		tmpPct -= 5;
-		tmpMissing.push("phone");
+		tmpMissing.push("Phone");
 	}
 	if (!person.municipality) {
 		tmpPct -= 5;
-		tmpMissing.push("city");
+		tmpMissing.push("City");
 	}
 	if (!person.website) {
 		tmpPct -= 5;
-		tmpMissing.push("website");
+		tmpMissing.push("Website");
 	}
 	percentComplete.person = {
 		availPct: availPcts.person,
@@ -52,15 +52,15 @@ export const calcPercentComplete = candInfo => {
 	const { jobTitle, executiveSummary, objective } = candInfo;
 	if (!jobTitle) {
 		tmpPct -= 5;
-		tmpMissing.push("jobTitle");
+		tmpMissing.push("Job Title");
 	}
 	if (!executiveSummary) {
 		tmpPct -= 5;
-		tmpMissing.push("summary");
+		tmpMissing.push("Executive Summary");
 	}
 	if (!objective) {
 		tmpPct -= 5;
-		tmpMissing.push("objective");
+		tmpMissing.push("Objective");
 	}
 	percentComplete.summary = {
 		availPct: availPcts.summary,
@@ -75,11 +75,11 @@ export const calcPercentComplete = candInfo => {
 	const { candidateHighlights } = candInfo;
 	if (!candidateHighlights.length) {
 		tmpPct = 0;
-		tmpMissing.push("highlights");
+		tmpMissing.push("Highlights");
 	} else {
 		if (!candidateHighlights.find(h => h.skills.length)) {
 			tmpPct -= 10;
-			tmpMissing.push("highlight skills");
+			tmpMissing.push("Skills");
 		}
 	}
 	percentComplete.highlights = {
@@ -95,15 +95,15 @@ export const calcPercentComplete = candInfo => {
 	const { experience } = candInfo;
 	if (!experience.length) {
 		tmpPct = 0;
-		tmpMissing.push("experience");
+		tmpMissing.push("Experience");
 	} else {
 		if (experience.find(ex => ex.skills.length === 0)) {
 			tmpPct -= 10;
-			tmpMissing.push("experience skills");
+			tmpMissing.push("Skills");
 		}
 		if (experience.find(ex => ex.highlights.length === 0)) {
 			tmpPct -= 10;
-			tmpMissing.push("experience highlights");
+			tmpMissing.push("Highlights");
 		}
 	}
 	percentComplete.experience = {
@@ -119,7 +119,7 @@ export const calcPercentComplete = candInfo => {
 	const { education } = candInfo;
 	if (!education.length) {
 		tmpPct = 0;
-		tmpMissing.push("education");
+		tmpMissing.push("Education");
 	}
 	percentComplete.education = {
 		availPct: availPcts.education,
@@ -134,7 +134,7 @@ export const calcPercentComplete = candInfo => {
 	const { socialMedia } = candInfo;
 	if (!socialMedia.find(s => s.socialLink !== "")) {
 		tmpPct = 0;
-		tmpMissing.push("socialMedia");
+		tmpMissing.push("Social Media");
 	}
 	percentComplete.socialMedia = {
 		availPct: availPcts.socialMedia,

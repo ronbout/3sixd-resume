@@ -32,17 +32,23 @@ const ObjectiveSummary = ({
 	const header = () => {
 		return (
 			<ProfileSectionHeader
-				headerTitle="Title / Objective / Summary"
+				headerTitle="Professional Info"
 				profilePercentage={compObj.curPct + " / " + compObj.availPct}
 				profileSectionCompleted={compObj.curPct === compObj.availPct}
 			/>
 		);
 	};
 
-	const ExpandObjectiveDiv = makeExpansion(ObjectiveSummaryDiv, header);
+	const ExpandObjectiveDiv = makeExpansion(
+		ObjectiveSummaryDiv,
+		header,
+		null,
+		false,
+		0
+	);
 
 	return (
-		<section className="tsd-card objective-summary profile-section">
+		<section className="objective-summary profile-section">
 			<ExpandObjectiveDiv
 				jobTitle={jobTitle}
 				objective={objective}

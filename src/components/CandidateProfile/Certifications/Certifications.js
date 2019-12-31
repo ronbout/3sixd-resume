@@ -33,17 +33,23 @@ const Certifications = props => {
 	const header = () => {
 		return (
 			<ProfileSectionHeader
-				headerTitle="Candidate Certification"
+				headerTitle="Certifications"
 				profilePercentage="10"
 				profileSectionCompleted={true}
 			/>
 		);
 	};
 
-	const ExpandCertificationDiv = makeExpansion(CertificationDiv, header);
+	const ExpandCertificationDiv = makeExpansion(
+		CertificationDiv,
+		header,
+		null,
+		false,
+		0
+	);
 
 	return (
-		<section className="tsd-card Certification profile-section">
+		<section className="Certification profile-section">
 			<ExpandCertificationDiv
 				certifications={certifications}
 				candId={props.candId}

@@ -5,7 +5,8 @@ const makeExpansion = (
 	ExpandComponent,
 	heading,
 	footer = null,
-	defaultExpanded = false
+	defaultExpanded = false,
+	zDepth = 1
 ) => {
 	return props => {
 		return (
@@ -13,6 +14,7 @@ const makeExpansion = (
 				label={heading()}
 				footer={footer}
 				style={{ background: "inherit", width: "100%" }}
+				zDepth={zDepth}
 				defaultExpanded={defaultExpanded}
 			>
 				<ExpandComponent {...props} />

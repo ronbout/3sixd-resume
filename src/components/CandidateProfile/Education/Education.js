@@ -27,17 +27,23 @@ const Education = props => {
 	const header = () => {
 		return (
 			<ProfileSectionHeader
-				headerTitle="Candidate Education"
+				headerTitle="Education"
 				profilePercentage="20"
 				profileSectionCompleted={true}
 			/>
 		);
 	};
 
-	const ExpandEducationDiv = makeExpansion(EducationDiv, header);
+	const ExpandEducationDiv = makeExpansion(
+		EducationDiv,
+		header,
+		null,
+		false,
+		0
+	);
 
 	return (
-		<section className="tsd-card Education profile-section">
+		<section className="Education profile-section">
 			<ExpandEducationDiv education={education} candId={props.candId} />
 		</section>
 	);

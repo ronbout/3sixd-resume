@@ -26,17 +26,23 @@ const Experience = props => {
 	const header = () => {
 		return (
 			<ProfileSectionHeader
-				headerTitle="Candidate Experience"
+				headerTitle="Experience"
 				profilePercentage="20"
 				profileSectionCompleted={true}
 			/>
 		);
 	};
 
-	const ExpandExperienceDiv = makeExpansion(ExperienceDiv, header);
+	const ExpandExperienceDiv = makeExpansion(
+		ExperienceDiv,
+		header,
+		null,
+		false,
+		0
+	);
 
 	return (
-		<section className="tsd-card Experience profile-section">
+		<section className="Experience profile-section">
 			<ExpandExperienceDiv experience={experience} candId={props.candId} />
 		</section>
 	);

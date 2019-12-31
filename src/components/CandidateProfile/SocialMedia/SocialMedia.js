@@ -27,10 +27,16 @@ const SocialMedia = ({ candId, linkedInLink, githubLink }) => {
 		);
 	};
 
-	const ExpandSocialMediaDiv = makeExpansion(SocialMediaDiv, header);
+	const ExpandSocialMediaDiv = makeExpansion(
+		SocialMediaDiv,
+		header,
+		null,
+		false,
+		0
+	);
 
 	return (
-		<section className="tsd-card social profile-section">
+		<section className="social profile-section">
 			<ExpandSocialMediaDiv
 				linkedInLink={linkedInLink}
 				githubLink={githubLink}

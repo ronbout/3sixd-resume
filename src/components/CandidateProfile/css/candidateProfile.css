@@ -16,6 +16,13 @@
   background: blue;
 }
 
+.tsd-light-hdiv {
+  height: 1px;
+  margin: 8px 20px;
+  padding: 0 10px !important;
+  background: #ddd;
+}
+
 .tsd-hdiv {
   height: 2px;
   margin: 8px 20px;
@@ -50,12 +57,24 @@
           align-items: center;
   width: 1080px;
   margin: 2em auto;
+  background-color: white;
+}
+
+.candidate-profile .md-panel-header .material-icons.md-icon {
+  font-size: 32px;
+}
+
+.candidate-profile tr:nth-child(even) {
+  background-color: #dfd;
+}
+
+.candidate-profile tr:nth-child(even):hover {
+  background-color: #cdc;
 }
 
 .profile-section {
   margin: 1em 0;
   border-radius: 8px;
-  background: lightblue;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -251,13 +270,37 @@
 .candidate-highlights,
 .experience-form,
 .social-form {
-  background: #ddd;
+  background: white;
   padding: 2em 2em 1em;
-  border: 1px solid black;
 }
 
 button.btn-move i {
   color: white;
   font-weight: bold;
+}
+
+.profile-section + .profile-section::before {
+  display: inline-block;
+  content: "";
+  width: 90%;
+  border-top: 1px solid #ddd;
+  margin: 8px auto;
+}
+
+.comp-msg {
+  width: 1000px;
+  margin: 12px auto;
+  border: 1px solid #eee;
+  background-color: #fcf8e3;
+  padding: 8px;
+}
+
+.comp-msg p {
+  padding: 0 20px;
+}
+
+.comp-msg li {
+  padding: 0 26px;
+  line-height: 22px;
 }
 /*# sourceMappingURL=candidateProfile.css.map */

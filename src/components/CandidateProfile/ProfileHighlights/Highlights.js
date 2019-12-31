@@ -15,16 +15,22 @@ const Highlights = props => {
 	const header = () => {
 		return (
 			<ProfileSectionHeader
-				headerTitle="Candidate Highlights"
+				headerTitle="Career Highlights"
 				profilePercentage="20"
 				profileSectionCompleted={true}
 			/>
 		);
 	};
 
-	const ExpandHighlightDiv = makeExpansion(HighlightsDiv, header);
+	const ExpandHighlightDiv = makeExpansion(
+		HighlightsDiv,
+		header,
+		null,
+		false,
+		0
+	);
 	return (
-		<section className="tsd-card highlights profile-section">
+		<section className="highlights profile-section">
 			<ExpandHighlightDiv highlights={props.highlights} candId={props.candId} />
 		</section>
 	);
