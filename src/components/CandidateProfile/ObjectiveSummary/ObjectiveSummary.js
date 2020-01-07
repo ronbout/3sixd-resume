@@ -36,9 +36,9 @@ const ObjectiveSummary = ({
 	candId,
 	handleUpdate
 }) => {
-	React.useEffect(() => {
-		console.log("***  Objective Summary rendered ***");
-	});
+	// React.useEffect(() => {
+	// 	console.log("***  Objective Summary rendered ***");
+	// });
 
 	const header = () => {
 		return <ProfileSectionHeader headerTitle="Professional Info" />;

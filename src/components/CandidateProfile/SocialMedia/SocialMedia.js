@@ -23,9 +23,9 @@ const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
 };
 
 const SocialMedia = ({ candId, linkedInLink, githubLink, handleUpdate }) => {
-	React.useEffect(() => {
-		console.log("***  Social Media rendered ***");
-	});
+	// React.useEffect(() => {
+	// 	console.log("***  Social Media rendered ***");
+	// });
 	const header = () => {
 		return (
 			<ProfileSectionHeader

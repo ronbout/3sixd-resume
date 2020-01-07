@@ -62,7 +62,10 @@ const CompanySetupForm = props => {
 						<CompanyAuto
 							company={formFields.name}
 							handleOnChange={val => changeFormFields("name", val)}
-							handleCompanySelect={props.handleCompanySelect}
+							handleCompanySelect={c => {
+								setNewCompany(true);
+								props.handleCompanySelect(c);
+							}}
 							autoFocus
 							required
 							disabled={props.showPerson}

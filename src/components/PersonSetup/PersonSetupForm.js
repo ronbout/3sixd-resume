@@ -34,7 +34,7 @@ const PersonSetupForm = props => {
 		dirtyMsg,
 		changeFormFields
 	} = useForm(props.personInfo, props.clearFormFields, props.handleSubmit);
-	const [newCompany, setNewCompany] = useState(false);
+	const [newPerson, setNewPerson] = useState(false);
 
 	const personDetails = () => {
 		return (
@@ -67,7 +67,10 @@ const PersonSetupForm = props => {
 								label="First Name *"
 								person={formFields.givenName}
 								handleOnChange={val => changeFormFields("givenName", val)}
-								handlePersonSelect={props.handlePersonSelect}
+								handlePersonSelect={p => {
+									setNewPerson(true);
+									props.handlePersonSelect(p);
+								}}
 								autoFocus
 								required
 							/>
@@ -76,7 +79,10 @@ const PersonSetupForm = props => {
 								label="Last Name *"
 								person={formFields.familyName}
 								handleOnChange={val => changeFormFields("familyName", val)}
-								handlePersonSelect={props.handlePersonSelect}
+								handlePersonSelect={p => {
+									setNewPerson(true);
+									props.handlePersonSelect(p);
+								}}
 								required
 							/>
 						</React.Fragment>
@@ -163,7 +169,7 @@ const PersonSetupForm = props => {
 		// cancelAction and saveEnable are explained in CompanySetupForm which
 		// is also both a standalone and popup form
 		const cancelAction = props.popup ? { onCancel: props.handleCancel } : {};
-		const saveEnable = props.popup && newCompany;
+		const saveEnable = props.popup && newPerson;
 		return (
 			<div className="button-section">
 				{props.buttons && props.buttons.save === true && (
@@ -179,7 +185,7 @@ const PersonSetupForm = props => {
 				{props.buttons && props.buttons.clear === true && (
 					<BtnClear
 						onClick={() => {
-							setNewCompany(false);
+							setNewPerson(false);
 						}}
 						checkDirty
 					/>
@@ -198,7 +204,7 @@ const PersonSetupForm = props => {
 		return (
 			<PersonSearchPopup
 				handlePersonSelect={p => {
-					setNewCompany(true);
+					setNewPerson(true);
 					props.handlePersonSelect(p);
 				}}
 				closeBtn={props.handleClosePersonSearch}

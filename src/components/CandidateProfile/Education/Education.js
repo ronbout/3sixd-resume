@@ -21,9 +21,9 @@ const EducationDiv = ({ education, candId, handleEducationChange }) => {
 const Education = props => {
 	const [education, setEducation] = useState(objCopy(props.education));
 
-	React.useEffect(() => {
-		console.log("***  Education rendered ***");
-	});
+	// React.useEffect(() => {
+	// 	console.log("***  Education rendered ***");
+	// });
 
 	useEffect(() => {
 		setEducation(objCopy(props.education));

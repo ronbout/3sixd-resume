@@ -27,9 +27,9 @@ const Certifications = props => {
 		objCopy(props.certifications)
 	);
 
-	React.useEffect(() => {
-		console.log("***  Certs rendered ***");
-	});
+	// React.useEffect(() => {
+	// 	console.log("***  Certs rendered ***");
+	// });
 
 	useEffect(() => {
 		setCertification(objCopy(props.certifications));

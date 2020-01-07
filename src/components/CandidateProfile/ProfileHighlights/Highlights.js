@@ -21,9 +21,9 @@ const HighlightsDiv = ({ highlights, candId, handleUpdate }) => {
 };
 
 const Highlights = ({ highlights, candId, handleUpdate }) => {
-	React.useEffect(() => {
-		console.log("***  Highlights rendered ***");
-	});
+	// React.useEffect(() => {
+	// 	console.log("***  Highlights rendered ***");
+	// });
 	const header = () => {
 		return (
 			<ProfileSectionHeader

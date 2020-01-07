@@ -20,9 +20,9 @@ const ExperienceDiv = ({ experience, candId, handleExperienceChange }) => {
 const Experience = props => {
 	const [experience, setExperience] = useState(objCopy(props.experience));
 
-	useEffect(() => {
-		console.log("***  Experience rendered ***");
-	});
+	// useEffect(() => {
+	// 	console.log("***  Experience rendered ***");
+	// });
 
 	useEffect(() => {
 		setExperience(objCopy(props.experience));

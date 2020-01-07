@@ -27,9 +27,9 @@ const PersonalInfoDiv = ({ person, candId, compObj, handleUpdate }) => {
 };
 
 const PersonalInfo = ({ person, candId, compObj, handleUpdate }) => {
-	React.useEffect(() => {
-		console.log("***  PersonalInfo rendered ***");
-	});
+	// React.useEffect(() => {
+	// 	console.log("***  PersonalInfo rendered ***");
+	// });
 
 	const header = () => {
 		return <ProfileSectionHeader headerTitle="Personal Info" />;

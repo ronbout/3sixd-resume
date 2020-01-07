@@ -206,7 +206,6 @@ const CandidateExperienceCrudForm = props => {
 					company={formFields.company}
 					handleCancel={props.handleCompanyCancel}
 					handleSubmit={c => {
-						console.log("handleSubmit company: ", c);
 						changeFormFields("company", c);
 						props.handleCompanySubmit();
 					}}
