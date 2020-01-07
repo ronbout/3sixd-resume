@@ -1,13 +1,15 @@
+/* PersonalInfo.js */
 import React from "react";
 import makeExpansion from "styledComponents/makeExpansion";
 import PersonalInfoForm from "./PersonalInfoForm";
 import PersonalInfoDisp from "./PersonalInfoDisplay";
 import ProfileSectionHeader from "../ProfileSectionHeader";
+import { isEqual } from "lodash";
 
-const PersonalInfoDiv = ({ person, candId, compObj }) => {
-	// const handleSubmit = personObj => {
-	// 	//handleUpdate({ person: personObj });
-	// };
+const PersonalInfoDiv = ({ person, candId, compObj, handleUpdate }) => {
+	const handleSubmit = personObj => {
+		handleUpdate({ person: personObj });
+	};
 
 	return (
 		<section>
@@ -18,25 +20,19 @@ const PersonalInfoDiv = ({ person, candId, compObj }) => {
 					pct={compObj.totPct}
 				/>
 				<div id="pi-divider" className="tsd-vdiv" />
-				<PersonalInfoForm person={person} />
+				<PersonalInfoForm person={person} handleSubmit={handleSubmit} />
 			</div>
 		</section>
 	);
 };
 
-const PersonalInfo = ({ person, candId, compObj }) => {
+const PersonalInfo = ({ person, candId, compObj, handleUpdate }) => {
+	React.useEffect(() => {
+		console.log("***  PersonalInfo rendered ***");
+	});
+
 	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Personal Info"
-				profilePercentage={
-					compObj.person.curPct + " / " + compObj.person.availPct
-				}
-				profileSectionCompleted={
-					compObj.person.curPct === compObj.person.availPct
-				}
-			/>
-		);
+		return <ProfileSectionHeader headerTitle="Personal Info" />;
 	};
 
 	const ExpandProfileInfo = makeExpansion(
@@ -49,9 +45,16 @@ const PersonalInfo = ({ person, candId, compObj }) => {
 
 	return (
 		<section className="personal-info profile-section">
-			<ExpandProfileInfo person={person} candId={candId} compObj={compObj} />
+			<ExpandProfileInfo
+				person={person}
+				candId={candId}
+				compObj={compObj}
+				handleUpdate={handleUpdate}
+			/>
 		</section>
 	);
 };
 
-export default PersonalInfo;
+export default React.memo(PersonalInfo, (prev, next) =>
+	isEqual(prev.person, next.person)
+);

@@ -2,6 +2,7 @@
 import React from "react";
 import { InpTextArea, Form } from "components/forms/formInputs";
 import { useForm } from "components/forms/useForm";
+import { isEqual } from "lodash";
 
 const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 	const { formFields, BtnSubmit, BtnCancel, dirtyMsg } = useForm(
@@ -9,6 +10,10 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 		{ jobTitle: "", objective: "", executiveSummary: "" },
 		handleSubmit
 	);
+
+	React.useEffect(() => {
+		console.log("OS Form rerender");
+	});
 	return (
 		<Form>
 			{dirtyMsg}
@@ -46,4 +51,6 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 	);
 };
 
-export default ObjectiveSummaryForm;
+export default React.memo(ObjectiveSummaryForm, (prev, next) => {
+	return isEqual(prev.formData, next.formData);
+});

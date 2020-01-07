@@ -9,7 +9,12 @@ import { isEmptyObject } from "assets/js/library";
 const API_CANDIDATES = "candidates/";
 const API_SOCIAL = "/social";
 
-const SocialMediaContainer = ({ candId, linkedInLink, githubLink }) => {
+const SocialMediaContainer = ({
+	candId,
+	linkedInLink,
+	githubLink,
+	handleUpdate
+}) => {
 	const [toast, setToast] = useState({});
 	const [linkedIn, setLinkedIn] = useState(linkedInLink);
 	const [github, setGithub] = useState(githubLink);
@@ -42,6 +47,16 @@ const SocialMediaContainer = ({ candId, linkedInLink, githubLink }) => {
 			setGithub(github);
 			const userMsg = "Social Media Links have been updated";
 			addToast(userMsg);
+			handleUpdate([
+				{
+					socialType: "LinkedIn",
+					socialLink: linkedIn
+				},
+				{
+					socialType: "Github",
+					socialLink: github
+				}
+			]);
 		}
 	};
 

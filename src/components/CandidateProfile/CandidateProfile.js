@@ -12,7 +12,7 @@ import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
 import { objCopy } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
-import { isEqual } from "lodash";
+// import { isEqual } from "lodash";
 import { calcPercentComplete } from "./calcPercentComplete";
 
 const API_CANDIDATES = "candidates";
@@ -37,7 +37,8 @@ class CandidateProfile extends Component {
 		this.state = {
 			formFields: candidateInfo,
 			candId,
-			compObj: emptyCompObj
+			compObj: emptyCompObj,
+			compMsg: ""
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
@@ -48,6 +49,7 @@ class CandidateProfile extends Component {
 			this.loadCandidateInfo(this.state.candId);
 	}
 
+	/*
 	shouldComponentUpdate(nextProps, nextState) {
 		// the section components should not re-render
 		// when they pass update info up to top state
@@ -56,6 +58,7 @@ class CandidateProfile extends Component {
 			isEqual(this.state.formFields, candidateInfo)
 		);
 	}
+	*/
 
 	loadCandidateInfo = async candId => {
 		const endpoint = `${API_CANDIDATES}/${candId}`;
@@ -70,27 +73,33 @@ class CandidateProfile extends Component {
 		} else {
 			const formFields = candidateApiInfo ? candidateApiInfo : candidateInfo;
 			const compObj = calcPercentComplete(formFields);
-			console.log(compObj);
+			const compMsg = this.buildCompMsg(compObj);
 			this.setState({
 				formFields,
 				origForm: objCopy(formFields),
-				compObj
+				compObj,
+				compMsg
 			});
 		}
 	};
 
 	handleUpdate = updateObj => {
-		// this does not really need to be set as once it passes
-		// off the data to the sections, it is no longer involved
-		// turn it off to stop the children from re-rendering
-		/*
-		const newFormFields = {
-			...this.state.formFields,
+		// this will not need to pass the info back down as
+		// the sections contain the latest info.  But, it is
+		// needed to update the compMsg
+		// const newFormFields = {
+		// 	...this.state.formFields,
+		// 	...updateObj
+		// };
+
+		const formFields = {
+			...objCopy(this.state.formFields),
 			...updateObj
 		};
 
-		this.setState({ formFields: newFormFields });
-		*/
+		const compObj = calcPercentComplete(formFields);
+		const compMsg = this.buildCompMsg(compObj);
+		this.setState({ formFields, compObj, compMsg });
 	};
 
 	buildCompMsg = compObj => {
@@ -108,8 +117,6 @@ class CandidateProfile extends Component {
 		 *
 		 */
 		let compMsg = [];
-
-		console.log("compObj ", compObj);
 
 		if (compObj.person.missing.length) {
 			compMsg.push(
@@ -169,14 +176,12 @@ class CandidateProfile extends Component {
 
 	render() {
 		const socialMedia = this.state.formFields.socialMedia;
-		const compMsg = this.buildCompMsg(this.state.compObj);
-		console.log(compMsg);
 		return (
 			<React.Fragment>
 				<h1 style={{ marginTop: "12px", textAlign: "center" }}>
 					Candidate Profile
 				</h1>
-				{compMsg && (
+				{this.state.compMsg && (
 					<div className="comp-msg">
 						<p
 							style={{
@@ -188,7 +193,7 @@ class CandidateProfile extends Component {
 							Your profile is incomplete. With a complete profile, our AI can
 							generate an optimal resume based on particular job requirements
 						</p>
-						<ol>{compMsg.map(m => m)}</ol>
+						<ol>{this.state.compMsg.map(m => m)}</ol>
 					</div>
 				)}
 				<div className="candidate-profile">

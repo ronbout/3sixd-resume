@@ -3,6 +3,7 @@ import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateExperienceContainer from "./CandidateExperienceContainer";
 import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
+import { isEqual } from "lodash";
 
 const ExperienceDiv = ({ experience, candId, handleExperienceChange }) => {
 	return (
@@ -18,6 +19,10 @@ const ExperienceDiv = ({ experience, candId, handleExperienceChange }) => {
 
 const Experience = props => {
 	const [experience, setExperience] = useState(objCopy(props.experience));
+
+	useEffect(() => {
+		console.log("***  Experience rendered ***");
+	});
 
 	useEffect(() => {
 		setExperience(objCopy(props.experience));
@@ -48,4 +53,6 @@ const Experience = props => {
 	);
 };
 
-export default Experience;
+export default React.memo(Experience, (prev, next) =>
+	isEqual(prev.experience, next.experience)
+);

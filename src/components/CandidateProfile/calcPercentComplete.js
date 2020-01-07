@@ -7,7 +7,6 @@
  *
  */
 export const calcPercentComplete = candInfo => {
-	console.log(candInfo);
 	// take section at a time, building an object with completed %
 	// and remaining work to be done
 	const percentComplete = {};

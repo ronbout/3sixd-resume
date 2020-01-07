@@ -13,7 +13,8 @@ const ObjectiveSummaryContainer = ({
 	jobTitle,
 	objective,
 	executiveSummary,
-	candId
+	candId,
+	handleUpdate
 }) => {
 	const [toast, setToast] = useState({});
 	const [candJobTitle, setCandJobTitle] = useState(jobTitle);
@@ -21,6 +22,7 @@ const ObjectiveSummaryContainer = ({
 	const [candSummary, setCandSummary] = useState(executiveSummary);
 
 	useEffect(() => {
+		console.log("job title: ", jobTitle);
 		setCandJobTitle(jobTitle);
 		setCandObjective(objective);
 		setCandSummary(executiveSummary);
@@ -46,11 +48,12 @@ const ObjectiveSummaryContainer = ({
 			console.log(result);
 			addToast("An unknown error occurred", "Close", false);
 		} else {
-			setCandJobTitle(jobTitle);
-			setCandObjective(objective);
-			setCandSummary(executiveSummary);
-			const userMsg = "Job Title / Objective / Summary has been updated";
-			addToast(userMsg);
+			// setCandJobTitle(jobTitle);
+			// setCandObjective(objective);
+			// setCandSummary(executiveSummary);
+			handleUpdate({ jobTitle, objective, executiveSummary });
+			// const userMsg = "Job Title / Objective / Summary has been updated";
+			// addToast(userMsg);
 		}
 	};
 

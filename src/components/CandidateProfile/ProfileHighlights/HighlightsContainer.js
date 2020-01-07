@@ -53,6 +53,7 @@ const HighlightsContainer = props => {
 			// need user message here
 			setOrigHighlights(highlights);
 			addToast("Highlights have been updated");
+			props.handleSubmit(highlights);
 		}
 	};
 

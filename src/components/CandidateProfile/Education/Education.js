@@ -4,6 +4,7 @@ import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateEducationContainer from "./CandidateEducationContainer";
 import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
+import { isEqual } from "lodash";
 
 const EducationDiv = ({ education, candId, handleEducationChange }) => {
 	return (
@@ -19,6 +20,10 @@ const EducationDiv = ({ education, candId, handleEducationChange }) => {
 
 const Education = props => {
 	const [education, setEducation] = useState(objCopy(props.education));
+
+	React.useEffect(() => {
+		console.log("***  Education rendered ***");
+	});
 
 	useEffect(() => {
 		setEducation(objCopy(props.education));
@@ -49,4 +54,6 @@ const Education = props => {
 	);
 };
 
-export default Education;
+export default React.memo(Education, (prev, next) =>
+	isEqual(prev.education, next.education)
+);

@@ -4,6 +4,7 @@ import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateCertificationContainer from "./CandidateCertificationsContainer";
 import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
+import { isEqual } from "lodash";
 
 const CertificationDiv = ({
 	certifications,
@@ -25,6 +26,10 @@ const Certifications = props => {
 	const [certifications, setCertification] = useState(
 		objCopy(props.certifications)
 	);
+
+	React.useEffect(() => {
+		console.log("***  Certs rendered ***");
+	});
 
 	useEffect(() => {
 		setCertification(objCopy(props.certifications));
@@ -58,4 +63,6 @@ const Certifications = props => {
 	);
 };
 
-export default Certifications;
+export default React.memo(Certifications, (prev, next) =>
+	isEqual(prev.certifications, next.certifications)
+);

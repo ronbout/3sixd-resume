@@ -3,13 +3,19 @@ import React from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import ObjectiveSummaryContainer from "./ObjectiveSummaryContainer";
 import makeExpansion from "styledComponents/makeExpansion";
+import { isEqual } from "lodash";
 
 const ObjectiveSummaryDiv = ({
 	jobTitle,
 	objective,
 	executiveSummary,
-	candId
+	candId,
+	handleUpdate
 }) => {
+	const handleSubmit = ({ jobTitle, objective, executiveSummary }) => {
+		handleUpdate({ jobTitle, objective, executiveSummary });
+	};
+
 	return (
 		<section>
 			<ObjectiveSummaryContainer
@@ -17,6 +23,7 @@ const ObjectiveSummaryDiv = ({
 				objective={objective}
 				executiveSummary={executiveSummary}
 				candId={candId}
+				handleUpdate={handleSubmit}
 			/>
 		</section>
 	);
@@ -27,16 +34,14 @@ const ObjectiveSummary = ({
 	objective,
 	executiveSummary,
 	candId,
-	compObj
+	handleUpdate
 }) => {
+	React.useEffect(() => {
+		console.log("***  Objective Summary rendered ***");
+	});
+
 	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Professional Info"
-				profilePercentage={compObj.curPct + " / " + compObj.availPct}
-				profileSectionCompleted={compObj.curPct === compObj.availPct}
-			/>
-		);
+		return <ProfileSectionHeader headerTitle="Professional Info" />;
 	};
 
 	const ExpandObjectiveDiv = makeExpansion(
@@ -54,9 +59,16 @@ const ObjectiveSummary = ({
 				objective={objective}
 				executiveSummary={executiveSummary}
 				candId={candId}
+				handleUpdate={handleUpdate}
 			/>
 		</section>
 	);
 };
 
-export default ObjectiveSummary;
+export default React.memo(ObjectiveSummary, (prev, next) => {
+	return (
+		isEqual(prev.jobTitle, next.jobTitle) &&
+		isEqual(prev.objective, next.objective) &&
+		isEqual(prev.executiveSummary, next.executiveSummary)
+	);
+});

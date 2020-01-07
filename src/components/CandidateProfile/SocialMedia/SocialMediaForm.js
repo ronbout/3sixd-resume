@@ -2,6 +2,7 @@
 import React from "react";
 import { InpString, Form } from "components/forms/formInputs";
 import { useForm } from "components/forms/useForm";
+import { isEqual } from "lodash";
 
 const SocialMediaForm = ({ formData, handleSubmit }) => {
 	const { formFields, BtnSubmit, BtnCancel, dirtyMsg } = useForm(
@@ -35,4 +36,6 @@ const SocialMediaForm = ({ formData, handleSubmit }) => {
 	);
 };
 
-export default SocialMediaForm;
+export default React.memo(SocialMediaForm, (prev, next) => {
+	return isEqual(prev.formData, next.formData);
+});
