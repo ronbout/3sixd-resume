@@ -131,6 +131,7 @@ const PersonSetupForm = props => {
 						name="municipality"
 						label="City"
 						value={formFields.municipality}
+						reqWarn
 					/>
 					<InpString
 						id="region"

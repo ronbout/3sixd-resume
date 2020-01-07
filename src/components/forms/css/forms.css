@@ -17,7 +17,7 @@
   margin: 1rem auto;
 }
 
-/* form based css for use with material ui inputs */
+/* form based css for use with material design inputs */
 .tsd-form-row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -39,5 +39,10 @@
 
 .input-div {
   margin: 0 8px;
+}
+
+.warning label {
+  top: 5px;
+  left: 5px;
 }
 /*# sourceMappingURL=forms.css.map */
