@@ -11,9 +11,9 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 		handleSubmit
 	);
 
-	React.useEffect(() => {
-		console.log("OS Form rerender");
-	});
+	// React.useEffect(() => {
+	// 	console.log("OS Form rerender");
+	// });
 	return (
 		<Form>
 			{dirtyMsg}

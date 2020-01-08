@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TextAreaBase from "styledComponents/TextAreaBase";
-import { checkValidInput } from "./checkValidForm";
+// import { checkValidInput } from "./checkValidForm";
 import ErrorMsg from "./ErrorMsg";
 
 const Input = props => {
@@ -20,11 +20,12 @@ const Input = props => {
 		setErrMsg(props.errMsg);
 	}, [props.errMsg]);
 
-	useEffect(() => {
-		const valid = checkValidInput(props, inpType);
-		setErrFlg(!valid);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props]);
+	// useEffect(() => {
+	// 	const valid = checkValidInput(props, inpType);
+	// 	console.log("textarea valid: ", valid);
+	// 	setErrFlg(!valid);
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [props]);
 
 	useEffect(() => {
 		setErrFlg(errMsg === true);

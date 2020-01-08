@@ -22,7 +22,6 @@ const ObjectiveSummaryContainer = ({
 	const [candSummary, setCandSummary] = useState(executiveSummary);
 
 	useEffect(() => {
-		console.log("job title: ", jobTitle);
 		setCandJobTitle(jobTitle);
 		setCandObjective(objective);
 		setCandSummary(executiveSummary);
