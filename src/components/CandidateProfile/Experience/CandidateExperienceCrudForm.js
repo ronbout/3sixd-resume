@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "components/forms/useForm";
 import {
 	InpString,
+	InpTextArea,
 	InpDate,
 	InpTextAsNumber,
 	InpPhone,
@@ -66,6 +67,16 @@ const CandidateExperienceCrudForm = props => {
 						onFocus={props.handleCompanyClick}
 						required
 						disabled={showPerson}
+					/>
+				</div>
+				<div className="tsd-form-row">
+					<InpTextArea
+						id="exp-summary"
+						label="Summary"
+						rows={2}
+						maxLength={499}
+						name="summary"
+						value={formFields.summary}
 					/>
 				</div>
 				<div className="tsd-form-row">
