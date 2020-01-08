@@ -167,6 +167,7 @@ class PersonSetupContainer extends Component {
 						handlePersonSelect={this.handlePersonSelect}
 						handleClosePersonSearch={this.handleClosePersonSearch}
 						buttons={this.state.buttons}
+						profile={!!this.props.profile}
 					/>
 				</FormsProvider>
 				{isEmptyObject(this.state.toast) || (

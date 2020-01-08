@@ -40,3 +40,9 @@
 	top: 5px;
 	left: 5px;
 }
+
+.warning hr.md-divider--text-field::after {
+	background: red;
+	height: 3px;
+	width: 100%;
+}

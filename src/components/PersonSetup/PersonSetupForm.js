@@ -101,12 +101,14 @@ const PersonSetupForm = props => {
 						name="mobilePhone"
 						label="Mobile Phone"
 						value={formFields.mobilePhone}
+						reqWarn={!formFields.workPhone && props.profile}
 					/>
 					<InpPhone
 						id="workPhone"
 						name="workPhone"
 						label="Work Phone"
 						value={formFields.workPhone}
+						reqWarn={!formFields.mobilePhone && props.profile}
 					/>
 				</div>
 				{/* Address Row */}
@@ -131,7 +133,7 @@ const PersonSetupForm = props => {
 						name="municipality"
 						label="City"
 						value={formFields.municipality}
-						reqWarn
+						reqWarn={props.profile}
 					/>
 					<InpString
 						id="region"
@@ -160,6 +162,7 @@ const PersonSetupForm = props => {
 						label="Website URL"
 						type="url"
 						value={formFields.website}
+						reqWarn={props.profile}
 					/>
 				</div>
 			</section>

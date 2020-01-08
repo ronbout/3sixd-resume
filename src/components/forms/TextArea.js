@@ -7,6 +7,7 @@ const Input = props => {
 	const [errFlg, setErrFlg] = useState(false);
 	const [errMsg, setErrMsg] = useState(props.errMsg);
 	const {
+		id,
 		inpType,
 		performErrCheck,
 		onBlur,
@@ -58,6 +59,7 @@ const Input = props => {
 	return (
 		<div className="textarea MuiFormControl-root MuiTextField-root">
 			<TextAreaBase
+				id={id}
 				error={errFlg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}

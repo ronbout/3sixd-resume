@@ -14,6 +14,7 @@ const PersonalInfoForm = props => {
 				popup={false}
 				buttons={{ save: true, cancel: true }}
 				handleSubmit={handleFormSubmit}
+				profile={true}
 			/>
 		</div>
 	);

@@ -25,6 +25,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 					maxLength={30}
 					name="jobTitle"
 					value={formFields.jobTitle}
+					reqWarn
 				/>
 				<InpTextArea
 					id="objective"
@@ -33,6 +34,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 					maxLength={499}
 					name="objective"
 					value={formFields.objective}
+					reqWarn
 				/>
 				<InpTextArea
 					id="executiveSummary"
@@ -41,6 +43,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 					maxLength={999}
 					name="executiveSummary"
 					value={formFields.executiveSummary}
+					reqWarn
 				/>
 			</div>
 			<div className="button-section">
