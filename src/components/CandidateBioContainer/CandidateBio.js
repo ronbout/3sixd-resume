@@ -22,18 +22,20 @@ const dispCandHeader = c => {
 					<span id="header-title">
 						{c.jobTitle ? c.jobTitle : c.experience[0].jobTitle}
 					</span>
-					{c.certifications.map(cert => {
-						return (
-							<img
-								key={cert.name}
-								src={`${window.imgLoc}certs/${cert.certificateImage}`}
-								height={70}
-								width={70}
-								alt={cert.name}
-								className="cert-img"
-							/>
-						);
-					})}
+					{c.certifications
+						.filter(c => c.certificateImage)
+						.map(cert => {
+							return (
+								<img
+									key={cert.name}
+									src={`${window.imgLoc}certs/${cert.certificateImage}`}
+									height={70}
+									width={70}
+									alt={cert.name}
+									className="cert-img"
+								/>
+							);
+						})}
 				</span>
 			</div>
 		</React.Fragment>
