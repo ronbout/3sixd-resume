@@ -47,6 +47,7 @@ const TextAreaUI = ({
 			label={label}
 			rows={rows}
 			errorText={errMsg}
+			floating={true}
 			{...style}
 			{...rest}
 		/>

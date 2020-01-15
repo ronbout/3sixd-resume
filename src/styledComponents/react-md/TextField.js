@@ -52,6 +52,7 @@ const TextField = ({
 			type={type}
 			label={label}
 			errorText={errMsg}
+			floating={true}
 			{...style}
 			{...rest}
 		/>

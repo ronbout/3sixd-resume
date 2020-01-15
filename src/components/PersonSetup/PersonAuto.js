@@ -64,6 +64,7 @@ const PersonAuto = ({
 				value={person}
 				onChange={handleChange}
 				onAutocomplete={handleSelect}
+				floating={true}
 				filter={null}
 				{...rest}
 			/>

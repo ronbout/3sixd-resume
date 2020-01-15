@@ -62,6 +62,7 @@ const CompanyAuto = ({
 				value={company}
 				onChange={handleChange}
 				onAutocomplete={handleSelect}
+				floating={true}
 				filter={null}
 				{...rest}
 			/>
