@@ -11,6 +11,7 @@ import Sitebody from "components/Sitebody/";
 import SkillSetup from "components/SkillSetup/";
 import CompanySetup from "components/CompanySetup/";
 import CandidateProfile from "components/CandidateProfile/";
+import CustomResumeContainer from "components/CustomResume/";
 import CandidateSkills from "components/CandidateSkills/";
 import PersonSetup from "components/PersonSetup/";
 import LoginContainer from "components/Login/";
@@ -129,6 +130,10 @@ class App extends Component {
 							<PrivateRoute
 								path="/profile/:candId"
 								component={CandidateProfile}
+							/>
+							<PrivateRoute
+								path="/custom-resume/:candId"
+								component={CustomResumeContainer}
 							/>
 							<PrivateRoute
 								path="/bio/:candId"

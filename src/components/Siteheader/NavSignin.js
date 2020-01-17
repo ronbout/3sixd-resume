@@ -27,6 +27,16 @@ function NavSignin() {
 				<ul>
 					<li>
 						<NavLink
+							to={"/custom-resume/" + authValue.userInfo.candidateId}
+							className="nav-link"
+						>
+							Custom
+							<br />
+							Resume
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
 							to={"/profile/" + authValue.userInfo.candidateId}
 							className="nav-link"
 						>
