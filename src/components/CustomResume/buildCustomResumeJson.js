@@ -1,3 +1,5 @@
+import { objCopy } from "assets/js/library";
+
 /*  buildCustomResumeJson.js */
 /**
  * parms:  layout, candidate, techtagSkills, resumeSettings
@@ -19,7 +21,12 @@ export const buildCustomResumeJson = (
 		maxHi,
 		maxJobs,
 		maxJobHi,
-		includeOnlySkills
+		maxEds,
+		maxCerts,
+		includeOnlySkillsTechtags,
+		includeOnlySkillsJobs,
+		includeOnlySkillsEds,
+		includeOnlySkillsCerts
 	} = resumeSettings;
 	const skillList = skills.trim()
 		? skills
@@ -39,12 +46,31 @@ export const buildCustomResumeJson = (
 	console.log("candHighlights: ", candHighlights);
 
 	// get the experience
-	const candExperienceIds = chooseExperience(
+	const candExperienceIds = chooseSectionIdsBySkills(
 		candidate.experience,
 		skillList,
-		maxJobs
+		maxJobs,
+		includeOnlySkillsJobs
 	);
 	console.log("candExperienceIds: ", candExperienceIds);
+
+	// get the education
+	const candEducation = chooseSectionIdsBySkills(
+		candidate.education,
+		skillList,
+		maxEds,
+		includeOnlySkillsEds
+	);
+	console.log("candEducation: ", candEducation);
+
+	// get the certifications
+	const candCertification = chooseSectionIdsBySkills(
+		candidate.certifications,
+		skillList,
+		maxCerts,
+		includeOnlySkillsCerts
+	);
+	console.log("candCertification: ", candCertification);
 
 	// take the experience id's and build the highlight lists for each one,
 	// return an array of objects with the experience id and the highlight id's
@@ -56,12 +82,8 @@ export const buildCustomResumeJson = (
 	);
 	console.log("candExperience: ", candExperience);
 
-	/**
-	 *
-	 *  need to build techtagSkills based on includeOnlySkills
-	 */
 	const techtagIds = chooseTechtagSkills(
-		includeOnlySkills,
+		includeOnlySkillsTechtags,
 		techtagSkills,
 		skillList
 	);
@@ -71,26 +93,17 @@ export const buildCustomResumeJson = (
 		layout,
 		candHighlights,
 		candExperience,
+		candEducation,
+		candCertification,
 		techtagIds
 	);
 	return resumeJson;
 };
 
 const chooseHighlights = (highlights, skillList, maxHi) => {
-	let retHighlights = [];
-	// at any point that the maxHi is reached, break out
-	// loop through skills, find highlights with matching skills
-	// add the highlights to retHighlights, and remove from tmpHighlights
-	for (const skill of skillList) {
-		const fndHi = checkHighlightsSkills(highlights, skill);
-		retHighlights = [...new Set(retHighlights.concat(fndHi))];
-		// check lenght vs maxHi
-		if (retHighlights.length >= maxHi) {
-			// strip off any extra
-			retHighlights = retHighlights.slice(0, maxHi);
-			break;
-		}
-	}
+	// get the highlights id's by skillList first
+	// then add by highlight string match and any remaining
+	let retHighlights = chooseSectionIdsBySkills(highlights, skillList, maxHi);
 
 	// loop through the skills, find highlights that string match the skills
 	for (const skill of skillList) {
@@ -107,30 +120,25 @@ const chooseHighlights = (highlights, skillList, maxHi) => {
 	// console.log("retHighlights before last: ", retHighlights);
 	if (retHighlights.length >= maxHi) return retHighlights;
 	// loop through remaining highlights until maxHi is reached or end of highlights
-	for (const highlight of highlights) {
-		!retHighlights.some(rh => rh === highlight.id) &&
-			retHighlights.push(highlight.id);
-		if (retHighlights.length >= maxHi) break;
-	}
-	return retHighlights;
+	return getRemainingSection(highlights, retHighlights, maxHi);
 };
 
-const checkHighlightsSkills = (highlights, skill) => {
-	// returns array of highlight id's that have the skill
-	const compareSkill = skill.toUpperCase().trim();
-	const retArray = highlights.reduce((list, h) => {
-		if (h.skills.some(s => s.name.toUpperCase().trim() === compareSkill)) {
-			list.push(h.id);
-		}
-		return list;
-	}, []);
-
-	return retArray;
+const getRemainingSection = (section, curIds, maxIds) => {
+	// copy curIds into separate array so that we don't change original
+	let retIds = objCopy(curIds);
+	for (const item of section) {
+		!retIds.some(rh => rh === item.id) && retIds.push(item.id);
+		if (retIds.length >= maxIds) break;
+	}
+	return retIds;
 };
 
 const checkHighlightsDesc = (highlights, skill) => {
 	// returns array of highlight id's that have the skill
-	const compareSkill = skill.toUpperCase().trim();
+	const compareSkill = skill
+		.toString()
+		.toUpperCase()
+		.trim();
 	const retArray = highlights.reduce((list, h) => {
 		if (h.highlight.toUpperCase().includes(compareSkill)) {
 			list.push(h.id);
@@ -141,43 +149,51 @@ const checkHighlightsDesc = (highlights, skill) => {
 	return retArray;
 };
 
-const chooseExperience = (experience, skillList, maxJobs) => {
-	let retExperience = [];
-	// at any point that the maxJobs is reached, break out
+const chooseSectionIdsBySkills = (
+	section,
+	skillList,
+	maxIds,
+	includeOnlySkills = false
+) => {
+	// used for experience, education, certification
+	let retSectionIds = [];
+	// at any point that the maxIds is reached, break out
 	// loop through skills, find jobs with matching skills
 	for (const skill of skillList) {
-		const fndExp = checkExperienceSkills(experience, skill);
-		retExperience = [...new Set(retExperience.concat(fndExp))];
-		// check lenght vs maxJobs
-		if (retExperience.length >= maxJobs) {
+		const fndExp = checkSectionBySkill(section, skill);
+		retSectionIds = [...new Set(retSectionIds.concat(fndExp))];
+		// check lenght vs maxIds
+		if (retSectionIds.length >= maxIds) {
 			// strip off any extra
-			retExperience = retExperience.slice(0, maxJobs);
+			retSectionIds = retSectionIds.slice(0, maxIds);
 			break;
 		}
 	}
 
-	// **** TODO:  do we look for string match in job summary?????
-	// for (const skill of skillList) {
-	// 	const fndExp = checkExperienceSkills(experience, skill);
-	// 	retExperience = [...new Set(retExperience.concat(fndExp))];
-	// 	// check lenght vs maxJobs
-	// 	if (retExperience.length >= maxJobs) {
-	// 		// strip off any extra
-	// 		retExperience = retExperience.slice(0, maxJobs);
-	// 		break;
-	// 	}
-	// }
-
-	// loop through remaining tmpHighlights until maxHi is reached or end of tmpHighlights
-	return retExperience;
+	// loop through remaining section until max is reached or end
+	return includeOnlySkills
+		? retSectionIds
+		: getRemainingSection(section, retSectionIds, maxIds);
 };
 
-const checkExperienceSkills = (experience, skill) => {
-	// returns array of experience id's that have the skill
-	const compareSkill = skill.toUpperCase().trim();
-	const retArray = experience.reduce((list, exp) => {
-		if (exp.skills.some(s => s.name.toUpperCase().trim() === compareSkill)) {
-			list.push(exp.id);
+const checkSectionBySkill = (section, skill) => {
+	// returns array of section id's that have the skill
+	// used for highlights, experience, education
+	const compareSkill = skill
+		.toString()
+		.toUpperCase()
+		.trim();
+	const retArray = section.reduce((list, item) => {
+		if (
+			item.skills.some(
+				s =>
+					s.name
+						.toString()
+						.toUpperCase()
+						.trim() === compareSkill
+			)
+		) {
+			list.push(item.id);
 		}
 		return list;
 	}, []);
@@ -211,7 +227,10 @@ const chooseTechtagSkills = (includeOnlySkills, techtagSkills, skillList) => {
 };
 
 const checkTechtagSkills = (techtags, skill) => {
-	const compareSkill = skill.toUpperCase().trim();
+	const compareSkill = skill
+		.toString()
+		.toUpperCase()
+		.trim();
 	// convert object techtags to array with object entries
 	// make sure to sort first
 	const techtagArray = Object.entries(techtags).sort((a, b) => a[0] - b[0]);
@@ -233,7 +252,14 @@ const checkTechtagSkills = (techtags, skill) => {
 	return retArray;
 };
 
-const loadLayout = (layout, candHighlights, candExperience, techtagIds) => {
+const loadLayout = (
+	layout,
+	candHighlights,
+	candExperience,
+	candEducation,
+	candCertification,
+	techtagIds
+) => {
 	// loop through layout and add display info for appropriate sections
 	const newSections = layout.sections.map(section => {
 		switch (section.name) {
@@ -256,11 +282,13 @@ const loadLayout = (layout, candHighlights, candExperience, techtagIds) => {
 				};
 			case "ed":
 				return {
-					...section
+					...section,
+					disp: candEducation
 				};
 			case "ct":
 				return {
-					section
+					...section,
+					disp: candCertification
 				};
 			default:
 				return { ...section };

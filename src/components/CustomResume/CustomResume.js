@@ -10,7 +10,7 @@ import "./css/customResume.css";
 const numWidthStyle = {
 	maxWidth: "240px",
 	minWidth: "240px",
-	marginRight: "160px"
+	marginRight: "100px"
 };
 
 const defaultLayout = {
@@ -29,7 +29,14 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 	const [maxHi, setMaxHi] = useState(5);
 	const [maxJobs, setMaxJobs] = useState(4);
 	const [maxJobHi, setMaxJobHi] = useState(4);
-	const [includeOnlySkills, setIncludeOnlySkills] = useState(true);
+	const [maxEds, setMaxEds] = useState(2);
+	const [maxCerts, setMaxCerts] = useState(2);
+	const [includeOnlySkillsTechtags, setIncludeOnlySkillsTechtags] = useState(
+		true
+	);
+	const [includeOnlySkillsJobs, setIncludeOnlySkillsJobs] = useState(false);
+	const [includeOnlySkillsEds, setIncludeOnlySkillsEds] = useState(false);
+	const [includeOnlySkillsCerts, setIncludeOnlySkillsCerts] = useState(false);
 
 	useEffect(() => {
 		console.log("candidate: ", candidate);
@@ -43,7 +50,12 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 			maxHi,
 			maxJobs,
 			maxJobHi,
-			includeOnlySkills
+			maxEds,
+			maxCerts,
+			includeOnlySkillsTechtags,
+			includeOnlySkillsJobs,
+			includeOnlySkillsEds,
+			includeOnlySkillsCerts
 		};
 		const resumeJson = buildCustomResumeJson(
 			defaultLayout,
@@ -95,6 +107,17 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								value={maxJobs}
 								onChange={v => setMaxJobs(v)}
 							/>
+							<SwitchBase
+								id="includeListedSkillsJobs"
+								name="includeOnlySkillsJobs"
+								checked={includeOnlySkillsJobs}
+								label="Only Jobs with Listed Skills"
+								onChange={v => {
+									setIncludeOnlySkillsJobs(v);
+								}}
+							/>
+						</div>
+						<div className="tsd-form-row">
 							<TextField
 								id="maxJobHi"
 								type="number"
@@ -106,13 +129,53 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 							/>
 						</div>
 						<div className="tsd-form-row">
+							<TextField
+								id="maxEds"
+								type="number"
+								style={{ ...numWidthStyle }}
+								name="maxEds"
+								label="Max # of Education Items"
+								value={maxEds}
+								onChange={v => setMaxEds(v)}
+							/>
+							<SwitchBase
+								id="includeOnlySkillsEds"
+								name="includeOnlySkillsEds"
+								checked={includeOnlySkillsEds}
+								label="Only Education with Listed Skills"
+								onChange={v => {
+									setIncludeOnlySkillsEds(v);
+								}}
+							/>
+						</div>
+						<div className="tsd-form-row">
+							<TextField
+								id="maxCerts"
+								type="number"
+								style={{ ...numWidthStyle }}
+								name="maxCerts"
+								label="Max # of Certifications"
+								value={maxCerts}
+								onChange={v => setMaxCerts(v)}
+							/>
+							<SwitchBase
+								id="includeOnlySkillsCerts"
+								name="includeOnlySkillsCerts"
+								checked={includeOnlySkillsCerts}
+								label="Only Certifications with Listed Skills"
+								onChange={v => {
+									setIncludeOnlySkillsCerts(v);
+								}}
+							/>
+						</div>
+						<div className="tsd-form-row">
 							<SwitchBase
 								id="includeListedSkills"
 								name="includeOnlySkills"
-								checked={includeOnlySkills}
-								label="Include Only Listed Skills (and related) in Technical Skills (techtags)"
+								checked={includeOnlySkillsTechtags}
+								label="Only Technical Skills (techtags) with Listed Skills"
 								onChange={v => {
-									setIncludeOnlySkills(v);
+									setIncludeOnlySkillsTechtags(v);
 								}}
 							/>
 						</div>
