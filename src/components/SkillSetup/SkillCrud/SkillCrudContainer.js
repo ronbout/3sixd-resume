@@ -1,9 +1,11 @@
+/* SkillCrudContainer.js */
 import React, { Component } from "react";
-
 import SkillCrudForm from "./SkillCrudForm";
 import UserModalMsg from "../../UserModalMsg";
 import { objCopy, deepCompare } from "../../../assets/js/library";
 import dataFetch from "../../../assets/js/dataFetch";
+import { isEmptyObject } from "assets/js/library";
+import Snackbar from "styledComponents/Snackbar";
 import getSkillsFromTree from "../getSkillsFromTree";
 
 const API_SKILL = "skills";
@@ -33,15 +35,12 @@ class SkillCrudContainer extends Component {
 
 		this.state = {
 			...clearFormFields,
-			errMsg: "",
-			userMsg: "",
-			dispUserMsg: false,
-			dispErrMsg: false,
 			dragTag: false,
 			dragSkill: this.props.dragSkill ? this.props.dragSkill : false,
 			tabIndex: TECHTAGS_NDX,
 			apiBase: window.apiUrl,
-			dispModalMsg: false
+			dispModalMsg: false,
+			toast: {}
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
@@ -61,8 +60,7 @@ class SkillCrudContainer extends Component {
 			this.setState({
 				formFields: { ...formFields },
 				origForm: { ...objCopy(formFields) },
-				errMsg: "",
-				userMsg: ""
+				toast: {}
 			});
 		}
 
@@ -104,10 +102,7 @@ class SkillCrudContainer extends Component {
 
 	handleSubmit = async event => {
 		event.preventDefault();
-
-		// clear out any error msg
-		this.setState({ errMsg: "", userMsg: "" });
-
+		this.closeToast();
 		let body = {
 			...this.state.formFields
 		};
@@ -119,24 +114,20 @@ class SkillCrudContainer extends Component {
 		const result = await dataFetch(endpoint, "", httpMethod, body);
 		// figure out what to do here
 		if (result.error) {
-			this.setState({
-				errMsg:
-					result.errorCode === 45001
-						? `Skill ${this.state.formFields.name} already exists.`
-						: "An unknown error has occurred",
-				dispErrMsg: true
-			});
+			const errMsg =
+				result.errorCode === 45001
+					? `Skill ${this.state.formFields.name} already exists.`
+					: "An unknown error has occurred";
 			console.log("Error update Skill: ", result);
+			this.addToast(errMsg, "Close", false);
 		} else {
 			// success.  let user know and clear out form
 			const skillName = this.state.formFields.name;
 			this.handleClear(false);
-			this.setState({
-				userMsg: `Skill "${skillName}" has been ${
-					httpMethod === "post" ? "created." : "updated."
-				}`,
-				dispUserMsg: true
-			});
+			const userMsg = `${skillName} has been ${
+				httpMethod === "post" ? "created." : "updated."
+			}`;
+			this.addToast(userMsg);
 		}
 	};
 
@@ -247,6 +238,15 @@ class SkillCrudContainer extends Component {
 			action: this.closeModalMsg
 		}
 	];
+
+	addToast = (text, action, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		this.setState({ toast });
+	};
+
+	closeToast = () => {
+		this.setState({ toast: {} });
+	};
 
 	handleAddTag = tagInfo => {
 		let techtags = this.state.formFields.techtags;
@@ -385,6 +385,15 @@ class SkillCrudContainer extends Component {
 							closeModalMsg={this.closeModalMsg}
 						/>
 					</div>
+				)}
+				{isEmptyObject(this.state.toast) || (
+					<Snackbar
+						text={this.state.toast.text}
+						action={this.state.toast.action}
+						autohide={this.state.toast.autoHide}
+						timeout={this.state.toast.timeout}
+						closeCallBk={this.closeToast}
+					/>
 				)}
 			</React.Fragment>
 		);

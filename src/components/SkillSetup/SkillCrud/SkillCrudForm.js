@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import TechtagSelectContainer from "../../TechtagSelect/";
+import React from "react";
+import TechtagSelectContainer from "components/TechtagSelect/";
 import SkillDescSection from "./SkillDescSection";
 import RelatedItemsList from "./RelatedItemsList";
 import SkillTreeContainer from "./SkillTreeContainer";
-import UserMsg from "../../UserMsg";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	TabbedUI,
@@ -14,22 +13,6 @@ import {
 } from "../../TabbedUI/TabbedUI";
 
 const SkillCrudForm = props => {
-	const [dispUserMsg, setDispUserMsg] = useState(props.state.dispUserMsg);
-	const [dispErrMsg, setDispErrMsg] = useState(props.state.dispErrMsg);
-
-	useEffect(
-		prevProps => {
-			setDispErrMsg(props.state.dispErrMsg);
-			setDispUserMsg(props.state.dispUserMsg);
-		},
-		[
-			props.state.userMsg,
-			props.state.errMsg,
-			props.state.dispUserMsg,
-			props.state.dispErrMsg
-		]
-	);
-
 	const tagsAndRelatedSkillsSection = () => {
 		return (
 			<div className="related-skill-section">
@@ -123,14 +106,6 @@ const SkillCrudForm = props => {
 		);
 	};
 
-	const closeUserMsg = () => {
-		setDispUserMsg(false);
-	};
-
-	const closeErrMsg = () => {
-		setDispErrMsg(false);
-	};
-
 	const buttonSection = () => {
 		return (
 			<div className="fs-btn-container" style={{ textAlign: "center" }}>
@@ -163,22 +138,6 @@ const SkillCrudForm = props => {
 					{tagsAndRelatedSkillsSection()}
 					{buttonSection()}
 				</div>
-				{props.state.userMsg && dispUserMsg && (
-					<UserMsg
-						msg={props.state.userMsg}
-						msgHeader="Success!"
-						msgType="success"
-						handleClose={closeUserMsg}
-					/>
-				)}
-				{props.state.errMsg && dispErrMsg && (
-					<UserMsg
-						msg={props.state.userMsg}
-						msgHeader="Success!"
-						msgType="error"
-						handleClose={closeErrMsg}
-					/>
-				)}
 			</form>
 		</div>
 	);

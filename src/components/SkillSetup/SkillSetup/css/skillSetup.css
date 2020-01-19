@@ -64,60 +64,6 @@
   margin: 0 1em;
 }
 
-section.skill-setup {
-  font-size: 15px;
-}
-
-section.skill-setup h1 {
-  font-size: 2.2em;
-  text-align: center;
-}
-
-section.skill-setup h2 {
-  font-size: 1.8em;
-  text-align: center;
-}
-
-section.skill-setup form,
-section.skill-setup div,
-section.skill-setup label,
-section.skill-setup input,
-section.skill-setup button,
-section.skill-setup select,
-section.skill-setup p {
-  font-size: 1em;
-  line-height: 1.4;
-}
-
-section.skill-setup input[type="checkbox"] {
-  position: relative;
-  margin: 0 1em;
-  height: 20px;
-  width: 20px;
-}
-
-section.skill-setup label,
-section.skill-setup p {
-  margin: 0;
-  padding: calc(0.375rem + 1px) 0;
-}
-
-section.skill-setup option {
-  font-size: 0.96em;
-  line-height: 1.45;
-  padding-bottom: 2px;
-}
-
-section.skill-setup option {
-  overflow-x: hidden;
-}
-
-section.skill-setup input,
-section.skill-setup select {
-  padding: 0.2em 0.4em;
-  height: auto;
-}
-
 section.skill-setup label.col-form-label {
   text-align: right;
 }
