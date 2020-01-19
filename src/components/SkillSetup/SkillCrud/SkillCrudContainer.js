@@ -130,7 +130,7 @@ class SkillCrudContainer extends Component {
 		} else {
 			// success.  let user know and clear out form
 			const skillName = this.state.formFields.name;
-			this.handleClear();
+			this.handleClear(false);
 			this.setState({
 				userMsg: `Skill "${skillName}" has been ${
 					httpMethod === "post" ? "created." : "updated."
@@ -174,7 +174,10 @@ class SkillCrudContainer extends Component {
 		let rSkills = objCopy(this.state.formFields[skillFieldName]);
 		let rTree = objCopy(this.state.formFields[treeName]);
 		const delSkill = rSkills.splice(ndx, 1);
-		rTree.splice(rTree.findIndex(s => s.id === delSkill[0].id), 1);
+		rTree.splice(
+			rTree.findIndex(s => s.id === delSkill[0].id),
+			1
+		);
 		// treeList cannot be altered by just removing the one skill
 		// an entire branch may have just been removed, so it needs to
 		// be completely recalculated
@@ -192,9 +195,9 @@ class SkillCrudContainer extends Component {
 		});
 	};
 
-	handleClear = () => {
+	handleClear = (checkDirtyFlg = true) => {
 		// check for dirty form
-		if (this.checkDirtyForm()) return;
+		if (checkDirtyFlg && this.checkDirtyForm()) return;
 		this.clearForm();
 	};
 
