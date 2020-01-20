@@ -3,18 +3,27 @@ import React, { Component } from "react";
 import CandidateList from "./CandidateList";
 import CandidateListFilter from "./CandidateListFilter";
 import dataFetch from "assets/js/dataFetch";
+import { UserContext } from "components/UserProvider";
 
 import "./css/candidateList.css";
 
 const API_CANDIDATES = "candidates";
 
 class CandidateListContainer extends Component {
-	constructor(props) {
-		super(props);
+	static contextType = UserContext;
+	constructor(props, context) {
+		super(props, context);
+		// check for admin security level (10)
+		let authValue = this.context;
+		let errMsg = "";
+		if (!authValue.userInfo || authValue.userInfo.securityLevel !== 10) {
+			errMsg = "You do not have permission to view this page";
+		}
 
 		this.state = {
 			candidates: [],
-			filters: {}
+			filters: {},
+			errMsg
 		};
 	}
 
@@ -90,17 +99,25 @@ class CandidateListContainer extends Component {
 		});
 		return (
 			<React.Fragment>
-				<div className="clist-heading">
-					<h1>Candidate Listing</h1>
-				</div>
-				<div className="clist-section">
-					<div className="clist-filter">
-						<CandidateListFilter filterList={this.filterList} />
-					</div>
-					<div className="clist-display">
-						<CandidateList candidates={filteredList} />
-					</div>
-				</div>
+				{this.state.errMsg ? (
+					<h1 style={{ marginTop: "12px", textAlign: "center" }}>
+						{this.state.errMsg}
+					</h1>
+				) : (
+					<React.Fragment>
+						<div className="clist-heading">
+							<h1>Candidate Listing</h1>
+						</div>
+						<div className="clist-section">
+							<div className="clist-filter">
+								<CandidateListFilter filterList={this.filterList} />
+							</div>
+							<div className="clist-display">
+								<CandidateList candidates={filteredList} />
+							</div>
+						</div>
+					</React.Fragment>
+				)}
 			</React.Fragment>
 		);
 	}
