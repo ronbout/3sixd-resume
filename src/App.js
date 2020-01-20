@@ -20,6 +20,7 @@ import CandidateBioContainer from "components/CandidateBioContainer/";
 import CandidateListContainer from "components/CandidateList/";
 import GithubCallback from "components/GithubCallback";
 import PrivateRoute from "components/PrivateRoute";
+import AdminRoute from "components/AdminRoute";
 import { UserContext } from "components/UserProvider";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -120,9 +121,9 @@ class App extends Component {
 					</header>
 					<main id="body">
 						<Switch>
-							<PrivateRoute path="/skill/setup" component={SkillSetup} />
-							<PrivateRoute path="/company/setup" component={CompanySetup} />
-							<PrivateRoute path="/person/setup" component={PersonSetup} />
+							<AdminRoute path="/skill/setup" component={SkillSetup} />
+							<AdminRoute path="/company/setup" component={CompanySetup} />
+							<AdminRoute path="/person/setup" component={PersonSetup} />
 							<Route path="/signin" component={LoginContainer} />
 							<Route path="/register" component={Register} />
 							<Route path="/github/callback" component={GithubCallback} />
@@ -144,7 +145,7 @@ class App extends Component {
 								component={CandidateSkills}
 							/>
 							<PrivateRoute path="/profile" component={CandidateProfile} />
-							<PrivateRoute
+							<AdminRoute
 								path="/candidate-list"
 								component={CandidateListContainer}
 							/>
