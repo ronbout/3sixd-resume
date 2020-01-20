@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
 import { UserContext } from "../UserProvider";
 
 import "../../css/nav.css";
@@ -25,40 +24,44 @@ function NavSignin() {
 				</ul>
 			) : (
 				<ul>
-					<li>
-						<NavLink
-							to={"/custom-resume/" + authValue.userInfo.candidateId}
-							className="nav-link"
-						>
-							Custom
-							<br />
-							Resume
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to={"/profile/" + authValue.userInfo.candidateId}
-							className="nav-link"
-						>
-							Profile
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to={"/bio/" + authValue.userInfo.candidateId}
-							className="nav-link"
-						>
-							Bio Page
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to={"/cand-skills/" + authValue.userInfo.candidateId}
-							className="nav-link"
-						>
-							Cand Skills
-						</NavLink>
-					</li>
+					{authValue.userInfo.candidateId && (
+						<React.Fragment>
+							<li>
+								<NavLink
+									to={"/custom-resume/" + authValue.userInfo.candidateId}
+									className="nav-link"
+								>
+									Custom
+									<br />
+									Resume
+								</NavLink>
+							</li>
+							<li>
+								<NavLink
+									to={"/profile/" + authValue.userInfo.candidateId}
+									className="nav-link"
+								>
+									Profile
+								</NavLink>
+							</li>
+							<li>
+								<NavLink
+									to={"/bio/" + authValue.userInfo.candidateId}
+									className="nav-link"
+								>
+									Bio Page
+								</NavLink>
+							</li>
+							<li>
+								<NavLink
+									to={"/cand-skills/" + authValue.userInfo.candidateId}
+									className="nav-link"
+								>
+									Cand Skills
+								</NavLink>
+							</li>
+						</React.Fragment>
+					)}
 					<li>
 						<button id="signin-button" onClick={() => authValue.handleLogout()}>
 							Sign Out

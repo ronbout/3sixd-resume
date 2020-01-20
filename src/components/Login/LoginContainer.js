@@ -64,14 +64,24 @@ class LoginContainer extends Component {
 			this.addToast(errMsg, "Close", false);
 			console.log(result);
 		} else {
-			const loginReferrer =
-				this.state.referrer &&
-				(this.state.referrer === "/profile" ||
-					this.state.referrer === "/cand-skills")
-					? `${this.state.referrer}/${result.candidateId}`
-					: this.state.referrer
-					? this.state.referrer
-					: `/profile/${result.candidateId}`;
+			let loginReferrer;
+
+			if (result.securityLevel > 1) {
+				loginReferrer = "/candidate-list";
+			} else {
+				if (!result.candidateId) {
+					loginReferrer = "/";
+				} else {
+					loginReferrer =
+						this.state.referrer &&
+						(this.state.referrer === "/profile" ||
+							this.state.referrer === "/cand-skills")
+							? `${this.state.referrer}/${result.candidateId}`
+							: this.state.referrer
+							? this.state.referrer
+							: `/profile/${result.candidateId}`;
+				}
+			}
 
 			sessionStorage.removeItem("referrer");
 			sessionStorage.removeItem("oauthType");
