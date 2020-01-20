@@ -40,7 +40,7 @@ const CandidateList = ({ candidates }) => {
 						</div>
 					);
 
-					const btnRow = (
+					const btnRow1 = (
 						<div
 							className="clist-btns"
 							style={{
@@ -62,6 +62,30 @@ const CandidateList = ({ candidates }) => {
 							</div>
 						</div>
 					);
+
+					const btnRow2 = (
+						<div
+							className="clist-btns"
+							style={{
+								marginTop: "8px",
+								display: "flex",
+								justifyContent: "space-between",
+								width: "100%"
+							}}
+						>
+							<div className="ccard-left">
+								<Link to={`/custom-resume/${c.id}`}>
+									<Button variant="flat">Resume -></Button>
+								</Link>
+							</div>
+							<div className="ccard-right">
+								<Link to={`/cand-skills/${c.id}`}>
+									<Button variant="flat">Skills -></Button>
+								</Link>
+							</div>
+						</div>
+					);
+
 					return (
 						<li key={c.id}>
 							<div>
@@ -73,7 +97,8 @@ const CandidateList = ({ candidates }) => {
 											<span style={{ fontWeight: "bold" }}>Skills - </span>
 											{skillList}
 										</div>
-										{btnRow}
+										{btnRow1}
+										{btnRow2}
 									</CardText>
 								</Card>
 							</div>

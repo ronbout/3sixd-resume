@@ -63,6 +63,16 @@ function NavSignin() {
 						</React.Fragment>
 					)}
 					<li>
+						<NavLink
+							to={"/custom-resume/" + authValue.userInfo.candidateId}
+							className="nav-link"
+						>
+							Custom
+							<br />
+							Resume
+						</NavLink>
+					</li>
+					<li>
 						<button id="signin-button" onClick={() => authValue.handleLogout()}>
 							Sign Out
 						</button>
