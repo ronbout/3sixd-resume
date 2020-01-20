@@ -24,19 +24,29 @@ const defaultLayout = {
 	]
 };
 
+const defaultMaxEntries = {
+	highlights: 5,
+	jobs: 4,
+	jobHighlights: 4,
+	education: 2,
+	certifications: 2
+};
+
+const defaultIncludeOnlySkills = {
+	highlights: true,
+	jobs: true,
+	jobHighlights: true,
+	education: true,
+	certifications: true,
+	techtags: true
+};
+
 const CustomResume = ({ candidate, techtagSkills }) => {
 	const [skills, setSkills] = useState("");
-	const [maxHi, setMaxHi] = useState(5);
-	const [maxJobs, setMaxJobs] = useState(4);
-	const [maxJobHi, setMaxJobHi] = useState(4);
-	const [maxEds, setMaxEds] = useState(2);
-	const [maxCerts, setMaxCerts] = useState(2);
-	const [includeOnlySkillsTechtags, setIncludeOnlySkillsTechtags] = useState(
-		true
+	const [maxEntries, setMaxEntries] = useState(defaultMaxEntries);
+	const [includeOnlySkills, setIncludeOnlySkills] = useState(
+		defaultIncludeOnlySkills
 	);
-	const [includeOnlySkillsJobs, setIncludeOnlySkillsJobs] = useState(false);
-	const [includeOnlySkillsEds, setIncludeOnlySkillsEds] = useState(false);
-	const [includeOnlySkillsCerts, setIncludeOnlySkillsCerts] = useState(false);
 
 	useEffect(() => {
 		console.log("candidate: ", candidate);
@@ -47,15 +57,8 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 		// setSkillsArray(skills.trim().split(","));
 		const resumeSettings = {
 			skills,
-			maxHi,
-			maxJobs,
-			maxJobHi,
-			maxEds,
-			maxCerts,
-			includeOnlySkillsTechtags,
-			includeOnlySkillsJobs,
-			includeOnlySkillsEds,
-			includeOnlySkillsCerts
+			maxEntries,
+			includeOnlySkills
 		};
 		const resumeJson = buildCustomResumeJson(
 			defaultLayout,
@@ -64,6 +67,11 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 			resumeSettings
 		);
 		console.log("resumeJson: ", resumeJson);
+		const layoutUri = encodeURIComponent(JSON.stringify(resumeJson));
+		window.open(
+			`${window.resumeUrl}?id=${candidate.id}&layout=${layoutUri}`,
+			"_blank"
+		);
 	};
 
 	return (
@@ -93,8 +101,15 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								style={{ ...numWidthStyle }}
 								name="maxHighlights"
 								label="Max # of Highlights"
-								value={maxHi}
-								onChange={v => setMaxHi(v)}
+								value={maxEntries.highlights}
+								onChange={highlights =>
+									setMaxEntries(prev => {
+										return {
+											...prev,
+											highlights
+										};
+									})
+								}
 							/>
 						</div>
 						<div className="tsd-form-row">
@@ -104,17 +119,29 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								style={{ ...numWidthStyle }}
 								name="maxJobs"
 								label="Max # of Jobs"
-								value={maxJobs}
-								onChange={v => setMaxJobs(v)}
+								value={maxEntries.jobs}
+								onChange={jobs =>
+									setMaxEntries(prev => {
+										return {
+											...prev,
+											jobs
+										};
+									})
+								}
 							/>
 							<SwitchBase
 								id="includeListedSkillsJobs"
 								name="includeOnlySkillsJobs"
-								checked={includeOnlySkillsJobs}
+								checked={includeOnlySkills.jobs}
 								label="Only Jobs with Listed Skills"
-								onChange={v => {
-									setIncludeOnlySkillsJobs(v);
-								}}
+								onChange={jobs =>
+									setIncludeOnlySkills(prev => {
+										return {
+											...prev,
+											jobs
+										};
+									})
+								}
 							/>
 						</div>
 						<div className="tsd-form-row">
@@ -124,8 +151,15 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								style={{ ...numWidthStyle }}
 								name="maxJobHi"
 								label="Max # of Job Highlights"
-								value={maxJobHi}
-								onChange={v => setMaxJobHi(v)}
+								value={maxEntries.jobHighlights}
+								onChange={jobHighlights =>
+									setMaxEntries(prev => {
+										return {
+											...prev,
+											jobHighlights
+										};
+									})
+								}
 							/>
 						</div>
 						<div className="tsd-form-row">
@@ -135,17 +169,29 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								style={{ ...numWidthStyle }}
 								name="maxEds"
 								label="Max # of Education Items"
-								value={maxEds}
-								onChange={v => setMaxEds(v)}
+								value={maxEntries.education}
+								onChange={education =>
+									setMaxEntries(prev => {
+										return {
+											...prev,
+											education
+										};
+									})
+								}
 							/>
 							<SwitchBase
 								id="includeOnlySkillsEds"
 								name="includeOnlySkillsEds"
-								checked={includeOnlySkillsEds}
+								checked={includeOnlySkills.education}
 								label="Only Education with Listed Skills"
-								onChange={v => {
-									setIncludeOnlySkillsEds(v);
-								}}
+								onChange={education =>
+									setIncludeOnlySkills(prev => {
+										return {
+											...prev,
+											education
+										};
+									})
+								}
 							/>
 						</div>
 						<div className="tsd-form-row">
@@ -155,28 +201,45 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								style={{ ...numWidthStyle }}
 								name="maxCerts"
 								label="Max # of Certifications"
-								value={maxCerts}
-								onChange={v => setMaxCerts(v)}
+								value={maxEntries.certifications}
+								onChange={certifications =>
+									setMaxEntries(prev => {
+										return {
+											...prev,
+											certifications
+										};
+									})
+								}
 							/>
 							<SwitchBase
 								id="includeOnlySkillsCerts"
 								name="includeOnlySkillsCerts"
-								checked={includeOnlySkillsCerts}
+								checked={includeOnlySkills.certifications}
 								label="Only Certifications with Listed Skills"
-								onChange={v => {
-									setIncludeOnlySkillsCerts(v);
-								}}
+								onChange={certifications =>
+									setIncludeOnlySkills(prev => {
+										return {
+											...prev,
+											certifications
+										};
+									})
+								}
 							/>
 						</div>
 						<div className="tsd-form-row">
 							<SwitchBase
 								id="includeListedSkills"
 								name="includeOnlySkills"
-								checked={includeOnlySkillsTechtags}
+								checked={includeOnlySkills.techtags}
 								label="Only Technical Skills (techtags) with Listed Skills"
-								onChange={v => {
-									setIncludeOnlySkillsTechtags(v);
-								}}
+								onChange={techtags =>
+									setIncludeOnlySkills(prev => {
+										return {
+											...prev,
+											techtags
+										};
+									})
+								}
 							/>
 						</div>
 						<div>
@@ -186,7 +249,7 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								className="btn btn-info"
 								onClick={handleCustomize}
 							>
-								Customize Resume
+								View Resume
 							</Button>
 						</div>
 					</div>

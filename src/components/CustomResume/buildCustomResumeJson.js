@@ -3,7 +3,7 @@ import { objCopy } from "assets/js/library";
 /*  buildCustomResumeJson.js */
 /**
  * parms:  layout, candidate, techtagSkills, resumeSettings
- * 				 resumeSettings:  skills,	maxHi, maxJobs,	maxJobHi,	includeOnlySkills
+ * 				 resumeSettings:  skills,	maxEntries	includeOnlySkills
  *
  * output:  json object that can be read by the resume builder
  */
@@ -16,18 +16,7 @@ export const buildCustomResumeJson = (
 	techtagSkills,
 	resumeSettings
 ) => {
-	const {
-		skills,
-		maxHi,
-		maxJobs,
-		maxJobHi,
-		maxEds,
-		maxCerts,
-		includeOnlySkillsTechtags,
-		includeOnlySkillsJobs,
-		includeOnlySkillsEds,
-		includeOnlySkillsCerts
-	} = resumeSettings;
+	const { skills, maxEntries, includeOnlySkills } = resumeSettings;
 	const skillList = skills.trim()
 		? skills
 				.trim()
@@ -41,7 +30,7 @@ export const buildCustomResumeJson = (
 	const candHighlights = chooseHighlights(
 		candidate.candidateHighlights,
 		skillList,
-		maxHi
+		maxEntries.highlights
 	);
 	console.log("candHighlights: ", candHighlights);
 
@@ -49,8 +38,8 @@ export const buildCustomResumeJson = (
 	const candExperienceIds = chooseSectionIdsBySkills(
 		candidate.experience,
 		skillList,
-		maxJobs,
-		includeOnlySkillsJobs
+		maxEntries.jobs,
+		includeOnlySkills.jobs
 	);
 	console.log("candExperienceIds: ", candExperienceIds);
 
@@ -58,8 +47,8 @@ export const buildCustomResumeJson = (
 	const candEducation = chooseSectionIdsBySkills(
 		candidate.education,
 		skillList,
-		maxEds,
-		includeOnlySkillsEds
+		maxEntries.education,
+		includeOnlySkills.education
 	);
 	console.log("candEducation: ", candEducation);
 
@@ -67,8 +56,8 @@ export const buildCustomResumeJson = (
 	const candCertification = chooseSectionIdsBySkills(
 		candidate.certifications,
 		skillList,
-		maxCerts,
-		includeOnlySkillsCerts
+		maxEntries.certifications,
+		includeOnlySkills.certifications
 	);
 	console.log("candCertification: ", candCertification);
 
@@ -78,12 +67,12 @@ export const buildCustomResumeJson = (
 		candExperienceIds,
 		candidate.experience,
 		skillList,
-		maxJobHi
+		maxEntries.jobHighlights
 	);
 	console.log("candExperience: ", candExperience);
 
 	const techtagIds = chooseTechtagSkills(
-		includeOnlySkillsTechtags,
+		includeOnlySkills.techtags,
 		techtagSkills,
 		skillList
 	);

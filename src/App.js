@@ -54,7 +54,6 @@ library.add(
 
 // setup global api url
 // if not on my dev, use remote api
-// const API_LOC = "local";
 const API_LOC = "azure";
 // const API_LOC = "local";
 
