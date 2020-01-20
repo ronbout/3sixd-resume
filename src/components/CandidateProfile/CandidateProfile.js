@@ -10,10 +10,11 @@ import Certifications from "./Certifications";
 import SocialMedia from "./SocialMedia";
 import { candidateInfo } from "./dummyData";
 import "./css/candidateProfile.css";
-import { objCopy } from "assets/js/library";
+import { objCopy, isEmptyObject } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
 // import { isEqual } from "lodash";
 import { calcPercentComplete } from "./calcPercentComplete";
+import { UserContext } from "components/UserProvider";
 
 const API_CANDIDATES = "candidates";
 
@@ -28,17 +29,36 @@ const emptyCompObj = {
 };
 
 class CandidateProfile extends Component {
-	constructor(props) {
-		super(props);
+	static contextType = UserContext;
+	constructor(props, context) {
+		super(props, context);
 
 		// check for candidate id being passed in as url parm
-		// if no such parm, then must be add mode
-		const candId = props.match.params.candId;
+		const candId = Number(props.match.params.candId);
+		// if candId from url is different from the userInfo candId, make sure
+		// that the security level is > 1 or just display warning.
+		let authValue = this.context;
+		let errMsg = "";
+		if (
+			!authValue.userInfo ||
+			(candId !== authValue.userInfo.candidateId &&
+				authValue.userInfo.securityLevel !== 10)
+		) {
+			errMsg = (
+				<span>
+					Not a valid Candidate Id
+					<br />
+					or You do not have permission to access this Candidate
+				</span>
+			);
+		}
+
 		this.state = {
 			formFields: candidateInfo,
 			candId,
 			compObj: emptyCompObj,
-			compMsg: ""
+			compMsg: {},
+			errMsg
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
@@ -178,80 +198,86 @@ class CandidateProfile extends Component {
 		const socialMedia = this.state.formFields.socialMedia;
 		return (
 			<React.Fragment>
-				<h1 style={{ marginTop: "12px", textAlign: "center" }}>
-					Candidate Profile
-				</h1>
-				{this.state.compMsg && (
-					<div className="comp-msg">
-						<p
-							style={{
-								fontSize: "22px",
-								lineHeight: "26px",
-								fontWeight: "bold"
-							}}
-						>
-							Your profile is incomplete. With a complete profile, our AI can
-							generate an optimal resume based on particular job requirements
-						</p>
-						<ol>{this.state.compMsg.map(m => m)}</ol>
-					</div>
+				{this.state.errMsg ? (
+					<h1 style={{ marginTop: "12px", textAlign: "center" }}>
+						{this.state.errMsg}
+					</h1>
+				) : (
+					<React.Fragment>
+						{!isEmptyObject(this.state.compMsg) && (
+							<div className="comp-msg">
+								<p
+									style={{
+										fontSize: "22px",
+										lineHeight: "26px",
+										fontWeight: "bold"
+									}}
+								>
+									Your profile is incomplete. With a complete profile, our AI
+									can generate an optimal resume based on particular job
+									requirements
+								</p>
+								<ol>{this.state.compMsg.map(m => m)}</ol>
+							</div>
+						)}
+						<div className="candidate-profile">
+							<ExpansionList className="md-cell md-cell--12">
+								<PersonalInfo
+									person={this.state.formFields.person}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+									compObj={this.state.compObj}
+								/>
+								<ObjectiveSummary
+									jobTitle={this.state.formFields.jobTitle}
+									objective={this.state.formFields.objective}
+									executiveSummary={this.state.formFields.executiveSummary}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+									compObj={this.state.compObj.summary}
+								/>
+								<Highlights
+									highlights={this.state.formFields.candidateHighlights}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+									compObj={this.state.compObj.highlights}
+								/>
+								<Experience
+									experience={this.state.formFields.experience}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+									compObj={this.state.compObj.experience}
+								/>
+								<Education
+									education={this.state.formFields.education}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+									compObj={this.state.compObj.education}
+								/>
+								<Certifications
+									certifications={this.state.formFields.certifications}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+								/>
+								<SocialMedia
+									linkedInLink={
+										socialMedia[
+											socialMedia.findIndex(sm => sm.socialType === "LinkedIn")
+										].socialLink
+									}
+									githubLink={
+										socialMedia[
+											socialMedia.findIndex(sm => sm.socialType === "Github")
+										].socialLink
+									}
+									handleUpdate={this.handleUpdate}
+									candId={this.state.candId}
+									compObj={this.state.compObj.socialMedia}
+								/>
+							</ExpansionList>
+						</div>
+					</React.Fragment>
 				)}
-				<div className="candidate-profile">
-					<ExpansionList className="md-cell md-cell--12">
-						<PersonalInfo
-							person={this.state.formFields.person}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-							compObj={this.state.compObj}
-						/>
-						<ObjectiveSummary
-							jobTitle={this.state.formFields.jobTitle}
-							objective={this.state.formFields.objective}
-							executiveSummary={this.state.formFields.executiveSummary}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-							compObj={this.state.compObj.summary}
-						/>
-						<Highlights
-							highlights={this.state.formFields.candidateHighlights}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-							compObj={this.state.compObj.highlights}
-						/>
-						<Experience
-							experience={this.state.formFields.experience}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-							compObj={this.state.compObj.experience}
-						/>
-						<Education
-							education={this.state.formFields.education}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-							compObj={this.state.compObj.education}
-						/>
-						<Certifications
-							certifications={this.state.formFields.certifications}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-						/>
-						<SocialMedia
-							linkedInLink={
-								socialMedia[
-									socialMedia.findIndex(sm => sm.socialType === "LinkedIn")
-								].socialLink
-							}
-							githubLink={
-								socialMedia[
-									socialMedia.findIndex(sm => sm.socialType === "Github")
-								].socialLink
-							}
-							handleUpdate={this.handleUpdate}
-							candId={this.state.candId}
-							compObj={this.state.compObj.socialMedia}
-						/>
-					</ExpansionList>
-				</div>
 			</React.Fragment>
 		);
 	}

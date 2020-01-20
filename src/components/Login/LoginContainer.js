@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Login from "./Login";
-import { UserContext } from "../UserProvider";
-import dataFetch from "../../assets/js/dataFetch";
+import { UserContext } from "components/UserProvider";
+import dataFetch from "assets/js/dataFetch";
 import { isEmptyObject } from "assets/js/library";
 import Snackbar from "styledComponents/Snackbar";
 
