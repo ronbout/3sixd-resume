@@ -16,6 +16,7 @@ const numWidthStyle = {
 const defaultLayout = {
 	sections: [
 		{ name: "hd" }, // header info
+		{ name: "ob" }, // objective/summary
 		{ name: "ts" }, // Tech skills
 		{ name: "hi" }, // Highlights
 		{ name: "ex" }, // Experience
