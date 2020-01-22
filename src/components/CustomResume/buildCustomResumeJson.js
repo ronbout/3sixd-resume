@@ -204,15 +204,17 @@ const buildExperienceObjs = (candExpIds, candExpAll, skillList, maxJobHi) => {
 };
 
 const chooseTechtagSkills = (includeOnlySkills, techtagSkills, skillList) => {
-	// if not includeOnlySkills, just convert the object keys to an array
-	if (!includeOnlySkills) return Object.keys(techtagSkills);
 	let retTechtagIds = [];
 	for (const skill of skillList) {
 		// grab the techtag that includes this skill
 		const fndTT = checkTechtagSkills(techtagSkills, skill);
 		retTechtagIds = [...new Set(retTechtagIds.concat(fndTT))];
 	}
-	return retTechtagIds;
+
+	// loop through remaining section until max is reached or end
+	return includeOnlySkills
+		? retTechtagIds
+		: getRemainingTechtags(techtagSkills, retTechtagIds);
 };
 
 const checkTechtagSkills = (techtags, skill) => {
@@ -239,6 +241,16 @@ const checkTechtagSkills = (techtags, skill) => {
 	}, []);
 
 	return retArray;
+};
+
+const getRemainingTechtags = (techtags, curIds) => {
+	// copy curIds into separate array so that we don't change original
+	let retIds = objCopy(curIds);
+	const techtagArray = Object.entries(techtags).sort((a, b) => a[0] - b[0]);
+	for (const tt of techtagArray) {
+		!retIds.some(rI => rI === Number(tt[0])) && retIds.push(Number(tt[0]));
+	}
+	return retIds;
 };
 
 const loadLayout = (
