@@ -67,7 +67,7 @@ const CandidateExperienceCrudForm = props => {
 						onClick={props.handleCompanyClick}
 						onFocus={props.handleCompanyClick}
 						required
-						disabled={showPerson}
+						disabled={showPerson || showCompany}
 					/>
 				</div>
 				<div className="tsd-form-row">
@@ -88,7 +88,7 @@ const CandidateExperienceCrudForm = props => {
 						value={formFields.contactPerson.formattedName}
 						onClick={props.handlePersonClick}
 						onFocus={props.handlePersonClick}
-						disabled={showCompany}
+						disabled={showPerson || showCompany}
 					/>
 					<InpPhone
 						id="contactphone"
