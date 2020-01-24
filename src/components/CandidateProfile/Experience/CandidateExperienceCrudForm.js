@@ -54,6 +54,7 @@ const CandidateExperienceCrudForm = props => {
 						name="jobTitle"
 						label="Job Title *"
 						value={formFields.jobTitle}
+						maxLength={60}
 						autoFocus
 						required
 						disabled={showPerson || showCompany}

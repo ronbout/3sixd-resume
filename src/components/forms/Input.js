@@ -10,6 +10,7 @@ const Input = props => {
 		inpType,
 		performErrCheck,
 		onBlur,
+		maxlength,
 		onChange,
 		required,
 		...rest
@@ -74,6 +75,13 @@ const Input = props => {
 		if (key === "Enter") {
 			ev.preventDefault();
 		}
+		/***
+		 *
+		 *
+		 * check here for maxlength - stop if over
+		 *
+		 *
+		 */
 	};
 
 	return (

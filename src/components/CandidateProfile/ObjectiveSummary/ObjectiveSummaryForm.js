@@ -22,7 +22,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 					id="jobtitle"
 					label="Job Title"
 					rows={1}
-					maxLength={30}
+					maxLength={60}
 					name="jobTitle"
 					value={formFields.jobTitle}
 					reqWarn
