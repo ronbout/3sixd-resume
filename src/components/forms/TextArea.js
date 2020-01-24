@@ -12,6 +12,7 @@ const Input = props => {
 		performErrCheck,
 		onBlur,
 		required,
+		maxLength,
 		rows = 1,
 		...rest
 	} = props;
@@ -52,7 +53,11 @@ const Input = props => {
 
 	const handleKeyDown = ev => {
 		const key = ev.key;
+		const val = ev.target.value;
 		if (key === "Enter") {
+			ev.preventDefault();
+		}
+		if (maxLength && !isNaN(maxLength) && val.length >= maxLength) {
 			ev.preventDefault();
 		}
 	};
@@ -65,6 +70,8 @@ const Input = props => {
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
 				rows={rows}
+				onKeyPress={handleKeyDown}
+				maxLength={maxLength}
 				{...rest}
 			/>
 			<ErrorMsg errMsg={errMsg} />

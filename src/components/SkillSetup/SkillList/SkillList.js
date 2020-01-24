@@ -17,7 +17,7 @@ const SkillSearchPopup = MakePopup(
 );
 
 const SkillList = props => {
-	const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(false);
+	const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(true);
 	const [skillDrag, setSkillDrag] = useState(false);
 
 	const handleOpenSkillSearch = () => {

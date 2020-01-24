@@ -27,7 +27,7 @@ const defaultLayout = {
 
 const defaultMaxEntries = {
 	highlights: 5,
-	jobs: 4,
+	jobs: 8,
 	jobHighlights: 4,
 	education: 2,
 	certifications: 2

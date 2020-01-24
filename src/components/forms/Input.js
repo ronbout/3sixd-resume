@@ -10,7 +10,7 @@ const Input = props => {
 		inpType,
 		performErrCheck,
 		onBlur,
-		maxlength,
+		maxLength,
 		onChange,
 		required,
 		...rest
@@ -72,16 +72,13 @@ const Input = props => {
 
 	const handleKeyDown = ev => {
 		const key = ev.key;
+		const val = ev.target.value;
 		if (key === "Enter") {
 			ev.preventDefault();
 		}
-		/***
-		 *
-		 *
-		 * check here for maxlength - stop if over
-		 *
-		 *
-		 */
+		if (maxLength && !isNaN(maxLength) && val.length >= maxLength) {
+			ev.preventDefault();
+		}
 	};
 
 	return (
@@ -92,6 +89,7 @@ const Input = props => {
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
 				errMsg={errMsg}
+				maxLength={maxLength}
 				{...rest}
 			/>
 		</div>
