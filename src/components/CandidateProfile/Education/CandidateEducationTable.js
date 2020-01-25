@@ -24,6 +24,7 @@ const CandidateEducationTable = ({ education, actions, onAddClick }) => {
 						<TableColumn>School</TableColumn>
 						<TableColumn>Start Date</TableColumn>
 						<TableColumn>End Date</TableColumn>
+						<TableColumn>Actions</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>

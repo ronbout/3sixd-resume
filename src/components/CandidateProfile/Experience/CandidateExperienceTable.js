@@ -22,6 +22,7 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 						<TableColumn>Company Name</TableColumn>
 						<TableColumn>Start Date</TableColumn>
 						<TableColumn>End Date</TableColumn>
+						<TableColumn>Actions</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>

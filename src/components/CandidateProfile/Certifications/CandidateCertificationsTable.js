@@ -34,6 +34,7 @@ const CandidateCertificationsTable = ({
 						<TableColumn>Description</TableColumn>
 						<TableColumn>Issue Date</TableColumn>
 						<TableColumn>Image</TableColumn>
+						<TableColumn>Actions</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>

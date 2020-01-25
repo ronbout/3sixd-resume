@@ -112,6 +112,7 @@ const HighlightsTable = ({
 						>
 							Skills
 						</TableColumn>
+						<TableColumn>Actions</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
