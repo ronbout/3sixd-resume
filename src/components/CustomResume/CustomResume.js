@@ -16,7 +16,8 @@ const numWidthStyle = {
 const defaultLayout = {
 	sections: [
 		{ name: "hd" }, // header info
-		{ name: "ob" }, // objective/summary
+		{ name: "ob" }, // Objective,
+		{ name: "ps" }, // Professional Summary
 		{ name: "ts" }, // Tech skills
 		{ name: "hi" }, // Highlights
 		{ name: "ex" }, // Experience
@@ -48,6 +49,8 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 	const [includeOnlySkills, setIncludeOnlySkills] = useState(
 		defaultIncludeOnlySkills
 	);
+	const [includeObjective, setIncludeObjective] = useState(false);
+	const [includeProfSummary, setIncludeProfSummary] = useState(false);
 
 	useEffect(() => {
 		console.log("candidate: ", candidate);
@@ -59,7 +62,9 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 		const resumeSettings = {
 			skills,
 			maxEntries,
-			includeOnlySkills
+			includeOnlySkills,
+			includeObjective,
+			includeProfSummary
 		};
 		const resumeJson = buildCustomResumeJson(
 			defaultLayout,
@@ -96,6 +101,22 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 							/>
 						</div>
 						<div className="tsd-form-row">
+							<SwitchBase
+								id="includeObjective"
+								name="includeObjective"
+								checked={includeObjective}
+								label="Include Objective"
+								onChange={obj => setIncludeObjective(obj)}
+							/>
+							<SwitchBase
+								id="includeProfSummary"
+								name="includeProfSummary"
+								checked={includeProfSummary}
+								label="Include Professional Summary"
+								onChange={summ => setIncludeProfSummary(summ)}
+							/>
+						</div>
+						<div className="tsd-form-row">
 							<TextField
 								id="maxHighlights"
 								type="number"
@@ -105,6 +126,20 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								value={maxEntries.highlights}
 								onChange={highlights =>
 									setMaxEntries(prev => {
+										return {
+											...prev,
+											highlights
+										};
+									})
+								}
+							/>
+							<SwitchBase
+								id="includeOnlySkillsHighlights"
+								name="includeOnlySkillsHighlights"
+								checked={includeOnlySkills.highlights}
+								label="Only Highlights with Listed Skills"
+								onChange={highlights =>
+									setIncludeOnlySkills(prev => {
 										return {
 											...prev,
 											highlights
@@ -131,7 +166,7 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								}
 							/>
 							<SwitchBase
-								id="includeListedSkillsJobs"
+								id="includeOnlySkillsJobs"
 								name="includeOnlySkillsJobs"
 								checked={includeOnlySkills.jobs}
 								label="Only Jobs with Listed Skills"
@@ -155,6 +190,20 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 								value={maxEntries.jobHighlights}
 								onChange={jobHighlights =>
 									setMaxEntries(prev => {
+										return {
+											...prev,
+											jobHighlights
+										};
+									})
+								}
+							/>
+							<SwitchBase
+								id="includeOnlySkillsJobHighlights"
+								name="includeOnlySkillsJobHighlights"
+								checked={includeOnlySkills.jobHighlights}
+								label="Only Job Highlights with Listed Skills"
+								onChange={jobHighlights =>
+									setIncludeOnlySkills(prev => {
 										return {
 											...prev,
 											jobHighlights

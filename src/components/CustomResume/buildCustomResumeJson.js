@@ -16,7 +16,13 @@ export const buildCustomResumeJson = (
 	techtagSkills,
 	resumeSettings
 ) => {
-	const { skills, maxEntries, includeOnlySkills } = resumeSettings;
+	const {
+		skills,
+		maxEntries,
+		includeOnlySkills,
+		includeObjective,
+		includeProfSummary
+	} = resumeSettings;
 	const skillList = skills.trim()
 		? skills
 				.trim()
@@ -30,7 +36,8 @@ export const buildCustomResumeJson = (
 	const candHighlights = chooseHighlights(
 		candidate.candidateHighlights,
 		skillList,
-		maxEntries.highlights
+		maxEntries.highlights,
+		includeOnlySkills.highlights
 	);
 	console.log("candHighlights: ", candHighlights);
 
@@ -67,7 +74,8 @@ export const buildCustomResumeJson = (
 		candExperienceIds,
 		candidate.experience,
 		skillList,
-		maxEntries.jobHighlights
+		maxEntries.jobHighlights,
+		includeOnlySkills.jobHighlights
 	);
 	console.log("candExperience: ", candExperience);
 
@@ -84,19 +92,33 @@ export const buildCustomResumeJson = (
 		candExperience,
 		candEducation,
 		candCertification,
-		techtagIds
+		techtagIds,
+		includeObjective,
+		includeProfSummary
 	);
 	return resumeJson;
 };
 
-const chooseHighlights = (highlights, skillList, maxHi) => {
+const chooseHighlights = (
+	highlights,
+	skillList,
+	maxHi,
+	includeOnlySkills = false
+) => {
 	// get the highlights id's by skillList first
 	// then add by highlight string match and any remaining
-	let retHighlights = chooseSectionIdsBySkills(highlights, skillList, maxHi);
+	let retHighlights = chooseSectionIdsBySkills(
+		highlights,
+		skillList,
+		maxHi,
+		includeOnlySkills
+	);
+	console.log("retHighlights: ", retHighlights);
 
 	// loop through the skills, find highlights that string match the skills
 	for (const skill of skillList) {
 		const fndHi = checkHighlightsDesc(highlights, skill);
+		console.log("highlight string comp loop (skill, fndHi): ", skill, fndHi);
 		retHighlights = [...new Set(retHighlights.concat(fndHi))];
 		// check lenght vs maxHi
 		if (retHighlights.length >= maxHi) {
@@ -106,10 +128,12 @@ const chooseHighlights = (highlights, skillList, maxHi) => {
 		}
 	}
 
-	// console.log("retHighlights before last: ", retHighlights);
+	console.log("retHighlights before last: ", retHighlights);
 	if (retHighlights.length >= maxHi) return retHighlights;
 	// loop through remaining highlights until maxHi is reached or end of highlights
-	return getRemainingSection(highlights, retHighlights, maxHi);
+	return includeOnlySkills
+		? retHighlights
+		: getRemainingSection(highlights, retHighlights, maxHi);
 };
 
 const getRemainingSection = (section, curIds, maxIds) => {
@@ -190,11 +214,22 @@ const checkSectionBySkill = (section, skill) => {
 	return retArray;
 };
 
-const buildExperienceObjs = (candExpIds, candExpAll, skillList, maxJobHi) => {
+const buildExperienceObjs = (
+	candExpIds,
+	candExpAll,
+	skillList,
+	maxJobHi,
+	includeOnlySkills = false
+) => {
 	// loop through id's, get the experience and run chooseHighlights
 	let candExpObj = candExpIds.map(id => {
 		const exp = candExpAll.find(e => e.id === id);
-		const expH = chooseHighlights(exp.highlights, skillList, maxJobHi);
+		const expH = chooseHighlights(
+			exp.highlights,
+			skillList,
+			maxJobHi,
+			includeOnlySkills
+		);
 		return {
 			id,
 			expH
@@ -254,13 +289,22 @@ const getRemainingTechtags = (techtags, curIds) => {
 };
 
 const loadLayout = (
-	layout,
+	origLayout,
 	candHighlights,
 	candExperience,
 	candEducation,
 	candCertification,
-	techtagIds
+	techtagIds,
+	includeObjective,
+	includeProfSummary
 ) => {
+	let layout = objCopy(origLayout);
+	// remove objective and profSummary if not included
+	!includeObjective && removeLayoutSection("ob", layout);
+	console.log("post obj test: ", layout);
+	!includeProfSummary && removeLayoutSection("ps", layout);
+	console.log("post summary test: ", layout);
+
 	// loop through layout and add display info for appropriate sections
 	const newSections = layout.sections.map(section => {
 		switch (section.name) {
@@ -299,4 +343,10 @@ const loadLayout = (
 		...layout,
 		sections: { ...newSections }
 	};
+};
+
+const removeLayoutSection = (sectCode, layout) => {
+	const ndx = layout.sections.findIndex(s => s.name === sectCode);
+	layout.sections.splice(ndx, 1);
+	return layout;
 };
