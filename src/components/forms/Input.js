@@ -72,11 +72,7 @@ const Input = props => {
 
 	const handleKeyDown = ev => {
 		const key = ev.key;
-		const val = ev.target.value;
 		if (key === "Enter") {
-			ev.preventDefault();
-		}
-		if (maxLength && !isNaN(maxLength) && val.length >= maxLength) {
 			ev.preventDefault();
 		}
 	};
@@ -85,10 +81,10 @@ const Input = props => {
 		<div className="input-div">
 			<TextField
 				error={errFlg}
+				errMsg={errMsg}
 				onBlur={handleOnBlur}
 				onChange={handleChange}
 				onKeyDown={handleKeyDown}
-				errMsg={errMsg}
 				maxLength={maxLength}
 				{...rest}
 			/>

@@ -80,14 +80,6 @@ export const InpString = props => {
 				setErrMsg("");
 			}
 		}
-		if (maxLength !== null && !isNaN(maxLength) && val.length > maxLength) {
-			setErrMsg(`Max characters: ${maxLength}`);
-			return;
-		} else {
-			if (errMsg) {
-				setErrMsg("");
-			}
-		}
 	};
 
 	const handleChange = ev => {
@@ -445,14 +437,6 @@ export const InpPassword = props => {
 				setErrMsg("");
 			}
 		}
-		if (maxLength !== null && !isNaN(maxLength) && val.length > maxLength) {
-			setErrMsg(`Max characters: ${maxLength}`);
-			return;
-		} else {
-			if (errMsg) {
-				setErrMsg("");
-			}
-		}
 	};
 
 	const handleChange = ev => {
@@ -626,14 +610,6 @@ export const InpPhone = props => {
 				setErrMsg("");
 			}
 		}
-		if (maxLength !== null && !isNaN(maxLength) && val.length > maxLength) {
-			setErrMsg(`Max characters: ${maxLength}`);
-			return;
-		} else {
-			if (errMsg) {
-				setErrMsg("");
-			}
-		}
 	};
 
 	const handleChange = ev => {
@@ -766,14 +742,6 @@ export const InpTextArea = props => {
 		// check here for maxLimit/min
 		if (minlength !== null && !isNaN(minlength) && val.length < minlength) {
 			setErrMsg(`Must contain ${minlength} characters`);
-			return;
-		} else {
-			if (errMsg) {
-				setErrMsg("");
-			}
-		}
-		if (maxLength !== null && !isNaN(maxLength) && val.length > maxLength) {
-			setErrMsg(`Max characters: ${maxLength}`);
 			return;
 		} else {
 			if (errMsg) {

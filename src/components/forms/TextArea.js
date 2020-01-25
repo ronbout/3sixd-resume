@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextAreaBase from "styledComponents/TextAreaBase";
 // import { checkValidInput } from "./checkValidForm";
-import ErrorMsg from "./ErrorMsg";
+// import ErrorMsg from "./ErrorMsg";
 
 const Input = props => {
 	const [errFlg, setErrFlg] = useState(false);
@@ -53,11 +53,7 @@ const Input = props => {
 
 	const handleKeyDown = ev => {
 		const key = ev.key;
-		const val = ev.target.value;
 		if (key === "Enter") {
-			ev.preventDefault();
-		}
-		if (maxLength && !isNaN(maxLength) && val.length >= maxLength) {
 			ev.preventDefault();
 		}
 	};
@@ -67,6 +63,7 @@ const Input = props => {
 			<TextAreaBase
 				id={id}
 				error={errFlg}
+				errMsg={errMsg}
 				onBlur={handleOnBlur}
 				onKeyDown={handleKeyDown}
 				rows={rows}
@@ -74,7 +71,6 @@ const Input = props => {
 				maxLength={maxLength}
 				{...rest}
 			/>
-			<ErrorMsg errMsg={errMsg} />
 		</div>
 	);
 };
