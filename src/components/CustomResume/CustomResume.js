@@ -35,12 +35,12 @@ const defaultMaxEntries = {
 };
 
 const defaultIncludeOnlySkills = {
-	highlights: true,
-	jobs: true,
-	jobHighlights: true,
-	education: true,
-	certifications: true,
-	techtags: true
+	highlights: false,
+	jobs: false,
+	jobHighlights: false,
+	education: false,
+	certifications: false,
+	techtags: false
 };
 
 const CustomResume = ({ candidate, techtagSkills }) => {
