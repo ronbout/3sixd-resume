@@ -11,6 +11,7 @@ import {
 	Form
 } from "components/forms/formInputs";
 import Checkbox from "styledComponents/Checkbox";
+import { FontIcon } from "styledComponents/FontIcon";
 import {
 	ExpansionList,
 	ExpansionPanel
@@ -20,6 +21,23 @@ import HighlightsFormContainer from "../highlights/HighlightsFormContainer";
 import CompanySetupContainer from "components/CompanySetup/";
 import PersonSetup from "components/PersonSetup/";
 import MakePopup from "components/hoc/MakePopup";
+
+const emptyContactPerson = {
+	id: "",
+	formattedName: "",
+	givenName: "",
+	familyName: "",
+	mobilePhone: "",
+	workPhone: "",
+	addressLine1: "",
+	addressLine2: "",
+	municipality: "",
+	region: "",
+	postalCode: "",
+	countryCode: "",
+	email1: "",
+	website: ""
+};
 
 const CandidateExperienceCrudForm = props => {
 	const {
@@ -44,6 +62,10 @@ const CandidateExperienceCrudForm = props => {
 		{ left: "250px", top: "200px", width: "1000px" },
 		true
 	);
+
+	const removeContactPerson = () => {
+		changeFormFields("contactPerson", emptyContactPerson);
+	};
 
 	const jobForm = () => {
 		return (
@@ -85,11 +107,28 @@ const CandidateExperienceCrudForm = props => {
 						id="contactperson"
 						name="contactPerson-formattedName"
 						label="Contact Person"
+						style={{ width: "80%" }}
 						value={formFields.contactPerson.formattedName}
 						onClick={props.handlePersonClick}
 						onFocus={props.handlePersonClick}
 						disabled={showPerson || showCompany}
 					/>
+					{formFields.contactPerson.id &&
+						formFields.contactPerson.id !==
+							formFields.company.contactPersonId && (
+							<span
+								onClick={removeContactPerson}
+								style={{
+									cursor: "pointer",
+									marginLeft: "-50px",
+									padding: 0,
+									alignSelf: "flex-end"
+								}}
+								title="Remove Contact Person"
+							>
+								(<FontIcon style={{ verticalAlign: "top" }}>remove</FontIcon>)
+							</span>
+						)}
 					<InpPhone
 						id="contactphone"
 						name="contactPerson-workPhone"
