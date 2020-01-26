@@ -107,7 +107,6 @@ const CandidateExperienceCrudForm = props => {
 						id="contactperson"
 						name="contactPerson-formattedName"
 						label="Contact Person"
-						style={{ width: "80%" }}
 						value={formFields.contactPerson.formattedName}
 						onClick={props.handlePersonClick}
 						onFocus={props.handlePersonClick}
@@ -120,8 +119,7 @@ const CandidateExperienceCrudForm = props => {
 								onClick={removeContactPerson}
 								style={{
 									cursor: "pointer",
-									marginLeft: "-50px",
-									padding: 0,
+									padding: "0 20px 0 0",
 									alignSelf: "flex-end"
 								}}
 								title="Remove Contact Person"
