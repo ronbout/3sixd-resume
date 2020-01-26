@@ -19,3 +19,11 @@
 	height: 200px;
 	border: 1px solid black;
 }
+
+.vdiv {
+	display: inline-block;
+	content: "";
+	width: 100%;
+	border-top: 1px solid #ccc;
+	margin: 24px auto 16px;
+}
