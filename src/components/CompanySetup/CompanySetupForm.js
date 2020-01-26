@@ -6,6 +6,7 @@ import PersonSetup from "components/PersonSetup/";
 import MakePopup from "components/hoc/MakePopup";
 import CompanyAuto from "./CompanyAuto";
 import Button from "styledComponents/Button";
+import { FontIcon } from "styledComponents/FontIcon";
 import {
 	InpString,
 	InpEmail,
@@ -15,6 +16,26 @@ import {
 	Form
 } from "components/forms/formInputs";
 import "./css/companySetup.css";
+
+const emptyContactPerson = {
+	id: "",
+	formattedName: "",
+	givenName: "",
+	middleName: "",
+	familyName: "",
+	affix: "",
+	email1: "",
+	email2: "",
+	primaryPhone: "",
+	workPhone: "",
+	addressLine1: "",
+	addressLine2: "",
+	municipality: "",
+	region: "",
+	postalCode: "",
+	countryCode: "",
+	website: ""
+};
 
 const PersonPopup = MakePopup(
 	PersonSetup,
@@ -42,6 +63,10 @@ const CompanySetupForm = props => {
 		changeFormFields
 	} = useForm(props.companyInfo, props.clearFormFields, props.handleSubmit);
 	const [newCompany, setNewCompany] = useState(false);
+
+	const removeContactPerson = () => {
+		changeFormFields("contactPerson", emptyContactPerson);
+	};
 
 	const companyDetails = () => {
 		return (
@@ -97,6 +122,19 @@ const CompanySetupForm = props => {
 						onChange={props.handleContactPersonChange}
 						onClick={props.handlePersonClick}
 					/>
+					{formFields.contactPerson.id && (
+						<span
+							onClick={removeContactPerson}
+							style={{
+								cursor: "pointer",
+								padding: "0 20px 0 0",
+								alignSelf: "flex-end"
+							}}
+							title="Remove Contact Person"
+						>
+							(<FontIcon style={{ verticalAlign: "top" }}>remove</FontIcon>)
+						</span>
+					)}
 				</div>
 				{/* Email Row */}
 				<div className="tsd-form-row">
