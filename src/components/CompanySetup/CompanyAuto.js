@@ -16,6 +16,8 @@ const CompanyAuto = ({
 	const [autoResults, setAutoResults] = useState([]);
 	const isMounted = React.useRef(true);
 
+	const deleteKeys = ["id"];
+
 	useEffect(() => {
 		isMounted.current = true;
 		return () => {
@@ -36,7 +38,10 @@ const CompanyAuto = ({
 			console.log("Fetch error: ", results);
 		} else {
 			const data = results.map(r => {
-				return r.name;
+				return {
+					name: r.name,
+					id: r.id
+				};
 			});
 			if (isMounted.current) {
 				setResults(results ? results : []);
@@ -59,7 +64,10 @@ const CompanyAuto = ({
 				id="company"
 				label="Name *"
 				data={autoResults}
+				dataLabel="name"
+				dataValue="id"
 				value={company}
+				deleteKeys={deleteKeys}
 				onChange={handleChange}
 				onAutocomplete={handleSelect}
 				floating={true}

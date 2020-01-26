@@ -18,6 +18,8 @@ const PersonAuto = ({
 	const [autoResults, setAutoResults] = useState([]);
 	const isMounted = React.useRef(true);
 
+	const deleteKeys = ["id"];
+
 	useEffect(() => {
 		isMounted.current = true;
 		return () => {
@@ -38,7 +40,10 @@ const PersonAuto = ({
 			console.log("Fetch error: ", results);
 		} else {
 			const data = results.map(r => {
-				return r.formattedName;
+				return {
+					formattedname: r.formattedName,
+					id: r.id
+				};
 			});
 			if (isMounted.current) {
 				setResults(results ? results : []);
@@ -61,7 +66,10 @@ const PersonAuto = ({
 				id={id}
 				label={label}
 				data={autoResults}
+				dataLabel="formattedname"
+				dataValue="id"
 				value={person}
+				deleteKeys={deleteKeys}
 				onChange={handleChange}
 				onAutocomplete={handleSelect}
 				floating={true}
