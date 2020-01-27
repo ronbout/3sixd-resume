@@ -96,6 +96,10 @@
   margin-top: 12px;
 }
 
+.profile-section .personal-info-display .pi-button button {
+  min-width: 123px;
+}
+
 .pi-content {
   display: -webkit-box;
   display: -ms-flexbox;

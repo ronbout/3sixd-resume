@@ -15,15 +15,15 @@ const PersonalInfoDisplay = ({ formattedName, candId }) => {
 			</div>
 			<br />
 			<div className="pi-button">
-				<Button href={`/custom-resume/${candId}`} target="_blank">
-					Resume PDF
-				</Button>
+				<Link to={`/custom-resume/${candId}`}>
+					<Button type="button">Resume PDF</Button>
+				</Link>
 			</div>
 			<br />
 			<div className="pi-button">
-				<Button href={`/cannd-skills/${candId}`} target="_blank">
-					Cand Skills
-				</Button>
+				<Link to={`/cand-skills/${candId}`}>
+					<Button type="button">Cand Skills</Button>
+				</Link>
 			</div>
 		</div>
 	);
