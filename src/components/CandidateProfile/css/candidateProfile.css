@@ -89,6 +89,11 @@
 
 .profile-section .personal-info-display {
   text-align: center;
+  margin-top: 24px;
+}
+
+.profile-section .personal-info-display .pi-button {
+  margin-top: 12px;
 }
 
 .pi-content {
