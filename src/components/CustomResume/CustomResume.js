@@ -27,11 +27,11 @@ const defaultLayout = {
 };
 
 const defaultMaxEntries = {
-	highlights: 5,
-	jobs: 8,
-	jobHighlights: 4,
-	education: 2,
-	certifications: 2
+	highlights: 99,
+	jobs: 99,
+	jobHighlights: 99,
+	education: 99,
+	certifications: 99
 };
 
 const includeOnlySkillsOff = {
