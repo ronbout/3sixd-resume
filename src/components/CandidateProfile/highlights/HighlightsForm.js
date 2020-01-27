@@ -17,7 +17,8 @@ const HighlightsForm = props => {
 		listingCallbacks,
 		skills,
 		candId,
-		tableHeight
+		tableHeight,
+		setAutoFocus = true
 	} = props;
 
 	const addHighlight = () => {
@@ -33,7 +34,7 @@ const HighlightsForm = props => {
 							maxLength={200}
 							name="newHighlight"
 							label="Enter a highlight and click Add"
-							autoFocus
+							autoFocus={setAutoFocus}
 							value={newHighlight}
 							onChange={props.handleOnChange}
 						/>

@@ -207,7 +207,11 @@ const CandidateExperienceCrudForm = props => {
 					/>
 				</div>
 				<ExpansionList>
-					<ExpansionPanel label="Job Related Skills" footer={null}>
+					<ExpansionPanel
+						label="Job Related Skills"
+						footer={null}
+						defaultExpanded={true}
+					>
 						<div className="skill-edit-list">
 							<SkillList
 								skills={formFields.skills}
@@ -216,10 +220,15 @@ const CandidateExperienceCrudForm = props => {
 									changeFormFields("skills", s);
 								}}
 								candId={props.candId}
+								dispSearch={false}
 							/>
 						</div>
 					</ExpansionPanel>
-					<ExpansionPanel label="Job Highlights" footer={null}>
+					<ExpansionPanel
+						label="Job Highlights"
+						footer={null}
+						defaultExpanded={true}
+					>
 						<div className="experience-highlights">
 							<HighlightsFormContainer
 								highlights={formFields.highlights}
@@ -230,6 +239,7 @@ const CandidateExperienceCrudForm = props => {
 								candId={props.candId}
 								disabled={showPerson || showCompany}
 								tableHeight={250}
+								setAutoFocus={false}
 							/>
 						</div>
 					</ExpansionPanel>

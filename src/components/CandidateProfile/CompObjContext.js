@@ -16,9 +16,6 @@ const CompObjProvider = props => {
 	const compObjReducer = (state, action) => {
 		switch (action.type) {
 			case "UPDATE_CAND":
-				console.log("heree!!!!");
-				console.log("state: ", state);
-				console.log("action: ", action);
 				const newState = {
 					...objCopy(state),
 					...action.payload

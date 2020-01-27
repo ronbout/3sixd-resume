@@ -16,9 +16,7 @@ const IncompleteInfoMsg = ({ candidateInfo }) => {
 	}, [candidateInfo, dispatch]);
 
 	useEffect(() => {
-		console.log("state change: ", state);
 		if (state.id) {
-			console.log("Incomplete state: ", state);
 			const compObj = calcPercentComplete(state);
 			setCompMsg(buildCompMsg(compObj));
 		}
