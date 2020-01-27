@@ -1,13 +1,20 @@
 /* SocialMedia.js */
-import React from "react";
+import React, { useContext } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import SocialMediaContainer from "./SocialMediaContainer";
 import makeExpansion from "styledComponents/makeExpansion";
+import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
 
-const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
+const SocialMediaDiv = ({ linkedInLink, githubLink, candId }) => {
+	const { dispatch } = useContext(CompObjContext);
+
 	const handleSubmit = socialMedia => {
-		handleUpdate({ socialMedia });
+		// instead of passing info up, use dispatch
+		dispatch({
+			type: "UPDATE_CAND",
+			payload: { socialMedia }
+		});
 	};
 
 	return (
@@ -22,7 +29,7 @@ const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
 	);
 };
 
-const SocialMedia = ({ candId, linkedInLink, githubLink, handleUpdate }) => {
+const SocialMedia = ({ candId, linkedInLink, githubLink }) => {
 	// React.useEffect(() => {
 	// 	console.log("***  Social Media rendered ***");
 	// });
@@ -50,7 +57,6 @@ const SocialMedia = ({ candId, linkedInLink, githubLink, handleUpdate }) => {
 				linkedInLink={linkedInLink}
 				githubLink={githubLink}
 				candId={candId}
-				handleUpdate={handleUpdate}
 			/>
 		</section>
 	);

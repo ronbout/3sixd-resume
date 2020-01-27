@@ -1,14 +1,21 @@
 /* Highlights.js */
-import React from "react";
+import React, { useContext } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import HighlightsContainer from "./HighlightsContainer";
 import makeExpansion from "styledComponents/makeExpansion";
+import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
 
-const HighlightsDiv = ({ highlights, candId, handleUpdate }) => {
+const HighlightsDiv = ({ highlights, candId }) => {
+	const { dispatch } = useContext(CompObjContext);
+
 	const handleSubmit = highlights => {
-		handleUpdate({ candidateHighlights: highlights });
+		dispatch({
+			type: "UPDATE_CAND",
+			payload: { candidateHighlights: highlights }
+		});
 	};
+
 	return (
 		<section>
 			<HighlightsContainer
@@ -20,7 +27,7 @@ const HighlightsDiv = ({ highlights, candId, handleUpdate }) => {
 	);
 };
 
-const Highlights = ({ highlights, candId, handleUpdate }) => {
+const Highlights = ({ highlights, candId }) => {
 	// React.useEffect(() => {
 	// 	console.log("***  Highlights rendered ***");
 	// });
@@ -43,11 +50,7 @@ const Highlights = ({ highlights, candId, handleUpdate }) => {
 	);
 	return (
 		<section className="highlights profile-section">
-			<ExpandHighlightDiv
-				highlights={highlights}
-				candId={candId}
-				handleUpdate={handleUpdate}
-			/>
+			<ExpandHighlightDiv highlights={highlights} candId={candId} />
 		</section>
 	);
 };

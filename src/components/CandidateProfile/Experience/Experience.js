@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from "react";
+/* Experience.js */
+import React, { useState, useEffect, useContext } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateExperienceContainer from "./CandidateExperienceContainer";
 import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
+import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
 
-const ExperienceDiv = ({ experience, candId, handleExperienceChange }) => {
+const ExperienceDiv = ({ experience, candId }) => {
+	const { dispatch } = useContext(CompObjContext);
+
+	const handleSubmit = experience => {
+		dispatch({
+			type: "UPDATE_CAND",
+			payload: { experience }
+		});
+	};
+
 	return (
 		<section>
 			<CandidateExperienceContainer
 				experience={experience}
 				candId={candId}
-				handleExperienceChange={handleExperienceChange}
+				handleSubmit={handleSubmit}
 			/>
 		</section>
 	);

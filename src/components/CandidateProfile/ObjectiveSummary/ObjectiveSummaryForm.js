@@ -20,7 +20,7 @@ const ObjectiveSummaryForm = ({ formData, handleSubmit }) => {
 			<div className="objective-form">
 				<InpTextArea
 					id="jobtitle"
-					label="Job Title"
+					label="Candidate Title"
 					rows={1}
 					maxLength={60}
 					name="jobTitle"

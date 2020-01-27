@@ -1,9 +1,29 @@
 /* IncompleteInfoMsg.js */
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { calcPercentComplete } from "./calcPercentComplete";
+import { buildCompMsg } from "./buildCompMsg";
+import { CompObjContext } from "./CompObjContext";
 
-const IncompleteInfoMsg = ({ compMsg }) => {
-	console.log("incomplete compMsg: ", compMsg);
-	console.log(typeof compMsg);
+const IncompleteInfoMsg = ({ candidateInfo }) => {
+	const { state, dispatch } = useContext(CompObjContext);
+	const [compMsg, setCompMsg] = useState([]);
+
+	useEffect(() => {
+		dispatch({
+			type: "UPDATE_CAND",
+			payload: candidateInfo
+		});
+	}, [candidateInfo, dispatch]);
+
+	useEffect(() => {
+		console.log("state change: ", state);
+		if (state.id) {
+			console.log("Incomplete state: ", state);
+			const compObj = calcPercentComplete(state);
+			setCompMsg(buildCompMsg(compObj));
+		}
+	}, [state]);
+
 	return (
 		<div className="comp-msg">
 			<p

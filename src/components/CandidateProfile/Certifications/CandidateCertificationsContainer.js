@@ -61,6 +61,7 @@ const CandidateCertificationsContainer = props => {
 		} else {
 			addToast("Certifications have been updated");
 			setCertifications(certifications ? objCopy(certifications) : []);
+			props.handleSubmit(certifications);
 		}
 	};
 

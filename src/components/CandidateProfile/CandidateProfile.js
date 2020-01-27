@@ -10,25 +10,14 @@ import Education from "./Education";
 import Certifications from "./Certifications";
 import SocialMedia from "./SocialMedia";
 import { candidateInfo } from "./dummyData";
-import "./css/candidateProfile.css";
-import { objCopy, isEmptyObject } from "assets/js/library";
+import { objCopy } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
-// import { isEqual } from "lodash";
-import { calcPercentComplete } from "./calcPercentComplete";
-import { buildCompMsg } from "./buildCompMsg";
 import { UserContext } from "components/UserProvider";
+import { CompObjProvider } from "./CompObjContext";
+
+import "./css/candidateProfile.css";
 
 const API_CANDIDATES = "candidates";
-
-const emptyCompObj = {
-	totPct: 0,
-	person: { curPct: 0, availPct: 20, missing: [] },
-	summary: { curPct: 0, availPct: 15, missing: [] },
-	highlights: { curPct: 0, availPct: 20, missing: [] },
-	experience: { curPct: 0, availPct: 30, missing: [] },
-	education: { curPct: 0, availPct: 10, missing: [] },
-	socialMedia: { curPct: 0, availPct: 5, missing: [] }
-};
 
 class CandidateProfile extends Component {
 	static contextType = UserContext;
@@ -58,8 +47,6 @@ class CandidateProfile extends Component {
 		this.state = {
 			formFields: candidateInfo,
 			candId,
-			compObj: emptyCompObj,
-			compMsg: {},
 			errMsg
 		};
 		this.state.origForm = objCopy(this.state.formFields);
@@ -83,13 +70,9 @@ class CandidateProfile extends Component {
 			 */
 		} else {
 			const formFields = candidateApiInfo ? candidateApiInfo : candidateInfo;
-			const compObj = calcPercentComplete(formFields);
-			const compMsg = buildCompMsg(compObj);
 			this.setState({
 				formFields,
-				origForm: objCopy(formFields),
-				compObj,
-				compMsg
+				origForm: objCopy(formFields)
 			});
 		}
 	};
@@ -123,9 +106,9 @@ class CandidateProfile extends Component {
 						{this.state.errMsg}
 					</h1>
 				) : (
-					<React.Fragment>
-						{!isEmptyObject(this.state.compMsg) && (
-							<IncompleteInfoMsg compMsg={this.state.compMsg} />
+					<CompObjProvider>
+						{this.state.formFields.id && (
+							<IncompleteInfoMsg candidateInfo={this.state.formFields} />
 						)}
 						<div className="candidate-profile">
 							<ExpansionList className="md-cell md-cell--12">
@@ -133,7 +116,6 @@ class CandidateProfile extends Component {
 									person={this.state.formFields.person}
 									handleUpdate={this.handleUpdate}
 									candId={this.state.candId}
-									compObj={this.state.compObj}
 								/>
 								<ObjectiveSummary
 									jobTitle={this.state.formFields.jobTitle}
@@ -141,25 +123,21 @@ class CandidateProfile extends Component {
 									executiveSummary={this.state.formFields.executiveSummary}
 									handleUpdate={this.handleUpdate}
 									candId={this.state.candId}
-									compObj={this.state.compObj.summary}
 								/>
 								<Highlights
 									highlights={this.state.formFields.candidateHighlights}
 									handleUpdate={this.handleUpdate}
 									candId={this.state.candId}
-									compObj={this.state.compObj.highlights}
 								/>
 								<Experience
 									experience={this.state.formFields.experience}
 									handleUpdate={this.handleUpdate}
 									candId={this.state.candId}
-									compObj={this.state.compObj.experience}
 								/>
 								<Education
 									education={this.state.formFields.education}
 									handleUpdate={this.handleUpdate}
 									candId={this.state.candId}
-									compObj={this.state.compObj.education}
 								/>
 								<Certifications
 									certifications={this.state.formFields.certifications}
@@ -179,11 +157,10 @@ class CandidateProfile extends Component {
 									}
 									handleUpdate={this.handleUpdate}
 									candId={this.state.candId}
-									compObj={this.state.compObj.socialMedia}
 								/>
 							</ExpansionList>
 						</div>
-					</React.Fragment>
+					</CompObjProvider>
 				)}
 			</React.Fragment>
 		);

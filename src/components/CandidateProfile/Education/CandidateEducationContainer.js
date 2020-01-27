@@ -73,6 +73,7 @@ const CandidateEducationContainer = props => {
 			setSortEducation(
 				education ? education.sort((a, b) => a.startDate - b.startDate) : []
 			);
+			props.handleSubmit(education);
 		}
 	};
 

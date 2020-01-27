@@ -9,6 +9,7 @@
 export const calcPercentComplete = candInfo => {
 	// take section at a time, building an object with completed %
 	// and remaining work to be done
+
 	const percentComplete = {};
 	const availPcts = {
 		person: 20,
@@ -51,7 +52,7 @@ export const calcPercentComplete = candInfo => {
 	const { jobTitle, executiveSummary, objective } = candInfo;
 	if (!jobTitle) {
 		tmpPct -= 5;
-		tmpMissing.push("Job Title");
+		tmpMissing.push("Candidate Title");
 	}
 	if (!executiveSummary) {
 		tmpPct -= 5;

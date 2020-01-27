@@ -50,8 +50,8 @@ const ObjectiveSummaryContainer = ({
 			setCandJobTitle(jobTitle);
 			setCandObjective(objective);
 			setCandSummary(executiveSummary);
-			// handleUpdate({ jobTitle, objective, executiveSummary });
-			const userMsg = "Job Title / Objective / Summary has been updated";
+			handleUpdate({ jobTitle, objective, executiveSummary });
+			const userMsg = "Professional Info has been updated";
 			addToast(userMsg);
 		}
 	};

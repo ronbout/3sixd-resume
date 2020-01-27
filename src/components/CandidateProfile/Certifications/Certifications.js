@@ -1,22 +1,28 @@
 /* Certification.js */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateCertificationContainer from "./CandidateCertificationsContainer";
 import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
+import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
 
-const CertificationDiv = ({
-	certifications,
-	candId,
-	handleCertificationChange
-}) => {
+const CertificationDiv = ({ certifications, candId }) => {
+	const { dispatch } = useContext(CompObjContext);
+
+	const handleSubmit = certifications => {
+		dispatch({
+			type: "UPDATE_CAND",
+			payload: { certifications }
+		});
+	};
+
 	return (
 		<section>
 			<CandidateCertificationContainer
 				certifications={certifications}
 				candId={candId}
-				handleCertificationChange={handleCertificationChange}
+				handleSubmit={handleSubmit}
 			/>
 		</section>
 	);

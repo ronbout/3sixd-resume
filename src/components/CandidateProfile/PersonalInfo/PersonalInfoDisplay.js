@@ -4,7 +4,7 @@ import ProfileImg from "../ProfileImg";
 import Button from "styledComponents/Button";
 import { Link } from "react-router-dom";
 
-const PersonalInfoDisplay = ({ formattedName, pct = 70, candId }) => {
+const PersonalInfoDisplay = ({ formattedName, candId }) => {
 	return (
 		<div className="personal-info-display">
 			<ProfileImg formattedName={formattedName} candId={candId} />

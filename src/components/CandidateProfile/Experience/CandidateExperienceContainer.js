@@ -102,9 +102,11 @@ const CandidateExperienceContainer = props => {
 			handleCancel();
 		} else {
 			addToast("Experience has been updated");
+
 			setSortJobs(
 				experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
 			);
+			props.handleSubmit(experiences);
 		}
 	};
 
