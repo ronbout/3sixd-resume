@@ -99,7 +99,7 @@ const CandidateExperienceContainer = props => {
 		if (result.error) {
 			console.log("fetch error: ", result);
 			addToast("An unknown error has occurred", "Close", false);
-			handleCancel();
+			return false;
 		} else {
 			addToast("Experience has been updated");
 
@@ -107,6 +107,7 @@ const CandidateExperienceContainer = props => {
 				experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
 			);
 			props.handleSubmit(experiences);
+			return true;
 		}
 	};
 
@@ -147,11 +148,12 @@ const CandidateExperienceContainer = props => {
 		setEditNdx(false);
 	};
 
-	const handleSave = exp => {
+	const handleSave = async exp => {
 		const tmp = sortJobs.slice();
 		tmp[editNdx] = exp;
-		updateExperience(tmp);
-		handleCloseModal();
+		const tst = await updateExperience(tmp);
+		console.log("tst: ", tst);
+		tst && handleCloseModal();
 	};
 
 	const handleAddNewJob = () => {

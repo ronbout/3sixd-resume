@@ -136,22 +136,6 @@ const HighlightsTable = ({
 								<TableColumn style={{ paddingRight: "16px" }}>
 									{i + 1}
 								</TableColumn>
-								{/*}
-								<EditDialogColumn
-									title=""
-									large
-									className="table-edit-full-width"
-									dialogStyle={{ width: "550px" }}
-									style={{ width: "100%" }}
-									defaultValue={highlight}
-									onOkClick={(value, event) => onHighlightChange(i, value)}
-									label="Edit Highlight"
-									rows={1}
-									maxRows={4}
-									maxLength={200}
-									helpText="max chars = 200"
-								/>
-						*/}
 								<TableColumn
 									className="table-edit-full-width"
 									style={{
