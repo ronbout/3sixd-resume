@@ -119,16 +119,19 @@ const HighlightsTable = ({
 					{highlights.map(({ highlight, id, sequence, skills }, i) => {
 						let skillsTooltip = {};
 						if (skills.length) {
+							const position =
+								i < 3 ? "bottom" : i > highlights.length - 3 ? "top" : "left";
 							skillsTooltip = {
 								tooltipStyle: { background: "#ddd", color: "black" },
 								tooltipDelay: 500,
-								tooltipPosition: "left",
+								tooltipPosition: position,
 								tooltipLabel: skills.map(s => (
 									<p key={`${id}-${s.id}`}>
 										{s.id}-{s.name}
 									</p>
 								))
 							};
+							console.log("tootltip label: ", skillsTooltip);
 						}
 
 						return (
