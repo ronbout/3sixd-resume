@@ -283,6 +283,10 @@
   padding: 2em 2em 1em;
 }
 
+.social-form label {
+  left: 0;
+}
+
 button.btn-move i {
   color: white;
   font-weight: bold;
