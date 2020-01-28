@@ -57,11 +57,12 @@ const CandidateCertificationsContainer = props => {
 		if (result.error) {
 			console.log("fetch error: ", result);
 			addToast("An unknown error has occurred", "Close", false);
-			handleCancel();
+			return false;
 		} else {
 			addToast("Certifications have been updated");
 			setCertifications(certifications ? objCopy(certifications) : []);
 			props.handleSubmit(certifications);
+			return true;
 		}
 	};
 
@@ -102,11 +103,11 @@ const CandidateCertificationsContainer = props => {
 		setEditNdx(false);
 	};
 
-	const handleSave = ed => {
+	const handleSave = async cert => {
 		const tmp = objCopy(certifications.slice());
-		tmp[editNdx] = ed;
-		updateCertifications(tmp);
-		handleCloseModal();
+		tmp[editNdx] = cert;
+		const tst = await updateCertifications(tmp);
+		tst && handleCloseModal();
 	};
 
 	const handleAddNewCertification = () => {

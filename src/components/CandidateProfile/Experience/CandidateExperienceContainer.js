@@ -152,7 +152,6 @@ const CandidateExperienceContainer = props => {
 		const tmp = sortJobs.slice();
 		tmp[editNdx] = exp;
 		const tst = await updateExperience(tmp);
-		console.log("tst: ", tst);
 		tst && handleCloseModal();
 	};
 
@@ -211,6 +210,7 @@ const CandidateExperienceContainer = props => {
 					autohide={toast.autoHide}
 					timeout={toast.timeout}
 					closeCallBk={closeToast}
+					portal={true}
 				/>
 			)}
 		</React.Fragment>

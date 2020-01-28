@@ -67,13 +67,14 @@ const CandidateEducationContainer = props => {
 		if (result.error) {
 			console.log("fetch error: ", result);
 			addToast("An unknown error has occurred", "Close", false);
-			handleCancel();
+			return false;
 		} else {
 			addToast("Education has been updated");
 			setSortEducation(
 				education ? education.sort((a, b) => a.startDate - b.startDate) : []
 			);
 			props.handleSubmit(education);
+			return true;
 		}
 	};
 
@@ -114,11 +115,11 @@ const CandidateEducationContainer = props => {
 		setEditNdx(false);
 	};
 
-	const handleSave = ed => {
+	const handleSave = async ed => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp[editNdx] = ed;
-		updateEducation(tmp);
-		handleCloseModal();
+		const tst = await updateEducation(tmp);
+		tst && handleCloseModal();
 	};
 
 	const handleAddNewEducation = () => {

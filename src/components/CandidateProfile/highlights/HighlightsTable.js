@@ -131,7 +131,6 @@ const HighlightsTable = ({
 									</p>
 								))
 							};
-							console.log("tootltip label: ", skillsTooltip);
 						}
 
 						return (
