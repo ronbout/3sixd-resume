@@ -163,7 +163,7 @@ const CandidateCertificationsContainer = props => {
 					action={toast.action}
 					autohide={toast.autoHide}
 					timeout={toast.timeout}
-					closeCallBk={closeToast}
+					onDismiss={closeToast}
 				/>
 			)}
 		</React.Fragment>

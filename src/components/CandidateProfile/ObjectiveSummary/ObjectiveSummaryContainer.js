@@ -83,7 +83,7 @@ const ObjectiveSummaryContainer = ({
 					action={toast.action}
 					autohide={toast.autoHide}
 					timeout={toast.timeout}
-					closeCallBk={closeToast}
+					onDismiss={closeToast}
 				/>
 			)}
 		</section>

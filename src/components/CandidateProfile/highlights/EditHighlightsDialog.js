@@ -61,13 +61,14 @@ const EditHighlightsDialog = ({
 			<div style={{ marginBottom: "16px" }}>
 				<TextAreaBase
 					id="highlight-edit"
-					label={`Edit Highlight #${editNdx + 1}`}
+					label={`Highlight #${editNdx + 1}`}
 					value={highlight}
 					onChange={handleOnChange}
 					rows={2}
 				/>
 			</div>
 			<div className="skill-edit-list">
+				<h3>Related Skills</h3>
 				<SkillList
 					skills={skills}
 					editFlag={true}

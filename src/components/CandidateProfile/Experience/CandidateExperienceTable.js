@@ -8,7 +8,7 @@ import {
 	TableRow,
 	TableColumn
 } from "styledComponents/DataTables";
-import KebabMenu from "./KebabMenu";
+import Button from "styledComponents/Button";
 import TableActions from "./TableActions";
 
 const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
@@ -22,7 +22,8 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 						<TableColumn>Company Name</TableColumn>
 						<TableColumn>Start Date</TableColumn>
 						<TableColumn>End Date</TableColumn>
-						<TableColumn>Actions</TableColumn>
+						<TableColumn>Edit</TableColumn>
+						<TableColumn>Delete</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -35,7 +36,24 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 								<TableColumn>
 									{job.endDate ? job.endDate : "current"}
 								</TableColumn>
-								<KebabMenu ndx={ndx} actions={actions} />
+								<TableColumn style={{ paddingRight: "16px" }}>
+									<Button
+										variant="icon"
+										color="secondary"
+										onClick={() => actions.edit(ndx)}
+									>
+										edit
+									</Button>
+								</TableColumn>
+								<TableColumn style={{ paddingRight: "16px" }}>
+									<Button
+										variant="icon"
+										className="md-text--error"
+										onClick={() => actions.delete(ndx)}
+									>
+										delete
+									</Button>
+								</TableColumn>
 							</TableRow>
 						);
 					})}

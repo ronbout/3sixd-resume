@@ -209,7 +209,7 @@ class CompanySetupContainer extends Component {
 						action={this.state.toast.action}
 						autohide={this.state.toast.autoHide}
 						timeout={this.state.toast.timeout}
-						closeCallBk={this.closeToast}
+						onDismiss={this.closeToast}
 					/>
 				)}
 			</React.Fragment>

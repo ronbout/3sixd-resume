@@ -8,7 +8,7 @@ import {
 	TableRow,
 	TableColumn
 } from "styledComponents/DataTables";
-import KebabMenu from "./KebabMenu";
+import Button from "styledComponents/Button";
 import TableActions from "./TableActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -34,7 +34,8 @@ const CandidateCertificationsTable = ({
 						<TableColumn>Description</TableColumn>
 						<TableColumn>Issue Date</TableColumn>
 						<TableColumn>Image</TableColumn>
-						<TableColumn>Actions</TableColumn>
+						<TableColumn>Edit</TableColumn>
+						<TableColumn>Delete</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -57,7 +58,24 @@ const CandidateCertificationsTable = ({
 										""
 									)}
 								</TableColumn>
-								<KebabMenu ndx={ndx} actions={actions} />
+								<TableColumn style={{ paddingRight: "16px" }}>
+									<Button
+										variant="icon"
+										color="secondary"
+										onClick={() => actions.edit(ndx)}
+									>
+										edit
+									</Button>
+								</TableColumn>
+								<TableColumn style={{ paddingRight: "16px" }}>
+									<Button
+										variant="icon"
+										className="md-text--error"
+										onClick={() => actions.delete(ndx)}
+									>
+										delete
+									</Button>
+								</TableColumn>
 							</TableRow>
 						);
 					})}

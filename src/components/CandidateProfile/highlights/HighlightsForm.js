@@ -1,21 +1,19 @@
+/* HighlightsForm.js */
 import React from "react";
 import TextAreaBase from "styledComponents/TextAreaBase";
 import Button from "styledComponents/Button";
-import SkillList from "../../SkillSetup/SkillList";
 import HighlightsTable from "./HighlightsTable";
 
 const HighlightsForm = props => {
 	const {
 		actions,
 		highlights,
-		showSkillsFlag,
 		newHighlight,
 		editFlag,
 		editSkillNdx,
 		includeInSummary,
 		heading,
 		listingCallbacks,
-		skills,
 		candId,
 		tableHeight,
 		setAutoFocus = true
@@ -57,29 +55,6 @@ const HighlightsForm = props => {
 		);
 	};
 
-	// const highlightList = () => {
-	// 	const sortHighlights = highlights.sort((a, b) => a.sequence - b.sequence);
-	// 	// setup current parms for listing hoc
-	// 	const listingParms = {
-	// 		editFlag,
-	// 		editSkillNdx,
-	// 		includeSummaryButton: includeInSummary === true ? true : false
-	// 	};
-	// 	return (
-	// 		<div className="highlight-list justify-content-center">
-	// 			<ListingHoc
-	// 				data={sortHighlights}
-	// 				actions={actions}
-	// 				detailClassname="highlight-row"
-	// 				callBacks={listingCallbacks}
-	// 				parms={listingParms}
-	// 			>
-	// 				<HighlightDetail />
-	// 			</ListingHoc>
-	// 		</div>
-	// 	);
-	// };
-
 	const highlightList = () => {
 		const sortHighlights = highlights.sort((a, b) => a.sequence - b.sequence);
 		const listingParms = {
@@ -99,24 +74,10 @@ const HighlightsForm = props => {
 		);
 	};
 
-	const displaySkills = () => {
-		return (
-			<div className="skill-edit-list">
-				<SkillList
-					skills={skills}
-					editFlag={editFlag}
-					handleSkillsChange={props.handleSkillsChange}
-					candId={candId}
-				/>
-			</div>
-		);
-	};
-
 	return (
 		<section className="candidate-highlights candidate-tab-section">
 			{addHighlight()}
 			{highlights && highlightList()}
-			{false && showSkillsFlag && displaySkills()}
 		</section>
 	);
 };

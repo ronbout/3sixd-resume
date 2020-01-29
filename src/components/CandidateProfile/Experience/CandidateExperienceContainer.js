@@ -209,7 +209,7 @@ const CandidateExperienceContainer = props => {
 					action={toast.action}
 					autohide={toast.autoHide}
 					timeout={toast.timeout}
-					closeCallBk={closeToast}
+					onDismiss={closeToast}
 					portal={true}
 				/>
 			)}

@@ -26,7 +26,6 @@ const CandidateExperienceCrud = props => {
 	};
 
 	const handleCompanyClick = async event => {
-		console.log("handleCompanyClick: ", showCompany);
 		// do not open if Person is already open
 		if (showPerson && !showCompany) return;
 		// if we are opening this for the first time, we need
@@ -47,7 +46,6 @@ const CandidateExperienceCrud = props => {
 	};
 
 	const handlePersonClick = async event => {
-		console.log("handlePersonClick: ", showPerson);
 		// do not open if Company is already open
 		if (showCompany && !showPerson) return;
 		// if we are opening this for the first time, we need
