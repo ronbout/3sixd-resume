@@ -53,7 +53,12 @@ const dispCandHighlights = highlights => {
 			<div className="md-cell--9">
 				<ul className="highlight-list">
 					{highlights.map(h => {
-						return <li key={h.id}>{h.highlight}</li>;
+						return (
+							<li
+								key={h.id}
+								dangerouslySetInnerHTML={{ __html: h.highlight }}
+							></li>
+						);
 					})}
 				</ul>
 			</div>
