@@ -11,6 +11,7 @@ const TextAreaUI = ({
 	label = "",
 	maxLength = null,
 	reqWarn = false,
+	onKeyDown,
 	...rest
 }) => {
 	const style =
@@ -38,11 +39,13 @@ const TextAreaUI = ({
 			: {};
 
 	const handleKeyDown = ev => {
-		if (maxLength === null) return;
-		const val = ev.target.value;
-		if (maxLength && !isNaN(maxLength) && val.length >= maxLength) {
-			ev.preventDefault();
+		if (maxLength !== null) {
+			const val = ev.target.value;
+			if (maxLength && !isNaN(maxLength) && val.length >= maxLength) {
+				ev.preventDefault();
+			}
 		}
+		onKeyDown && onKeyDown(ev);
 	};
 
 	return (

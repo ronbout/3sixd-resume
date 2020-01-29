@@ -52,10 +52,10 @@ const Input = props => {
 	};
 
 	const handleKeyDown = ev => {
-		const key = ev.key;
-		if (key === "Enter") {
-			ev.preventDefault();
-		}
+		// const key = ev.key;
+		// if (key === "Enter") {
+		// 	ev.preventDefault();
+		// }
 	};
 
 	return (

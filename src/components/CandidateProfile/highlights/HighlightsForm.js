@@ -18,6 +18,14 @@ const HighlightsForm = props => {
 	} = props;
 
 	const addHighlight = () => {
+		const handleKeyDown = ev => {
+			const key = ev.key;
+			if (key === "Enter") {
+				props.handleAddHighlight(newHighlight);
+				ev.preventDefault();
+			}
+		};
+
 		return (
 			<div className="add-highlight">
 				{heading && <h2>{heading}</h2>}
@@ -33,6 +41,7 @@ const HighlightsForm = props => {
 							autoFocus={setAutoFocus}
 							value={newHighlight}
 							onChange={props.handleOnChange}
+							onKeyDown={handleKeyDown}
 						/>
 					</div>
 					<div />
