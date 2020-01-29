@@ -9,8 +9,6 @@ const HighlightsForm = props => {
 		actions,
 		highlights,
 		newHighlight,
-		editFlag,
-		editSkillNdx,
 		includeInSummary,
 		heading,
 		listingCallbacks,
@@ -58,15 +56,13 @@ const HighlightsForm = props => {
 	const highlightList = () => {
 		const sortHighlights = highlights.sort((a, b) => a.sequence - b.sequence);
 		const listingParms = {
-			editFlag,
-			editSkillNdx,
 			includeSummaryButton: includeInSummary === true ? true : false
 		};
 		return (
 			<HighlightsTable
 				listingParms={listingParms}
 				highlightsData={sortHighlights}
-				actions={{ ...actions, skills: listingCallbacks.handleRowClick }}
+				actions={{ ...actions, include: listingCallbacks.handleIncludeSummary }}
 				handleSkillsChange={props.handleSkillsChange}
 				candId={candId}
 				tableHeight={tableHeight}

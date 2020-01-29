@@ -11,11 +11,13 @@ import {
 } from "styledComponents/DataTables";
 import "./css/highlights.css";
 import { objCopy } from "assets/js/library";
+import { usePrevious } from "components/hooks/usePrevious";
 
 import KebabMenu from "./KebabMenu";
 import EditHighlightsDialog from "./EditHighlightsDialog";
 
 const HighlightsTable = ({
+	listingParms,
 	highlightsData,
 	actions,
 	handleSkillsChange,
@@ -23,7 +25,13 @@ const HighlightsTable = ({
 	tableHeight = 360
 }) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
-	const [editNdx, setEditNdx] = useState(-1);
+	const [editNdx, setEditNdx] = useState(listingParms.setEditNdx);
+
+	const prevHighlights = usePrevious(highlights);
+
+	useEffect(() => {
+		setEditNdx(listingParms.setEditNdx);
+	}, [listingParms.setEditNdx]);
 
 	const dataCount = highlights.length;
 
@@ -31,11 +39,15 @@ const HighlightsTable = ({
 		setHighlights(objCopy(highlightsData));
 	}, [highlightsData]);
 
+	useEffect(() => {
+		if (prevHighlights && highlights.length === prevHighlights.length + 1) {
+			setEditNdx(highlights.length - 1);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [highlights]);
+
 	const onMenuClick = (action, ndx) => {
 		switch (action) {
-			case "skills":
-				actions.skills(ndx);
-				break;
 			case "moveUp":
 				actions.move(ndx, ndx - 1);
 				break;
@@ -124,7 +136,7 @@ const HighlightsTable = ({
 						}
 
 						return (
-							<TableRow key={`hrow-${id}`}>
+							<TableRow key={`hrow-${sequence}`}>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									{i + 1}
 								</TableColumn>

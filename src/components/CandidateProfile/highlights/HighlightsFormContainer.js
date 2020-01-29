@@ -7,17 +7,13 @@ import Button from "styledComponents/Button";
 import { isEqual } from "lodash";
 
 const HighlightsFormContainer = props => {
-	//const [editFlag, setEditFlag] = useState(false);
 	const [highlights, dispatch] = useReducer(
 		highlightsReducer,
 		props.highlights
 	);
 	const [delNdx, setDelNdx] = useState(-1);
-	const [showSkillsFlag, setShowSkillsFlag] = useState(false);
 	const [newHighlight, setNewHightlight] = useState("");
-	const [editSkillNdx, setEditSkillNdx] = useState("");
 	const [skills, setSkills] = useState([]);
-	const editFlag = true;
 
 	useEffect(() => {
 		if (!isEqual(highlights, props.highlights)) passHighlightUp(highlights);
@@ -48,12 +44,6 @@ const HighlightsFormContainer = props => {
 
 	const confirmedDelete = () => {
 		dispatch({ type: "delHighlight", delNdx });
-		// if the deleted highlight is the edit
-		// highlight, turn off edit mode
-		if (editSkillNdx === delNdx) {
-			setEditSkillNdx("");
-			setShowSkillsFlag(false);
-		}
 		hideDelDialog();
 	};
 
@@ -71,20 +61,10 @@ const HighlightsFormContainer = props => {
 
 	const handleMoveHighlight = (ndx, newNdx) => {
 		dispatch({ type: "moveHighlight", ndx, newNdx });
-		// if highlight being moved is the edit highlight,
-		// update the edit ndx.
-		if (editSkillNdx === ndx) setEditSkillNdx(newNdx);
 	};
 
 	const handleEditHighlight = (ndx, val) => {
 		dispatch({ type: "editHighlight", ndx, editValue: val });
-	};
-
-	const handleRowClick = ndx => {
-		setShowSkillsFlag(true);
-		setEditSkillNdx(ndx);
-		setSkills(props.highlights[ndx].skills);
-		//if (editSkillNdx !== ndx) setEditFlag(false);
 	};
 
 	const handleSkillsChange = (newSkills, ndx) => {
@@ -105,8 +85,6 @@ const HighlightsFormContainer = props => {
 	};
 
 	const listingCallbacks = {
-		handleRowClick,
-		handleEditHighlight,
 		handleIncludeSummary
 	};
 
@@ -115,10 +93,7 @@ const HighlightsFormContainer = props => {
 			<HighlightsForm
 				actions={actions}
 				highlights={highlights}
-				showSkillsFlag={showSkillsFlag}
 				newHighlight={newHighlight}
-				editFlag={editFlag}
-				editSkillNdx={editSkillNdx}
 				includeInSummary={props.includeInSummary}
 				heading={props.heading}
 				listingCallbacks={listingCallbacks}
