@@ -40,11 +40,7 @@ const SelectMenu = ({ count, onDeleteClick, onMoveClick, onSearchClick }) => {
 					delete
 				</Button>
 			]}
-		>
-			<Button variant="flat" iconChildren="search" onClick={onSearchClick}>
-				Search
-			</Button>
-		</TableCardHeader>
+		></TableCardHeader>
 	);
 };
 

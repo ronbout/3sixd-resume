@@ -3,6 +3,7 @@ import { Card } from "styledComponents/Card";
 import Button from "styledComponents/Button";
 import {
 	DataTable,
+	TableCardHeader,
 	TableHeader,
 	TableBody,
 	TableRow,
@@ -12,11 +13,9 @@ import "./css/highlights.css";
 import { objCopy } from "assets/js/library";
 
 import KebabMenu from "./KebabMenu";
-import SelectMenu from "./SelectMenu";
 import EditHighlightsDialog from "./EditHighlightsDialog";
 
 const HighlightsTable = ({
-	listingParms,
 	highlightsData,
 	actions,
 	handleSkillsChange,
@@ -25,10 +24,6 @@ const HighlightsTable = ({
 }) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
 	const [editNdx, setEditNdx] = useState(-1);
-	const [selectedRows, setSelectedRows] = useState(
-		highlightsData.map(() => false)
-	);
-	const [selectCount, setSelectCount] = useState(0);
 
 	const dataCount = highlights.length;
 
@@ -62,10 +57,6 @@ const HighlightsTable = ({
 		setEditNdx(-1);
 	};
 
-	const searchHighlights = () => {
-		alert("searchHighlights");
-	};
-
 	const onHighlightChange = (ndx, highlight) => {
 		const newHighlights = highlights.slice();
 		newHighlights[ndx].highlight = highlight;
@@ -74,31 +65,29 @@ const HighlightsTable = ({
 		hideEditDialog();
 	};
 
-	const handleRowToggle = (row, selected, count) => {
-		console.log("handleRowToggle row, selected, count: ", row, selected, count);
-		let sRows = selectedRows.slice();
-		if (row === 0) {
-			sRows = sRows.map(() => selected);
-		} else {
-			sRows[row - 1] = selected;
-		}
-		setSelectedRows(sRows);
-		setSelectCount(count);
-	};
+	// const handleRowToggle = (row, selected, count) => {
+	// 	console.log("handleRowToggle row, selected, count: ", row, selected, count);
+	// 	let sRows = selectedRows.slice();
+	// 	if (row === 0) {
+	// 		sRows = sRows.map(() => selected);
+	// 	} else {
+	// 		sRows[row - 1] = selected;
+	// 	}
+	// 	setSelectedRows(sRows);
+	// 	setSelectCount(count);
+	// };
 
 	return (
 		<Card tableCard className="highlights-section">
-			<SelectMenu
-				count={selectCount}
-				onDeleteClick={() => onMenuClick("delete")}
-				onMoveClick={() => onMenuClick("Move")}
-				onSearchClick={searchHighlights}
-			/>
+			<TableCardHeader
+				title={<span>Highlights</span>}
+				visible={false}
+			></TableCardHeader>
 			<DataTable
 				baseId="highlights-table"
-				onRowToggle={handleRowToggle}
 				fixedHeader
 				fixedHeight={tableHeight}
+				plain
 			>
 				<TableHeader>
 					<TableRow>
@@ -112,6 +101,7 @@ const HighlightsTable = ({
 						>
 							Skills
 						</TableColumn>
+						<TableColumn>Edit</TableColumn>
 						<TableColumn>Actions</TableColumn>
 					</TableRow>
 				</TableHeader>
@@ -158,6 +148,15 @@ const HighlightsTable = ({
 								>
 									<Button variant="flat" onClick={() => onMenuClick("edit", i)}>
 										{skills.length ? skills.length : "--"}
+									</Button>
+								</TableColumn>
+								<TableColumn style={{ paddingRight: "16px" }}>
+									<Button
+										variant="icon"
+										color="secondary"
+										onClick={() => onMenuClick("edit", i)}
+									>
+										edit
 									</Button>
 								</TableColumn>
 								<KebabMenu
