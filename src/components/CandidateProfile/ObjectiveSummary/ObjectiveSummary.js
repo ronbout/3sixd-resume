@@ -1,16 +1,19 @@
 /* ObjectiveSummary.js */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import ObjectiveSummaryContainer from "./ObjectiveSummaryContainer";
 import makeExpansion from "styledComponents/makeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
+import Snackbar from "styledComponents/Snackbar";
+import { isEmptyObject } from "assets/js/library";
 
 const ObjectiveSummaryDiv = ({
 	jobTitle,
 	objective,
 	executiveSummary,
-	candId
+	candId,
+	handleUpdate
 }) => {
 	const { dispatch } = useContext(CompObjContext);
 	const handleSubmit = ({ jobTitle, objective, executiveSummary }) => {
@@ -19,6 +22,7 @@ const ObjectiveSummaryDiv = ({
 			type: "UPDATE_CAND",
 			payload: { jobTitle, objective, executiveSummary }
 		});
+		handleUpdate(jobTitle, objective, executiveSummary);
 	};
 
 	return (
@@ -40,30 +44,67 @@ const ObjectiveSummary = ({
 	executiveSummary,
 	candId
 }) => {
-	// React.useEffect(() => {
-	// 	console.log("***  Objective Summary rendered ***");
-	// });
+	const [toast, setToast] = useState({});
+	const [expanded, setExpanded] = useState(false);
+
+	const [formData, setFormData] = useState({
+		jobTitle,
+		objective,
+		executiveSummary
+	});
+
+	const handleUpdate = (jobTitle, objective, executiveSummary) => {
+		closeToast();
+		setExpanded(true);
+		setFormData({ jobTitle, objective, executiveSummary });
+		const userMsg = "Professional Info has been updated";
+		addToast(userMsg);
+	};
+
+	const addToast = (text, action = null, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		setToast(toast);
+	};
+
+	const closeToast = () => {
+		setToast({});
+	};
 
 	const header = () => {
 		return <ProfileSectionHeader headerTitle="Professional Info" />;
+	};
+
+	const onExpansionToggle = toggleState => {
+		setExpanded(toggleState);
 	};
 
 	const ExpandObjectiveDiv = makeExpansion(
 		ObjectiveSummaryDiv,
 		header,
 		null,
-		false,
-		0
+		expanded,
+		0,
+		onExpansionToggle
 	);
 
 	return (
 		<section className="objective-summary profile-section">
 			<ExpandObjectiveDiv
-				jobTitle={jobTitle}
-				objective={objective}
-				executiveSummary={executiveSummary}
+				jobTitle={formData.jobTitle}
+				objective={formData.objective}
+				executiveSummary={formData.executiveSummary}
 				candId={candId}
+				handleUpdate={handleUpdate}
 			/>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					onDismiss={closeToast}
+				/>
+			)}
 		</section>
 	);
 };

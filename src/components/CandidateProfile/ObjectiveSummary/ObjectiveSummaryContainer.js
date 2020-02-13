@@ -47,12 +47,12 @@ const ObjectiveSummaryContainer = ({
 			console.log(result);
 			addToast("An unknown error occurred", "Close", false);
 		} else {
-			setCandJobTitle(jobTitle);
-			setCandObjective(objective);
-			setCandSummary(executiveSummary);
+			// setCandJobTitle(jobTitle);
+			// setCandObjective(objective);
+			// setCandSummary(executiveSummary);
 			handleUpdate({ jobTitle, objective, executiveSummary });
-			const userMsg = "Professional Info has been updated";
-			addToast(userMsg);
+			// const userMsg = "Professional Info has been updated";
+			// addToast(userMsg);
 		}
 	};
 

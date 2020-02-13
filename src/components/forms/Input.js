@@ -71,7 +71,6 @@ const Input = props => {
 	};
 
 	const handleKeyDown = ev => {
-		console.log("here");
 		const key = ev.key;
 		if (key === "Enter") {
 			ev.preventDefault();

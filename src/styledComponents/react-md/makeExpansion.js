@@ -6,7 +6,8 @@ const makeExpansion = (
 	heading,
 	footer = null,
 	defaultExpanded = false,
-	zDepth = 1
+	zDepth = 1,
+	onToggle = null
 ) => {
 	return props => {
 		return (
@@ -16,6 +17,7 @@ const makeExpansion = (
 				style={{ background: "inherit", width: "100%" }}
 				zDepth={zDepth}
 				defaultExpanded={defaultExpanded}
+				onExpandToggle={onToggle}
 			>
 				<ExpandComponent {...props} />
 			</ExpansionPanel>

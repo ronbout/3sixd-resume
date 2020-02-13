@@ -1,19 +1,22 @@
 /* PersonalInfo.js */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import makeExpansion from "styledComponents/makeExpansion";
 import PersonalInfoForm from "./PersonalInfoForm";
 import PersonalInfoDisplay from "./PersonalInfoDisplay";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
+import Snackbar from "styledComponents/Snackbar";
+import { isEmptyObject } from "assets/js/library";
 
-const PersonalInfoDiv = ({ person, candId }) => {
+const PersonalInfoDiv = ({ person, candId, handleUpdate }) => {
 	const { dispatch } = useContext(CompObjContext);
 	const handleSubmit = personObj => {
 		dispatch({
 			type: "UPDATE_CAND",
 			payload: { person: personObj }
 		});
+		handleUpdate(personObj);
 	};
 
 	return (
@@ -35,21 +38,65 @@ const PersonalInfo = ({ person, candId, compObj }) => {
 	// 	console.log("***  PersonalInfo rendered ***");
 	// });
 
+	const [toast, setToast] = useState({});
+	const [expanded, setExpanded] = useState(true);
+	// let expanded = true;
+	const [formData, setFormData] = useState({
+		person
+	});
+
+	const handleUpdate = person => {
+		closeToast();
+		// expanded = true;
+		setExpanded(true);
+		setFormData({ person });
+		const userMsg = "Personal Info has been updated";
+		addToast(userMsg);
+	};
+
+	const addToast = (text, action = null, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		setToast(toast);
+	};
+
+	const closeToast = () => {
+		setToast({});
+	};
+
 	const header = () => {
 		return <ProfileSectionHeader headerTitle="Personal Info" />;
+	};
+
+	const onExpansionToggle = toggleState => {
+		setExpanded(toggleState);
 	};
 
 	const ExpandProfileInfo = makeExpansion(
 		PersonalInfoDiv,
 		header,
 		null,
-		true,
-		0
+		expanded,
+		0,
+		onExpansionToggle
 	);
 
 	return (
 		<section className="personal-info profile-section">
-			<ExpandProfileInfo person={person} candId={candId} compObj={compObj} />
+			<ExpandProfileInfo
+				person={formData.person}
+				candId={candId}
+				compObj={compObj}
+				handleUpdate={handleUpdate}
+			/>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					onDismiss={closeToast}
+				/>
+			)}
 		</section>
 	);
 };
