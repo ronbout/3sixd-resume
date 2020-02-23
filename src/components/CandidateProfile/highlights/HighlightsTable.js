@@ -104,7 +104,8 @@ const HighlightsTable = ({
 							Skills
 						</TableColumn>
 						<TableColumn>Edit</TableColumn>
-						<TableColumn>Actions</TableColumn>
+						<TableColumn>Delete</TableColumn>
+						<TableColumn>Move</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -159,6 +160,16 @@ const HighlightsTable = ({
 										onClick={() => onMenuClick("edit", i)}
 									>
 										edit
+									</Button>
+								</TableColumn>
+								<TableColumn style={{ paddingRight: "16px" }}>
+									<Button
+										variant="icon"
+										color="secondary"
+										className="md-text--error"
+										onClick={() => onMenuClick("delete", i)}
+									>
+										delete
 									</Button>
 								</TableColumn>
 								<KebabMenu

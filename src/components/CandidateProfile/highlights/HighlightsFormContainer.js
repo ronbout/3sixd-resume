@@ -2,8 +2,8 @@
 import React, { useState, useReducer, useEffect } from "react";
 import HighlightsForm from "./HighlightsForm";
 import { highlightsReducer } from "./highlightsReducer";
-import DialogContainer from "styledComponents/DialogContainer";
-import Button from "styledComponents/Button";
+// import DialogContainer from "styledComponents/DialogContainer";
+// import Button from "styledComponents/Button";
 import { isEqual } from "lodash";
 
 const HighlightsFormContainer = props => {
@@ -11,7 +11,7 @@ const HighlightsFormContainer = props => {
 		highlightsReducer,
 		props.highlights
 	);
-	const [delNdx, setDelNdx] = useState(-1);
+	// const [delNdx, setDelNdx] = useState(-1);
 	const [newHighlight, setNewHightlight] = useState("");
 	const [skills, setSkills] = useState([]);
 
@@ -34,30 +34,31 @@ const HighlightsFormContainer = props => {
 		setNewHightlight("");
 	};
 
-	const handleDelHighlight = ndx => {
-		setDelNdx(ndx);
-	};
-
-	const hideDelDialog = () => {
-		setDelNdx(-1);
-	};
-
-	const confirmedDelete = () => {
+	const handleDelHighlight = delNdx => {
 		dispatch({ type: "delHighlight", delNdx });
-		hideDelDialog();
+		// setDelNdx(ndx);
 	};
 
-	const delDialogActions = [
-		{ secondary: true, children: "Cancel", onClick: hideDelDialog },
-		<Button
-			className="btn btn-danger"
-			variant="flat"
-			color="primary"
-			onClick={confirmedDelete}
-		>
-			Delete
-		</Button>
-	];
+	// const hideDelDialog = () => {
+	// 	setDelNdx(-1);
+	// };
+
+	// const confirmedDelete = () => {
+	// 	dispatch({ type: "delHighlight", delNdx });
+	// 	hideDelDialog();
+	// };
+
+	// const delDialogActions = [
+	// 	{ secondary: true, children: "Cancel", onClick: hideDelDialog },
+	// 	<Button
+	// 		className="btn btn-danger"
+	// 		variant="flat"
+	// 		color="primary"
+	// 		onClick={confirmedDelete}
+	// 	>
+	// 		Delete
+	// 	</Button>
+	// ];
 
 	const handleMoveHighlight = (ndx, newNdx) => {
 		dispatch({ type: "moveHighlight", ndx, newNdx });
@@ -105,16 +106,18 @@ const HighlightsFormContainer = props => {
 				tableHeight={props.tableHeight || 360}
 				setAutoFocus={props.setAutoFocus}
 			/>
-			<DialogContainer
-				id="delete-dialog"
-				visible={delNdx >= 0}
-				onHide={hideDelDialog}
-				title="Delete Highlight"
-				actions={delDialogActions}
-			>
-				<p>You are going to delete Highlight # {delNdx + 1}.</p>
-				Are you sure?
-			</DialogContainer>
+			{/*false && (
+				<DialogContainer
+					id="delete-dialog"
+					visible={delNdx >= 0}
+					onHide={hideDelDialog}
+					title="Delete Highlight"
+					actions={delDialogActions}
+				>
+					<p>You are going to delete Highlight # {delNdx + 1}.</p>
+					Are you sure?
+				</DialogContainer>
+			)*/}
 		</React.Fragment>
 	);
 };
