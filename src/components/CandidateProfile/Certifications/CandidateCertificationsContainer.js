@@ -59,8 +59,8 @@ const CandidateCertificationsContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
-			addToast("Certifications have been updated");
-			setCertifications(certifications ? objCopy(certifications) : []);
+			// addToast("Certifications have been updated");
+			// setCertifications(certifications ? objCopy(certifications) : []);
 			props.handleSubmit(certifications);
 			return true;
 		}
@@ -99,15 +99,16 @@ const CandidateCertificationsContainer = props => {
 		setEditNdx(ndx);
 	};
 
-	const handleCloseModal = () => {
-		setEditNdx(false);
-	};
+	// const handleCloseModal = () => {
+	// 	setEditNdx(false);
+	// };
 
 	const handleSave = async cert => {
 		const tmp = objCopy(certifications.slice());
 		tmp[editNdx] = cert;
-		const tst = await updateCertifications(tmp);
-		tst && handleCloseModal();
+		updateCertifications(tmp);
+		// const tst = await updateCertifications(tmp);
+		// tst && handleCloseModal();
 	};
 
 	const handleAddNewCertification = () => {

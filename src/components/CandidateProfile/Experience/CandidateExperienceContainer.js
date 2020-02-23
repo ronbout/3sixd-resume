@@ -101,11 +101,11 @@ const CandidateExperienceContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
-			addToast("Experience has been updated");
+			// addToast("Experience has been updated");
 
-			setSortJobs(
-				experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
-			);
+			// setSortJobs(
+			// 	experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
+			// );
 			props.handleSubmit(experiences);
 			return true;
 		}
@@ -122,7 +122,6 @@ const CandidateExperienceContainer = props => {
 	const confirmedDelete = () => {
 		const tmp = objCopy(sortJobs.slice());
 		tmp.splice(delNdx, 1);
-		console.log("deleted experience, if turned on: ", tmp);
 		updateExperience(tmp);
 		//alert("not actually deleting experience until later in testing");
 		hideDelDialog();
@@ -144,15 +143,16 @@ const CandidateExperienceContainer = props => {
 		setEditNdx(ndx);
 	};
 
-	const handleCloseModal = () => {
-		setEditNdx(false);
-	};
+	// const handleCloseModal = () => {
+	// 	setEditNdx(false);
+	// };
 
 	const handleSave = async exp => {
 		const tmp = sortJobs.slice();
 		tmp[editNdx] = exp;
-		const tst = await updateExperience(tmp);
-		tst && handleCloseModal();
+		updateExperience(tmp);
+		// const tst = await updateExperience(tmp);
+		// tst && handleCloseModal();
 	};
 
 	const handleAddNewJob = () => {

@@ -1,13 +1,15 @@
 /* Experience.js */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import CandidateExperienceContainer from "./CandidateExperienceContainer";
-import { objCopy } from "assets/js/library.js";
 import makeExpansion from "styledComponents/makeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
+import { objCopy } from "assets/js/library";
 import { isEqual } from "lodash";
+import Snackbar from "styledComponents/Snackbar";
+import { isEmptyObject } from "assets/js/library";
 
-const ExperienceDiv = ({ experience, candId }) => {
+const ExperienceDiv = ({ experience, candId, handleUpdate }) => {
 	const { dispatch } = useContext(CompObjContext);
 
 	const handleSubmit = experience => {
@@ -15,6 +17,7 @@ const ExperienceDiv = ({ experience, candId }) => {
 			type: "UPDATE_CAND",
 			payload: { experience }
 		});
+		handleUpdate(experience);
 	};
 
 	return (
@@ -28,16 +31,30 @@ const ExperienceDiv = ({ experience, candId }) => {
 	);
 };
 
-const Experience = props => {
-	const [experience, setExperience] = useState(objCopy(props.experience));
-
-	// useEffect(() => {
-	// 	console.log("***  Experience rendered ***");
+const Experience = ({ experience, candId }) => {
+	const [toast, setToast] = useState({});
+	const [expanded, setExpanded] = useState(false);
+	const [formData, setFormData] = useState({ experience: objCopy(experience) });
+	// React.useEffect(() => {
+	// 	console.log("***  Highlights rendered ***");
 	// });
 
-	useEffect(() => {
-		setExperience(objCopy(props.experience));
-	}, [props.experience]);
+	const handleUpdate = experience => {
+		closeToast();
+		setExpanded(true);
+		setFormData({ experience });
+		const userMsg = "Experience has been updated";
+		addToast(userMsg);
+	};
+
+	const addToast = (text, action = null, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		setToast(toast);
+	};
+
+	const closeToast = () => {
+		setToast({});
+	};
 
 	const header = () => {
 		return (
@@ -49,17 +66,35 @@ const Experience = props => {
 		);
 	};
 
+	const onExpansionToggle = toggleState => {
+		setExpanded(toggleState);
+	};
+
 	const ExpandExperienceDiv = makeExpansion(
 		ExperienceDiv,
 		header,
 		null,
-		false,
-		0
+		expanded,
+		0,
+		onExpansionToggle
 	);
 
 	return (
 		<section className="Experience profile-section">
-			<ExpandExperienceDiv experience={experience} candId={props.candId} />
+			<ExpandExperienceDiv
+				experience={formData.experience}
+				candId={candId}
+				handleUpdate={handleUpdate}
+			/>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					onDismiss={closeToast}
+				/>
+			)}
 		</section>
 	);
 };

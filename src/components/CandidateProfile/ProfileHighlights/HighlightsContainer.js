@@ -51,8 +51,8 @@ const HighlightsContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 		} else {
 			// need user message here
-			setOrigHighlights(highlights);
-			addToast("Highlights have been updated");
+			// setOrigHighlights(highlights);
+			// addToast("Highlights have been updated");
 			props.handleSubmit(highlights);
 		}
 	};

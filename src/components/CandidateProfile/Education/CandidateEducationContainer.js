@@ -69,10 +69,10 @@ const CandidateEducationContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
-			addToast("Education has been updated");
-			setSortEducation(
-				education ? education.sort((a, b) => a.startDate - b.startDate) : []
-			);
+			// addToast("Education has been updated");
+			// setSortEducation(
+			// 	education ? education.sort((a, b) => a.startDate - b.startDate) : []
+			// );
 			props.handleSubmit(education);
 			return true;
 		}
@@ -111,15 +111,16 @@ const CandidateEducationContainer = props => {
 		setEditNdx(ndx);
 	};
 
-	const handleCloseModal = () => {
-		setEditNdx(false);
-	};
+	// const handleCloseModal = () => {
+	// 	setEditNdx(false);
+	// };
 
 	const handleSave = async ed => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp[editNdx] = ed;
-		const tst = await updateEducation(tmp);
-		tst && handleCloseModal();
+		updateEducation(tmp);
+		// const tst = await updateEducation(tmp);
+		// tst && handleCloseModal();
 	};
 
 	const handleAddNewEducation = () => {

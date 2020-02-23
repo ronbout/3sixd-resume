@@ -43,20 +43,11 @@ const SocialMediaContainer = ({
 			console.log(result);
 			addToast("An unknown error occurred", "Close", false);
 		} else {
-			setLinkedIn(linkedIn);
-			setGithub(github);
-			const userMsg = "Social Media Links have been updated";
-			addToast(userMsg);
-			handleUpdate([
-				{
-					socialType: "LinkedIn",
-					socialLink: linkedIn
-				},
-				{
-					socialType: "Github",
-					socialLink: github
-				}
-			]);
+			// setLinkedIn(linkedIn);
+			// setGithub(github);
+			// const userMsg = "Social Media Links have been updated";
+			// addToast(userMsg);
+			handleUpdate(linkedIn, github);
 		}
 	};
 

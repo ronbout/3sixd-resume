@@ -1,12 +1,15 @@
 /* Highlights.js */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProfileSectionHeader from "../ProfileSectionHeader";
 import HighlightsContainer from "./HighlightsContainer";
 import makeExpansion from "styledComponents/makeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
+import { objCopy } from "assets/js/library";
 import { isEqual } from "lodash";
+import Snackbar from "styledComponents/Snackbar";
+import { isEmptyObject } from "assets/js/library";
 
-const HighlightsDiv = ({ highlights, candId }) => {
+const HighlightsDiv = ({ highlights, candId, handleUpdate }) => {
 	const { dispatch } = useContext(CompObjContext);
 
 	const handleSubmit = highlights => {
@@ -14,6 +17,7 @@ const HighlightsDiv = ({ highlights, candId }) => {
 			type: "UPDATE_CAND",
 			payload: { candidateHighlights: highlights }
 		});
+		handleUpdate(highlights);
 	};
 
 	return (
@@ -28,9 +32,30 @@ const HighlightsDiv = ({ highlights, candId }) => {
 };
 
 const Highlights = ({ highlights, candId }) => {
+	const [toast, setToast] = useState({});
+	const [expanded, setExpanded] = useState(false);
+	const [formData, setFormData] = useState({ highlights: objCopy(highlights) });
 	// React.useEffect(() => {
 	// 	console.log("***  Highlights rendered ***");
 	// });
+
+	const handleUpdate = highlights => {
+		closeToast();
+		setExpanded(true);
+		setFormData({ highlights });
+		const userMsg = "Highlights have been updated";
+		addToast(userMsg);
+	};
+
+	const addToast = (text, action = null, autoHide = true, timeout = null) => {
+		const toast = { text, action, autoHide, timeout };
+		setToast(toast);
+	};
+
+	const closeToast = () => {
+		setToast({});
+	};
+
 	const header = () => {
 		return (
 			<ProfileSectionHeader
@@ -41,16 +66,35 @@ const Highlights = ({ highlights, candId }) => {
 		);
 	};
 
+	const onExpansionToggle = toggleState => {
+		setExpanded(toggleState);
+	};
+
 	const ExpandHighlightDiv = makeExpansion(
 		HighlightsDiv,
 		header,
 		null,
-		false,
-		0
+		expanded,
+		0,
+		onExpansionToggle
 	);
+
 	return (
 		<section className="highlights profile-section">
-			<ExpandHighlightDiv highlights={highlights} candId={candId} />
+			<ExpandHighlightDiv
+				highlights={formData.highlights}
+				candId={candId}
+				handleUpdate={handleUpdate}
+			/>
+			{isEmptyObject(toast) || (
+				<Snackbar
+					text={toast.text}
+					action={toast.action}
+					autohide={toast.autoHide}
+					timeout={toast.timeout}
+					onDismiss={closeToast}
+				/>
+			)}
 		</section>
 	);
 };
