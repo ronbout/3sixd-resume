@@ -142,8 +142,10 @@ const CandidateExperienceCrudForm = props => {
 						label="Start Date"
 						className="date-entry"
 						value={formFields.startDate}
-						required
-						disabled={showPerson || showCompany}
+						dateFormat="MM/yyyy"
+						showMonthYearPicker
+					/>
+					required disabled={showPerson || showCompany}
 					/>
 					<Checkbox
 						id="endDateCheck"
@@ -170,7 +172,10 @@ const CandidateExperienceCrudForm = props => {
 						label="End Date"
 						isClearable
 						value={currentJob ? null : formFields.endDate}
-						disabled={currentJob || showPerson || showCompany}
+						dateFormat="MM/yyyy"
+						showMonthYearPicker
+					/>
+					disabled={currentJob || showPerson || showCompany}
 					/>
 				</div>
 				<div className="tsd-form-row">
