@@ -168,6 +168,7 @@ const CandidateExperienceCrudForm = props => {
 						name="endDate"
 						className="date-entry"
 						label="End Date"
+						isClearable
 						value={currentJob ? null : formFields.endDate}
 						disabled={currentJob || showPerson || showCompany}
 					/>

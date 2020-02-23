@@ -539,13 +539,16 @@ export const InpDate = props => {
 		// }
 	};
 
-	const handleChange = inpDate => {
-		const tmp = inpDate.split("/");
-		const tmpDate = `${tmp[2]}-${tmp[0].padStart(2, "0")}-${tmp[1].padStart(
-			2,
-			"0"
-		)}`;
-		const date = createDate(tmpDate);
+	const handleChange = date => {
+		// console.log("date handlechange typeof inpDate: ", typeof inpDate);
+		// console.log("date handlechange inpDate: ", inpDate);
+		// const tmp = inpDate.split("/");
+		// const tmpDate = `${tmp[2]}-${tmp[0].padStart(2, "0")}-${tmp[1].padStart(
+		// 	2,
+		// 	"0"
+		// )}`;
+		// const date = createDate(tmpDate);
+		// setDateVal(date);
 		setDateVal(date);
 		if (errMsg) performErrCheck(date);
 		// unlike EVERY other onChange behavior, this does not

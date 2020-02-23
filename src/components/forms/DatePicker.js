@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DatePickerBase from "styledComponents/DatePickerBase";
+// import DatePickerBase from "styledComponents/DatePickerBase";
+import DatePickerBase from "styledComponents/DatePicker";
 import { checkValidInput } from "./checkValidForm";
 
 const DatePicker = props => {
