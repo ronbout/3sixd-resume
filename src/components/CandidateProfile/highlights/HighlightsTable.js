@@ -11,7 +11,6 @@ import {
 } from "styledComponents/DataTables";
 import "./css/highlights.css";
 import { objCopy } from "assets/js/library";
-import { usePrevious } from "components/hooks/usePrevious";
 
 import KebabMenu from "./KebabMenu";
 import EditHighlightsDialog from "./EditHighlightsDialog";
@@ -27,8 +26,6 @@ const HighlightsTable = ({
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
 	const [editNdx, setEditNdx] = useState(listingParms.setEditNdx);
 
-	const prevHighlights = usePrevious(highlights);
-
 	useEffect(() => {
 		setEditNdx(listingParms.setEditNdx);
 	}, [listingParms.setEditNdx]);
@@ -38,13 +35,6 @@ const HighlightsTable = ({
 	useEffect(() => {
 		setHighlights(objCopy(highlightsData));
 	}, [highlightsData]);
-
-	useEffect(() => {
-		if (prevHighlights && highlights.length === prevHighlights.length + 1) {
-			setEditNdx(highlights.length - 1);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [highlights]);
 
 	const onMenuClick = (action, ndx) => {
 		switch (action) {
