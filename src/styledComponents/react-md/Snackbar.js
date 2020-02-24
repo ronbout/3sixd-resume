@@ -27,7 +27,7 @@ const Snackbar = ({
 			toasts={toasts}
 			autohide={autohide}
 			onDismiss={removeToast}
-			autohideTimeout={timeout || 3000}
+			autohideTimeout={timeout || 1500}
 			style={toastStyle}
 			{...rest}
 		/>
