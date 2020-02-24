@@ -479,7 +479,7 @@ export const InpDate = props => {
 		state.errMsg[propertyName] ? state.errMsg[propertyName] : ""
 	);
 	const [dateVal, setDateVal] = useState(
-		Date.parse(value) ? createDate(value) : ""
+		Date.parse(value) ? createDate(value) : null
 	);
 
 	useEffect(() => {
@@ -493,7 +493,7 @@ export const InpDate = props => {
 	}, [state.resetErrMsg, errMsg]);
 
 	useEffect(() => {
-		setDateVal(Date.parse(value) ? createDate(value) : "");
+		setDateVal(Date.parse(value) ? createDate(value) : null);
 	}, [value]);
 
 	const minAdjDate = minDate ? createDate(minDate) : null;

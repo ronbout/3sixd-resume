@@ -32,9 +32,9 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 							<TableRow key={ndx}>
 								<TableColumn>{job.jobTitle}</TableColumn>
 								<TableColumn>{job.company.name}</TableColumn>
-								<TableColumn>{job.startDate}</TableColumn>
+								<TableColumn>{job.startDate.slice(0, 7)}</TableColumn>
 								<TableColumn>
-									{job.endDate ? job.endDate : "current"}
+									{job.endDate ? job.endDate.slice(0, 7) : "current"}
 								</TableColumn>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									<Button

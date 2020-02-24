@@ -39,10 +39,10 @@ const CandidateEducationTable = ({ education, actions, onAddClick }) => {
 									{ed.schoolName}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.startDate || " "}
+									{ed.startDate.slice(0, 7) || " "}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{ed.endDate || " "}
+									{ed.endDate.slice(0, 7) || " "}
 								</TableColumn>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									<Button

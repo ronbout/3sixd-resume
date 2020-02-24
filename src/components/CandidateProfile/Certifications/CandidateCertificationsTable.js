@@ -49,7 +49,7 @@ const CandidateCertificationsTable = ({
 									{cert.description}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
-									{cert.issueDate || " "}
+									{cert.issueDate.slice(0, 7) || " "}
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
 									{cert.certificateImage ? (
