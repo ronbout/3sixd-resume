@@ -3,16 +3,33 @@ import ReactDatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePicker = ({ value, label = "", className = "", ...rest }) => {
-	const classnames = `md-cell ${className}`;
+const DatePicker = ({
+	value,
+	label = "",
+	className = "",
+	monthYearOnly = false,
+	...rest
+}) => {
+	const monthOnly = monthYearOnly
+		? {
+				dateFormat: "MM/yyyy",
+				showMonthYearPicker: true
+		  }
+		: {};
 
 	return (
 		<React.Fragment>
-			<div>{label}</div>
+			<div
+				style={{ marginBottom: "16px" }}
+				className="md-floating-label--floating md-text--secondary"
+			>
+				{label}
+			</div>
 			<ReactDatePicker
 				selected={value}
 				label={label}
-				className={classnames}
+				className={className}
+				{...monthOnly}
 				{...rest}
 			/>
 		</React.Fragment>

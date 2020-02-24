@@ -55,8 +55,8 @@ library.add(
 // setup global api url
 // if not on my dev, use remote api
 
-// const API_HOST = "13.90.143.153";
-const API_HOST = "localhost";
+const API_HOST = "13.90.143.153";
+// const API_HOST = "localhost";
 
 window.imgLoc = `http://${API_HOST}/3sixd/imgs/`;
 window.apiUrl = `http://${API_HOST}/3sixd/api/`;

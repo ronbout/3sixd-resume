@@ -47,8 +47,8 @@ const CandidateExperienceCrudForm = props => {
 		dirtyMsg,
 		changeFormFields
 	} = useForm(props.job, {}, props.handleSave);
-	const [currentJob, setCurrentJob] = useState(!formFields.endDate);
-	const [oldEndDate, setOldEndDate] = useState(formFields.endDate);
+	// const [currentJob, setCurrentJob] = useState(!formFields.endDate);
+	// const [oldEndDate, setOldEndDate] = useState(formFields.endDate);
 	const { showPerson, showCompany } = props;
 
 	const CompanyPopup = MakePopup(
@@ -142,11 +142,11 @@ const CandidateExperienceCrudForm = props => {
 						label="Start Date"
 						className="date-entry"
 						value={formFields.startDate}
-						dateFormat="MM/yyyy"
-						showMonthYearPicker
+						monthYearOnly
+						required
+						disabled={showPerson || showCompany}
 					/>
-					required disabled={showPerson || showCompany}
-					/>
+					{/*}
 					<Checkbox
 						id="endDateCheck"
 						name="endDate"
@@ -165,17 +165,16 @@ const CandidateExperienceCrudForm = props => {
 							setCurrentJob(check);
 						}}
 					/>
+					*/}
 					<InpDate
 						id="endDate"
 						name="endDate"
 						className="date-entry"
 						label="End Date"
 						isClearable
-						value={currentJob ? null : formFields.endDate}
-						dateFormat="MM/yyyy"
-						showMonthYearPicker
-					/>
-					disabled={currentJob || showPerson || showCompany}
+						value={formFields.endDate}
+						monthYearOnly
+						disabled={showPerson || showCompany}
 					/>
 				</div>
 				<div className="tsd-form-row">

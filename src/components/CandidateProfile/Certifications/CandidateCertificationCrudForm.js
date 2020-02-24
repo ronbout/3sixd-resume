@@ -50,6 +50,7 @@ const CandidateCertificationCrudForm = props => {
 						name="issueDate"
 						label="Issue Date"
 						className="date-entry"
+						monthYearOnly
 						value={formFields.issueDate}
 					/>
 				</div>

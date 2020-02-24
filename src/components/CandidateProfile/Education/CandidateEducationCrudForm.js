@@ -93,6 +93,7 @@ const CandidateEducationCrudForm = props => {
 						name="startDate"
 						label="Start Date"
 						className="date-entry"
+						monthYearOnly
 						value={formFields.startDate}
 					/>
 					<Checkbox
@@ -118,6 +119,8 @@ const CandidateEducationCrudForm = props => {
 						name="endDate"
 						className="date-entry"
 						label="End Date"
+						isClearable
+						monthYearOnly
 						value={currentEd ? null : formFields.endDate}
 					/>
 				</div>

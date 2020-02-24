@@ -49,7 +49,7 @@ const DatePicker = props => {
 	};
 
 	return (
-		<div className="md-grid">
+		<div>
 			<DatePickerBase
 				error={errFlg}
 				onBlur={handleOnBlur}
