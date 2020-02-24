@@ -44,7 +44,7 @@ const Highlights = ({ highlights, candId }) => {
 		setExpanded(true);
 		setFormData({ highlights });
 		const userMsg = "Highlights have been updated";
-		addToast(userMsg);
+		!isEqual(highlights, formData.highlights) && addToast(userMsg);
 	};
 
 	const addToast = (text, action = null, autoHide = true, timeout = null) => {

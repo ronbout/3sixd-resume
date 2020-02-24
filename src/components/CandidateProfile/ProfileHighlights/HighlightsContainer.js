@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HighlightsFormContainer from "../highlights/HighlightsFormContainer";
+import DirtyModalMsg from "components/forms/DirtyModalMsg";
 import HighlightsFooter from "./HighlightsFooter";
 import Snackbar from "styledComponents/Snackbar";
 import { isEmptyObject, objCopy } from "assets/js/library";
@@ -14,6 +15,7 @@ const HighlightsContainer = props => {
 	const [origHighlights, setOrigHighlights] = useState(
 		objCopy(props.highlights)
 	);
+	const [dispDirtyMsg, setDispDirtyMsg] = useState(false);
 	const [toast, setToast] = useState({});
 
 	useEffect(() => {
@@ -25,6 +27,15 @@ const HighlightsContainer = props => {
 		event && event.preventDefault();
 		// api update and then pass new data up
 		postHighlights();
+	};
+
+	const handleCancel = () => {
+		setDispDirtyMsg(true);
+	};
+
+	const handleConfirmCancel = () => {
+		setDispDirtyMsg(false);
+		props.handleSubmit(origHighlights);
 	};
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
@@ -73,6 +84,7 @@ const HighlightsContainer = props => {
 			<HighlightsFooter
 				disableSubmit={isEqual(origHighlights, highlights)}
 				handleSubmit={handleSubmit}
+				handleCancel={handleCancel}
 			/>
 			{isEmptyObject(toast) || (
 				<Snackbar
@@ -81,6 +93,13 @@ const HighlightsContainer = props => {
 					autohide={toast.autoHide}
 					timeout={toast.timeout}
 					onDismiss={closeToast}
+				/>
+			)}
+			{dispDirtyMsg && (
+				<DirtyModalMsg
+					dirtyMsgString="cancel Highlight changes"
+					yesAction={handleConfirmCancel}
+					closeModal={() => setDispDirtyMsg(false)}
 				/>
 			)}
 		</section>

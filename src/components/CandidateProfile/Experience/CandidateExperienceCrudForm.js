@@ -1,5 +1,5 @@
 /* CandidateExperienceCrudForm.js */
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "components/forms/useForm";
 import {
 	InpString,
@@ -10,7 +10,6 @@ import {
 	InpRadio,
 	Form
 } from "components/forms/formInputs";
-import Checkbox from "styledComponents/Checkbox";
 import { FontIcon } from "styledComponents/FontIcon";
 import {
 	ExpansionList,
