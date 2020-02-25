@@ -43,13 +43,35 @@ const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
 	);
 };
 
+const header = () => {
+	return (
+		<ProfileSectionHeader
+			headerTitle="Social Media Links"
+			profilePercentage="15"
+			profileSectionCompleted={false}
+		/>
+	);
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandSocialMediaDiv = makeExpansion(
+	SocialMediaDiv,
+	header,
+	null,
+	false,
+	0
+);
+
 const SocialMedia = ({ candId, linkedInLink, githubLink }) => {
 	// React.useEffect(() => {
 	// 	console.log("***  Social Media rendered ***");
 	// });
 
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(false);
+	// const [expanded, setExpanded] = useState(false);
 
 	const [formData, setFormData] = useState({
 		linkedInLink,
@@ -58,7 +80,7 @@ const SocialMedia = ({ candId, linkedInLink, githubLink }) => {
 
 	const handleUpdate = (linkedInLink, githubLink) => {
 		closeToast();
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ linkedInLink, githubLink });
 		const userMsg = "Social Media has been updated";
 		addToast(userMsg);
@@ -72,29 +94,6 @@ const SocialMedia = ({ candId, linkedInLink, githubLink }) => {
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Social Media Links"
-				profilePercentage="15"
-				profileSectionCompleted={false}
-			/>
-		);
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandSocialMediaDiv = makeExpansion(
-		SocialMediaDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="social profile-section">

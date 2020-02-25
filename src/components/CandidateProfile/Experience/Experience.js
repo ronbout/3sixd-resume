@@ -31,9 +31,31 @@ const ExperienceDiv = ({ experience, candId, handleUpdate }) => {
 	);
 };
 
+const header = () => {
+	return (
+		<ProfileSectionHeader
+			headerTitle="Experience"
+			profilePercentage="20"
+			profileSectionCompleted={true}
+		/>
+	);
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandExperienceDiv = makeExpansion(
+	ExperienceDiv,
+	header,
+	null,
+	false,
+	0
+);
+
 const Experience = ({ experience, candId }) => {
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(false);
+	// const [expanded, setExpanded] = useState(false);
 	const [formData, setFormData] = useState({ experience: objCopy(experience) });
 	// React.useEffect(() => {
 	// 	console.log("***  Highlights rendered ***");
@@ -41,7 +63,7 @@ const Experience = ({ experience, candId }) => {
 
 	const handleUpdate = experience => {
 		closeToast();
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ experience });
 		const userMsg = "Experience has been updated";
 		addToast(userMsg);
@@ -55,29 +77,6 @@ const Experience = ({ experience, candId }) => {
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Experience"
-				profilePercentage="20"
-				profileSectionCompleted={true}
-			/>
-		);
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandExperienceDiv = makeExpansion(
-		ExperienceDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="Experience profile-section">

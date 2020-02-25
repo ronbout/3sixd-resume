@@ -38,6 +38,22 @@ const ObjectiveSummaryDiv = ({
 	);
 };
 
+const header = () => {
+	return <ProfileSectionHeader headerTitle="Professional Info" />;
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandObjectiveDiv = makeExpansion(
+	ObjectiveSummaryDiv,
+	header,
+	null,
+	false,
+	0
+);
+
 const ObjectiveSummary = ({
 	jobTitle,
 	objective,
@@ -45,7 +61,7 @@ const ObjectiveSummary = ({
 	candId
 }) => {
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(false);
+	// const [expanded, setExpanded] = useState(false);
 
 	const [formData, setFormData] = useState({
 		jobTitle,
@@ -55,7 +71,7 @@ const ObjectiveSummary = ({
 
 	const handleUpdate = (jobTitle, objective, executiveSummary) => {
 		closeToast();
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ jobTitle, objective, executiveSummary });
 		const userMsg = "Professional Info has been updated";
 		addToast(userMsg);
@@ -69,23 +85,6 @@ const ObjectiveSummary = ({
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return <ProfileSectionHeader headerTitle="Professional Info" />;
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandObjectiveDiv = makeExpansion(
-		ObjectiveSummaryDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="objective-summary profile-section">

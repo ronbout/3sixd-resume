@@ -31,9 +31,25 @@ const EducationDiv = ({ education, candId, handleUpdate }) => {
 	);
 };
 
+const header = () => {
+	return (
+		<ProfileSectionHeader
+			headerTitle="Education"
+			profilePercentage="20"
+			profileSectionCompleted={true}
+		/>
+	);
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandEducationDiv = makeExpansion(EducationDiv, header, null, false, 0);
+
 const Education = ({ education, candId }) => {
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(false);
+	// const [expanded, setExpanded] = useState(false);
 	const [formData, setFormData] = useState({ education: objCopy(education) });
 	// React.useEffect(() => {
 	// 	console.log("***  Highlights rendered ***");
@@ -41,7 +57,7 @@ const Education = ({ education, candId }) => {
 
 	const handleUpdate = education => {
 		closeToast();
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ education });
 		const userMsg = "Education has been updated";
 		addToast(userMsg);
@@ -55,29 +71,6 @@ const Education = ({ education, candId }) => {
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Education"
-				profilePercentage="20"
-				profileSectionCompleted={true}
-			/>
-		);
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandEducationDiv = makeExpansion(
-		EducationDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="Education profile-section">

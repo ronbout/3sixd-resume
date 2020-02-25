@@ -31,16 +31,38 @@ const CertificationDiv = ({ certifications, candId, handleUpdate }) => {
 	);
 };
 
+const header = () => {
+	return (
+		<ProfileSectionHeader
+			headerTitle="Certifications"
+			profilePercentage="10"
+			profileSectionCompleted={true}
+		/>
+	);
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandCertificationDiv = makeExpansion(
+	CertificationDiv,
+	header,
+	null,
+	false,
+	0
+);
+
 const Certifications = ({ certifications, candId }) => {
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(false);
+	// const [expanded, setExpanded] = useState(false);
 	const [formData, setFormData] = useState({
 		certifications: objCopy(certifications)
 	});
 
 	const handleUpdate = certifications => {
 		closeToast();
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ certifications });
 		const userMsg = "Certifications have been updated";
 		addToast(userMsg);
@@ -54,29 +76,6 @@ const Certifications = ({ certifications, candId }) => {
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Certifications"
-				profilePercentage="10"
-				profileSectionCompleted={true}
-			/>
-		);
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandCertificationDiv = makeExpansion(
-		CertificationDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="Certification profile-section">

@@ -33,13 +33,23 @@ const PersonalInfoDiv = ({ person, candId, handleUpdate }) => {
 	);
 };
 
+const header = () => {
+	return <ProfileSectionHeader headerTitle="Personal Info" />;
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandProfileInfo = makeExpansion(PersonalInfoDiv, header, null, true, 0);
+
 const PersonalInfo = ({ person, candId, compObj }) => {
 	// React.useEffect(() => {
 	// 	console.log("***  PersonalInfo rendered ***");
 	// });
 
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(true);
+	// const [expanded, setExpanded] = useState(true);
 	// let expanded = true;
 	const [formData, setFormData] = useState({
 		person
@@ -47,8 +57,7 @@ const PersonalInfo = ({ person, candId, compObj }) => {
 
 	const handleUpdate = person => {
 		closeToast();
-		// expanded = true;
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ person });
 		const userMsg = "Personal Info has been updated";
 		addToast(userMsg);
@@ -62,23 +71,6 @@ const PersonalInfo = ({ person, candId, compObj }) => {
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return <ProfileSectionHeader headerTitle="Personal Info" />;
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandProfileInfo = makeExpansion(
-		PersonalInfoDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="personal-info profile-section">
