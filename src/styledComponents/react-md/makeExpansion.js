@@ -9,10 +9,12 @@ const makeExpansion = (
 	zDepth = 1,
 	onToggle = null
 ) => {
+	const label = heading();
+	// console.log("make expansion label: ", label);
 	return props => {
 		return (
 			<ExpansionPanel
-				label={heading()}
+				label={label}
 				footer={footer}
 				style={{ background: "inherit", width: "100%" }}
 				zDepth={zDepth}

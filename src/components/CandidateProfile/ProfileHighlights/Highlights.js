@@ -30,10 +30,19 @@ const HighlightsDiv = ({ highlights, candId, handleUpdate }) => {
 		</section>
 	);
 };
+const header = () => {
+	return <ProfileSectionHeader headerTitle="Career Highlights" />;
+};
+
+// const onExpansionToggle = toggleState => {
+// 	setExpanded(toggleState);
+// };
+
+const ExpandHighlightDiv = makeExpansion(HighlightsDiv, header, null, false, 0);
 
 const Highlights = ({ highlights, candId }) => {
 	const [toast, setToast] = useState({});
-	const [expanded, setExpanded] = useState(false);
+	// const [expanded, setExpanded] = useState(false);
 	const [formData, setFormData] = useState({ highlights: objCopy(highlights) });
 	// React.useEffect(() => {
 	// 	console.log("***  Highlights rendered ***");
@@ -41,7 +50,7 @@ const Highlights = ({ highlights, candId }) => {
 
 	const handleUpdate = highlights => {
 		closeToast();
-		setExpanded(true);
+		// setExpanded(true);
 		setFormData({ highlights });
 		const userMsg = "Highlights have been updated";
 		!isEqual(highlights, formData.highlights) && addToast(userMsg);
@@ -55,29 +64,6 @@ const Highlights = ({ highlights, candId }) => {
 	const closeToast = () => {
 		setToast({});
 	};
-
-	const header = () => {
-		return (
-			<ProfileSectionHeader
-				headerTitle="Career Highlights"
-				profilePercentage="20"
-				profileSectionCompleted={true}
-			/>
-		);
-	};
-
-	const onExpansionToggle = toggleState => {
-		setExpanded(toggleState);
-	};
-
-	const ExpandHighlightDiv = makeExpansion(
-		HighlightsDiv,
-		header,
-		null,
-		expanded,
-		0,
-		onExpansionToggle
-	);
 
 	return (
 		<section className="highlights profile-section">

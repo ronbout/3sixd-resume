@@ -16,6 +16,10 @@ const HighlightsFormContainer = props => {
 	const [skills, setSkills] = useState([]);
 
 	useEffect(() => {
+		dispatch({ type: "resetHighlights", highlights: props.highlights });
+	}, [props.highlights]);
+
+	useEffect(() => {
 		if (!isEqual(highlights, props.highlights)) passHighlightUp(highlights);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [highlights]);

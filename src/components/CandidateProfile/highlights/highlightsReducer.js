@@ -34,6 +34,9 @@ export const highlightsReducer = (highlights, action) => {
 			tmpHighlights[ndx].highlight = editValue;
 			return tmpHighlights;
 		}
+		case "resetHighlights": {
+			return objCopy(action.highlights);
+		}
 		case "editSkills": {
 			const { ndx, editValue } = action;
 			tmpHighlights[ndx].skills = editValue;
