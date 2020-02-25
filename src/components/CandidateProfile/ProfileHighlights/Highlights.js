@@ -44,9 +44,6 @@ const Highlights = ({ highlights, candId }) => {
 	const [toast, setToast] = useState({});
 	// const [expanded, setExpanded] = useState(false);
 	const [formData, setFormData] = useState({ highlights: objCopy(highlights) });
-	// React.useEffect(() => {
-	// 	console.log("***  Highlights rendered ***");
-	// });
 
 	const handleUpdate = highlights => {
 		closeToast();

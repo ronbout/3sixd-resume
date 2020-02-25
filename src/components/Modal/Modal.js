@@ -14,13 +14,18 @@ const Modal = props => {
 		props.handleCloseModal && props.handleCloseModal();
 	};
 
+	const handleOverlayClick = () => {
+		console.log("overlay click");
+		handleCloseModal();
+	};
+
 	// can pass in override styles with styles object containing
 	// objects for each of the modal sections: styles.modal,
 	// styles.modalHeader, styles.modalContent, styles.modalFooter
 	const styles = props.styles || {};
 
 	return (
-		<div className="tsd-modal-overlay">
+		<div className="tsd-modal-overlay" onClick={handleOverlayClick}>
 			<div
 				className="tsd-modal"
 				id={props.idName || "tsd-modal"}
@@ -33,7 +38,11 @@ const Modal = props => {
 					</div>
 				)}
 
-				<div className="tsd-modal-content" style={styles.modalContent || {}}>
+				<div
+					className="tsd-modal-content"
+					style={styles.modalContent || {}}
+					onClick={ev => ev.stopPropagation()}
+				>
 					{props.children || <h2>Inside Modal</h2>}
 				</div>
 				{props.hideClose || (

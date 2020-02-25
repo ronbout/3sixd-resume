@@ -38,6 +38,7 @@ const CandidateExperience = props => {
 					idName="candidate-modal"
 					hideClose={true}
 					styles={modalStyles}
+					handleCloseModal={props.handleCancel}
 				>
 					<CandidateExperienceCrud
 						experience={sortJobs[editNdx]}
