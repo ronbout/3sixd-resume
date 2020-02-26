@@ -1,5 +1,5 @@
 /* CandidateExperienceContainer.js */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CandidateExperience from "./CandidateExperience";
 import Snackbar from "styledComponents/Snackbar";
 import Button from "styledComponents/Button";

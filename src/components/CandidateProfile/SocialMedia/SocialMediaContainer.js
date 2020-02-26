@@ -1,5 +1,5 @@
 /* SocialMediaContainer.js */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FormsProvider } from "components/forms/FormsContext";
 import SocialMediaForm from "./SocialMediaForm";
 import dataFetch from "assets/js/dataFetch";
