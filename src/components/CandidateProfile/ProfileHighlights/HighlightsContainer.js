@@ -17,16 +17,10 @@ const HighlightsContainer = props => {
 	);
 	const [dispDirtyMsg, setDispDirtyMsg] = useState(false);
 	const [toast, setToast] = useState({});
-	// useEffect(() => {
-	// 	props.curHighlights.current = props.highlights;
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
 
 	useEffect(() => {
 		setHighlights(objCopy(props.highlights));
 		setOrigHighlights(objCopy(props.highlights));
-		// props.curHighlights.current = props.highlights;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.highlights]);
 
 	const handleSubmit = async event => {
@@ -41,7 +35,7 @@ const HighlightsContainer = props => {
 
 	const handleConfirmCancel = () => {
 		setDispDirtyMsg(false);
-		props.handleSubmit(origHighlights);
+		setHighlights(origHighlights);
 	};
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
@@ -67,16 +61,12 @@ const HighlightsContainer = props => {
 			console.log(result);
 			addToast("An unknown error has occurred", "Close", false);
 		} else {
-			// need user message here
-			// setOrigHighlights(highlights);
-			// addToast("Highlights have been updated");
-			props.handleSubmit(highlights);
+			setOrigHighlights(highlights);
+			addToast("Highlights have been updated");
 		}
 	};
 
 	const handleHighlightChange = highlights => {
-		// console.log("handlehighlhgts: ", highlights);
-		// props.curHighlights.current = highlights;
 		setHighlights(highlights);
 	};
 

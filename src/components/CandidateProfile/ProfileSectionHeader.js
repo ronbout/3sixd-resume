@@ -1,19 +1,23 @@
 /* ProfileSectionHeader.js */
 import React from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontIcon } from "styledComponents/FontIcon";
 
-const ProfileSectionHeader = props => {
+const ProfileSectionHeader = ({
+	headerTitle,
+	handleSlider,
+	sliderIcon = ""
+}) => {
 	return (
 		<div className="pi-header profile-section-header">
 			<span>
-				<h2>{props.headerTitle || "Section Header"}</h2>
+				<h2>{headerTitle || "Section Header"}</h2>
 			</span>
 
-			{/*props.sliderIcon && false && (
-				<span className="slider-arrow" onClick={props.handleSlider}>
-					<FontAwesomeIcon icon={props.sliderIcon} />
+			{sliderIcon && (
+				<span className="slider-arrow" onClick={handleSlider}>
+					<FontIcon>{sliderIcon}</FontIcon>
 				</span>
-			)*/}
+			)}
 		</div>
 	);
 };

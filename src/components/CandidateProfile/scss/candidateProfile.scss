@@ -8,10 +8,6 @@
 	margin: 2em auto;
 	background-color: white;
 
-	.md-panel-header .material-icons.md-icon {
-		font-size: 32px;
-	}
-
 	tr:nth-child(even) {
 		background-color: #dfd;
 	}
@@ -108,24 +104,9 @@
 	margin: 2em 0;
 }
 
-.slider-arrow {
-	border: 2px solid black;
-	padding: 5px 10px;
-	font-size: 24px;
-	border-radius: 50%;
-	cursor: pointer;
-}
-
 .profile-section-footer {
 	width: 100%;
 	text-align: center;
-}
-
-.slide-section {
-	overflow: hidden;
-	transition-property: height;
-	transition-duration: 0.5s;
-	transition-timing-function: ease-in-out;
 }
 
 .objective-form,

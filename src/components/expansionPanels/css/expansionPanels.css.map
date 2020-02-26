@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,gBAAgB,CAAC,eAAe,AAAA,QAAQ,CAAC;EACxC,SAAS,EAAE,IAAI;CACf;;AAED,AAAA,aAAa,CAAC,QAAQ,AAAA,eAAe,CAAC;EACrC,OAAO,EAAE,QAAQ;EACjB,SAAS,EAAE,IAAI;EACf,MAAM,EAAE,OAAO;CACf;;AAED,AAAA,cAAc,CAAC;EACd,QAAQ,EAAE,MAAM;EAChB,mBAAmB,EAAE,MAAM;EAC3B,mBAAmB,EAAE,IAAI;EACzB,0BAA0B,EAAE,WAAW;CACvC",
+    "sources": [
+        "../scss/expansionPanels.scss"
+    ],
+    "names": [],
+    "file": "expansionPanels.css"
+}

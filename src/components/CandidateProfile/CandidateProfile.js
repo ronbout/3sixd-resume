@@ -77,26 +77,6 @@ class CandidateProfile extends Component {
 		}
 	};
 
-	handleUpdate = updateObj => {
-		// this will not need to pass the info back down as
-		// the sections contain the latest info.  But, it is
-		// needed to update the compMsg
-		// const newFormFields = {
-		// 	...this.state.formFields,
-		// 	...updateObj
-		// };
-		/* 
-		const formFields = {
-			...objCopy(this.state.formFields),
-			...updateObj
-		};
-
-		const compObj = calcPercentComplete(formFields);
-		const compMsg = buildCompMsg(compObj);
-		this.setState({ formFields, compObj, compMsg });
-		 */
-	};
-
 	render() {
 		const socialMedia = this.state.formFields.socialMedia;
 		return (
@@ -114,34 +94,28 @@ class CandidateProfile extends Component {
 									<ExpansionList className="md-cell md-cell--12">
 										<PersonalInfo
 											person={this.state.formFields.person}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 										<ObjectiveSummary
 											jobTitle={this.state.formFields.jobTitle}
 											objective={this.state.formFields.objective}
 											executiveSummary={this.state.formFields.executiveSummary}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 										<Highlights
 											highlights={this.state.formFields.candidateHighlights}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 										<Experience
 											experience={this.state.formFields.experience}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 										<Education
 											education={this.state.formFields.education}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 										<Certifications
 											certifications={this.state.formFields.certifications}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 										<SocialMedia
@@ -159,7 +133,6 @@ class CandidateProfile extends Component {
 													)
 												].socialLink
 											}
-											handleUpdate={this.handleUpdate}
 											candId={this.state.candId}
 										/>
 									</ExpansionList>

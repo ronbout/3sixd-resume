@@ -1,0 +1,16 @@
+.md-panel-header .material-icons.md-icon {
+	font-size: 32px;
+}
+
+.slider-arrow .md-icon.material-icons {
+	padding: 5px 10px;
+	font-size: 32px;
+	cursor: pointer;
+}
+
+.slide-section {
+	overflow: hidden;
+	transition-property: height;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in-out;
+}

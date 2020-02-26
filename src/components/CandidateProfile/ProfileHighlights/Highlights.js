@@ -1,83 +1,48 @@
 /* Highlights.js */
-import React, { useContext, useState } from "react";
-import ProfileSectionHeader from "../ProfileSectionHeader";
+import React, { useContext } from "react";
 import HighlightsContainer from "./HighlightsContainer";
-import makeExpansion from "styledComponents/makeExpansion";
+import MakeExpansion from "components/expansionPanels/MakeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
-import { objCopy } from "assets/js/library";
 import { isEqual } from "lodash";
-import Snackbar from "styledComponents/Snackbar";
-import { isEmptyObject } from "assets/js/library";
 
-const HighlightsDiv = ({ highlights, candId, handleUpdate }) => {
-	const { dispatch } = useContext(CompObjContext);
+const HighlightsDiv = React.memo(
+	({ highlights, candId }) => {
+		console.log("create highlightsdiv: ", highlights);
+		const { dispatch } = useContext(CompObjContext);
 
-	const handleSubmit = highlights => {
-		dispatch({
-			type: "UPDATE_CAND",
-			payload: { candidateHighlights: highlights }
-		});
-		handleUpdate(highlights);
-	};
+		const handleSubmit = highlights => {
+			dispatch({
+				type: "UPDATE_CAND",
+				payload: { candidateHighlights: highlights }
+			});
+		};
 
-	return (
-		<section>
-			<HighlightsContainer
-				highlights={highlights}
-				candId={candId}
-				handleSubmit={handleSubmit}
-			/>
-		</section>
-	);
-};
-const header = () => {
-	return <ProfileSectionHeader headerTitle="Career Highlights" />;
-};
+		return (
+			<section>
+				<HighlightsContainer
+					highlights={highlights}
+					candId={candId}
+					handleSubmit={handleSubmit}
+				/>
+			</section>
+		);
+	},
+	(prev, next) => isEqual(prev.highlights, next.highlights)
+);
 
-// const onExpansionToggle = toggleState => {
-// 	setExpanded(toggleState);
-// };
-
-const ExpandHighlightDiv = makeExpansion(HighlightsDiv, header, null, false, 0);
+const ExpandHighlightDiv = MakeExpansion(
+	HighlightsDiv,
+	"Career Highlights",
+	null,
+	false,
+	0,
+	"660px"
+);
 
 const Highlights = ({ highlights, candId }) => {
-	const [toast, setToast] = useState({});
-	// const [expanded, setExpanded] = useState(false);
-	const [formData, setFormData] = useState({ highlights: objCopy(highlights) });
-
-	const handleUpdate = highlights => {
-		closeToast();
-		// setExpanded(true);
-		setFormData({ highlights });
-		const userMsg = "Highlights have been updated";
-		!isEqual(highlights, formData.highlights) && addToast(userMsg);
-	};
-
-	const addToast = (text, action = null, autoHide = true, timeout = null) => {
-		const toast = { text, action, autoHide, timeout };
-		setToast(toast);
-	};
-
-	const closeToast = () => {
-		setToast({});
-	};
-
 	return (
 		<section className="highlights profile-section">
-			<ExpandHighlightDiv
-				highlights={formData.highlights}
-				candId={candId}
-				handleUpdate={handleUpdate}
-			/>
-			{isEmptyObject(toast) || (
-				<Snackbar
-					text={toast.text}
-					action={toast.action}
-					autohide={toast.autoHide}
-					timeout={toast.timeout}
-					onDismiss={closeToast}
-				/>
-			)}
+			<ExpandHighlightDiv highlights={highlights} candId={candId} />
 		</section>
 	);
 };
