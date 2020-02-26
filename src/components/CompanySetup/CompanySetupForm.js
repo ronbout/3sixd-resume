@@ -79,6 +79,7 @@ const CompanySetupForm = props => {
 							name="name"
 							label="Name *"
 							value={formFields.name}
+							maxLength={80}
 							autoFocus
 							required
 							disabled={props.showPerson}
@@ -92,6 +93,7 @@ const CompanySetupForm = props => {
 								props.handleCompanySelect(c);
 							}}
 							autoFocus
+							maxLength={80}
 							required
 							disabled={props.showPerson}
 						/>
@@ -101,6 +103,7 @@ const CompanySetupForm = props => {
 						name="description"
 						label="Description"
 						size={40}
+						maxLength={300}
 						value={formFields.description}
 						disabled={props.showPerson}
 					/>
@@ -111,6 +114,7 @@ const CompanySetupForm = props => {
 						id="companyPhone"
 						name="companyPhone"
 						label="Primary Phone"
+						maxLength={20}
 						value={formFields.companyPhone}
 						disabled={props.showPerson}
 					/>
@@ -121,6 +125,7 @@ const CompanySetupForm = props => {
 						value={formFields.contactPerson.formattedName}
 						onChange={props.handleContactPersonChange}
 						onClick={props.handlePersonClick}
+						onFocus={props.handlePersonClick}
 					/>
 					{formFields.contactPerson.id && (
 						<span
@@ -142,6 +147,7 @@ const CompanySetupForm = props => {
 						id="email"
 						name="email"
 						label="Company Email"
+						maxLength={50}
 						value={formFields.email}
 						disabled={props.showPerson}
 					/>
@@ -150,6 +156,7 @@ const CompanySetupForm = props => {
 						name="website"
 						label="Website URL"
 						type="url"
+						maxLength={120}
 						value={formFields.website}
 						disabled={props.showPerson}
 					/>
@@ -160,6 +167,7 @@ const CompanySetupForm = props => {
 						id="addressLine1"
 						name="addressLine1"
 						label="Street Address"
+						maxLength={80}
 						value={formFields.addressLine1}
 						disabled={props.showPerson}
 					/>
@@ -167,6 +175,7 @@ const CompanySetupForm = props => {
 						id="addressLine2"
 						name="addressLine2"
 						label="Apt/Suite #"
+						maxLength={50}
 						value={formFields.addressLine2}
 						disabled={props.showPerson}
 					/>
@@ -177,6 +186,7 @@ const CompanySetupForm = props => {
 						id="municipality"
 						name="municipality"
 						label="City"
+						maxLength={30}
 						value={formFields.municipality}
 						disabled={props.showPerson}
 					/>
@@ -184,6 +194,7 @@ const CompanySetupForm = props => {
 						id="region"
 						name="region"
 						label="State"
+						maxLength={30}
 						value={formFields.region}
 						disabled={props.showPerson}
 					/>
@@ -191,6 +202,7 @@ const CompanySetupForm = props => {
 						id="postalCode"
 						name="postalCode"
 						label="Zipcode"
+						maxLength={15}
 						value={formFields.postalCode}
 						disabled={props.showPerson}
 					/>
@@ -198,6 +210,7 @@ const CompanySetupForm = props => {
 						id="countryCode"
 						name="countryCode"
 						label="Country"
+						maxLength={30}
 						value={formFields.countryCode}
 						disabled={props.showPerson}
 					/>
