@@ -61,6 +61,7 @@ const HighlightsContainer = props => {
 			console.log(result);
 			addToast("An unknown error has occurred", "Close", false);
 		} else {
+			props.handleSubmit(highlights);
 			setOrigHighlights(highlights);
 			addToast("Highlights have been updated");
 		}

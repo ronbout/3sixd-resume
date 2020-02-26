@@ -5,30 +5,26 @@ import MakeExpansion from "components/expansionPanels/MakeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
 
-const HighlightsDiv = React.memo(
-	({ highlights, candId }) => {
-		console.log("create highlightsdiv: ", highlights);
-		const { dispatch } = useContext(CompObjContext);
+const HighlightsDiv = ({ highlights, candId }) => {
+	const { dispatch } = useContext(CompObjContext);
 
-		const handleSubmit = highlights => {
-			dispatch({
-				type: "UPDATE_CAND",
-				payload: { candidateHighlights: highlights }
-			});
-		};
+	const handleSubmit = highlights => {
+		dispatch({
+			type: "UPDATE_CAND",
+			payload: { candidateHighlights: highlights }
+		});
+	};
 
-		return (
-			<section>
-				<HighlightsContainer
-					highlights={highlights}
-					candId={candId}
-					handleSubmit={handleSubmit}
-				/>
-			</section>
-		);
-	},
-	(prev, next) => isEqual(prev.highlights, next.highlights)
-);
+	return (
+		<section>
+			<HighlightsContainer
+				highlights={highlights}
+				candId={candId}
+				handleSubmit={handleSubmit}
+			/>
+		</section>
+	);
+};
 
 const ExpandHighlightDiv = MakeExpansion(
 	HighlightsDiv,

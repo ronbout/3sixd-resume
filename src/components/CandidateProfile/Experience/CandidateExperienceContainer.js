@@ -21,6 +21,10 @@ const CandidateExperienceContainer = props => {
 	);
 	const [toast, setToast] = useState({});
 
+	useEffect(() => {
+		console.log("expcontainer first time sortjobs: ", sortJobs);
+	}, [sortJobs]);
+
 	const emptyExperience = {
 		id: "",
 		candidateId: props.candId || "",
@@ -60,13 +64,13 @@ const CandidateExperienceContainer = props => {
 		highlights: []
 	};
 
-	useEffect(() => {
-		setSortJobs(
-			props.experience
-				? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
-				: []
-		);
-	}, [props.experience]);
+	// useEffect(() => {
+	// 	setSortJobs(
+	// 		props.experience
+	// 			? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
+	// 			: []
+	// 	);
+	// }, [props.experience]);
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
 		const toast = { text, action, autoHide, timeout };
@@ -101,12 +105,11 @@ const CandidateExperienceContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
-			// addToast("Experience has been updated");
-
-			// setSortJobs(
-			// 	experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
-			// );
+			addToast("Experience has been updated");
 			props.handleSubmit(experiences);
+			setSortJobs(
+				experiences ? experiences.sort((a, b) => a.startDate - b.startDate) : []
+			);
 			return true;
 		}
 	};
@@ -143,16 +146,16 @@ const CandidateExperienceContainer = props => {
 		setEditNdx(ndx);
 	};
 
-	// const handleCloseModal = () => {
-	// 	setEditNdx(false);
-	// };
+	const handleCloseModal = () => {
+		setEditNdx(false);
+	};
 
 	const handleSave = async exp => {
 		const tmp = sortJobs.slice();
 		tmp[editNdx] = exp;
 		updateExperience(tmp);
-		// const tst = await updateExperience(tmp);
-		// tst && handleCloseModal();
+		const tst = await updateExperience(tmp);
+		tst && handleCloseModal();
 	};
 
 	const handleAddNewJob = () => {
@@ -164,11 +167,11 @@ const CandidateExperienceContainer = props => {
 
 	const handleCancel = () => {
 		setEditNdx(false);
-		setSortJobs(
-			props.experience
-				? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
-				: []
-		);
+		// setSortJobs(
+		// 	props.experience
+		// 		? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
+		// 		: []
+		// );
 	};
 
 	const actions = {
