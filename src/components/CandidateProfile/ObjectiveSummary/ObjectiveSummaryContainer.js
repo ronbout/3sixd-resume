@@ -21,11 +21,11 @@ const ObjectiveSummaryContainer = ({
 	const [candObjective, setCandObjective] = useState(objective);
 	const [candSummary, setCandSummary] = useState(executiveSummary);
 
-	useEffect(() => {
-		setCandJobTitle(jobTitle);
-		setCandObjective(objective);
-		setCandSummary(executiveSummary);
-	}, [jobTitle, objective, executiveSummary]);
+	// useEffect(() => {
+	// 	setCandJobTitle(jobTitle);
+	// 	setCandObjective(objective);
+	// 	setCandSummary(executiveSummary);
+	// }, [jobTitle, objective, executiveSummary]);
 
 	const handleSubmit = formData => {
 		postObjective(formData);

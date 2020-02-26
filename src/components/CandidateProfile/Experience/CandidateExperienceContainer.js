@@ -21,10 +21,6 @@ const CandidateExperienceContainer = props => {
 	);
 	const [toast, setToast] = useState({});
 
-	useEffect(() => {
-		console.log("expcontainer first time sortjobs: ", sortJobs);
-	}, [sortJobs]);
-
 	const emptyExperience = {
 		id: "",
 		candidateId: props.candId || "",
@@ -63,14 +59,6 @@ const CandidateExperienceContainer = props => {
 		skills: [],
 		highlights: []
 	};
-
-	// useEffect(() => {
-	// 	setSortJobs(
-	// 		props.experience
-	// 			? objCopy(props.experience).sort((a, b) => a.startDate - b.startDate)
-	// 			: []
-	// 	);
-	// }, [props.experience]);
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
 		const toast = { text, action, autoHide, timeout };
@@ -126,7 +114,6 @@ const CandidateExperienceContainer = props => {
 		const tmp = objCopy(sortJobs.slice());
 		tmp.splice(delNdx, 1);
 		updateExperience(tmp);
-		//alert("not actually deleting experience until later in testing");
 		hideDelDialog();
 	};
 

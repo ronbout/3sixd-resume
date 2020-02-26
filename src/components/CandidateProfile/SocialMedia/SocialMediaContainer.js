@@ -19,10 +19,10 @@ const SocialMediaContainer = ({
 	const [linkedIn, setLinkedIn] = useState(linkedInLink);
 	const [github, setGithub] = useState(githubLink);
 
-	useEffect(() => {
-		setLinkedIn(linkedInLink);
-		setGithub(githubLink);
-	}, [linkedInLink, githubLink]);
+	// useEffect(() => {
+	// 	setLinkedIn(linkedInLink);
+	// 	setGithub(githubLink);
+	// }, [linkedInLink, githubLink]);
 
 	const handleSubmit = formData => {
 		postSocialMedia(formData);
@@ -43,10 +43,10 @@ const SocialMediaContainer = ({
 			console.log(result);
 			addToast("An unknown error occurred", "Close", false);
 		} else {
-			// setLinkedIn(linkedIn);
-			// setGithub(github);
-			// const userMsg = "Social Media Links have been updated";
-			// addToast(userMsg);
+			setLinkedIn(linkedIn);
+			setGithub(github);
+			const userMsg = "Social Media Links have been updated";
+			addToast(userMsg);
 			handleUpdate(linkedIn, github);
 		}
 	};

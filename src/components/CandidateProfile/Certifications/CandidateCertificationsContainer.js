@@ -29,12 +29,6 @@ const CandidateCertificationsContainer = props => {
 		skills: []
 	};
 
-	useEffect(() => {
-		setCertifications(
-			props.certifications ? objCopy(props.certifications) : []
-		);
-	}, [props.certifications]);
-
 	const addToast = (text, action, autoHide = true, timeout = null) => {
 		const toast = { text, action, autoHide, timeout };
 		setToast(toast);
@@ -59,8 +53,8 @@ const CandidateCertificationsContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
-			// addToast("Certifications have been updated");
-			// setCertifications(certifications ? objCopy(certifications) : []);
+			addToast("Certifications have been updated");
+			setCertifications(certifications ? objCopy(certifications) : []);
 			props.handleSubmit(certifications);
 			return true;
 		}
@@ -77,9 +71,7 @@ const CandidateCertificationsContainer = props => {
 	const confirmedDelete = () => {
 		const tmp = objCopy(certifications.slice());
 		tmp.splice(delNdx, 1);
-		console.log("deleted certifications, if turned on: ", tmp);
 		updateCertifications(tmp);
-		//alert("not actually deleting certifications until later in testing");
 		hideDelDialog();
 	};
 
@@ -99,16 +91,16 @@ const CandidateCertificationsContainer = props => {
 		setEditNdx(ndx);
 	};
 
-	// const handleCloseModal = () => {
-	// 	setEditNdx(false);
-	// };
+	const handleCloseModal = () => {
+		setEditNdx(false);
+	};
 
 	const handleSave = async cert => {
 		const tmp = objCopy(certifications.slice());
 		tmp[editNdx] = cert;
 		updateCertifications(tmp);
-		// const tst = await updateCertifications(tmp);
-		// tst && handleCloseModal();
+		const tst = await updateCertifications(tmp);
+		tst && handleCloseModal();
 	};
 
 	const handleAddNewCertification = () => {
@@ -120,9 +112,9 @@ const CandidateCertificationsContainer = props => {
 
 	const handleCancel = () => {
 		setEditNdx(false);
-		setCertifications(
-			props.certifications ? objCopy(props.certifications) : []
-		);
+		// setCertifications(
+		// 	props.certifications ? objCopy(props.certifications) : []
+		// );
 	};
 
 	const actions = {

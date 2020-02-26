@@ -6,7 +6,7 @@ import Modal from "components/Modal/";
 
 const CandidateExperience = props => {
 	const [sortJobs, setSortJobs] = useState(props.sortJobs);
-	const { actions, editNdx } = props;
+	const { actions, editNdx, handleAddNewJob } = props;
 
 	useEffect(() => {
 		setSortJobs(props.sortJobs);
@@ -18,7 +18,7 @@ const CandidateExperience = props => {
 				<CandidateExperienceTable
 					jobs={sortJobs}
 					actions={actions}
-					onAddClick={props.handleAddNewJob}
+					onAddClick={handleAddNewJob}
 				/>
 			</div>
 		);
@@ -43,7 +43,6 @@ const CandidateExperience = props => {
 					idName="candidate-modal"
 					hideClose={true}
 					styles={modalStyles}
-					handleCloseModal={props.handleCancel}
 				>
 					<CandidateExperienceCrud
 						experience={sortJobs[editNdx]}

@@ -64,7 +64,11 @@ const CandidateCertificationCrudForm = props => {
 				</div>
 
 				<ExpansionList>
-					<ExpansionPanel label="Related Skills" footer={null}>
+					<ExpansionPanel
+						label="Related Skills"
+						footer={null}
+						defaultExpanded={true}
+					>
 						<div className="skill-edit-list">
 							<SkillList
 								skills={formFields.skills}
@@ -73,6 +77,7 @@ const CandidateCertificationCrudForm = props => {
 									changeFormFields("skills", s);
 								}}
 								candId={props.candId}
+								dispSearch={false}
 							/>
 						</div>
 					</ExpansionPanel>

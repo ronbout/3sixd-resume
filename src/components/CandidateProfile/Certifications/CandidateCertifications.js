@@ -1,11 +1,16 @@
 /* CandidateCertifications.js */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CandidateCertificationsTable from "./CandidateCertificationsTable";
 import CandidateCertificationCrud from "./CandidateCertificationCrud";
 import Modal from "components/Modal/";
 
 const CandidateCertifications = props => {
-	const { certifications, actions, editNdx, handleAddNewCertification } = props;
+	const [certifications, setCertifications] = useState(props.certifications);
+	const { actions, editNdx, handleAddNewCertification } = props;
+
+	useEffect(() => {
+		setCertifications(props.certifications);
+	}, [props.certifications]);
 
 	const certificationList = () => {
 		return (

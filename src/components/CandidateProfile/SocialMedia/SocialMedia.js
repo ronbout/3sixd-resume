@@ -1,14 +1,11 @@
 /* SocialMedia.js */
-import React, { useContext, useState } from "react";
-import ProfileSectionHeader from "../ProfileSectionHeader";
+import React, { useContext } from "react";
 import SocialMediaContainer from "./SocialMediaContainer";
-import makeExpansion from "styledComponents/makeExpansion";
+import MakeExpansion from "components/expansionPanels/MakeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
-import Snackbar from "styledComponents/Snackbar";
-import { isEmptyObject } from "assets/js/library";
 
-const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
+const SocialMediaDiv = ({ linkedInLink, githubLink, candId }) => {
 	const { dispatch } = useContext(CompObjContext);
 
 	const handleSubmit = (linkedIn, github) => {
@@ -28,7 +25,6 @@ const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
 				]
 			}
 		});
-		handleUpdate(linkedIn, github);
 	};
 
 	return (
@@ -43,75 +39,23 @@ const SocialMediaDiv = ({ linkedInLink, githubLink, candId, handleUpdate }) => {
 	);
 };
 
-const header = () => {
-	return (
-		<ProfileSectionHeader
-			headerTitle="Social Media Links"
-			profilePercentage="15"
-			profileSectionCompleted={false}
-		/>
-	);
-};
-
-// const onExpansionToggle = toggleState => {
-// 	setExpanded(toggleState);
-// };
-
-const ExpandSocialMediaDiv = makeExpansion(
+const ExpandSocialMediaDiv = MakeExpansion(
 	SocialMediaDiv,
-	header,
+	"Social Media Links",
 	null,
 	false,
-	0
+	0,
+	"280px"
 );
 
 const SocialMedia = ({ candId, linkedInLink, githubLink }) => {
-	// React.useEffect(() => {
-	// 	console.log("***  Social Media rendered ***");
-	// });
-
-	const [toast, setToast] = useState({});
-	// const [expanded, setExpanded] = useState(false);
-
-	const [formData, setFormData] = useState({
-		linkedInLink,
-		githubLink
-	});
-
-	const handleUpdate = (linkedInLink, githubLink) => {
-		closeToast();
-		// setExpanded(true);
-		setFormData({ linkedInLink, githubLink });
-		const userMsg = "Social Media has been updated";
-		addToast(userMsg);
-	};
-
-	const addToast = (text, action = null, autoHide = true, timeout = null) => {
-		const toast = { text, action, autoHide, timeout };
-		setToast(toast);
-	};
-
-	const closeToast = () => {
-		setToast({});
-	};
-
 	return (
 		<section className="social profile-section">
 			<ExpandSocialMediaDiv
-				linkedInLink={formData.linkedInLink}
-				githubLink={formData.githubLink}
+				linkedInLink={linkedInLink}
+				githubLink={githubLink}
 				candId={candId}
-				handleUpdate={handleUpdate}
 			/>
-			{isEmptyObject(toast) || (
-				<Snackbar
-					text={toast.text}
-					action={toast.action}
-					autohide={toast.autoHide}
-					timeout={toast.timeout}
-					onDismiss={closeToast}
-				/>
-			)}
 		</section>
 	);
 };

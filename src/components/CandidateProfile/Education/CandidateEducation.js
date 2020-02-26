@@ -1,11 +1,16 @@
 /* CandidateEducation.js */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CandidateEducationTable from "./CandidateEducationTable";
 import CandidateEducationCrud from "./CandidateEducationCrud";
 import Modal from "components/Modal/";
 
 const CandidateEducation = props => {
-	const { sortEducation, actions, editNdx, handleAddNewEducation } = props;
+	const [sortEducation, setSortEducation] = useState(props.sortEducation);
+	const { actions, editNdx, handleAddNewEducation } = props;
+
+	useEffect(() => {
+		setSortEducation(props.sortEducation);
+	}, [props.sortEducation]);
 
 	const educationList = () => {
 		return (

@@ -32,7 +32,7 @@ const ExpandExperienceDiv = MakeExpansion(
 	null,
 	false,
 	0,
-	"480px"
+	"386px"
 );
 
 const Experience = ({ experience, candId }) => {

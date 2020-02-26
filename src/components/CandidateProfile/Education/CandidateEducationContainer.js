@@ -37,14 +37,6 @@ const CandidateEducationContainer = props => {
 		skills: []
 	};
 
-	useEffect(() => {
-		setSortEducation(
-			props.education
-				? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
-				: []
-		);
-	}, [props.education]);
-
 	const addToast = (text, action, autoHide = true, timeout = null) => {
 		const toast = { text, action, autoHide, timeout };
 		setToast(toast);
@@ -69,10 +61,10 @@ const CandidateEducationContainer = props => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
-			// addToast("Education has been updated");
-			// setSortEducation(
-			// 	education ? education.sort((a, b) => a.startDate - b.startDate) : []
-			// );
+			addToast("Education has been updated");
+			setSortEducation(
+				education ? education.sort((a, b) => a.startDate - b.startDate) : []
+			);
 			props.handleSubmit(education);
 			return true;
 		}
@@ -89,9 +81,7 @@ const CandidateEducationContainer = props => {
 	const confirmedDelete = () => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp.splice(delNdx, 1);
-		console.log("deleted education, if turned on: ", tmp);
 		updateEducation(tmp);
-		//alert("not actually deleting education until later in testing");
 		hideDelDialog();
 	};
 
@@ -111,16 +101,16 @@ const CandidateEducationContainer = props => {
 		setEditNdx(ndx);
 	};
 
-	// const handleCloseModal = () => {
-	// 	setEditNdx(false);
-	// };
+	const handleCloseModal = () => {
+		setEditNdx(false);
+	};
 
 	const handleSave = async ed => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp[editNdx] = ed;
 		updateEducation(tmp);
-		// const tst = await updateEducation(tmp);
-		// tst && handleCloseModal();
+		const tst = await updateEducation(tmp);
+		tst && handleCloseModal();
 	};
 
 	const handleAddNewEducation = () => {
@@ -132,11 +122,11 @@ const CandidateEducationContainer = props => {
 
 	const handleCancel = () => {
 		setEditNdx(false);
-		setSortEducation(
-			props.education
-				? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
-				: []
-		);
+		// setSortEducation(
+		// 	props.education
+		// 		? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
+		// 		: []
+		// );
 	};
 
 	const actions = {
