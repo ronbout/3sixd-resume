@@ -18,6 +18,7 @@ const SocialMediaForm = ({ formData, handleSubmit }) => {
 					id="linkedIn"
 					name="linkedIn"
 					label="LinkedIn"
+					maxLength={120}
 					value={formFields.linkedIn}
 					reqWarn={true}
 					autoFocus
@@ -26,6 +27,7 @@ const SocialMediaForm = ({ formData, handleSubmit }) => {
 					id="github"
 					name="github"
 					label="Github"
+					maxLength={120}
 					value={formFields.github}
 					reqWarn={true}
 				/>

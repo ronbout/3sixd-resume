@@ -65,6 +65,7 @@ const EditHighlightsDialog = ({
 					value={highlight}
 					onChange={handleOnChange}
 					rows={2}
+					maxLength={200}
 				/>
 			</div>
 			<div className="skill-edit-list">

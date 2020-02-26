@@ -31,6 +31,7 @@ const CandidateCertificationCrudForm = props => {
 						id="certification-name"
 						name="name"
 						label="Certification Name *"
+						maxLength={60}
 						value={formFields.name}
 						autoFocus
 						required
@@ -41,6 +42,7 @@ const CandidateCertificationCrudForm = props => {
 						id="certification-description"
 						name="description"
 						label="Description"
+						maxLength={240}
 						value={formFields.description}
 					/>
 				</div>
@@ -59,6 +61,7 @@ const CandidateCertificationCrudForm = props => {
 						id="certificate-img"
 						name="certificateImage"
 						label="Certification Image *"
+						maxLength={80}
 						value={formFields.certificateImage}
 					/>
 				</div>

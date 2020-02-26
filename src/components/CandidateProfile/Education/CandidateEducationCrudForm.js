@@ -1,5 +1,5 @@
 /* CandidateEducationCrudForm.js */
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "components/forms/useForm";
 import {
 	InpString,
@@ -7,7 +7,6 @@ import {
 	InpSelect,
 	Form
 } from "components/forms/formInputs";
-import Checkbox from "styledComponents/Checkbox";
 import {
 	ExpansionList,
 	ExpansionPanel
@@ -22,8 +21,8 @@ const CandidateEducationCrudForm = props => {
 		dirtyMsg,
 		changeFormFields
 	} = useForm(props.education, {}, props.handleSave);
-	const [currentEd, setCurrentEd] = useState(!formFields.endDate);
-	const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
+	// const [currentEd, setCurrentEd] = useState(!formFields.endDate);
+	// const [oldEndDate, setOldEndDAte] = useState(formFields.endDate);
 	const { education } = props;
 
 	const degreeTypeOptions = [
@@ -42,6 +41,7 @@ const CandidateEducationCrudForm = props => {
 						id="schoolName"
 						name="schoolName"
 						label="School Name *"
+						maxLength={60}
 						value={formFields.schoolName}
 						autoFocus
 						required
@@ -53,6 +53,7 @@ const CandidateEducationCrudForm = props => {
 						name="degreeName"
 						label="Degree Name *"
 						placeholder="ex. Bachelor of Science"
+						maxLength={80}
 						value={formFields.degreeName}
 						required
 					/>
@@ -72,18 +73,21 @@ const CandidateEducationCrudForm = props => {
 						id="schoolMunicipality"
 						name="schoolMunicipality"
 						label="City"
+						maxLength={80}
 						value={formFields.schoolMunicipality}
 					/>
 					<InpString
 						id="schoolRegion"
 						name="schoolRegion"
 						label="State"
+						maxLength={30}
 						value={formFields.schoolRegion}
 					/>
 					<InpString
 						id="schoolCountry"
 						name="schoolCountry"
 						label="Country"
+						maxLength={30}
 						value={formFields.schoolCountry}
 					/>
 				</div>
@@ -96,7 +100,7 @@ const CandidateEducationCrudForm = props => {
 						monthYearOnly
 						value={formFields.startDate}
 					/>
-					<Checkbox
+					{/*<Checkbox
 						id="endDateCheck"
 						name="endDate"
 						label="Currently Enrolled"
@@ -114,6 +118,7 @@ const CandidateEducationCrudForm = props => {
 							setCurrentEd(check);
 						}}
 					/>
+					*/}
 					<InpDate
 						id="endDate"
 						name="endDate"
@@ -121,7 +126,7 @@ const CandidateEducationCrudForm = props => {
 						label="End Date"
 						isClearable
 						monthYearOnly
-						value={currentEd ? null : formFields.endDate}
+						value={formFields.endDate}
 					/>
 				</div>
 
@@ -131,6 +136,7 @@ const CandidateEducationCrudForm = props => {
 						name="degreeMajor"
 						label="Degree Major"
 						placeholder="ex. Computer Science"
+						maxLength={30}
 						value={formFields.degreeMajor}
 					/>
 					<InpString
@@ -138,6 +144,7 @@ const CandidateEducationCrudForm = props => {
 						name="degreeMinor"
 						label="Degree Minor"
 						placeholder="ex. Economics"
+						maxLength={30}
 						value={formFields.degreeMinor}
 					/>
 				</div>

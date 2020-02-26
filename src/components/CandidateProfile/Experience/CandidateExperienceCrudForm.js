@@ -199,6 +199,7 @@ const CandidateExperienceCrudForm = props => {
 						id="startPay"
 						name="startPay"
 						label="Starting Pay"
+						max={9999999}
 						value={formFields.startPay}
 						disabled={showPerson || showCompany}
 					/>
@@ -206,6 +207,7 @@ const CandidateExperienceCrudForm = props => {
 						id="endPay"
 						name="endPay"
 						label="Ending Pay"
+						max={9999999}
 						value={formFields.endPay}
 						disabled={showPerson || showCompany}
 					/>
