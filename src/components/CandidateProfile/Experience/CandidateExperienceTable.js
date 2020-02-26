@@ -1,5 +1,5 @@
 /* CandidateExperienceTable.js */
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "styledComponents/Card";
 import {
 	DataTable,
@@ -12,6 +12,7 @@ import Button from "styledComponents/Button";
 import TableActions from "./TableActions";
 
 const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
+	const [lastEdit, setLastEdit] = useState(-1);
 	return (
 		<Card tableCard className="experience-section">
 			<TableActions onAddClick={onAddClick} />
@@ -28,6 +29,7 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 				</TableHeader>
 				<TableBody>
 					{jobs.map((job, ndx) => {
+						const editClass = ndx === lastEdit ? "md-btn--hover" : "";
 						return (
 							<TableRow key={ndx}>
 								<TableColumn>{job.jobTitle}</TableColumn>
@@ -38,9 +40,13 @@ const CandidateExperienceTable = ({ jobs, actions, onAddClick }) => {
 								</TableColumn>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									<Button
+										className={editClass}
 										variant="icon"
 										color="secondary"
-										onClick={() => actions.edit(ndx)}
+										onClick={() => {
+											actions.edit(ndx);
+											setLastEdit(ndx);
+										}}
 									>
 										edit
 									</Button>

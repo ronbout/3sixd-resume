@@ -1,5 +1,5 @@
 /* CandidateEducationContainer.js */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CandidateEducation from "./CandidateEducation";
 import Snackbar from "styledComponents/Snackbar";
 import Button from "styledComponents/Button";
