@@ -191,7 +191,10 @@ const PersonSetupForm = props => {
 		return (
 			<div className="button-section">
 				{props.buttons && props.buttons.save === true && (
-					<BtnSubmit enabled={saveEnable}>
+					<BtnSubmit
+						enabled={saveEnable}
+						disabled={!formFields.givenName || !formFields.familyName}
+					>
 						{props.popup ? "Save & Close" : "Save"}
 					</BtnSubmit>
 				)}
