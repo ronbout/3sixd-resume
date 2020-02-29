@@ -82,7 +82,7 @@ class PersonSetupContainer extends Component {
 		};
 		// need to know if this is a new skill or update
 		// (post vs put)
-		const id = this.state.formFields.id;
+		const id = personInfo.id;
 		const httpMethod = id ? "PUT" : "POST";
 		const endpoint = id ? `${API_PERSON}/${id}` : `${API_PERSON}`;
 
