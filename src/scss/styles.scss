@@ -101,12 +101,12 @@ input {
 	input[type="tel"],
 	input[type="url"],
 	textarea {
-		padding: 12px;
+		padding: 10px;
 		background-color: rgba(0, 0, 0, 0.035);
 		border: none;
 		color: #555;
 		font-family: "Varela Round", sans-serif;
-		font-size: 14px;
+		font-size: 16px;
 		line-height: 24px;
 		border-bottom: 2px solid #e0e0e0;
 		-webkit-transition: border-color 0.2s ease;
@@ -128,7 +128,7 @@ input {
 }
 .textarea {
 	textarea {
-		padding: 20px;
+		padding: 16px;
 	}
 	.md-text-field-message-container.md-text-field-message-container--count-only {
 		margin-top: 42px;
