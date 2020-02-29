@@ -59,6 +59,8 @@ const TextAreaUI = ({
 			floating={true}
 			onKeyDown={handleKeyDown}
 			maxLength={maxLength}
+			block
+			paddedBlock
 			{...style}
 			{...rest}
 		/>

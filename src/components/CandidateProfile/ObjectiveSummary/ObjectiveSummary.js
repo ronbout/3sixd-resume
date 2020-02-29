@@ -39,7 +39,7 @@ const ExpandObjectiveDiv = MakeExpansion(
 	null,
 	false,
 	0,
-	"420px"
+	"540px"
 );
 
 const ObjectiveSummary = ({

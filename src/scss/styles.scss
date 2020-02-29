@@ -86,3 +86,52 @@ input {
 		text-align: left;
 	}
 }
+
+/* override of input styling to match Salient theme in wordpress */
+.md-text-field-container {
+	label {
+		font-family: "Varela Round", sans-serif;
+		font-size: 20px;
+		line-height: 32px;
+		color: black;
+	}
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	input[type="tel"],
+	input[type="url"],
+	textarea {
+		padding: 12px;
+		background-color: rgba(0, 0, 0, 0.035);
+		border: none;
+		color: #555;
+		font-family: "Varela Round", sans-serif;
+		font-size: 14px;
+		line-height: 24px;
+		border-bottom: 2px solid #e0e0e0;
+		-webkit-transition: border-color 0.2s ease;
+		transition: border-color 0.2s ease;
+		border-radius: 0;
+		margin-top: 46px;
+	}
+	input[type="text"]:focus,
+	input[type="email"]:focus,
+	input[type="password"]:focus,
+	input[type="tel"]:focus,
+	input[type="url"]:focus,
+	textarea:focus {
+		border-color: #26a65b;
+	}
+	hr.md-divider--text-field {
+		display: none;
+	}
+}
+.textarea {
+	textarea {
+		padding: 20px;
+	}
+	.md-text-field-message-container.md-text-field-message-container--count-only {
+		margin-top: 42px;
+		padding-right: 80px;
+	}
+}

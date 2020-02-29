@@ -115,9 +115,8 @@
 	margin: auto;
 	text-align: center;
 
-	textarea {
+	.textarea {
 		max-width: 800px;
-		margin: 1em 2em;
 	}
 }
 
@@ -183,7 +182,12 @@
 	}
 }
 
-.objective-form,
+.objective-form {
+	padding: 0 2em 1em;
+	.md-text-field-container--multiline-block {
+		margin: 0;
+	}
+}
 .candidate-highlights,
 .experience-form,
 .social-form {
