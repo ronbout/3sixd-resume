@@ -72,149 +72,168 @@ const CompanySetupForm = props => {
 		return (
 			<section>
 				<input type="hidden" name="id" value={formFields.id} />
-				<div className="tsd-form-row">
-					{formFields.id ? (
+				<section className="form-section">
+					<h2>Company Info</h2>
+					<div className="tsd-form-row">
+						{formFields.id ? (
+							<InpString
+								id="company-name"
+								name="name"
+								label="Name *"
+								value={formFields.name}
+								maxLength={80}
+								autoFocus
+								required
+								disabled={props.showPerson}
+							/>
+						) : (
+							<CompanyAuto
+								company={formFields.name}
+								handleOnChange={val => changeFormFields("name", val)}
+								handleCompanySelect={c => {
+									setNewCompany(true);
+									props.handleCompanySelect(c);
+								}}
+								autoFocus
+								maxLength={80}
+								required
+								disabled={props.showPerson}
+							/>
+						)}
+					</div>
+					<div className="tsd-form-row">
 						<InpString
-							id="company-name"
-							name="name"
-							label="Name *"
-							value={formFields.name}
-							maxLength={80}
-							autoFocus
-							required
+							id="company-desc"
+							name="description"
+							label="Description"
+							size={40}
+							maxLength={300}
+							value={formFields.description}
 							disabled={props.showPerson}
 						/>
-					) : (
-						<CompanyAuto
-							company={formFields.name}
-							handleOnChange={val => changeFormFields("name", val)}
-							handleCompanySelect={c => {
-								setNewCompany(true);
-								props.handleCompanySelect(c);
-							}}
-							autoFocus
-							maxLength={80}
-							required
+					</div>
+				</section>
+				<section className="form-section">
+					<h2>Contact Info</h2>
+					{/* Contact Row */}
+					<div className="tsd-form-row">
+						<InpPhone
+							id="companyPhone"
+							name="companyPhone"
+							label="Primary Phone"
+							maxLength={20}
+							value={formFields.companyPhone}
 							disabled={props.showPerson}
 						/>
-					)}
-					<InpString
-						id="company-desc"
-						name="description"
-						label="Description"
-						size={40}
-						maxLength={300}
-						value={formFields.description}
-						disabled={props.showPerson}
-					/>
-				</div>
-				{/* Contact Row */}
-				<div className="tsd-form-row">
-					<InpPhone
-						id="companyPhone"
-						name="companyPhone"
-						label="Primary Phone"
-						maxLength={20}
-						value={formFields.companyPhone}
-						disabled={props.showPerson}
-					/>
-					<InpString
-						id="company-contactPerson"
-						name="contactPerson"
-						label="Primary Contact"
-						value={formFields.contactPerson.formattedName}
-						onChange={props.handleContactPersonChange}
-						onClick={props.handlePersonClick}
-						onFocus={props.handlePersonClick}
-					/>
-					{formFields.contactPerson.id && (
-						<span
-							onClick={removeContactPerson}
-							style={{
-								cursor: "pointer",
-								padding: "0 20px 0 0",
-								alignSelf: "flex-end"
-							}}
-							title="Remove Contact Person"
-						>
-							(<FontIcon style={{ verticalAlign: "top" }}>remove</FontIcon>)
-						</span>
-					)}
-				</div>
-				{/* Email Row */}
-				<div className="tsd-form-row">
-					<InpEmail
-						id="email"
-						name="email"
-						label="Company Email"
-						maxLength={50}
-						value={formFields.email}
-						disabled={props.showPerson}
-					/>
-					<InpUrl
-						id="website"
-						name="website"
-						label="Website URL"
-						type="url"
-						maxLength={120}
-						value={formFields.website}
-						disabled={props.showPerson}
-					/>
-				</div>
-				{/* Address Row */}
-				<div className="tsd-form-row">
-					<InpString
-						id="addressLine1"
-						name="addressLine1"
-						label="Street Address"
-						maxLength={80}
-						value={formFields.addressLine1}
-						disabled={props.showPerson}
-					/>
-					<InpString
-						id="addressLine2"
-						name="addressLine2"
-						label="Apt/Suite #"
-						maxLength={50}
-						value={formFields.addressLine2}
-						disabled={props.showPerson}
-					/>
-				</div>
-				{/* City / State / Zip */}
-				<div className="tsd-form-row">
-					<InpString
-						id="municipality"
-						name="municipality"
-						label="City"
-						maxLength={30}
-						value={formFields.municipality}
-						disabled={props.showPerson}
-					/>
-					<InpString
-						id="region"
-						name="region"
-						label="State"
-						maxLength={30}
-						value={formFields.region}
-						disabled={props.showPerson}
-					/>
-					<InpZip
-						id="postalCode"
-						name="postalCode"
-						label="Zipcode"
-						maxLength={15}
-						value={formFields.postalCode}
-						disabled={props.showPerson}
-					/>
-					<InpString
-						id="countryCode"
-						name="countryCode"
-						label="Country"
-						maxLength={30}
-						value={formFields.countryCode}
-						disabled={props.showPerson}
-					/>
-				</div>
+					</div>
+					<div className="tsd-form-row">
+						<InpString
+							id="company-contactPerson"
+							name="contactPerson"
+							label="Primary Contact"
+							value={formFields.contactPerson.formattedName}
+							onChange={props.handleContactPersonChange}
+							onClick={props.handlePersonClick}
+							onFocus={props.handlePersonClick}
+						/>
+						{formFields.contactPerson.id && (
+							<span
+								onClick={removeContactPerson}
+								style={{
+									cursor: "pointer",
+									padding: "0 20px 0 0",
+									alignSelf: "flex-end"
+								}}
+								title="Remove Contact Person"
+							>
+								(<FontIcon style={{ verticalAlign: "top" }}>remove</FontIcon>)
+							</span>
+						)}
+					</div>
+					{/* Email Row */}
+					<div className="tsd-form-row">
+						<InpEmail
+							id="email"
+							name="email"
+							label="Company Email"
+							maxLength={50}
+							value={formFields.email}
+							disabled={props.showPerson}
+						/>
+					</div>
+					<div className="tsd-form-row">
+						<InpUrl
+							id="website"
+							name="website"
+							label="Website URL"
+							type="url"
+							maxLength={120}
+							value={formFields.website}
+							disabled={props.showPerson}
+						/>
+					</div>
+				</section>
+				<section className="form-section">
+					<h2>Location</h2>
+					{/* Address Row */}
+					<div className="tsd-form-row addr-line">
+						<InpString
+							id="addressLine1"
+							name="addressLine1"
+							label="Street Address"
+							maxLength={80}
+							value={formFields.addressLine1}
+							disabled={props.showPerson}
+						/>
+						<InpString
+							id="addressLine2"
+							name="addressLine2"
+							label="Apt/Suite #"
+							maxLength={50}
+							value={formFields.addressLine2}
+							disabled={props.showPerson}
+						/>
+					</div>
+					{/* City / State / Zip */}
+					<div className="tsd-form-row">
+						<InpString
+							id="municipality"
+							name="municipality"
+							label="City"
+							maxLength={30}
+							value={formFields.municipality}
+							disabled={props.showPerson}
+						/>
+					</div>
+					<div className="tsd-form-row">
+						<InpString
+							id="region"
+							name="region"
+							label="State"
+							maxLength={30}
+							value={formFields.region}
+							disabled={props.showPerson}
+						/>
+						<InpZip
+							id="postalCode"
+							name="postalCode"
+							label="Zipcode"
+							maxLength={15}
+							value={formFields.postalCode}
+							disabled={props.showPerson}
+						/>
+					</div>
+					<div className="tsd-form-row">
+						<InpString
+							id="countryCode"
+							name="countryCode"
+							label="Country"
+							maxLength={30}
+							value={formFields.countryCode}
+							disabled={props.showPerson}
+						/>
+					</div>
+				</section>
 			</section>
 		);
 	};

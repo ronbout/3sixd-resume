@@ -15,8 +15,30 @@
   background: white;
   color: #212529;
   padding: 2em 2em 1em;
-  width: 700px;
+  width: 760px;
   margin: 0 auto;
+}
+
+.company-setup .form-section {
+  width: 100%;
+}
+
+.company-setup .form-section h2 {
+  text-align: left;
+  font-weight: bold;
+}
+
+.company-setup .form-section .tsd-form-row {
+  width: 86%;
+  margin: 0 auto;
+}
+
+.company-setup .form-section + .form-section {
+  margin-top: 18px;
+}
+
+.company-setup .addr-line > div:first-child {
+  width: 80%;
 }
 
 .company-setup label.col-form-label.label-right {

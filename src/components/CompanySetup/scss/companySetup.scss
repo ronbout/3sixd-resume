@@ -18,8 +18,29 @@
 		background: white;
 		color: #212529;
 		padding: 2em 2em 1em;
-		width: 700px;
+		width: 760px;
 		margin: 0 auto;
+	}
+
+	.form-section {
+		width: 100%;
+
+		h2 {
+			text-align: left;
+			font-weight: bold;
+		}
+
+		.tsd-form-row {
+			width: 86%;
+			margin: 0 auto;
+		}
+	}
+	.form-section + .form-section {
+		margin-top: 18px;
+	}
+
+	.addr-line > div:first-child {
+		width: 80%;
 	}
 
 	label.col-form-label.label-right {
