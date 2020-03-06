@@ -125,6 +125,9 @@ input {
 	hr.md-divider--text-field {
 		display: none;
 	}
+	.md-text-field-message-container.md-text--error {
+		font-size: 16px;
+	}
 }
 .textarea {
 	textarea {
