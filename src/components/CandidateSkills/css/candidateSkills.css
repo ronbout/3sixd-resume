@@ -44,6 +44,48 @@
   background: gray;
 }
 
+/* form based css for use with material design inputs */
+.tsd-form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.tsd-form-row > div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: left;
+}
+
+.input-div {
+  margin: 0 8px;
+}
+
+.tsd-form-section {
+  width: 100%;
+}
+
+.tsd-form-section h2 {
+  text-align: left;
+  font-weight: bold;
+}
+
+.tsd-form-section .tsd-form-row {
+  width: 86%;
+  margin: 0 auto;
+}
+
+.tsd-form-section + .tsd-form-section {
+  margin-top: 18px;
+}
+
 .candidate-skills-container {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -40,145 +40,162 @@ const PersonSetupForm = props => {
 		return (
 			<section className="candidate-person">
 				<input type="hidden" name="id" value={formFields.id} />
-				{/* Name Row */}
-				<div className="tsd-form-row">
+				<section className="tsd-form-section">
+					<h2>Name & Contact Info</h2>
+					{/* Name Row */}
 					{formFields.id ? (
 						<React.Fragment>
-							<InpString
-								id="givenName"
-								name="givenName"
-								label="First Name *"
-								maxLength={30}
-								value={formFields.givenName}
-								autoFocus
-								required
-							/>
-							<InpString
-								id="familyName"
-								name="familyName"
-								label="Last Name *"
-								maxLength={30}
-								value={formFields.familyName}
-								required
-							/>
+							<div className="tsd-form-row">
+								<InpString
+									id="givenName"
+									name="givenName"
+									label="First Name *"
+									maxLength={30}
+									value={formFields.givenName}
+									autoFocus
+									required
+								/>
+							</div>
+							<div className="tsd-form-row">
+								<InpString
+									id="familyName"
+									name="familyName"
+									label="Last Name *"
+									maxLength={30}
+									value={formFields.familyName}
+									required
+								/>
+							</div>
 						</React.Fragment>
 					) : (
 						<React.Fragment>
-							<PersonAuto
-								id="autocomplete-firstname"
-								label="First Name *"
-								person={formFields.givenName}
-								maxLength={30}
-								handleOnChange={val => changeFormFields("givenName", val)}
-								handlePersonSelect={p => {
-									setNewPerson(true);
-									props.handlePersonSelect(p);
-								}}
-								autoFocus
-								required
-							/>
-							<PersonAuto
-								id="autocomplete-familyname"
-								label="Last Name *"
-								person={formFields.familyName}
-								maxLength={30}
-								handleOnChange={val => changeFormFields("familyName", val)}
-								handlePersonSelect={p => {
-									setNewPerson(true);
-									props.handlePersonSelect(p);
-								}}
-								required
-							/>
+							<div className="tsd-form-row">
+								<PersonAuto
+									id="autocomplete-firstname"
+									label="First Name *"
+									person={formFields.givenName}
+									maxLength={30}
+									handleOnChange={val => changeFormFields("givenName", val)}
+									handlePersonSelect={p => {
+										setNewPerson(true);
+										props.handlePersonSelect(p);
+									}}
+									autoFocus
+									required
+								/>
+							</div>
+							<div className="tsd-form-row">
+								<PersonAuto
+									id="autocomplete-familyname"
+									label="Last Name *"
+									person={formFields.familyName}
+									maxLength={30}
+									handleOnChange={val => changeFormFields("familyName", val)}
+									handlePersonSelect={p => {
+										setNewPerson(true);
+										props.handlePersonSelect(p);
+									}}
+									required
+								/>
+							</div>
 						</React.Fragment>
 					)}
-					<InpEmail
-						id="email"
-						name="email1"
-						label="Primary Email"
-						maxLength={50}
-						value={formFields.email1}
-					/>
-				</div>
-				{/* Phone Row */}
-				<div className="tsd-form-row">
-					<InpPhone
-						id="mobilePhone"
-						name="mobilePhone"
-						label="Mobile Phone"
-						maxLength={20}
-						value={formFields.mobilePhone}
-						reqWarn={!formFields.workPhone && props.profile}
-					/>
-					<InpPhone
-						id="workPhone"
-						name="workPhone"
-						label="Work Phone"
-						maxLength={20}
-						value={formFields.workPhone}
-						reqWarn={!formFields.mobilePhone && props.profile}
-					/>
-				</div>
-				{/* Address Row */}
-				<div className="tsd-form-row">
-					<InpString
-						id="addressLine1"
-						name="addressLine1"
-						label="Street Address"
-						maxLength={80}
-						value={formFields.addressLine1}
-					/>
-					<InpString
-						id="addressLine2"
-						name="addressLine2"
-						label="Apt/Suite #"
-						maxLength={50}
-						value={formFields.addressLine2}
-					/>
-				</div>
-				{/* City / State / Zip */}
-				<div className="tsd-form-row">
-					<InpString
-						id="municipality"
-						name="municipality"
-						label="City"
-						maxLength={30}
-						value={formFields.municipality}
-						reqWarn={props.profile}
-					/>
-					<InpString
-						id="region"
-						name="region"
-						label="State"
-						maxLength={30}
-						value={formFields.region}
-					/>
-					<InpZip
-						id="postalCode"
-						name="postalCode"
-						label="Zipcode"
-						maxLength={15}
-						value={formFields.postalCode}
-					/>
-				</div>
-				{/* Website Row */}
-				<div className="tsd-form-row">
-					<InpString
-						id="countryCode"
-						name="countryCode"
-						label="Country"
-						maxLength={30}
-						value={formFields.countryCode}
-					/>
-					<InpUrl
-						id="website"
-						name="website"
-						label="Website URL"
-						type="url"
-						maxLength={120}
-						value={formFields.website}
-						reqWarn={props.profile}
-					/>
-				</div>
+					<div className="tsd-form-row">
+						<InpEmail
+							id="email"
+							name="email1"
+							label="Primary Email"
+							maxLength={50}
+							value={formFields.email1}
+						/>
+					</div>
+					{/* Phone Row */}
+					<div className="tsd-form-row">
+						<InpPhone
+							id="mobilePhone"
+							name="mobilePhone"
+							label="Mobile Phone"
+							maxLength={20}
+							value={formFields.mobilePhone}
+							reqWarn={!formFields.workPhone && props.profile}
+						/>
+						<InpPhone
+							id="workPhone"
+							name="workPhone"
+							label="Work Phone"
+							maxLength={20}
+							value={formFields.workPhone}
+							reqWarn={!formFields.mobilePhone && props.profile}
+						/>
+					</div>
+					<div className="tsd-form-row">
+						<InpUrl
+							id="website"
+							name="website"
+							label="Website URL"
+							type="url"
+							maxLength={120}
+							value={formFields.website}
+							reqWarn={props.profile}
+						/>
+					</div>
+				</section>
+				<section className="tsd-form-section">
+					<h2>Address</h2>
+					{/* Address Row */}
+					<div className="tsd-form-row addr-line">
+						<InpString
+							id="addressLine1"
+							name="addressLine1"
+							label="Street Address"
+							maxLength={80}
+							value={formFields.addressLine1}
+						/>
+						<InpString
+							id="addressLine2"
+							name="addressLine2"
+							label="Apt/Suite #"
+							maxLength={50}
+							value={formFields.addressLine2}
+						/>
+					</div>
+					{/* City / State / Zip */}
+					<div className="tsd-form-row">
+						<InpString
+							id="municipality"
+							name="municipality"
+							label="City"
+							maxLength={30}
+							value={formFields.municipality}
+							reqWarn={props.profile}
+						/>
+					</div>
+					<div className="tsd-form-row">
+						<InpString
+							id="region"
+							name="region"
+							label="State"
+							maxLength={30}
+							value={formFields.region}
+						/>
+						<InpZip
+							id="postalCode"
+							name="postalCode"
+							label="Zipcode"
+							maxLength={15}
+							value={formFields.postalCode}
+						/>
+					</div>
+					<div className="tsd-form-row">
+						<InpString
+							id="countryCode"
+							name="countryCode"
+							label="Country"
+							maxLength={30}
+							value={formFields.countryCode}
+						/>
+					</div>
+				</section>
 			</section>
 		);
 	};

@@ -15,8 +15,12 @@
   background: white;
   color: #212529;
   padding: 2em 2em 1em;
-  width: 800px;
+  width: 760px;
   margin: 0 auto;
+}
+
+.person-setup .addr-line > div:first-child {
+  width: 80%;
 }
 
 .person-setup label.col-form-label.label-right {

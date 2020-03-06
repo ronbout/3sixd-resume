@@ -19,29 +19,15 @@
   margin: 0 auto;
 }
 
-.company-setup .form-section {
-  width: 100%;
-}
-
-.company-setup .form-section h2 {
-  text-align: left;
-  font-weight: bold;
-}
-
-.company-setup .form-section .tsd-form-row {
-  width: 86%;
-  margin: 0 auto;
-}
-
-.company-setup .form-section + .form-section {
-  margin-top: 18px;
-}
-
 .company-setup .addr-line > div:first-child {
   width: 80%;
 }
 
 .company-setup label.col-form-label.label-right {
   text-align: right;
+}
+
+.tsd-form-section + .tsd-form-section {
+  margin-top: 18px;
 }
 /*# sourceMappingURL=companySetup.css.map */

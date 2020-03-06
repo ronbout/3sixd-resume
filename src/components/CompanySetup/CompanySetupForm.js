@@ -72,7 +72,7 @@ const CompanySetupForm = props => {
 		return (
 			<section>
 				<input type="hidden" name="id" value={formFields.id} />
-				<section className="form-section">
+				<section className="tsd-form-section">
 					<h2>Company Info</h2>
 					<div className="tsd-form-row">
 						{formFields.id ? (
@@ -113,7 +113,7 @@ const CompanySetupForm = props => {
 						/>
 					</div>
 				</section>
-				<section className="form-section">
+				<section className="tsd-form-section">
 					<h2>Contact Info</h2>
 					{/* Contact Row */}
 					<div className="tsd-form-row">
@@ -173,7 +173,7 @@ const CompanySetupForm = props => {
 						/>
 					</div>
 				</section>
-				<section className="form-section">
+				<section className="tsd-form-section">
 					<h2>Location</h2>
 					{/* Address Row */}
 					<div className="tsd-form-row addr-line">
