@@ -82,10 +82,6 @@
   margin: 0 auto;
 }
 
-.tsd-form-section + .tsd-form-section {
-  margin-top: 18px;
-}
-
 .candidate-profile {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -149,6 +145,10 @@
 
 .pi-content > div {
   padding: 1em;
+}
+
+.pi-content .personal-form-container {
+  padding-top: 0;
 }
 
 .img-container {

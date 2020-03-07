@@ -148,7 +148,7 @@ class PersonSetupContainer extends Component {
 	render() {
 		return (
 			<React.Fragment>
-				{!this.props.popup ? (
+				{!this.props.popup && !this.props.profile ? (
 					<h1 style={{ textAlign: "center", marginTop: "2rem" }}>
 						Person Setup
 					</h1>
