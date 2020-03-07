@@ -3,6 +3,10 @@
   padding: 2em;
 }
 
+.candidate-experience .candidate-job .candidate-highlights {
+  padding: 0 0 1em;
+}
+
 .candidate-experience .button-section {
   text-align: center;
 }

@@ -52,13 +52,25 @@ const CandidateExperienceCrudForm = props => {
 
 	const CompanyPopup = MakePopup(
 		CompanySetupContainer,
-		{ left: "250px", top: "200px", width: "1000px" },
+		{
+			left: "250px",
+			top: "10px",
+			width: 1000,
+			height: "95%",
+			overflowY: "auto"
+		},
 		true
 	);
 
 	const PersonPopup = MakePopup(
 		PersonSetup,
-		{ left: "250px", top: "200px", width: "1000px" },
+		{
+			left: "250px",
+			top: "10px",
+			width: 1000,
+			height: "95%",
+			overflowY: "auto"
+		},
 		true
 	);
 
@@ -205,6 +217,7 @@ const CandidateExperienceCrudForm = props => {
 							fontSize: "20px",
 							fontFamily: '"Varela Round", sans-serif'
 						}}
+						style={{ width: 940 }}
 					>
 						<div className="skill-edit-list">
 							<SkillList
@@ -226,6 +239,7 @@ const CandidateExperienceCrudForm = props => {
 							fontSize: "20px",
 							fontFamily: '"Varela Round", sans-serif'
 						}}
+						style={{ width: 940 }}
 					>
 						<div className="experience-highlights">
 							<HighlightsFormContainer
