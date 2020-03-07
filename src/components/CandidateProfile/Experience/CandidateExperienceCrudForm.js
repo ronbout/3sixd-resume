@@ -80,6 +80,8 @@ const CandidateExperienceCrudForm = props => {
 						required
 						disabled={showPerson || showCompany}
 					/>
+				</div>
+				<div className="tsd-form-row">
 					<InpString
 						id="company"
 						name="company-name"
@@ -91,7 +93,7 @@ const CandidateExperienceCrudForm = props => {
 						disabled={showPerson || showCompany}
 					/>
 				</div>
-				<div className="tsd-form-row">
+				<div className="tsd-form-row exp-summary">
 					<InpTextArea
 						id="exp-summary"
 						label="Summary"
@@ -134,7 +136,7 @@ const CandidateExperienceCrudForm = props => {
 						disabled
 					/>
 				</div>
-				<div className="tsd-form-row">
+				<div className="tsd-form-row inp-date-row">
 					<InpDate
 						id="startDate"
 						name="startDate"
@@ -145,26 +147,6 @@ const CandidateExperienceCrudForm = props => {
 						required
 						disabled={showPerson || showCompany}
 					/>
-					{/*}
-					<Checkbox
-						id="endDateCheck"
-						name="endDate"
-						label="Current Job"
-						value="currentJob"
-						style={{ paddingTop: "36px" }}
-						checked={currentJob}
-						onChange={(check, ev) => {
-							if (!check) {
-								formFields.endDate = oldEndDate;
-								changeFormFields("endDate", oldEndDate);
-							} else {
-								formFields.endDate && setOldEndDate(formFields.endDate);
-								changeFormFields("endDate", null);
-							}
-							setCurrentJob(check);
-						}}
-					/>
-					*/}
 					<InpDate
 						id="endDate"
 						name="endDate"
@@ -195,6 +177,8 @@ const CandidateExperienceCrudForm = props => {
 						]}
 						disabled={showPerson || showCompany}
 					/>
+				</div>
+				<div className="tsd-form-row">
 					<InpTextAsNumber
 						id="startPay"
 						name="startPay"
@@ -217,6 +201,10 @@ const CandidateExperienceCrudForm = props => {
 						label="Job Related Skills"
 						footer={null}
 						defaultExpanded={true}
+						headerStyle={{
+							fontSize: "20px",
+							fontFamily: '"Varela Round", sans-serif'
+						}}
 					>
 						<div className="skill-edit-list">
 							<SkillList
@@ -234,6 +222,10 @@ const CandidateExperienceCrudForm = props => {
 						label="Job Highlights"
 						footer={null}
 						defaultExpanded={true}
+						headerStyle={{
+							fontSize: "20px",
+							fontFamily: '"Varela Round", sans-serif'
+						}}
 					>
 						<div className="experience-highlights">
 							<HighlightsFormContainer

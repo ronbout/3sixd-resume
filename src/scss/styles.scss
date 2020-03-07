@@ -88,12 +88,48 @@ input {
 }
 
 /* override of input styling to match Salient theme in wordpress */
+
+@mixin input-label {
+	font-family: "Varela Round", sans-serif;
+	font-size: 20px;
+	line-height: 32px;
+	color: black;
+}
+
+@mixin input-field {
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.035);
+	border: none;
+	color: #555;
+	font-family: "Varela Round", sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	border-bottom: 2px solid #e0e0e0;
+	-webkit-transition: border-color 0.2s ease;
+	transition: border-color 0.2s ease;
+	border-radius: 0;
+}
+
+.tsd-react-datepicker-container label {
+	@include input-label;
+}
+input[type="text"].date-entry {
+	@include input-field;
+}
+fieldset.md-selection-control-group {
+	padding-left: 0;
+
+	legend {
+		@include input-label;
+		margin-bottom: 0;
+	}
+	.md-selection-control-label {
+		font-size: 16px;
+	}
+}
 .md-text-field-container {
 	label {
-		font-family: "Varela Round", sans-serif;
-		font-size: 20px;
-		line-height: 32px;
-		color: black;
+		@include input-label;
 	}
 	input[type="text"],
 	input[type="email"],
@@ -101,17 +137,7 @@ input {
 	input[type="tel"],
 	input[type="url"],
 	textarea {
-		padding: 10px;
-		background-color: rgba(0, 0, 0, 0.035);
-		border: none;
-		color: #555;
-		font-family: "Varela Round", sans-serif;
-		font-size: 16px;
-		line-height: 24px;
-		border-bottom: 2px solid #e0e0e0;
-		-webkit-transition: border-color 0.2s ease;
-		transition: border-color 0.2s ease;
-		border-radius: 0;
+		@include input-field;
 		margin-top: 46px;
 	}
 	input[type="text"]:focus,

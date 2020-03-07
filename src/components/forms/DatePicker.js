@@ -49,7 +49,7 @@ const DatePicker = props => {
 	};
 
 	return (
-		<div>
+		<div className="input-div">
 			<DatePickerBase
 				error={errFlg}
 				onBlur={handleOnBlur}

@@ -19,11 +19,13 @@ const DatePicker = ({
 
 	return (
 		<React.Fragment>
-			<div
-				style={{ marginBottom: "16px" }}
-				className="md-floating-label--floating md-text--secondary"
-			>
-				{label}
+			<div className="tsd-react-datepicker-container">
+				<label
+					style={{ marginBottom: "16px" }}
+					className="md-floating-label--floating md-text--secondary"
+				>
+					{label}
+				</label>
 			</div>
 			<ReactDatePicker
 				selected={value}

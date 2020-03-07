@@ -20,7 +20,12 @@ const TextAreaUI = ({
 					className: "warning",
 					rightIcon: (
 						<FontIcon
-							style={{ fontSize: "28px", color: "red", paddingLeft: "20px" }}
+							style={{
+								fontSize: "28px",
+								color: "red",
+								paddingLeft: 28,
+								marginBottom: -24
+							}}
 						>
 							error_outline
 						</FontIcon>
@@ -30,7 +35,12 @@ const TextAreaUI = ({
 			? {
 					rightIcon: (
 						<FontIcon
-							style={{ fontSize: "28px", color: "green", paddingLeft: "28px" }}
+							style={{
+								fontSize: "28px",
+								color: "green",
+								paddingLeft: 28,
+								marginBottom: -24
+							}}
 						>
 							check_circle_outline
 						</FontIcon>
@@ -60,7 +70,6 @@ const TextAreaUI = ({
 			onKeyDown={handleKeyDown}
 			maxLength={maxLength}
 			block
-			paddedBlock
 			{...style}
 			{...rest}
 		/>

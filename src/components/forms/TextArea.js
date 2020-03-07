@@ -59,18 +59,20 @@ const Input = props => {
 	};
 
 	return (
-		<div className="textarea MuiFormControl-root MuiTextField-root">
-			<TextAreaBase
-				id={id}
-				error={errFlg}
-				errMsg={errMsg}
-				onBlur={handleOnBlur}
-				onKeyDown={handleKeyDown}
-				rows={rows}
-				onKeyPress={handleKeyDown}
-				maxLength={maxLength}
-				{...rest}
-			/>
+		<div className="input-div">
+			<div className="textarea MuiFormControl-root MuiTextField-root">
+				<TextAreaBase
+					id={id}
+					error={errFlg}
+					errMsg={errMsg}
+					onBlur={handleOnBlur}
+					onKeyDown={handleKeyDown}
+					rows={rows}
+					onKeyPress={handleKeyDown}
+					maxLength={maxLength}
+					{...rest}
+				/>
+			</div>
 		</div>
 	);
 };

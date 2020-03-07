@@ -5738,6 +5738,43 @@ input {
 }
 
 /* override of input styling to match Salient theme in wordpress */
+.tsd-react-datepicker-container label {
+  font-family: "Varela Round", sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  color: black;
+}
+
+input[type="text"].date-entry {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.035);
+  border: none;
+  color: #555;
+  font-family: "Varela Round", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  border-bottom: 2px solid #e0e0e0;
+  -webkit-transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease;
+  border-radius: 0;
+}
+
+fieldset.md-selection-control-group {
+  padding-left: 0;
+}
+
+fieldset.md-selection-control-group legend {
+  font-family: "Varela Round", sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  color: black;
+  margin-bottom: 0;
+}
+
+fieldset.md-selection-control-group .md-selection-control-label {
+  font-size: 16px;
+}
+
 .md-text-field-container label {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
