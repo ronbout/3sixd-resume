@@ -239,6 +239,10 @@
   text-align: center;
 }
 
+.candidate-highlights {
+  padding: 0 2em 1em;
+}
+
 .candidate-highlights textarea {
   width: 100%;
   padding-left: 0.5em;
@@ -255,7 +259,7 @@
 }
 
 .candidate-highlights .add-highlight {
-  padding: 1em;
+  padding: 0 1em 2em;
 }
 
 .candidate-highlights .add-highlight > div.row > div {
@@ -264,6 +268,10 @@
 
 .candidate-highlights .add-highlight textarea {
   margin-right: 8px;
+}
+
+.candidate-highlights .add-highlight .add-highlight-button {
+  padding-top: 68px;
 }
 
 .candidate-highlights .highlight-row {
@@ -302,7 +310,6 @@
   margin: 0;
 }
 
-.candidate-highlights,
 .experience-form,
 .social-form {
   background: white;

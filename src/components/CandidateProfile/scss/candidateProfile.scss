@@ -133,6 +133,8 @@
 }
 
 .candidate-highlights {
+	padding: 0 2em 1em;
+
 	textarea {
 		width: 100%;
 		padding-left: 0.5em;
@@ -149,13 +151,17 @@
 	}
 
 	.add-highlight {
-		padding: 1em;
+		padding: 0 1em 2em;
 
 		> div.row > div {
 			padding: 0;
 		}
 		textarea {
 			margin-right: 8px;
+		}
+
+		.add-highlight-button {
+			padding-top: 68px;
 		}
 	}
 
@@ -192,7 +198,6 @@
 		margin: 0;
 	}
 }
-.candidate-highlights,
 .experience-form,
 .social-form {
 	background: white;

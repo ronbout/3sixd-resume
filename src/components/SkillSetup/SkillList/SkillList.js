@@ -11,7 +11,8 @@ const SkillSearchPopup = MakePopup(
 	{
 		right: "100px",
 		top: "100px",
-		width: "344px"
+		width: "344px",
+		borderRadius: "20px"
 	},
 	true
 );

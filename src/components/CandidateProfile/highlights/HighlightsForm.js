@@ -45,7 +45,7 @@ const HighlightsForm = props => {
 						/>
 					</div>
 					<div />
-					<div style={{ paddingTop: "20px" }}>
+					<div className="add-highlight-button">
 						<Button
 							type="button"
 							className="btn btn-info"

@@ -1,4 +1,8 @@
 .md-table-column.table-edit-full-width {
   width: 500px;
 }
+
+#highlight-edit-dialog .md-text-field-multiline-container {
+  height: 140px !important;
+}
 /*# sourceMappingURL=highlights.css.map */

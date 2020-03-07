@@ -55,7 +55,9 @@ const EditHighlightsDialog = ({
 			onHide={hideEditDialog}
 			actions={actions}
 			title="Edit Highlight"
-			height={400}
+			titleStyle={{ paddingBottom: 0 }}
+			dialogStyle={{ borderRadius: "20px" }}
+			height={500}
 			width={600}
 		>
 			<div style={{ marginBottom: "16px" }}>
@@ -64,7 +66,7 @@ const EditHighlightsDialog = ({
 					label={`Highlight #${editNdx + 1}`}
 					value={highlight}
 					onChange={handleOnChange}
-					rows={2}
+					rows={3}
 					maxLength={200}
 				/>
 			</div>
