@@ -39,7 +39,13 @@ const emptyContactPerson = {
 
 const PersonPopup = MakePopup(
 	PersonSetup,
-	{ left: "250px", top: "200px", width: "1000px" },
+	{
+		left: "250px",
+		top: "10px",
+		width: "1000px",
+		height: "95%",
+		overflowY: "auto"
+	},
 	true
 );
 
