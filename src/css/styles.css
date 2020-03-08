@@ -5738,6 +5738,13 @@ input {
 }
 
 /* override of input styling to match Salient theme in wordpress */
+.md-btn {
+  font-size: 16px;
+  padding: 16px 23px;
+  height: auto;
+  border-radius: 200px;
+}
+
 .tsd-react-datepicker-container label {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
@@ -5772,6 +5779,11 @@ fieldset.md-selection-control-group legend {
 }
 
 fieldset.md-selection-control-group .md-selection-control-label {
+  font-size: 16px;
+}
+
+.md-switch-container label {
+  font-family: "Varela Round", sans-serif;
   font-size: 16px;
 }
 
@@ -5836,6 +5848,7 @@ fieldset.md-selection-control-group .md-selection-control-label {
 .md-text-field-container input[type="password"],
 .md-text-field-container input[type="tel"],
 .md-text-field-container input[type="url"],
+.md-text-field-container input[type="number"],
 .md-text-field-container textarea {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.035);
@@ -5856,6 +5869,7 @@ fieldset.md-selection-control-group .md-selection-control-label {
 .md-text-field-container input[type="password"]:focus,
 .md-text-field-container input[type="tel"]:focus,
 .md-text-field-container input[type="url"]:focus,
+.md-text-field-container input[type="number"]:focus,
 .md-text-field-container textarea:focus {
   border-color: #26a65b;
 }

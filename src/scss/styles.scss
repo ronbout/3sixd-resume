@@ -89,6 +89,13 @@ input {
 
 /* override of input styling to match Salient theme in wordpress */
 
+.md-btn {
+	font-size: 16px;
+	padding: 16px 23px;
+	height: auto;
+	border-radius: 200px;
+}
+
 @mixin input-label {
 	font-family: "Varela Round", sans-serif;
 	font-size: 20px;
@@ -130,6 +137,13 @@ fieldset.md-selection-control-group {
 	}
 }
 
+.md-switch-container {
+	label {
+		font-family: "Varela Round", sans-serif;
+		font-size: 16px;
+	}
+}
+
 .md-select-field__toggle {
 	label {
 		@include input-label;
@@ -167,6 +181,7 @@ fieldset.md-selection-control-group {
 	input[type="password"],
 	input[type="tel"],
 	input[type="url"],
+	input[type="number"],
 	textarea {
 		@include input-field;
 		margin-top: 46px;
@@ -176,6 +191,7 @@ fieldset.md-selection-control-group {
 	input[type="password"]:focus,
 	input[type="tel"]:focus,
 	input[type="url"]:focus,
+	input[type="number"]:focus,
 	textarea:focus {
 		border-color: #26a65b;
 	}
