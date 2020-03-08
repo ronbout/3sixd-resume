@@ -5,8 +5,11 @@
 
 // Other styling
 
-body {
+html {
 	height: 100%;
+}
+body {
+	min-height: 100vh;
 	width: 100%;
 	font-family: "Varela Round", "sans-serif";
 }
