@@ -32,7 +32,7 @@ const ExpandHighlightDiv = MakeExpansion(
 	null,
 	false,
 	0,
-	"660px"
+	"676px"
 );
 
 const Highlights = ({ highlights, candId }) => {

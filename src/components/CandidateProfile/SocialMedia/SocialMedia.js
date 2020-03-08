@@ -45,7 +45,7 @@ const ExpandSocialMediaDiv = MakeExpansion(
 	null,
 	false,
 	0,
-	"280px"
+	"352px"
 );
 
 const SocialMedia = ({ candId, linkedInLink, githubLink }) => {

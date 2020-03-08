@@ -35,7 +35,7 @@ const ExpandProfileInfo = MakeExpansion(
 	null,
 	true,
 	0,
-	"1200px"
+	"1220px"
 );
 
 const PersonalInfo = ({ person, candId, compObj }) => {
