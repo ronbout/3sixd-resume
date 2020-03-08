@@ -131,7 +131,31 @@ fieldset.md-selection-control-group {
 }
 
 .md-select-field__toggle {
-	@include input-label;
+	label {
+		@include input-label;
+		top: -42px;
+	}
+
+	.md-select-field {
+		margin-top: 30px;
+	}
+
+	.md-icon-text {
+		@include input-field;
+		padding: 6px 16px 6px 10px;
+		border: 2px solid #e0e0e0;
+	}
+
+	.md-icon {
+		@include input-field;
+		font-family: "Material Icons";
+		padding: 6px 10px;
+		border: 2px solid #e0e0e0;
+	}
+
+	hr {
+		display: none;
+	}
 }
 
 .md-text-field-container {
