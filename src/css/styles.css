@@ -5775,6 +5775,13 @@ fieldset.md-selection-control-group .md-selection-control-label {
   font-size: 16px;
 }
 
+.md-select-field__toggle {
+  font-family: "Varela Round", sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  color: black;
+}
+
 .md-text-field-container label {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
@@ -5817,6 +5824,10 @@ fieldset.md-selection-control-group .md-selection-control-label {
 
 .md-text-field-container .md-text-field-message-container.md-text--error {
   font-size: 16px;
+}
+
+.textarea .md-text-field-multiline-container.md-text-field--floating-margin {
+  margin: 0;
 }
 
 .textarea textarea {

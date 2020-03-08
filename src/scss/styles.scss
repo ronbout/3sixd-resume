@@ -113,9 +113,11 @@ input {
 .tsd-react-datepicker-container label {
 	@include input-label;
 }
+
 input[type="text"].date-entry {
 	@include input-field;
 }
+
 fieldset.md-selection-control-group {
 	padding-left: 0;
 
@@ -127,6 +129,11 @@ fieldset.md-selection-control-group {
 		font-size: 16px;
 	}
 }
+
+.md-select-field__toggle {
+	@include input-label;
+}
+
 .md-text-field-container {
 	label {
 		@include input-label;
@@ -156,6 +163,9 @@ fieldset.md-selection-control-group {
 	}
 }
 .textarea {
+	.md-text-field-multiline-container.md-text-field--floating-margin {
+		margin: 0;
+	}
 	textarea {
 		padding: 16px;
 	}
