@@ -17,7 +17,7 @@ ReactDOM.render(
 	<BrowserRouter>
 		<App />
 	</BrowserRouter>,
-	document.getElementById("root")
+	document.getElementById("tsd-react-root")
 );
 
 // If you want your app to work offline and load faster, you can change

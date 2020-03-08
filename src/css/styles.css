@@ -5654,24 +5654,29 @@ body {
   font-family: "Varela Round", "sans-serif";
 }
 
-h1,
-h2,
-h3,
-h4 {
+#tsd-react-root {
+  /* form based css for use with material ui inputs */
+  /* override of input styling to match Salient theme in wordpress */
+}
+
+#tsd-react-root h1,
+#tsd-react-root h2,
+#tsd-react-root h3,
+#tsd-react-root h4 {
   font-family: "Varela Round", "sans-serif";
 }
 
-.main-body {
+#tsd-react-root .main-body {
   padding: 0;
 }
 
-.tab-section {
+#tsd-react-root .tab-section {
   padding: 1em 1em 3em;
   margin-top: 0;
   border: 1px solid #888;
 }
 
-.hero {
+#tsd-react-root .hero {
   position: relative;
   background-image: url("../assets/img/3sixD-hero.jpg");
   background-position: center;
@@ -5683,7 +5688,7 @@ h4 {
   font-family: Varela Round;
 }
 
-.hero .overlay {
+#tsd-react-root .hero .overlay {
   position: absolute;
   background-color: #212529;
   height: 100%;
@@ -5693,13 +5698,13 @@ h4 {
   opacity: 0.3;
 }
 
-.hero h1 {
+#tsd-react-root .hero h1 {
   font-weight: bold;
   font-size: 42px;
   color: white;
 }
 
-.hero p {
+#tsd-react-root .hero p {
   width: 60%;
   font-size: 1.3rem;
   margin: auto;
@@ -5707,25 +5712,24 @@ h4 {
   color: white;
 }
 
-.hero .learn {
+#tsd-react-root .hero .learn {
   margin-top: 1rem;
 }
 
-.login-link {
+#tsd-react-root .login-link {
   font-weight: bold;
 }
 
-.btn-question {
+#tsd-react-root .btn-question {
   border-radius: 50%;
 }
 
-input {
+#tsd-react-root input {
   padding: 0.275rem 0.25rem;
   border-radius: 0.25rem;
 }
 
-/* form based css for use with material ui inputs */
-.tsd-form-row {
+#tsd-react-root .tsd-form-row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5737,29 +5741,28 @@ input {
   margin-bottom: 0.5rem;
 }
 
-.tsd-form-row > div {
+#tsd-react-root .tsd-form-row > div {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   text-align: left;
 }
 
-/* override of input styling to match Salient theme in wordpress */
-.md-btn {
+#tsd-react-root .md-btn--text {
   font-size: 16px;
   padding: 16px 23px;
   height: auto;
   border-radius: 200px;
 }
 
-.tsd-react-datepicker-container label {
+#tsd-react-root .tsd-react-datepicker-container label {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
   line-height: 32px;
   color: black;
 }
 
-input[type="text"].date-entry {
+#tsd-react-root input[type="text"].date-entry {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.035);
   border: none;
@@ -5773,11 +5776,11 @@ input[type="text"].date-entry {
   border-radius: 0;
 }
 
-fieldset.md-selection-control-group {
+#tsd-react-root fieldset.md-selection-control-group {
   padding-left: 0;
 }
 
-fieldset.md-selection-control-group legend {
+#tsd-react-root fieldset.md-selection-control-group legend {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
   line-height: 32px;
@@ -5785,16 +5788,16 @@ fieldset.md-selection-control-group legend {
   margin-bottom: 0;
 }
 
-fieldset.md-selection-control-group .md-selection-control-label {
+#tsd-react-root fieldset.md-selection-control-group .md-selection-control-label {
   font-size: 16px;
 }
 
-.md-switch-container label {
+#tsd-react-root .md-switch-container label {
   font-family: "Varela Round", sans-serif;
   font-size: 16px;
 }
 
-.md-select-field__toggle label {
+#tsd-react-root .md-select-field__toggle label {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
   line-height: 32px;
@@ -5802,11 +5805,11 @@ fieldset.md-selection-control-group .md-selection-control-label {
   top: -42px;
 }
 
-.md-select-field__toggle .md-select-field {
+#tsd-react-root .md-select-field__toggle .md-select-field {
   margin-top: 30px;
 }
 
-.md-select-field__toggle .md-icon-text {
+#tsd-react-root .md-select-field__toggle .md-icon-text {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.035);
   border: none;
@@ -5822,7 +5825,7 @@ fieldset.md-selection-control-group .md-selection-control-label {
   border: 2px solid #e0e0e0;
 }
 
-.md-select-field__toggle .md-icon {
+#tsd-react-root .md-select-field__toggle .md-icon {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.035);
   border: none;
@@ -5839,24 +5842,24 @@ fieldset.md-selection-control-group .md-selection-control-label {
   border: 2px solid #e0e0e0;
 }
 
-.md-select-field__toggle hr {
+#tsd-react-root .md-select-field__toggle hr {
   display: none;
 }
 
-.md-text-field-container label {
+#tsd-react-root .md-text-field-container label {
   font-family: "Varela Round", sans-serif;
   font-size: 20px;
   line-height: 32px;
   color: black;
 }
 
-.md-text-field-container input[type="text"],
-.md-text-field-container input[type="email"],
-.md-text-field-container input[type="password"],
-.md-text-field-container input[type="tel"],
-.md-text-field-container input[type="url"],
-.md-text-field-container input[type="number"],
-.md-text-field-container textarea {
+#tsd-react-root .md-text-field-container input[type="text"],
+#tsd-react-root .md-text-field-container input[type="email"],
+#tsd-react-root .md-text-field-container input[type="password"],
+#tsd-react-root .md-text-field-container input[type="tel"],
+#tsd-react-root .md-text-field-container input[type="url"],
+#tsd-react-root .md-text-field-container input[type="number"],
+#tsd-react-root .md-text-field-container textarea {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.035);
   border: none;
@@ -5871,33 +5874,33 @@ fieldset.md-selection-control-group .md-selection-control-label {
   margin-top: 46px;
 }
 
-.md-text-field-container input[type="text"]:focus,
-.md-text-field-container input[type="email"]:focus,
-.md-text-field-container input[type="password"]:focus,
-.md-text-field-container input[type="tel"]:focus,
-.md-text-field-container input[type="url"]:focus,
-.md-text-field-container input[type="number"]:focus,
-.md-text-field-container textarea:focus {
+#tsd-react-root .md-text-field-container input[type="text"]:focus,
+#tsd-react-root .md-text-field-container input[type="email"]:focus,
+#tsd-react-root .md-text-field-container input[type="password"]:focus,
+#tsd-react-root .md-text-field-container input[type="tel"]:focus,
+#tsd-react-root .md-text-field-container input[type="url"]:focus,
+#tsd-react-root .md-text-field-container input[type="number"]:focus,
+#tsd-react-root .md-text-field-container textarea:focus {
   border-color: #26a65b;
 }
 
-.md-text-field-container hr.md-divider--text-field {
+#tsd-react-root .md-text-field-container hr.md-divider--text-field {
   display: none;
 }
 
-.md-text-field-container .md-text-field-message-container.md-text--error {
+#tsd-react-root .md-text-field-container .md-text-field-message-container.md-text--error {
   font-size: 16px;
 }
 
-.textarea .md-text-field-multiline-container.md-text-field--floating-margin {
+#tsd-react-root .textarea .md-text-field-multiline-container.md-text-field--floating-margin {
   margin: 0;
 }
 
-.textarea textarea {
+#tsd-react-root .textarea textarea {
   padding: 16px;
 }
 
-.textarea .md-text-field-message-container.md-text-field-message-container--count-only {
+#tsd-react-root .textarea .md-text-field-message-container.md-text-field-message-container--count-only {
   margin-top: 42px;
   padding-right: 80px;
 }

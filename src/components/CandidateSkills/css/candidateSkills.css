@@ -1,36 +1,40 @@
-.tsd-container {
+#tsd-react-root {
+  /* form based css for use with material design inputs */
+}
+
+#tsd-react-root .tsd-container {
   width: 100%;
   padding: 1em;
   margin: auto;
 }
 
-.tsd-card {
+#tsd-react-root .tsd-card {
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.tsd-vdiv {
+#tsd-react-root .tsd-vdiv {
   width: 2px;
   margin: 20px 8px 0;
   padding: 0 !important;
   background: blue;
 }
 
-.tsd-light-hdiv {
+#tsd-react-root .tsd-light-hdiv {
   height: 1px;
   margin: 8px 20px;
   padding: 0 10px !important;
   background: #ddd;
 }
 
-.tsd-hdiv {
+#tsd-react-root .tsd-hdiv {
   height: 2px;
   margin: 8px 20px;
   padding: 0 !important;
   background: blue;
 }
 
-.tsd-bargraph {
+#tsd-react-root .tsd-bargraph {
   height: 2em;
   margin: 8px 8px;
   padding: 0 !important;
@@ -38,14 +42,13 @@
   border: 1px solid black;
 }
 
-.tsd-bargraph-span {
+#tsd-react-root .tsd-bargraph-span {
   height: 2em;
   display: block;
   background: gray;
 }
 
-/* form based css for use with material design inputs */
-.tsd-form-row {
+#tsd-react-root .tsd-form-row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,33 +60,29 @@
   margin-bottom: 0.5rem;
 }
 
-.tsd-form-row > div {
+#tsd-react-root .tsd-form-row > div {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
   text-align: left;
 }
 
-.input-div {
+#tsd-react-root .input-div {
   margin: 0 8px;
 }
 
-.tsd-form-section {
+#tsd-react-root .tsd-form-section {
   width: 100%;
 }
 
-.tsd-form-section h2 {
+#tsd-react-root .tsd-form-section h2 {
   text-align: left;
   font-weight: bold;
 }
 
-.tsd-form-section .tsd-form-row {
+#tsd-react-root .tsd-form-section .tsd-form-row {
   width: 86%;
   margin: 0 auto;
-}
-
-.tsd-form-section + .tsd-form-section {
-  margin-top: 18px;
 }
 
 .candidate-skills-container {
