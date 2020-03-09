@@ -9,8 +9,8 @@ import "./css/skillList.css";
 const SkillSearchPopup = MakePopup(
 	SkillSearchContainer,
 	{
-		right: "100px",
-		top: "100px",
+		right: "60px",
+		top: "152px",
 		width: "344px",
 		borderRadius: "20px"
 	},
