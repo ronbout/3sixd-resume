@@ -1,3 +1,90 @@
+#tsd-react-root {
+  /* form based css for use with material design inputs */
+}
+
+#tsd-react-root .tsd-container {
+  width: 100%;
+  padding: 1em;
+  margin: auto;
+}
+
+#tsd-react-root .tsd-card {
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#tsd-react-root .tsd-vdiv {
+  width: 2px;
+  margin: 20px 8px 0;
+  padding: 0 !important;
+  background: blue;
+}
+
+#tsd-react-root .tsd-light-hdiv {
+  height: 1px;
+  margin: 8px 20px;
+  padding: 0 10px !important;
+  background: #ddd;
+}
+
+#tsd-react-root .tsd-hdiv {
+  height: 2px;
+  margin: 8px 20px;
+  padding: 0 !important;
+  background: blue;
+}
+
+#tsd-react-root .tsd-bargraph {
+  height: 2em;
+  margin: 8px 8px;
+  padding: 0 !important;
+  background: white;
+  border: 1px solid black;
+}
+
+#tsd-react-root .tsd-bargraph-span {
+  height: 2em;
+  display: block;
+  background: gray;
+}
+
+#tsd-react-root .tsd-form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+#tsd-react-root .tsd-form-row > div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: left;
+}
+
+#tsd-react-root .input-div {
+  margin: 0 8px;
+}
+
+#tsd-react-root .tsd-form-section {
+  width: 100%;
+}
+
+#tsd-react-root .tsd-form-section h2 {
+  text-align: left;
+  font-weight: bold;
+}
+
+#tsd-react-root .tsd-form-section .tsd-form-row {
+  width: 86%;
+  margin: 0 auto;
+}
+
 .person-main {
   text-align: center;
   margin-top: 2em;
@@ -25,5 +112,9 @@
 
 .person-setup label.col-form-label.label-right {
   text-align: right;
+}
+
+.tsd-form-section + .tsd-form-section {
+  margin-top: 18px;
 }
 /*# sourceMappingURL=personSetup.css.map */

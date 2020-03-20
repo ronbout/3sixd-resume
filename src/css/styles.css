@@ -5908,4 +5908,8 @@ body {
   margin-top: 42px;
   padding-right: 80px;
 }
+
+.button-section button {
+  margin: 1em;
+}
 /*# sourceMappingURL=styles.css.map */

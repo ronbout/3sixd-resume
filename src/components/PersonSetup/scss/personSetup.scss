@@ -1,5 +1,6 @@
 // mixins
 //@import "../../../scss/mixins";
+@import "../../../scss/_tsd.scss";
 
 .person-main {
 	text-align: center;
@@ -29,4 +30,8 @@
 	label.col-form-label.label-right {
 		text-align: right;
 	}
+}
+
+.tsd-form-section + .tsd-form-section {
+	margin-top: 18px;
 }
