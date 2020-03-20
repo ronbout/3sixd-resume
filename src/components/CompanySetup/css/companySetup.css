@@ -90,14 +90,14 @@
   margin-top: 2em;
 }
 
-.company-setup {
+div.company-setup {
   font-size: 14px;
   text-align: center;
   width: 95%;
   margin: 1em auto;
 }
 
-.company-setup .company-form {
+div.company-setup .company-form {
   font-size: 14px;
   background: white;
   color: #212529;
@@ -106,11 +106,11 @@
   margin: 0 auto;
 }
 
-.company-setup .addr-line > div:first-child {
+div.company-setup .addr-line > div:first-child {
   width: 80%;
 }
 
-.company-setup label.col-form-label.label-right {
+div.company-setup label.col-form-label.label-right {
   text-align: right;
 }
 

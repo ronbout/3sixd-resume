@@ -90,14 +90,14 @@
   margin-top: 2em;
 }
 
-.person-setup {
+div.person-setup {
   font-size: 14px;
   text-align: center;
   width: 95%;
   margin: 1em auto;
 }
 
-.person-setup .person-form {
+div.person-setup .person-form {
   font-size: 14px;
   background: white;
   color: #212529;
@@ -106,11 +106,11 @@
   margin: 0 auto;
 }
 
-.person-setup .addr-line > div:first-child {
+div.person-setup .addr-line > div:first-child {
   width: 80%;
 }
 
-.person-setup label.col-form-label.label-right {
+div.person-setup label.col-form-label.label-right {
   text-align: right;
 }
 
