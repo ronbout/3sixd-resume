@@ -97,7 +97,7 @@ const CustomResume = ({ candidate, techtagSkills }) => {
 	};
 
 	return (
-		<div className="container">
+		<div className="cust-res-container">
 			{isEmptyObject(techtagSkills) && !candidate.id ? (
 				<p className="center">...loading Candidate Info</p>
 			) : (
