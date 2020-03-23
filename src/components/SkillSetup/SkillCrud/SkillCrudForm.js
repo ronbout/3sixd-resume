@@ -10,12 +10,13 @@ import {
 	Tab,
 	TabPanels,
 	TabPanel
-} from "../../TabbedUI/TabbedUI";
+} from "components/TabbedUI/TabbedUI";
+import Button from "styledComponents/Button";
 
 const SkillCrudForm = props => {
 	const tagsAndRelatedSkillsSection = () => {
 		return (
-			<div className="related-skill-section">
+			<div className="tabbed-section">
 				<TabbedUI>
 					<TabList callBk={tabPanelsCallBk}>
 						<Tab>Techtags</Tab>
@@ -109,37 +110,40 @@ const SkillCrudForm = props => {
 	const buttonSection = () => {
 		return (
 			<div className="fs-btn-container" style={{ textAlign: "center" }}>
-				<button
-					className="btn btn-primary"
-					disabled={props.state.formFields.name === ""}
-				>
+				<Button disabled={props.state.formFields.name === ""}>
 					{props.state.formFields.id === "" ? "Add skill" : "Update skill"}
-				</button>
-				<button
-					className="btn btn-primary"
-					type="button"
+				</Button>
+				<Button
+					btnType="warning"
+					style={{ marginLeft: "26px" }}
 					onClick={props.handleClear}
 				>
 					Clear Skill
-				</button>
+				</Button>
+				<Button
+					btnType="secondary"
+					style={{ marginLeft: "26px" }}
+					onClick={props.handleCancel}
+					disabled={!props.checkDirtyForm(false)}
+				>
+					Cancel
+				</Button>
 			</div>
 		);
 	};
 
 	return (
-		<div className="skill-container">
-			<form className="basic-skill-form" onSubmit={props.handleSubmit}>
-				<input type="hidden" name="id" value={props.state.formFields.id} />
-				<div className="basic-skill-container container-fluid d-flex flex-column justify-content-center">
-					<SkillDescSection
-						formFields={props.state.formFields}
-						handleInputChange={props.handleInputChange}
-					/>
-					{tagsAndRelatedSkillsSection()}
-					{buttonSection()}
-				</div>
-			</form>
-		</div>
+		<form className="basic-skill-form" onSubmit={props.handleSubmit}>
+			<input type="hidden" name="id" value={props.state.formFields.id} />
+			<div className="basic-skill-container">
+				<SkillDescSection
+					formFields={props.state.formFields}
+					handleInputChange={props.handleInputChange}
+				/>
+				{tagsAndRelatedSkillsSection()}
+				{buttonSection()}
+			</div>
+		</form>
 	);
 };
 

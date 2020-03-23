@@ -1,36 +1,70 @@
 // mixins
 @import "../../../../scss/_mixins";
-
-.skill-container {
-	padding: 0 1em;
-
-	h2 {
-		margin: 10px 0 20px;
-		text-align: center;
-	}
-
-	form {
-		background: #ddd;
-		color: #212529;
-		border: 1px solid black;
-		padding: 0.5em 0 1em;
-
-		.form-group {
-			margin-bottom: 0.5em;
-		}
-	}
-}
+@import "../../../../scss/_tsd";
 
 .fs-main {
-	justify-content: center;
+	display: flex;
+	justify-content: space-around;
+	padding: 24px;
+	max-width: 1300px;
+	margin: 24px auto;
 
-	section.skill-setup {
-		flex-grow: 2;
+	section.skill-crud-form {
+		flex-grow: 3;
 		max-width: 810px;
+		font-size: 14px;
+		background: white;
+		color: #212529;
+		padding: 2em 2em 1em;
+		width: 760px;
+		margin: 0 auto;
 
 		div[class^="col-"] {
 			padding-left: 8px;
 			padding-right: 8px;
+		}
+
+		h2 {
+			margin: 10px 0 20px;
+			text-align: center;
+		}
+
+		label.col-form-label {
+			text-align: right;
+		}
+
+		textarea {
+			resize: none;
+			overflow: auto;
+		}
+
+		.tabbed-section {
+			margin: 24px 0 36px;
+		}
+
+		.skill-related-section {
+			margin: 0 0 24px;
+
+			div.row {
+				margin: 8px;
+			}
+			h2 {
+				margin-bottom: 4px;
+			}
+
+			h2 + p {
+				text-align: center;
+				padding-top: 0;
+				margin-bottom: 20px;
+			}
+
+			.related-row {
+				margin: 0;
+
+				input {
+					margin: 0 4px;
+				}
+			}
 		}
 	}
 	section.skill-search {
@@ -42,7 +76,7 @@
 		flex-direction: column;
 
 		section.skill-search,
-		section.skill-setup {
+		section.skill-crud-form {
 			width: 100%;
 			margin: auto;
 		}
@@ -55,42 +89,6 @@
 .fs-btn-container {
 	button {
 		margin: 0 1em;
-	}
-}
-
-section.skill-setup {
-	label.col-form-label {
-		text-align: right;
-	}
-
-	textarea {
-		resize: none;
-		overflow: auto;
-	}
-
-	.skill-related-section {
-		margin: 0 0 24px;
-
-		div.row {
-			margin: 8px;
-		}
-		h2 {
-			margin-bottom: 4px;
-		}
-
-		h2 + p {
-			text-align: center;
-			padding-top: 0;
-			margin-bottom: 20px;
-		}
-
-		.related-row {
-			margin: 0;
-
-			input {
-				margin: 0 4px;
-			}
-		}
 	}
 }
 

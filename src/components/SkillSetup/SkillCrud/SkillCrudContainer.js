@@ -1,9 +1,9 @@
 /* SkillCrudContainer.js */
 import React, { Component } from "react";
 import SkillCrudForm from "./SkillCrudForm";
-import UserModalMsg from "../../UserModalMsg";
-import { objCopy, deepCompare } from "../../../assets/js/library";
-import dataFetch from "../../../assets/js/dataFetch";
+import UserModalMsg from "components/UserModalMsg";
+import { objCopy, deepCompare } from "assets/js/library";
+import dataFetch from "assets/js/dataFetch";
 import { isEmptyObject } from "assets/js/library";
 import Snackbar from "styledComponents/Snackbar";
 import getSkillsFromTree from "../getSkillsFromTree";
@@ -44,6 +44,19 @@ class SkillCrudContainer extends Component {
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
+
+	btns = [
+		{
+			display: "Yes",
+			action: this.clearForm
+		},
+		{
+			display: "No",
+			action: this.closeModalMsg
+		}
+	];
+
+	modalMsgBody = "Do you still want to clear the form?";
 
 	componentDidUpdate(prevProps) {
 		// Typical usage (don't forget to compare props):
@@ -131,19 +144,18 @@ class SkillCrudContainer extends Component {
 		}
 	};
 
-	handleInputChange = event => {
-		const target = event.target;
-		const value = target.type === "checkbox" ? target.checked : target.value;
+	handleInputChange = (value, name) => {
+		// const value = target.type === "checkbox" ? target.checked : target.value;
 
 		// check for changing edit mode by a change in the name field
-		target.name === "name" &&
+		name === "name" &&
 			this.props.handleChangeMode(value === "" ? 0 : this.state.tabIndex + 1);
 
 		let errs = {};
 		this.setState({
 			formFields: {
 				...this.state.formFields,
-				[target.name]: value
+				[name]: value
 			},
 			...errs
 		});
@@ -192,6 +204,24 @@ class SkillCrudContainer extends Component {
 		this.clearForm();
 	};
 
+	handleCancel = () => {
+		this.btns[0] = {
+			display: "Yes",
+			action: this.cancelForm
+		};
+		this.modalMsgBody = "Do you want to cancel your changes?";
+		this.openModalMsg();
+	};
+
+	cancelForm = () => {
+		this.setState(prev => {
+			return {
+				formFields: { ...objCopy(prev.origForm) },
+				dispModalMsg: false
+			};
+		});
+	};
+
 	clearForm = () => {
 		this.props.handleChangeMode(0);
 		this.setState({
@@ -205,12 +235,17 @@ class SkillCrudContainer extends Component {
 		});
 	};
 
-	checkDirtyForm = () => {
+	checkDirtyForm = (openModal = true) => {
 		const dirty = deepCompare(this.state.origForm, this.state.formFields)
 			? false
 			: true;
 		console.log("form is dirty: ", dirty);
-		if (dirty) {
+		if (dirty && openModal) {
+			this.btns[0] = {
+				display: "Yes",
+				action: this.clearForm
+			};
+			this.modalMsgBody = "Do you still want to clear the form?";
 			this.openModalMsg();
 		}
 		return dirty;
@@ -227,17 +262,6 @@ class SkillCrudContainer extends Component {
 			dispModalMsg: true
 		});
 	};
-
-	btns = [
-		{
-			display: "Yes",
-			action: this.clearForm
-		},
-		{
-			display: "No",
-			action: this.closeModalMsg
-		}
-	];
 
 	addToast = (text, action, autoHide = true, timeout = null) => {
 		const toast = { text, action, autoHide, timeout };
@@ -367,12 +391,14 @@ class SkillCrudContainer extends Component {
 					handleInputChange={this.handleInputChange}
 					handleDelRelatedSkill={this.handleDelRelatedSkill}
 					handleClear={this.handleClear}
+					handleCancel={this.handleCancel}
 					handleAddTag={this.handleAddTag}
 					handleAddRelatedSkill={this.handleAddRelatedSkill}
 					handleTagStartDrag={this.handleTagStartDrag}
 					handleDragOver={this.handleDragOver}
 					handleTagDrop={this.handleTagDrop}
 					handleSkillDrop={this.handleSkillDrop}
+					checkDirtyForm={this.checkDirtyForm}
 					{...this.props}
 				/>
 				{this.state.dispModalMsg && (
@@ -380,7 +406,7 @@ class SkillCrudContainer extends Component {
 						<UserModalMsg
 							heading="Warning"
 							subHeading="You have unsaved changes"
-							msgBody="Do you still want to clear the form?"
+							msgBody={this.modalMsgBody}
 							btns={this.btns}
 							closeModalMsg={this.closeModalMsg}
 						/>

@@ -253,7 +253,7 @@ const PersonSetupForm = props => {
 	const containerStyle = props.profile ? { marginTop: 0 } : {};
 
 	return (
-		<div style={{ ...containerStyle }} className="container-fluid person-main">
+		<div style={{ ...containerStyle }} className="person-main">
 			{dirtyMsg}
 			{props.heading && <h1>{props.heading}</h1>}
 			<div className="person-setup">
