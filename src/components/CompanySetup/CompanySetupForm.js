@@ -41,7 +41,7 @@ const PersonPopup = MakePopup(
 	PersonSetup,
 	{
 		left: "250px",
-		top: "10px",
+		top: "160px",
 		width: "1000px",
 		height: "95%",
 		overflowY: "auto"
@@ -53,7 +53,7 @@ const CompanySearchPopup = MakePopup(
 	CompanySearchContainer,
 	{
 		right: "100px",
-		top: "100px",
+		top: "170px",
 		width: "402px",
 		borderRadius: "20px"
 	},
