@@ -20,7 +20,8 @@ const PersonSearchPopup = MakePopup(
 	{
 		right: "100px",
 		top: "200px",
-		width: "402px"
+		width: "402px",
+		borderRadius: "20px"
 	},
 	true
 );

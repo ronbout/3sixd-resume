@@ -54,7 +54,8 @@ const CompanySearchPopup = MakePopup(
 	{
 		right: "100px",
 		top: "100px",
-		width: "402px"
+		width: "402px",
+		borderRadius: "20px"
 	},
 	true
 );
