@@ -35,7 +35,7 @@ import {
 	faPlus,
 	faCheck,
 	faArrowsAltV,
-	faCogs
+	faCogs,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -68,7 +68,7 @@ class App extends Component {
 		const storedUser = sessionStorage.getItem("user");
 		const userInfo = storedUser ? JSON.parse(storedUser) : false;
 		this.state = {
-			userInfo
+			userInfo,
 		};
 	}
 
@@ -78,7 +78,7 @@ class App extends Component {
 		sessionStorage.setItem("user", JSON.stringify(resp));
 		this.setState(
 			{
-				userInfo: resp
+				userInfo: resp,
 				// id, fullName, email, confirmFlag, securityLevel, candidateId
 			},
 			() => push && this.props.history.push(loc)
@@ -90,7 +90,7 @@ class App extends Component {
 		sessionStorage.setItem("user", false);
 		this.setState(
 			{
-				userInfo: false
+				userInfo: false,
 				// id, fullName, email, confirmFlag, securityLevel, candidateId
 			},
 			() => {
@@ -104,7 +104,7 @@ class App extends Component {
 		const authValue = {
 			userInfo: this.state.userInfo,
 			handleLogin: this.handleLogin,
-			handleLogout: this.handleLogout
+			handleLogout: this.handleLogout,
 		};
 		return (
 			<UserContext.Provider value={authValue}>
