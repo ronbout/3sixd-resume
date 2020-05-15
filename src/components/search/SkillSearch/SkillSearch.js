@@ -6,8 +6,8 @@ import { convertHtmlToText } from "assets/js/library";
 import { Card, CardTitle, CardText } from "styledComponents/Card";
 import "./css/skillSearch.css";
 
-const SkillSearch = props => {
-	const handleKeyPress = event => {
+const SkillSearch = (props) => {
+	const handleKeyPress = (event) => {
 		if (event.key === "Enter") {
 			event && event.preventDefault();
 			props.handleSearch();
@@ -51,7 +51,7 @@ const SkillSearch = props => {
 						textProps={{
 							value: props.state.formFields.keyword,
 							onChange: (val, e) => props.handleInputChange(e),
-							onKeyPress: handleKeyPress
+							onKeyPress: handleKeyPress,
 						}}
 						onSearch={props.handleSearch}
 					/>
@@ -97,10 +97,10 @@ const SkillSearch = props => {
 											key={ndx}
 											data-value={ndx}
 											draggable={true}
-											onDragStart={event =>
+											onDragStart={(event) =>
 												props.handleDragStart(skillInfo, ndx, event)
 											}
-											onDragEnd={event => event.stopPropagation()}
+											onDragEnd={(event) => event.stopPropagation()}
 											onClick={() => props.handleSkillClick(ndx)}
 											onDoubleClick={props.handleSelect}
 											title={
@@ -123,36 +123,40 @@ const SkillSearch = props => {
 						)}
 					</div>
 					<p>Hover over skill for more details</p>
-					{/* Select and, if prop, Close Buttons */}
-					<div
-						className="search-skills-buttons mt-3"
-						style={{ textAlign: "center" }}
-					>
-						<Button
-							type="button"
-							variant="raised"
-							color="primary"
-							onClick={props.handleSelect}
-							disabled={
-								!(
-									props.state.skillOptions &&
-									props.state.skillOptions.length > 0
-								) || props.editMode === 1
-							}
-						>
-							{props.searchButton}
-						</Button>
-						{props.state.closeBtn && (
-							<Button
-								type="button"
-								variant="raised"
-								className="btn btn-info"
-								onClick={props.state.closeBtn}
+					{
+						/* in cases of drag only selection, no buttons */
+						!props.hideButtons && (
+							<div
+								className="search-skills-buttons mt-3"
+								style={{ textAlign: "center" }}
 							>
-								Close
-							</Button>
-						)}
-					</div>
+								<Button
+									type="button"
+									variant="raised"
+									color="primary"
+									onClick={props.handleSelect}
+									disabled={
+										!(
+											props.state.skillOptions &&
+											props.state.skillOptions.length > 0
+										) || props.editMode === 1
+									}
+								>
+									{props.searchButton}
+								</Button>
+								{props.state.closeBtn && (
+									<Button
+										type="button"
+										variant="raised"
+										className="btn btn-info"
+										onClick={props.state.closeBtn}
+									>
+										Close
+									</Button>
+								)}
+							</div>
+						)
+					}
 				</div>
 			</CardText>
 		</Card>
