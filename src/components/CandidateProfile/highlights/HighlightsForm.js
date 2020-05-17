@@ -4,7 +4,7 @@ import TextAreaBase from "styledComponents/TextAreaBase";
 import Button from "styledComponents/Button";
 import HighlightsTable from "./HighlightsTable";
 
-const HighlightsForm = props => {
+const HighlightsForm = (props) => {
 	const {
 		actions,
 		highlights,
@@ -14,11 +14,12 @@ const HighlightsForm = props => {
 		listingCallbacks,
 		candId,
 		tableHeight,
-		setAutoFocus = true
+		setAutoFocus = true,
+		setShowSkills,
 	} = props;
 
 	const addHighlight = () => {
-		const handleKeyDown = ev => {
+		const handleKeyDown = (ev) => {
 			const key = ev.key;
 			if (key === "Enter") {
 				props.handleAddHighlight(newHighlight);
@@ -65,7 +66,7 @@ const HighlightsForm = props => {
 	const highlightList = () => {
 		const sortHighlights = highlights.sort((a, b) => a.sequence - b.sequence);
 		const listingParms = {
-			includeSummaryButton: includeInSummary === true ? true : false
+			includeSummaryButton: includeInSummary === true ? true : false,
 		};
 		return (
 			<HighlightsTable
@@ -75,6 +76,7 @@ const HighlightsForm = props => {
 				handleSkillsChange={props.handleSkillsChange}
 				candId={candId}
 				tableHeight={tableHeight}
+				setShowSkills={setShowSkills}
 			/>
 		);
 	};

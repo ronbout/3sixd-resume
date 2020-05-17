@@ -11,7 +11,7 @@ import dataFetch from "assets/js/dataFetch";
 const API_CANDIDATES = "candidates/";
 const API_CERTIFICATIONS = "/certifications";
 
-const CandidateCertificationsContainer = props => {
+const CandidateCertificationsContainer = (props) => {
 	const [delNdx, setDelNdx] = useState(-1);
 	const [editNdx, setEditNdx] = useState(false);
 	const [certifications, setCertifications] = useState(
@@ -26,7 +26,7 @@ const CandidateCertificationsContainer = props => {
 		description: "",
 		issueDate: "",
 		certificateImage: "",
-		skills: []
+		skills: [],
 	};
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
@@ -38,10 +38,10 @@ const CandidateCertificationsContainer = props => {
 		setToast({});
 	};
 
-	const updateCertifications = async certifications => {
+	const updateCertifications = async (certifications) => {
 		closeToast();
 		let body = {
-			certifications
+			certifications,
 		};
 		const id = props.candId;
 		const httpMethod = "PUT";
@@ -60,7 +60,7 @@ const CandidateCertificationsContainer = props => {
 		}
 	};
 
-	const handleDelCertification = ndx => {
+	const handleDelCertification = (ndx) => {
 		setDelNdx(ndx);
 	};
 
@@ -84,18 +84,20 @@ const CandidateCertificationsContainer = props => {
 			onClick={confirmedDelete}
 		>
 			Delete
-		</Button>
+		</Button>,
 	];
 
-	const handleDispEditModal = ndx => {
+	const handleDispEditModal = (ndx) => {
 		setEditNdx(ndx);
+		props.setShowSkills && props.setShowSkills(false);
 	};
 
 	const handleCloseModal = () => {
 		setEditNdx(false);
+		props.setShowSkills && props.setShowSkills(true);
 	};
 
-	const handleSave = async cert => {
+	const handleSave = async (cert) => {
 		const tmp = objCopy(certifications.slice());
 		tmp[editNdx] = cert;
 		updateCertifications(tmp);
@@ -112,15 +114,13 @@ const CandidateCertificationsContainer = props => {
 
 	const handleCancel = () => {
 		setEditNdx(false);
-		// setCertifications(
-		// 	props.certifications ? objCopy(props.certifications) : []
-		// );
+		props.setShowSkills && props.setShowSkills(true);
 	};
 
 	const actions = {
 		delete: handleDelCertification,
 		edit: handleDispEditModal,
-		image: () => alert("display image")
+		image: () => alert("display image"),
 	};
 
 	return (

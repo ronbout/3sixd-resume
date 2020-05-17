@@ -13,8 +13,8 @@ const clearFormFields = {
 	formFields: {
 		keyword: "",
 		skillSelect: 0,
-		tagSelect: -1
-	}
+		tagSelect: -1,
+	},
 };
 
 class SkillSearchContainer extends Component {
@@ -28,7 +28,7 @@ class SkillSearchContainer extends Component {
 			tagOptions: [],
 			openTagOptions: false,
 			loading: true,
-			closeBtn: this.props.closeBtn || false
+			closeBtn: this.props.closeBtn || false,
 		};
 	}
 
@@ -44,7 +44,7 @@ class SkillSearchContainer extends Component {
 			result = [];
 		}
 		this.setState({
-			tagOptions: result ? result : []
+			tagOptions: result ? result : [],
 		});
 	}
 
@@ -60,10 +60,10 @@ class SkillSearchContainer extends Component {
 		}
 	}
 
-	handleSearch = async event => {
+	handleSearch = async (event) => {
 		event && event.preventDefault();
 		this.setState({
-			loading: true
+			loading: true,
 		});
 		let apiQuery = "";
 		let skillApi;
@@ -96,12 +96,12 @@ class SkillSearchContainer extends Component {
 		} else {
 			this.setState({
 				skillOptions: result ? result : [],
-				loading: false
+				loading: false,
 			});
 		}
 	};
 
-	handleInputChange = event => {
+	handleInputChange = (event) => {
 		// only 1 field: keyword
 		const target = event.target;
 		const value = target.value;
@@ -109,9 +109,9 @@ class SkillSearchContainer extends Component {
 		this.setState({
 			formFields: {
 				...this.state.formFields,
-				keyword: value
+				keyword: value,
 			},
-			...errs
+			...errs,
 		});
 	};
 
@@ -128,8 +128,8 @@ class SkillSearchContainer extends Component {
 		this.setState({
 			formFields: {
 				...this.state.formFields,
-				skillSelect: ndx
-			}
+				skillSelect: ndx,
+			},
 		});
 	};
 
@@ -139,8 +139,8 @@ class SkillSearchContainer extends Component {
 				{
 					formFields: {
 						...this.state.formFields,
-						tagSelect: ndx
-					}
+						tagSelect: ndx,
+					},
 				},
 				this.handleSearch
 			);
@@ -150,14 +150,16 @@ class SkillSearchContainer extends Component {
 
 	handleDragStart = (skillInfo, ndx, event) => {
 		const skillTxt = JSON.stringify(skillInfo);
-		event.dataTransfer.setData("text/plain", skillTxt);
+		event.dataTransfer.setData("json/skill", skillTxt);
+		this.props.profileFlag &&
+			event.dataTransfer.setData("profile/skill", skillTxt);
 		this.handleSkillClick(ndx, event);
 		this.props.handleSkillStartDrag(skillInfo);
 		event.stopPropagation();
 	};
 
 	handleTagSelectFocus = () => {
-		this.setState(prevState => {
+		this.setState((prevState) => {
 			return { openTagOptions: !prevState.openTagOptions };
 		});
 	};

@@ -5,13 +5,13 @@ import MakeExpansion from "components/expansionPanels/MakeExpansion";
 import { CompObjContext } from "components/CandidateProfile/CompObjContext";
 import { isEqual } from "lodash";
 
-const ExperienceDiv = ({ experience, candId }) => {
+const ExperienceDiv = ({ experience, candId, setShowSkills }) => {
 	const { dispatch } = useContext(CompObjContext);
 
-	const handleSubmit = experience => {
+	const handleSubmit = (experience) => {
 		dispatch({
 			type: "UPDATE_CAND",
-			payload: { experience }
+			payload: { experience },
 		});
 	};
 
@@ -21,6 +21,7 @@ const ExperienceDiv = ({ experience, candId }) => {
 				experience={experience}
 				candId={candId}
 				handleSubmit={handleSubmit}
+				setShowSkills={setShowSkills}
 			/>
 		</section>
 	);
@@ -35,10 +36,14 @@ const ExpandExperienceDiv = MakeExpansion(
 	"386px"
 );
 
-const Experience = ({ experience, candId }) => {
+const Experience = ({ experience, candId, setShowSkills }) => {
 	return (
 		<section className="Experience profile-section">
-			<ExpandExperienceDiv experience={experience} candId={candId} />
+			<ExpandExperienceDiv
+				experience={experience}
+				candId={candId}
+				setShowSkills={setShowSkills}
+			/>
 		</section>
 	);
 };

@@ -6,7 +6,7 @@ import { highlightsReducer } from "./highlightsReducer";
 // import Button from "styledComponents/Button";
 import { isEqual } from "lodash";
 
-const HighlightsFormContainer = props => {
+const HighlightsFormContainer = (props) => {
 	const [highlights, dispatch] = useReducer(
 		highlightsReducer,
 		props.highlights
@@ -24,12 +24,12 @@ const HighlightsFormContainer = props => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [highlights]);
 
-	const passHighlightUp = tmpHighlights => {
+	const passHighlightUp = (tmpHighlights) => {
 		//console.log("pass highlight up: ", tmpHighlights);
 		props.handleHighlightChange && props.handleHighlightChange(tmpHighlights);
 	};
 
-	const handleOnChange = newHighlight => {
+	const handleOnChange = (newHighlight) => {
 		setNewHightlight(newHighlight);
 	};
 
@@ -38,7 +38,7 @@ const HighlightsFormContainer = props => {
 		setNewHightlight("");
 	};
 
-	const handleDelHighlight = delNdx => {
+	const handleDelHighlight = (delNdx) => {
 		dispatch({ type: "delHighlight", delNdx });
 		// setDelNdx(ndx);
 	};
@@ -77,7 +77,7 @@ const HighlightsFormContainer = props => {
 		setSkills(newSkills);
 	};
 
-	const handleIncludeSummary = ndx => {
+	const handleIncludeSummary = (ndx) => {
 		let tmp = props.highlights.slice();
 		tmp[ndx].includeInSummary = !tmp[ndx].includeInSummary;
 		passHighlightUp(tmp);
@@ -86,11 +86,11 @@ const HighlightsFormContainer = props => {
 	const actions = {
 		delete: handleDelHighlight,
 		move: handleMoveHighlight,
-		edit: handleEditHighlight
+		edit: handleEditHighlight,
 	};
 
 	const listingCallbacks = {
-		handleIncludeSummary
+		handleIncludeSummary,
 	};
 
 	return (
@@ -109,6 +109,7 @@ const HighlightsFormContainer = props => {
 				candId={props.candId}
 				tableHeight={props.tableHeight || 360}
 				setAutoFocus={props.setAutoFocus}
+				setShowSkills={props.setShowSkills}
 			/>
 			{/*false && (
 				<DialogContainer

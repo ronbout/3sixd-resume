@@ -11,7 +11,7 @@ import dataFetch from "assets/js/dataFetch";
 const API_CANDIDATES = "candidates/";
 const API_EDUCATION = "/education";
 
-const CandidateEducationContainer = props => {
+const CandidateEducationContainer = (props) => {
 	const [delNdx, setDelNdx] = useState(-1);
 	const [editNdx, setEditNdx] = useState(false);
 	const [sortEducation, setSortEducation] = useState(
@@ -34,7 +34,7 @@ const CandidateEducationContainer = props => {
 		degreeMinor: "",
 		startDate: "",
 		endDate: "",
-		skills: []
+		skills: [],
 	};
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
@@ -46,10 +46,10 @@ const CandidateEducationContainer = props => {
 		setToast({});
 	};
 
-	const updateEducation = async education => {
+	const updateEducation = async (education) => {
 		closeToast();
 		let body = {
-			education
+			education,
 		};
 		const id = props.candId;
 		const httpMethod = "PUT";
@@ -70,7 +70,7 @@ const CandidateEducationContainer = props => {
 		}
 	};
 
-	const handleDelEducation = ndx => {
+	const handleDelEducation = (ndx) => {
 		setDelNdx(ndx);
 	};
 
@@ -94,18 +94,20 @@ const CandidateEducationContainer = props => {
 			onClick={confirmedDelete}
 		>
 			Delete
-		</Button>
+		</Button>,
 	];
 
-	const handleDispEditModal = ndx => {
+	const handleDispEditModal = (ndx) => {
 		setEditNdx(ndx);
+		props.setShowSkills && props.setShowSkills(false);
 	};
 
 	const handleCloseModal = () => {
 		setEditNdx(false);
+		props.setShowSkills && props.setShowSkills(true);
 	};
 
-	const handleSave = async ed => {
+	const handleSave = async (ed) => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp[editNdx] = ed;
 		updateEducation(tmp);
@@ -122,16 +124,12 @@ const CandidateEducationContainer = props => {
 
 	const handleCancel = () => {
 		setEditNdx(false);
-		// setSortEducation(
-		// 	props.education
-		// 		? objCopy(props.education).sort((a, b) => a.startDate - b.startDate)
-		// 		: []
-		// );
+		props.setShowSkills && props.setShowSkills(true);
 	};
 
 	const actions = {
 		delete: handleDelEducation,
-		edit: handleDispEditModal
+		edit: handleDispEditModal,
 	};
 
 	return (

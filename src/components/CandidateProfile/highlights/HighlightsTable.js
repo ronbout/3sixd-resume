@@ -7,7 +7,7 @@ import {
 	TableHeader,
 	TableBody,
 	TableRow,
-	TableColumn
+	TableColumn,
 } from "styledComponents/DataTables";
 import "./css/highlights.css";
 import { objCopy } from "assets/js/library";
@@ -21,7 +21,8 @@ const HighlightsTable = ({
 	actions,
 	handleSkillsChange,
 	candId,
-	tableHeight = 360
+	tableHeight = 360,
+	setShowSkills,
 }) => {
 	const [highlights, setHighlights] = useState(objCopy(highlightsData));
 	const [editNdx, setEditNdx] = useState(listingParms.setEditNdx);
@@ -49,6 +50,7 @@ const HighlightsTable = ({
 				break;
 			case "edit":
 				setEditNdx(ndx);
+				setShowSkills && setShowSkills(!(ndx >= 0));
 				break;
 			default:
 				console.log("invalid action");
@@ -57,6 +59,7 @@ const HighlightsTable = ({
 
 	const hideEditDialog = () => {
 		setEditNdx(-1);
+		setShowSkills && setShowSkills(true);
 	};
 
 	const onHighlightChange = (ndx, highlight) => {
@@ -118,11 +121,11 @@ const HighlightsTable = ({
 								tooltipStyle: { background: "#ddd", color: "black" },
 								tooltipDelay: 500,
 								tooltipPosition: position,
-								tooltipLabel: skills.map(s => (
+								tooltipLabel: skills.map((s) => (
 									<p key={`${id}-${s.id}`}>
 										{s.id}-{s.name}
 									</p>
-								))
+								)),
 							};
 						}
 
@@ -138,7 +141,7 @@ const HighlightsTable = ({
 										overflow: "hidden",
 										whiteSpace: "nowrap",
 										textOverflow: "ellipsis",
-										paddingRight: "16px"
+										paddingRight: "16px",
 									}}
 									title={highlight}
 								>

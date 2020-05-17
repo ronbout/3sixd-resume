@@ -61,6 +61,7 @@ class CandidateProfile extends Component {
 			formFields: candidateInfo,
 			candId,
 			errMsg,
+			showSkills: true,
 		};
 		this.state.origForm = objCopy(this.state.formFields);
 	}
@@ -90,8 +91,13 @@ class CandidateProfile extends Component {
 		}
 	};
 
+	setShowSkills = (flag) => {
+		this.setState({ showSkills: flag });
+	};
+
 	render() {
 		const socialMedia = this.state.formFields.socialMedia;
+		const skillPopupVisibility = this.state.showSkills ? "visibile" : "hidden";
 		return (
 			<React.Fragment>
 				{this.state.errMsg ? (
@@ -118,18 +124,22 @@ class CandidateProfile extends Component {
 										<Highlights
 											highlights={this.state.formFields.candidateHighlights}
 											candId={this.state.candId}
+											setShowSkills={this.setShowSkills}
 										/>
 										<Experience
 											experience={this.state.formFields.experience}
 											candId={this.state.candId}
+											setShowSkills={this.setShowSkills}
 										/>
 										<Education
 											education={this.state.formFields.education}
 											candId={this.state.candId}
+											setShowSkills={this.setShowSkills}
 										/>
 										<Certifications
 											certifications={this.state.formFields.certifications}
 											candId={this.state.candId}
+											setShowSkills={this.setShowSkills}
 										/>
 										<SocialMedia
 											linkedInLink={
@@ -150,15 +160,19 @@ class CandidateProfile extends Component {
 										/>
 									</ExpansionList>
 								</div>
-								<SkillSearchPopup
-									editMode="1"
-									searchButton="Add Skill"
-									forceRefresh={false}
-									handleSkillSelect={() => null}
-									handleSkillStartDrag={() => null}
-									closeBtn={() => null}
-									hideButtons={true}
-								/>
+								{this.state.showSkills && (
+									<SkillSearchPopup
+										editMode="1"
+										searchButton="Add Skill"
+										forceRefresh={false}
+										handleSkillSelect={() => null}
+										handleSkillStartDrag={() => null}
+										closeBtn={() => null}
+										hideButtons={true}
+										profileFlag={true}
+										popupStyles={{ visibility: skillPopupVisibility }}
+									/>
+								)}
 							</React.Fragment>
 						) : (
 							<h2>Loading Candidate data...</h2>

@@ -12,7 +12,7 @@ const SkillSearchPopup = MakePopup(
 		right: "60px",
 		top: "152px",
 		width: "344px",
-		borderRadius: "20px"
+		borderRadius: "20px",
 	},
 	true
 );
@@ -22,7 +22,7 @@ const SkillList = ({
 	candId,
 	handleSkillsChange,
 	editFlag,
-	dispSearch = true
+	dispSearch = true,
 }) => {
 	const [dispSkillSearchFlag, setDispSkillSearchFlag] = useState(dispSearch);
 	const [skillDrag, setSkillDrag] = useState(false);
@@ -31,10 +31,10 @@ const SkillList = ({
 		setDispSkillSearchFlag(true);
 	};
 
-	const handleAddSkill = async skillInfo => {
+	const handleAddSkill = async (skillInfo) => {
 		// check for duplicate
 		if (
-			skills.some(skill => {
+			skills.some((skill) => {
 				return skill.id === skillInfo.id;
 			})
 		)
@@ -67,7 +67,7 @@ const SkillList = ({
 		return csId;
 	};
 
-	const handleDelSkill = ndx => {
+	const handleDelSkill = (ndx) => {
 		let tmpSkills = skills.slice();
 		tmpSkills.splice(ndx, 1);
 		handleSkillsChange(tmpSkills);
@@ -77,21 +77,26 @@ const SkillList = ({
 		setDispSkillSearchFlag(false);
 	};
 
-	const handleSkillStartDrag = skillInfo => {
+	const handleSkillStartDrag = (skillInfo) => {
 		setSkillDrag(skillInfo);
 	};
 
-	const handleSkillDrop = event => {
+	const handleSkillDrop = (event) => {
 		event.preventDefault && event.preventDefault();
+		// console.log(
+		// 	"drop event get data json/skill: ",
+		// 	event.dataTransfer.getData("json/skill")
+		// );
 		skillDrag && handleAddSkill(skillDrag);
 	};
 
-	const handleDragOver = event => {
+	const handleDragOver = (event) => {
 		event.preventDefault && event.preventDefault();
+		event.dataTransfer.dropEffect = "move";
 		return false;
 	};
 
-	const handleDragEnd = event => {
+	const handleDragEnd = (event) => {
 		if (skillDrag) {
 			// we are either dragging the entire skill search component
 			// or just a single skill to add.  This will fire after the

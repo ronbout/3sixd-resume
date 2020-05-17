@@ -10,7 +10,7 @@ import { isEqual } from "lodash";
 const API_CANDIDATES = "candidates/";
 const API_HIGHLIGHTS = "/highlights";
 
-const HighlightsContainer = props => {
+const HighlightsContainer = (props) => {
 	const [highlights, setHighlights] = useState(objCopy(props.highlights));
 	const [origHighlights, setOrigHighlights] = useState(
 		objCopy(props.highlights)
@@ -23,7 +23,7 @@ const HighlightsContainer = props => {
 		setOrigHighlights(objCopy(props.highlights));
 	}, [props.highlights]);
 
-	const handleSubmit = async event => {
+	const handleSubmit = async (event) => {
 		event && event.preventDefault();
 		// api update and then pass new data up
 		postHighlights();
@@ -50,7 +50,7 @@ const HighlightsContainer = props => {
 	const postHighlights = async () => {
 		closeToast();
 		let body = {
-			highlights
+			highlights,
 		};
 		const id = props.candId;
 		const httpMethod = "PUT";
@@ -67,7 +67,7 @@ const HighlightsContainer = props => {
 		}
 	};
 
-	const handleHighlightChange = highlights => {
+	const handleHighlightChange = (highlights) => {
 		setHighlights(highlights);
 	};
 
@@ -79,6 +79,7 @@ const HighlightsContainer = props => {
 				includeInSummary={false}
 				heading={false}
 				candId={props.candId}
+				setShowSkills={props.setShowSkills}
 			/>
 			<HighlightsFooter
 				disableSubmit={isEqual(origHighlights, highlights)}
