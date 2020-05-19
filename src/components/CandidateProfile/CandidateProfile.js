@@ -97,7 +97,6 @@ class CandidateProfile extends Component {
 
 	render() {
 		const socialMedia = this.state.formFields.socialMedia;
-		const skillPopupVisibility = this.state.showSkills ? "visibile" : "hidden";
 		return (
 			<React.Fragment>
 				{this.state.errMsg ? (
@@ -160,19 +159,17 @@ class CandidateProfile extends Component {
 										/>
 									</ExpansionList>
 								</div>
-								{this.state.showSkills && (
-									<SkillSearchPopup
-										editMode="1"
-										searchButton="Add Skill"
-										forceRefresh={false}
-										handleSkillSelect={() => null}
-										handleSkillStartDrag={() => null}
-										closeBtn={() => null}
-										hideButtons={true}
-										profileFlag={true}
-										popupStyles={{ visibility: skillPopupVisibility }}
-									/>
-								)}
+								<SkillSearchPopup
+									editMode="1"
+									searchButton="Add Skill"
+									forceRefresh={false}
+									handleSkillSelect={() => null}
+									handleSkillStartDrag={() => null}
+									closeBtn={() => null}
+									hideButtons={true}
+									profileFlag={true}
+									visibility={this.state.showSkills ? "visible" : "hidden"}
+								/>
 							</React.Fragment>
 						) : (
 							<h2>Loading Candidate data...</h2>

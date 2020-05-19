@@ -14,25 +14,7 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
 
 			// could have styles that are only available when the
 			// popup is called and not when MakePop is run
-
-			const moreStyles = props.popupStyles ? props.popupStyles : {};
-
-			const popupStyle = {
-				boxShadow: "10px 10px 6px 3px rgba(150,150,150,0.5)",
-				position: draggable ? "fixed" : "absolute",
-				opacity: "1",
-				zIndex: "5000",
-				left: "50px",
-				top: "100px",
-				background: "#aaa",
-				...styles,
-				...moreStyles,
-			};
-			// if right positioning is part of the styles paramter,
-			// have to remove the left property in popupStyle
-			if (styles.right) {
-				delete popupStyle.left;
-			}
+			const popupStyle = this.buildPopupStyle();
 
 			this.state = {
 				popupStyle,
@@ -52,6 +34,36 @@ const MakePopup = (PopupComponent, styles = {}, draggable = false) => {
 				  }
 				: {};
 		}
+
+		componentDidUpdate(prevProps) {
+			if (prevProps.visibility !== this.props.visibility) {
+				const popupStyle = this.buildPopupStyle();
+				this.setState({ popupStyle });
+			}
+		}
+
+		buildPopupStyle = () => {
+			const moreStyles = this.props.visibility
+				? { visibility: this.props.visibility }
+				: {};
+			const popupStyle = {
+				boxShadow: "10px 10px 6px 3px rgba(150,150,150,0.5)",
+				position: draggable ? "fixed" : "absolute",
+				opacity: "1",
+				zIndex: "5000",
+				left: "50px",
+				top: "100px",
+				background: "#aaa",
+				...styles,
+				...moreStyles,
+			};
+			// if right positioning is part of the styles paramter,
+			// have to remove the left property in popupStyle
+			if (styles.right) {
+				delete popupStyle.left;
+			}
+			return popupStyle;
+		};
 
 		handleDragStart = (event) => {
 			// have to figure out offset from where the mouse is in the div
