@@ -9,6 +9,7 @@ import {
 	TableRow,
 	TableColumn,
 } from "styledComponents/DataTables";
+import handleAddSkill from "components/SkillSetup/SkillList/handleAddSkill";
 import "./css/highlights.css";
 import { objCopy } from "assets/js/library";
 
@@ -82,6 +83,29 @@ const HighlightsTable = ({
 	// 	setSelectCount(count);
 	// };
 
+	const handleDragOver = (event, ndx) => {
+		event.preventDefault && event.preventDefault();
+		event.dataTransfer.dropEffect = "move";
+		// console.log("drag over index: ", ndx);
+	};
+
+	const handleDragEnd = (event, ndx) => {
+		console.log("drag end index: ", ndx);
+	};
+
+	const handleSkillDrop = (event, ndx) => {
+		event.preventDefault && event.preventDefault();
+		if (ndx <= 0 || ndx > highlights.length) return;
+		console.log("skill drop index: ", ndx);
+		const skillInfo = JSON.parse(event.dataTransfer.getData("profile/skill"));
+		console.log("skill drop info: ", skillInfo);
+		const skills = highlights[ndx].skills;
+		// use handleAddSkill from SkillList code to add skill
+		handleAddSkill(skills, skillInfo, candId, (newSkills) =>
+			handleSkillsChange(newSkills, ndx)
+		);
+	};
+
 	return (
 		<Card tableCard className="highlights-section">
 			<TableCardHeader
@@ -130,7 +154,12 @@ const HighlightsTable = ({
 						}
 
 						return (
-							<TableRow key={`hrow-${sequence}`}>
+							<TableRow
+								key={`hrow-${sequence}`}
+								onDragOver={(ev) => handleDragOver(ev, i)}
+								onDragEnd={(ev) => handleDragEnd(ev, i)}
+								onDrop={(ev) => handleSkillDrop(ev, i)}
+							>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									{i + 1}
 								</TableColumn>
