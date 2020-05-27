@@ -95,7 +95,7 @@ const HighlightsTable = ({
 
 	const handleSkillDrop = (event, ndx) => {
 		event.preventDefault && event.preventDefault();
-		if (ndx <= 0 || ndx > highlights.length) return;
+		if (ndx < 0 || ndx > highlights.length) return;
 		console.log("skill drop index: ", ndx);
 		const skillInfo = JSON.parse(event.dataTransfer.getData("profile/skill"));
 		console.log("skill drop info: ", skillInfo);
