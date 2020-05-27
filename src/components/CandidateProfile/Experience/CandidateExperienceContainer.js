@@ -152,6 +152,7 @@ const CandidateExperienceContainer = (props) => {
 		// set editNdx to this new element
 		sortJobs.push(emptyExperience);
 		setEditNdx(sortJobs.length - 1);
+		props.setShowSkills && props.setShowSkills(false);
 	};
 
 	const handleCancel = () => {

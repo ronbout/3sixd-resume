@@ -120,6 +120,7 @@ const CandidateEducationContainer = (props) => {
 		// set editNdx to this new element
 		sortEducation.push(emptyEducation);
 		setEditNdx(sortEducation.length - 1);
+		props.setShowSkills && props.setShowSkills(false);
 	};
 
 	const handleCancel = () => {

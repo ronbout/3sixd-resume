@@ -110,6 +110,7 @@ const CandidateCertificationsContainer = (props) => {
 		// set editNdx to this new element
 		certifications.push(emptyCertification);
 		setEditNdx(certifications.length - 1);
+		props.setShowSkills && props.setShowSkills(false);
 	};
 
 	const handleCancel = () => {
