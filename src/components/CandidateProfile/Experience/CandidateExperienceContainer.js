@@ -93,6 +93,15 @@ const CandidateExperienceContainer = (props) => {
 			addToast("An unknown error has occurred", "Close", false);
 			return false;
 		} else {
+			/**
+			 *
+			 *
+			 * do I need to update the job id's here??
+			 * adding a new job does not update the component
+			 * data with the returned id
+			 *
+			 *
+			 */
 			addToast("Experience has been updated");
 			props.handleSubmit(experiences);
 			setSortJobs(
@@ -142,7 +151,6 @@ const CandidateExperienceContainer = (props) => {
 	const handleSave = async (exp) => {
 		const tmp = sortJobs.slice();
 		tmp[editNdx] = exp;
-		updateExperience(tmp);
 		const tst = await updateExperience(tmp);
 		tst && handleCloseModal();
 	};
@@ -175,6 +183,7 @@ const CandidateExperienceContainer = (props) => {
 				handleSave={handleSave}
 				handleCancel={handleCancel}
 				candId={props.candId}
+				updateExperience={updateExperience}
 			/>
 			<DialogContainer
 				id="delete-dialog"

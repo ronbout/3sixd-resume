@@ -4,7 +4,7 @@ import CandidateExperienceTable from "./CandidateExperienceTable";
 import CandidateExperienceCrud from "./CandidateExperienceCrud";
 import Modal from "components/Modal/";
 
-const CandidateExperience = props => {
+const CandidateExperience = (props) => {
 	const [sortJobs, setSortJobs] = useState(props.sortJobs);
 	const { actions, editNdx, handleAddNewJob } = props;
 
@@ -19,6 +19,8 @@ const CandidateExperience = props => {
 					jobs={sortJobs}
 					actions={actions}
 					onAddClick={handleAddNewJob}
+					candId={props.candId}
+					updateExperience={props.updateExperience}
 				/>
 			</div>
 		);
@@ -29,8 +31,8 @@ const CandidateExperience = props => {
 			width: "1080px",
 			height: "780px",
 			minWidth: "960px",
-			margin: "auto"
-		}
+			margin: "auto",
+		},
 	};
 
 	return (

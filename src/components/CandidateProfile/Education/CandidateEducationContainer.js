@@ -110,7 +110,6 @@ const CandidateEducationContainer = (props) => {
 	const handleSave = async (ed) => {
 		const tmp = objCopy(sortEducation.slice());
 		tmp[editNdx] = ed;
-		updateEducation(tmp);
 		const tst = await updateEducation(tmp);
 		tst && handleCloseModal();
 	};

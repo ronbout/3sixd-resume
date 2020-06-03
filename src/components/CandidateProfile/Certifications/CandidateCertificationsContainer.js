@@ -100,7 +100,6 @@ const CandidateCertificationsContainer = (props) => {
 	const handleSave = async (cert) => {
 		const tmp = objCopy(certifications.slice());
 		tmp[editNdx] = cert;
-		updateCertifications(tmp);
 		const tst = await updateCertifications(tmp);
 		tst && handleCloseModal();
 	};
