@@ -56,12 +56,39 @@ const CandidateEducationTable = ({
 						<TableColumn>School</TableColumn>
 						<TableColumn>Start Date</TableColumn>
 						<TableColumn>End Date</TableColumn>
+						<TableColumn
+							tooltipLabel="# of Skills attached"
+							tooltipDelay={500}
+							tooltipPosition="left"
+							style={{ paddingLeft: "28px" }}
+						>
+							Skills
+						</TableColumn>
 						<TableColumn>Edit</TableColumn>
 						<TableColumn>Delete</TableColumn>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{education.map((ed, ndx) => {
+						let skillsTooltip = {};
+						if (ed.skills.length) {
+							const position =
+								ndx < 3
+									? "bottom"
+									: ndx > education.length - 3
+									? "top"
+									: "left";
+							skillsTooltip = {
+								tooltipStyle: { background: "#ddd", color: "black" },
+								tooltipDelay: 500,
+								tooltipPosition: position,
+								tooltipLabel: ed.skills.map((s) => (
+									<p key={`${ed.id}-${s.id}`}>
+										{s.id}-{s.name}
+									</p>
+								)),
+							};
+						}
 						return (
 							<TableRow
 								key={ndx}
@@ -80,6 +107,20 @@ const CandidateEducationTable = ({
 								</TableColumn>
 								<TableColumn style={columnStylePadding}>
 									{ed.endDate.slice(0, 7) || " "}
+								</TableColumn>
+								<TableColumn
+									style={{ paddingRight: "16px" }}
+									className={ed.skills.length ? "" : "md-text--error"}
+									{...skillsTooltip}
+								>
+									<Button
+										variant="flat"
+										onClick={() => {
+											actions.edit(ndx);
+										}}
+									>
+										{ed.skills.length ? ed.skills.length : "--"}
+									</Button>
 								</TableColumn>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									<Button

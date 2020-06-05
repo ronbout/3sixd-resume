@@ -56,6 +56,14 @@ const CandidateExperienceTable = ({
 						<TableColumn>Company Name</TableColumn>
 						<TableColumn>Start Date</TableColumn>
 						<TableColumn>End Date</TableColumn>
+						<TableColumn
+							tooltipLabel="# of Skills attached"
+							tooltipDelay={500}
+							tooltipPosition="left"
+							style={{ paddingLeft: "28px" }}
+						>
+							Skills
+						</TableColumn>
 						<TableColumn>Edit</TableColumn>
 						<TableColumn>Delete</TableColumn>
 					</TableRow>
@@ -63,6 +71,21 @@ const CandidateExperienceTable = ({
 				<TableBody>
 					{jobs.map((job, ndx) => {
 						const editClass = ndx === lastEdit ? "md-btn--hover" : "";
+						let skillsTooltip = {};
+						if (job.skills.length) {
+							const position =
+								ndx < 3 ? "bottom" : ndx > jobs.length - 3 ? "top" : "left";
+							skillsTooltip = {
+								tooltipStyle: { background: "#ddd", color: "black" },
+								tooltipDelay: 500,
+								tooltipPosition: position,
+								tooltipLabel: job.skills.map((s) => (
+									<p key={`${job.id}-${s.id}`}>
+										{s.id}-{s.name}
+									</p>
+								)),
+							};
+						}
 						return (
 							<TableRow
 								key={ndx}
@@ -75,6 +98,21 @@ const CandidateExperienceTable = ({
 								<TableColumn>{job.startDate.slice(0, 7)}</TableColumn>
 								<TableColumn>
 									{job.endDate ? job.endDate.slice(0, 7) : "current"}
+								</TableColumn>
+								<TableColumn
+									style={{ paddingRight: "16px" }}
+									className={job.skills.length ? "" : "md-text--error"}
+									{...skillsTooltip}
+								>
+									<Button
+										variant="flat"
+										onClick={() => {
+											actions.edit(ndx);
+											setLastEdit(ndx);
+										}}
+									>
+										{job.skills.length ? job.skills.length : "--"}
+									</Button>
 								</TableColumn>
 								<TableColumn style={{ paddingRight: "16px" }}>
 									<Button
