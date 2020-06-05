@@ -4,9 +4,9 @@ import CandidateEducationTable from "./CandidateEducationTable";
 import CandidateEducationCrud from "./CandidateEducationCrud";
 import Modal from "components/Modal/";
 
-const CandidateEducation = props => {
+const CandidateEducation = (props) => {
 	const [sortEducation, setSortEducation] = useState(props.sortEducation);
-	const { actions, editNdx, handleAddNewEducation } = props;
+	const { actions, editNdx, handleAddNewEducation, updateEducation } = props;
 
 	useEffect(() => {
 		setSortEducation(props.sortEducation);
@@ -19,6 +19,8 @@ const CandidateEducation = props => {
 					education={sortEducation}
 					actions={actions}
 					onAddClick={handleAddNewEducation}
+					candId={props.candId}
+					updateEducation={updateEducation}
 				/>
 			</div>
 		);
@@ -29,8 +31,8 @@ const CandidateEducation = props => {
 			width: "1080px",
 			height: "660px",
 			minWidth: "960px",
-			margin: "auto"
-		}
+			margin: "auto",
+		},
 	};
 
 	return (

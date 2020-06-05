@@ -142,6 +142,7 @@ const CandidateEducationContainer = (props) => {
 				handleSave={handleSave}
 				handleCancel={handleCancel}
 				candId={props.candId}
+				updateEducation={updateEducation}
 			/>
 			<DialogContainer
 				id="delete-dialog"

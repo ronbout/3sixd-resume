@@ -4,9 +4,14 @@ import CandidateCertificationsTable from "./CandidateCertificationsTable";
 import CandidateCertificationCrud from "./CandidateCertificationCrud";
 import Modal from "components/Modal/";
 
-const CandidateCertifications = props => {
+const CandidateCertifications = (props) => {
 	const [certifications, setCertifications] = useState(props.certifications);
-	const { actions, editNdx, handleAddNewCertification } = props;
+	const {
+		actions,
+		editNdx,
+		handleAddNewCertification,
+		updateCertifications,
+	} = props;
 
 	useEffect(() => {
 		setCertifications(props.certifications);
@@ -19,6 +24,8 @@ const CandidateCertifications = props => {
 					certifications={certifications}
 					actions={actions}
 					onAddClick={handleAddNewCertification}
+					candId={props.candId}
+					updateCertifications={updateCertifications}
 				/>
 			</div>
 		);
@@ -29,8 +36,8 @@ const CandidateCertifications = props => {
 			width: "1080px",
 			height: "660px",
 			minWidth: "960px",
-			margin: "auto"
-		}
+			margin: "auto",
+		},
 	};
 
 	return (

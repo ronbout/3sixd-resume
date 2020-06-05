@@ -133,6 +133,7 @@ const CandidateCertificationsContainer = (props) => {
 				handleSave={handleSave}
 				handleCancel={handleCancel}
 				candId={props.candId}
+				updateCertifications={updateCertifications}
 			/>
 			<DialogContainer
 				id="delete-dialog"

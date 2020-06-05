@@ -6,8 +6,9 @@ import {
 	TableHeader,
 	TableBody,
 	TableRow,
-	TableColumn
+	TableColumn,
 } from "styledComponents/DataTables";
+import handleAddSkill from "components/SkillSetup/SkillList/handleAddSkill";
 import Button from "styledComponents/Button";
 import TableActions from "./TableActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,8 +18,35 @@ const columnStylePadding = { paddingRight: "14px", minWidth: "70px" };
 const CandidateCertificationsTable = ({
 	certifications,
 	actions,
-	onAddClick
+	onAddClick,
+	candId,
+	updateCertifications,
 }) => {
+	const handleDragOver = (event, ndx) => {
+		event.preventDefault && event.preventDefault();
+		event.dataTransfer.dropEffect = "move";
+		// console.log("drag over index: ", ndx);
+	};
+
+	const handleDragEnd = (event, ndx) => {
+		console.log("drag end index: ", ndx);
+	};
+
+	const handleSkillDrop = (event, ndx) => {
+		event.preventDefault && event.preventDefault();
+		if (ndx < 0 || ndx > certifications.length) return;
+		// console.log("skill drop index: ", ndx);
+		const skillInfo = JSON.parse(event.dataTransfer.getData("profile/skill"));
+		// console.log("skill drop info: ", skillInfo);
+		const skills = certifications[ndx].skills;
+		// console.log("skills before drop: ", skills);
+		// use handleAddSkill from SkillList code to add skill
+		handleAddSkill(skills, skillInfo, candId, (newSkills) => {
+			certifications[ndx].skills = newSkills;
+			// console.log("skills after drop: ", newSkills);
+			updateCertifications(certifications);
+		});
+	};
 	return (
 		<Card tableCard className="certifications-section">
 			<TableActions onAddClick={onAddClick} />
@@ -41,7 +69,12 @@ const CandidateCertificationsTable = ({
 				<TableBody>
 					{certifications.map((cert, ndx) => {
 						return (
-							<TableRow key={ndx}>
+							<TableRow
+								key={ndx}
+								onDragOver={(ev) => handleDragOver(ev, ndx)}
+								onDragEnd={(ev) => handleDragEnd(ev, ndx)}
+								onDrop={(ev) => handleSkillDrop(ev, ndx)}
+							>
 								<TableColumn style={columnStylePadding}>
 									{cert.name}
 								</TableColumn>

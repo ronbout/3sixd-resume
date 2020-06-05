@@ -6,14 +6,46 @@ import {
 	TableHeader,
 	TableBody,
 	TableRow,
-	TableColumn
+	TableColumn,
 } from "styledComponents/DataTables";
+import handleAddSkill from "components/SkillSetup/SkillList/handleAddSkill";
 import Button from "styledComponents/Button";
 import TableActions from "./TableActions";
 
 const columnStylePadding = { paddingRight: "14px", minWidth: "70px" };
 
-const CandidateEducationTable = ({ education, actions, onAddClick }) => {
+const CandidateEducationTable = ({
+	education,
+	actions,
+	onAddClick,
+	candId,
+	updateEducation,
+}) => {
+	const handleDragOver = (event, ndx) => {
+		event.preventDefault && event.preventDefault();
+		event.dataTransfer.dropEffect = "move";
+		// console.log("drag over index: ", ndx);
+	};
+
+	const handleDragEnd = (event, ndx) => {
+		console.log("drag end index: ", ndx);
+	};
+
+	const handleSkillDrop = (event, ndx) => {
+		event.preventDefault && event.preventDefault();
+		if (ndx < 0 || ndx > education.length) return;
+		// console.log("skill drop index: ", ndx);
+		const skillInfo = JSON.parse(event.dataTransfer.getData("profile/skill"));
+		// console.log("skill drop info: ", skillInfo);
+		const skills = education[ndx].skills;
+		// console.log("skills before drop: ", skills);
+		// use handleAddSkill from SkillList code to add skill
+		handleAddSkill(skills, skillInfo, candId, (newSkills) => {
+			education[ndx].skills = newSkills;
+			// console.log("skills after drop: ", newSkills);
+			updateEducation(education);
+		});
+	};
 	return (
 		<Card tableCard className="education-section">
 			<TableActions onAddClick={onAddClick} />
@@ -31,7 +63,12 @@ const CandidateEducationTable = ({ education, actions, onAddClick }) => {
 				<TableBody>
 					{education.map((ed, ndx) => {
 						return (
-							<TableRow key={ndx}>
+							<TableRow
+								key={ndx}
+								onDragOver={(ev) => handleDragOver(ev, ndx)}
+								onDragEnd={(ev) => handleDragEnd(ev, ndx)}
+								onDrop={(ev) => handleSkillDrop(ev, ndx)}
+							>
 								<TableColumn style={columnStylePadding}>
 									{ed.degreeName}
 								</TableColumn>

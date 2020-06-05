@@ -34,18 +34,15 @@ const CandidateExperienceTable = ({
 	const handleSkillDrop = (event, ndx) => {
 		event.preventDefault && event.preventDefault();
 		if (ndx < 0 || ndx > jobs.length) return;
-		console.log("skill drop index: ", ndx);
+		// console.log("skill drop index: ", ndx);
 		const skillInfo = JSON.parse(event.dataTransfer.getData("profile/skill"));
-		console.log("skill drop info: ", skillInfo);
+		// console.log("skill drop info: ", skillInfo);
 		const skills = jobs[ndx].skills;
-		console.log("skills before drop: ", skills);
+		// console.log("skills before drop: ", skills);
 		// use handleAddSkill from SkillList code to add skill
 		handleAddSkill(skills, skillInfo, candId, (newSkills) => {
-			// handleSkillsChange(newSkills, ndx)
-			// put new skills list into the jobs array
-			// and pass back up to updateExperience
 			jobs[ndx].skills = newSkills;
-			console.log("skills after drop: ", newSkills);
+			// console.log("skills after drop: ", newSkills);
 			updateExperience(jobs);
 		});
 	};
