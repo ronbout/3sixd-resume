@@ -43,27 +43,6 @@ const HighlightsFormContainer = (props) => {
 		// setDelNdx(ndx);
 	};
 
-	// const hideDelDialog = () => {
-	// 	setDelNdx(-1);
-	// };
-
-	// const confirmedDelete = () => {
-	// 	dispatch({ type: "delHighlight", delNdx });
-	// 	hideDelDialog();
-	// };
-
-	// const delDialogActions = [
-	// 	{ secondary: true, children: "Cancel", onClick: hideDelDialog },
-	// 	<Button
-	// 		className="btn btn-danger"
-	// 		variant="flat"
-	// 		color="primary"
-	// 		onClick={confirmedDelete}
-	// 	>
-	// 		Delete
-	// 	</Button>
-	// ];
-
 	const handleMoveHighlight = (ndx, newNdx) => {
 		dispatch({ type: "moveHighlight", ndx, newNdx });
 	};

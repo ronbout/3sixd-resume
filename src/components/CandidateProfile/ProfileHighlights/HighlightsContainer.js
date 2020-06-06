@@ -1,41 +1,23 @@
 import React, { useState, useEffect } from "react";
 import HighlightsFormContainer from "../highlights/HighlightsFormContainer";
-import DirtyModalMsg from "components/forms/DirtyModalMsg";
-import HighlightsFooter from "./HighlightsFooter";
 import Snackbar from "styledComponents/Snackbar";
 import { isEmptyObject, objCopy } from "assets/js/library";
 import dataFetch from "assets/js/dataFetch";
-import { isEqual } from "lodash";
 
 const API_CANDIDATES = "candidates/";
 const API_HIGHLIGHTS = "/highlights";
 
 const HighlightsContainer = (props) => {
 	const [highlights, setHighlights] = useState(objCopy(props.highlights));
-	const [origHighlights, setOrigHighlights] = useState(
-		objCopy(props.highlights)
-	);
-	const [dispDirtyMsg, setDispDirtyMsg] = useState(false);
 	const [toast, setToast] = useState({});
 
 	useEffect(() => {
 		setHighlights(objCopy(props.highlights));
-		setOrigHighlights(objCopy(props.highlights));
 	}, [props.highlights]);
 
-	const handleSubmit = async (event) => {
-		event && event.preventDefault();
+	const handleSubmit = async (highlights) => {
 		// api update and then pass new data up
-		postHighlights();
-	};
-
-	const handleCancel = () => {
-		setDispDirtyMsg(true);
-	};
-
-	const handleConfirmCancel = () => {
-		setDispDirtyMsg(false);
-		setHighlights(origHighlights);
+		postHighlights(highlights);
 	};
 
 	const addToast = (text, action, autoHide = true, timeout = null) => {
@@ -47,10 +29,10 @@ const HighlightsContainer = (props) => {
 		setToast({});
 	};
 
-	const postHighlights = async () => {
+	const postHighlights = async (newHighlights) => {
 		closeToast();
 		let body = {
-			highlights,
+			highlights: newHighlights,
 		};
 		const id = props.candId;
 		const httpMethod = "PUT";
@@ -61,14 +43,15 @@ const HighlightsContainer = (props) => {
 			console.log(result);
 			addToast("An unknown error has occurred", "Close", false);
 		} else {
-			props.handleSubmit(highlights);
-			setOrigHighlights(highlights);
+			props.handleSubmit(newHighlights);
 			addToast("Highlights have been updated");
 		}
 	};
 
 	const handleHighlightChange = (highlights) => {
 		setHighlights(highlights);
+		// any changes are automatically saved to ease data entry
+		handleSubmit(highlights);
 	};
 
 	return (
@@ -80,11 +63,8 @@ const HighlightsContainer = (props) => {
 				heading={false}
 				candId={props.candId}
 				setShowSkills={props.setShowSkills}
-			/>
-			<HighlightsFooter
-				disableSubmit={isEqual(origHighlights, highlights)}
+				profileFlag={true}
 				handleSubmit={handleSubmit}
-				handleCancel={handleCancel}
 			/>
 			{isEmptyObject(toast) || (
 				<Snackbar
@@ -93,13 +73,6 @@ const HighlightsContainer = (props) => {
 					autohide={toast.autoHide}
 					timeout={toast.timeout}
 					onDismiss={closeToast}
-				/>
-			)}
-			{dispDirtyMsg && (
-				<DirtyModalMsg
-					dirtyMsgString="cancel Highlight changes"
-					yesAction={handleConfirmCancel}
-					closeModal={() => setDispDirtyMsg(false)}
 				/>
 			)}
 		</section>

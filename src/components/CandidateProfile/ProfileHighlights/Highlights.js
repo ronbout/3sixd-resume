@@ -33,7 +33,7 @@ const ExpandHighlightDiv = MakeExpansion(
 	null,
 	false,
 	0,
-	"676px"
+	"606px"
 );
 
 const Highlights = ({ highlights, candId, setShowSkills }) => {
