@@ -155,7 +155,7 @@ const HighlightsTable = ({
 
 						return (
 							<TableRow
-								key={`hrow-${sequence}`}
+								key={`hrow-${i}`}
 								onDragOver={(ev) => handleDragOver(ev, i)}
 								onDragEnd={(ev) => handleDragEnd(ev, i)}
 								onDrop={(ev) => handleSkillDrop(ev, i)}
