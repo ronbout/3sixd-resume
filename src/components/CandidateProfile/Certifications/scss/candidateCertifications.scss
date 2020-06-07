@@ -1,7 +1,18 @@
 .candidate-certifications {
-	.candidate-certifications-detail {
-		min-height: 480px;
-		padding: 2em;
+	.candidate-certification-detail {
+		min-height: 520px;
+		padding: 1em 2em 0.25em;
+		height: 100%;
+	}
+
+	form {
+		height: 100%;
+
+		.certification-fields {
+			height: calc(100% - 90px);
+			overflow: auto;
+			padding-bottom: 90px;
+		}
 	}
 
 	.button-section {

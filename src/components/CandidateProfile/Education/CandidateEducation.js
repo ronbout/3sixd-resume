@@ -29,9 +29,10 @@ const CandidateEducation = (props) => {
 	const modalStyles = {
 		modal: {
 			width: "1080px",
-			height: "660px",
+			height: "780px",
 			minWidth: "960px",
-			margin: "auto",
+			margin: "1em auto 1em",
+			paddingBottom: "0",
 		},
 	};
 

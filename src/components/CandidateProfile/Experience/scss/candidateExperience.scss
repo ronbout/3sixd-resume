@@ -1,7 +1,18 @@
 .candidate-experience {
 	.candidate-job {
 		min-height: 520px;
-		padding: 2em;
+		padding: 1em 2em 0.25em;
+		height: 100%;
+
+		form {
+			height: 100%;
+
+			.experience-fields {
+				height: calc(100% - 90px);
+				overflow: auto;
+				padding-bottom: 90px;
+			}
+		}
 
 		.candidate-highlights {
 			padding: 0 0 1em;
