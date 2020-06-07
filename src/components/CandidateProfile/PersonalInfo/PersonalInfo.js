@@ -8,10 +8,10 @@ import { isEqual } from "lodash";
 
 const PersonalInfoDiv = ({ person, candId }) => {
 	const { dispatch } = useContext(CompObjContext);
-	const handleSubmit = personObj => {
+	const handleSubmit = (personObj) => {
 		dispatch({
 			type: "UPDATE_CAND",
-			payload: { person: personObj }
+			payload: { person: personObj },
 		});
 	};
 
@@ -35,7 +35,7 @@ const ExpandProfileInfo = MakeExpansion(
 	null,
 	true,
 	0,
-	"1220px"
+	"760px"
 );
 
 const PersonalInfo = ({ person, candId, compObj }) => {

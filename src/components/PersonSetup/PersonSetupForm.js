@@ -11,7 +11,7 @@ import {
 	InpUrl,
 	InpPhone,
 	InpZip,
-	Form
+	Form,
 } from "components/forms/formInputs";
 import "./css/personSetup.css";
 
@@ -21,25 +21,25 @@ const PersonSearchPopup = MakePopup(
 		right: "100px",
 		top: "170px",
 		width: "402px",
-		borderRadius: "20px"
+		borderRadius: "20px",
 	},
 	true
 );
 
-const PersonSetupForm = props => {
+const PersonSetupForm = (props) => {
 	const {
 		formFields,
 		BtnSubmit,
 		BtnCancel,
 		BtnClear,
 		dirtyMsg,
-		changeFormFields
+		changeFormFields,
 	} = useForm(props.personInfo, props.clearFormFields, props.handleSubmit);
 	const [newPerson, setNewPerson] = useState(false);
 
 	const personDetails = () => {
 		return (
-			<section className="candidate-person">
+			<section className="candidate-person person-fields">
 				<input type="hidden" name="id" value={formFields.id} />
 				<section className="tsd-form-section">
 					<h2>Name & Contact Info</h2>
@@ -76,8 +76,8 @@ const PersonSetupForm = props => {
 									label="First Name *"
 									person={formFields.givenName}
 									maxLength={30}
-									handleOnChange={val => changeFormFields("givenName", val)}
-									handlePersonSelect={p => {
+									handleOnChange={(val) => changeFormFields("givenName", val)}
+									handlePersonSelect={(p) => {
 										setNewPerson(true);
 										props.handlePersonSelect(p);
 									}}
@@ -91,8 +91,8 @@ const PersonSetupForm = props => {
 									label="Last Name *"
 									person={formFields.familyName}
 									maxLength={30}
-									handleOnChange={val => changeFormFields("familyName", val)}
-									handlePersonSelect={p => {
+									handleOnChange={(val) => changeFormFields("familyName", val)}
+									handlePersonSelect={(p) => {
 										setNewPerson(true);
 										props.handlePersonSelect(p);
 									}}
@@ -242,7 +242,7 @@ const PersonSetupForm = props => {
 	const dispPersonSearch = () => {
 		return (
 			<PersonSearchPopup
-				handlePersonSelect={p => {
+				handlePersonSelect={(p) => {
 					setNewPerson(true);
 					props.handlePersonSelect(p);
 				}}

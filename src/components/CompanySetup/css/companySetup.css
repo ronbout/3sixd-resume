@@ -87,7 +87,8 @@
 
 .company-main {
   text-align: center;
-  margin-top: 2em;
+  margin: 2em;
+  height: 700px;
 }
 
 div.company-setup {
@@ -95,6 +96,7 @@ div.company-setup {
   text-align: center;
   width: 95%;
   margin: 1em auto;
+  height: 100%;
 }
 
 div.company-setup .company-form {
@@ -104,6 +106,17 @@ div.company-setup .company-form {
   padding: 2em 2em 1em;
   width: 760px;
   margin: 0 auto;
+  height: 100%;
+}
+
+div.company-setup .company-form form {
+  height: 100%;
+}
+
+div.company-setup .company-form .company-fields {
+  height: calc(100% - 90px);
+  overflow: auto;
+  padding-bottom: 90px;
 }
 
 div.company-setup .addr-line > div:first-child {

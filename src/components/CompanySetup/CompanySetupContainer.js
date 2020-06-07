@@ -30,7 +30,7 @@ const clearFormFields = {
 		region: "",
 		postalCode: "",
 		countryCode: "",
-		website: ""
+		website: "",
 	},
 	addressLine1: "",
 	addressLine2: "",
@@ -39,7 +39,7 @@ const clearFormFields = {
 	postalCode: "",
 	countryCode: "",
 	email: "",
-	website: ""
+	website: "",
 };
 
 class CompanySetupContainer extends Component {
@@ -49,14 +49,14 @@ class CompanySetupContainer extends Component {
 		if (props.company) {
 			formFields = {
 				...formFields,
-				...props.company
+				...props.company,
 			};
 		}
 		this.state = {
 			formFields: objCopy(formFields),
 			showPerson: false,
 			dispSearch: false,
-			toast: {}
+			toast: {},
 		};
 		this.state.origForm = objCopy(formFields);
 	}
@@ -71,24 +71,24 @@ class CompanySetupContainer extends Component {
 		) {
 			this.setState({
 				formFields: { ...this.props.company },
-				origForm: { ...this.props.company }
+				origForm: { ...this.props.company },
 			});
 		}
 	}
 
-	handleSubmit = companyInfo => {
+	handleSubmit = (companyInfo) => {
 		// submit to api and send info back to calling
 		this.postCompany(companyInfo);
 	};
 
-	postCompany = async companyInfo => {
+	postCompany = async (companyInfo) => {
 		this.closeToast();
 		const contactPersonId = companyInfo.contactPerson
 			? companyInfo.contactPerson.id
 			: "";
 		let body = {
 			...companyInfo,
-			contactPersonId
+			contactPersonId,
 		};
 		delete body.contactPerson;
 		// need to know if this is a new skill or update
@@ -112,7 +112,7 @@ class CompanySetupContainer extends Component {
 			this.addToast(userMsg);
 			this.setState(
 				{
-					formFields: result
+					formFields: result,
 				},
 				() => {
 					this.props.handleSubmit && this.props.handleSubmit(result);
@@ -128,14 +128,14 @@ class CompanySetupContainer extends Component {
 
 	handleSearch = () => {
 		this.setState({
-			dispSearch: true
+			dispSearch: true,
 		});
 	};
 
-	handleCompanySelect = companyInfo => {
+	handleCompanySelect = (companyInfo) => {
 		this.setState(
 			{
-				formFields: { ...companyInfo }
+				formFields: { ...companyInfo },
 			},
 			() => this.handleCloseCompanySearch()
 		);
@@ -143,7 +143,7 @@ class CompanySetupContainer extends Component {
 
 	handleCloseCompanySearch = () => {
 		this.setState({
-			dispSearch: false
+			dispSearch: false,
 		});
 	};
 
@@ -156,26 +156,26 @@ class CompanySetupContainer extends Component {
 		this.setState({ toast: {} });
 	};
 
-	handlePersonClick = event => {
+	handlePersonClick = (event) => {
 		const showPerson = !this.state.showPerson;
 		this.setState({
-			showPerson
+			showPerson,
 		});
 	};
 
 	handlePersonCancel = () => {
 		this.setState({
-			showPerson: false
+			showPerson: false,
 		});
 	};
 
-	handlePersonSubmit = personInfo => {
+	handlePersonSubmit = (personInfo) => {
 		this.setState({
-			showPerson: false
+			showPerson: false,
 		});
 	};
 
-	handleContactPersonChange = event => {
+	handleContactPersonChange = (event) => {
 		// don't do anything, must change Person
 		// through popup, but need this method
 		// to prevent complaining from React
@@ -186,6 +186,9 @@ class CompanySetupContainer extends Component {
 		return (
 			<React.Fragment>
 				<FormsProvider>
+					<h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+						Company Entry/Update
+					</h1>
 					<CompanySetupForm
 						companyInfo={this.state.formFields}
 						clearFormFields={clearFormFields}

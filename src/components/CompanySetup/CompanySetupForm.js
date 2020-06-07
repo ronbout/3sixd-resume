@@ -13,7 +13,7 @@ import {
 	InpUrl,
 	InpPhone,
 	InpZip,
-	Form
+	Form,
 } from "components/forms/formInputs";
 import "./css/companySetup.css";
 
@@ -34,7 +34,7 @@ const emptyContactPerson = {
 	region: "",
 	postalCode: "",
 	countryCode: "",
-	website: ""
+	website: "",
 };
 
 const PersonPopup = MakePopup(
@@ -44,7 +44,7 @@ const PersonPopup = MakePopup(
 		top: "160px",
 		width: "1000px",
 		height: "95%",
-		overflowY: "auto"
+		overflowY: "auto",
 	},
 	true
 );
@@ -55,19 +55,19 @@ const CompanySearchPopup = MakePopup(
 		right: "100px",
 		top: "170px",
 		width: "402px",
-		borderRadius: "20px"
+		borderRadius: "20px",
 	},
 	true
 );
 
-const CompanySetupForm = props => {
+const CompanySetupForm = (props) => {
 	const {
 		formFields,
 		BtnSubmit,
 		BtnCancel,
 		BtnClear,
 		dirtyMsg,
-		changeFormFields
+		changeFormFields,
 	} = useForm(props.companyInfo, props.clearFormFields, props.handleSubmit);
 	const [newCompany, setNewCompany] = useState(false);
 
@@ -77,7 +77,7 @@ const CompanySetupForm = props => {
 
 	const companyDetails = () => {
 		return (
-			<section>
+			<section className="company-fields">
 				<input type="hidden" name="id" value={formFields.id} />
 				<section className="tsd-form-section">
 					<h2>Company Info</h2>
@@ -96,8 +96,8 @@ const CompanySetupForm = props => {
 						) : (
 							<CompanyAuto
 								company={formFields.name}
-								handleOnChange={val => changeFormFields("name", val)}
-								handleCompanySelect={c => {
+								handleOnChange={(val) => changeFormFields("name", val)}
+								handleCompanySelect={(c) => {
 									setNewCompany(true);
 									props.handleCompanySelect(c);
 								}}
@@ -149,7 +149,7 @@ const CompanySetupForm = props => {
 								style={{
 									cursor: "pointer",
 									padding: "0 20px 0 0",
-									alignSelf: "flex-end"
+									alignSelf: "flex-end",
 								}}
 								title="Remove Contact Person"
 							>
@@ -276,7 +276,7 @@ const CompanySetupForm = props => {
 	const dispCompanySearch = () => {
 		return (
 			<CompanySearchPopup
-				handleCompanySelect={c => {
+				handleCompanySelect={(c) => {
 					setNewCompany(true);
 					props.handleCompanySelect(c);
 				}}
@@ -288,7 +288,6 @@ const CompanySetupForm = props => {
 	return (
 		<main className="container-fluid company-main">
 			{dirtyMsg}
-			<h1>Company Entry/Update</h1>
 			<div className="company-setup">
 				<div className="company-form">
 					<Form>
@@ -304,7 +303,7 @@ const CompanySetupForm = props => {
 						popup={true}
 						heading="Primary Contact Entry"
 						handleCancel={props.handlePersonCancel}
-						handleSubmit={p => {
+						handleSubmit={(p) => {
 							console.log("handleSubmit person: ", p);
 							changeFormFields("contactPerson", p);
 							props.handlePersonSubmit();
